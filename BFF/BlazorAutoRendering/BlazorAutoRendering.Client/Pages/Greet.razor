@@ -1,0 +1,53 @@
+@page "/greet"
+@using Microsoft.AspNetCore.Authorization
+@inject IHttpClientFactory HttpClientFactory
+@rendermode InteractiveAuto
+
+@attribute [Authorize]
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (_response == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>Path: @_response.Path</p>
+}
+
+@code {
+    private GreetingsResponse? _response = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _response = await HttpClientFactory.CreateClient("greet").GetFromJsonAsync<GreetingsResponse>("/greet");
+        }
+        catch (Exception e)
+        {
+            _response = new GreetingsResponse
+                {
+                    Message = e.Message
+                };
+        }
+        
+    }
+
+    
+    public class GreetingsResponse
+    {
+        public string? Path { get; set; }
+        public string? Message { get; set; }
+
+        public string? Time { get; set; }
+        public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
+    }
+
+
+}

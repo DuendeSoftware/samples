@@ -2,8 +2,8 @@
 // See LICENSE in the project root for license information.
 
 using Duende.Bff;
-using IdentityModel;
-using IdentityModel.Client;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 
 namespace TokenExchange.Bff;
 

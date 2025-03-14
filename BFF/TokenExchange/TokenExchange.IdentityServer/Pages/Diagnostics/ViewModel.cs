@@ -1,11 +1,10 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-
-using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using System.Text;
 using System.Text.Json;
+using Duende.IdentityModel;
 
 namespace TokenExchange.IdentityServer.Pages.Diagnostics
 {
