@@ -5,8 +5,13 @@
 	<ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- Dudende IdentityServer preview features -->
+    <NoWarn>DUENDEPREVIEW002</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer" Version="7.1.0" />
+    <PackageReference Include="Duende.IdentityServer" Version="7.2.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
   </ItemGroup>
 

@@ -40,6 +40,8 @@ public class AssertionService
             new SigningCredentials(new JsonWebKey(key), "RS256")
         );
 
+        token.Header[JwtClaimTypes.TokenType] = "client-authentication+jwt";
+
         var tokenHandler = new JwtSecurityTokenHandler();
         tokenHandler.OutboundClaimTypeMap.Clear();
     
