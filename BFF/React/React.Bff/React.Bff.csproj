@@ -20,8 +20,8 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
     </PackageReference>
-    <PackageReference Include="Duende.BFF" Version="2.2.0" />
-    <PackageReference Include="Duende.BFF.Yarp" Version="2.2.0" />
+    <PackageReference Include="Duende.BFF" Version="3.0.0" />
+    <PackageReference Include="Duende.BFF.Yarp" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.1" />
   </ItemGroup>
 
