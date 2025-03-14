@@ -1,3 +1,5 @@
+using Duende.Bff.Blazor;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddBff();
+builder.Services.AddBff()
+    .AddServerSideSessions() // Add in-memory implementation of server side sessions
+    .AddBlazorServer();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -63,6 +67,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseBff();
 app.UseAuthorization();
+app.UseAntiforgery();
 
 app.MapBffManagementEndpoints();
 
