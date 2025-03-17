@@ -1,0 +1,56 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "process",
+        "command": "dotnet",
+        "args": [
+            "build",
+            "${workspaceFolder}/SplitHosts.sln",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build-api",
+        "type": "process",
+        "command": "dotnet",
+        "args": [
+            "build",
+            "${workspaceFolder}\\BackendApiHost\\BackendApiHost.csproj",
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build-bff",
+        "type": "process",
+        "command": "dotnet",
+        "args": [
+            "build",
+            "${workspaceFolder}\\BackendHost\\BackendHost.csproj",
+
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile"
+      },
+      {
+        "label": "build-frontend",
+        "type": "process",
+        "command": "dotnet",
+        "args": [
+            "build",
+            "${workspaceFolder}\\FrontendHost\\FrontendHost.csproj",
+
+            "/property:GenerateFullPaths=true",
+            "/consoleloggerparameters:NoSummary"
+        ],
+        "problemMatcher": "$msCompile"
+      }
+    ]
+
+}

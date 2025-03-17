@@ -1,0 +1,18 @@
+<h1 id="tableLabel">User Session</h1>
+
+<p *ngIf="isAnonymous$ | async"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="isAuthenticated$ | async">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Value(C)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let claim of session$ | async">
+      <td>{{ claim.type }}</td>
+      <td>{{ claim.value }}</td>
+    </tr>
+  </tbody>
+</table>
