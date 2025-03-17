@@ -1,0 +1,71 @@
+<div class="banner">
+    <h1>TODOs</h1>
+</div>
+
+<p *ngIf="anonymous$ | async">
+    Please log in to see your To Do list.
+</p>
+
+<ng-container *ngIf="authenticated$ | async">
+    <div class="row">
+        <div class="col">
+            <h3>Add New</h3>
+        </div>
+        <form #todo="ngForm" class="form-inline">
+            <label htmlFor="date">Todo Date</label>
+            <input class="form-control"
+                   type="date"
+                   value={this.state.todoDate}
+                   name="date"
+                   required
+                   [(ngModel)]="date" />
+
+            <label htmlFor="name">Todo Name</label>
+            <input class="form-control" [(ngModel)]="name" name="name" required />
+
+            <br />
+            <button class="form-control btn btn-primary"
+                    [disabled]="!todo.valid"
+                    (click)="createTodo()">
+                Create
+            </button>
+        </form>
+    </div>
+
+    <div *ngIf="error$ | async" class="row">
+        <div class="col">
+            <div class="alert alert-warning hide">
+                <strong>Error: </strong>
+                <span>{{error$ | async}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Note</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let todo of todos$ | async">
+                    <td>
+                        <button class="btn btn-danger"
+                                (click)="deleteTodo(todo.id)">
+                            delete
+                        </button>
+                    </td>
+                    <td>{{ todo.id }}</td>
+                    <td>{{ todo.date | date:'M/d/yy' }}</td>
+                    <td>{{ todo.name }}</td>
+                    <td>{{ todo.user }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
