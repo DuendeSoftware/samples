@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.Services
-    .AddBffBlazorClient(opt => opt.RemoteApiBaseAddress = "remote-apis") // Provides auth state provider that polls the /bff/user endpoint
+    .AddBffBlazorClient(opt => opt.RemoteApiPath = "remote-apis/greetings/")
     .AddCascadingAuthenticationState();
 
 builder.Services.AddSingleton<IWeatherClient>(sp => sp.GetRequiredService<WeatherClient>());

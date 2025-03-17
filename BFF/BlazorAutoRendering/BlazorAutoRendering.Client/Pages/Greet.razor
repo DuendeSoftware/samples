@@ -1,15 +1,16 @@
 @page "/greet"
+@using System.Text.Json
 @using Microsoft.AspNetCore.Authorization
 @inject IHttpClientFactory HttpClientFactory
 @rendermode InteractiveAuto
 
 @attribute [Authorize]
 
-<PageTitle>Weather</PageTitle>
+<PageTitle>Greet</PageTitle>
 
-<h1>Weather</h1>
+<h1>Greet</h1>
 
-<p>This component demonstrates showing data.</p>
+<p>This component demonstrates fetching data from a remote api.</p>
 
 @if (_response == null)
 {
@@ -17,24 +18,44 @@
 }
 else
 {
+    <p>Uri: @_requestUri</p>
     <p>Path: @_response.Path</p>
+    <p>Message: @_response.Message</p>
+    <p>Time: @_response.Time</p>
 }
 
 @code {
     private GreetingsResponse? _response = null;
+    private Uri? _requestUri = null;
 
     protected override async Task OnInitializedAsync()
     {
+        string message = string.Empty;
+
         try
         {
-            _response = await HttpClientFactory.CreateClient("greet").GetFromJsonAsync<GreetingsResponse>("/greet");
+            var response = await HttpClientFactory.CreateClient("greet").GetAsync("greet");
+            response.EnsureSuccessStatusCode();
+            message = await response.Content.ReadAsStringAsync();
+            _response = JsonSerializer.Deserialize<GreetingsResponse>(message, new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? throw new InvalidOperationException("Failed to deserialize");
+
+            
+            _requestUri = response.RequestMessage?.RequestUri;
+
+            Console.WriteLine(_response?.Message);
         }
         catch (Exception e)
         {
-            _response = new GreetingsResponse
-                {
-                    Message = e.Message
-                };
+            Console.WriteLine(e.ToString());
+            Console.WriteLine(_response?.Message);
+            // _response = new GreetingsResponse
+            //     {
+            //         Path = e.ToString(),
+            //         Message = message,
+            //     };
         }
         
     }
@@ -42,6 +63,7 @@ else
     
     public class GreetingsResponse
     {
+        public string? Url { get; set; }
         public string? Path { get; set; }
         public string? Message { get; set; }
 
