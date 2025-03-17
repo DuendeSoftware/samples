@@ -30,19 +30,20 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string message = string.Empty;
-
         try
         {
-            var response = await HttpClientFactory.CreateClient("greet").GetAsync("greet");
+            using var client = HttpClientFactory.CreateClient("greet");
+
+            var response = await client.GetAsync("greet");
             response.EnsureSuccessStatusCode();
-            message = await response.Content.ReadAsStringAsync();
-            _response = JsonSerializer.Deserialize<GreetingsResponse>(message, new JsonSerializerOptions()
+            _response = JsonSerializer.Deserialize<GreetingsResponse>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions()
             {
                 PropertyNameCaseInsensitive = true
             }) ?? throw new InvalidOperationException("Failed to deserialize");
 
             
+            // Show the request URI. This clearly indicates if a request is made from the server (directly to the api) 
+            // or via blazor and the remote api proxy. 
             _requestUri = response.RequestMessage?.RequestUri;
 
             Console.WriteLine(_response?.Message);
@@ -51,15 +52,9 @@ else
         {
             Console.WriteLine(e.ToString());
             Console.WriteLine(_response?.Message);
-            // _response = new GreetingsResponse
-            //     {
-            //         Path = e.ToString(),
-            //         Message = message,
-            //     };
         }
         
     }
-
     
     public class GreetingsResponse
     {
@@ -70,6 +65,4 @@ else
         public string? Time { get; set; }
         public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
     }
-
-
 }
