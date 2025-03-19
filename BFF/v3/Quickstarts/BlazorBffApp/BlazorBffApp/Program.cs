@@ -14,6 +14,7 @@ builder.Services.AddBff()
     .AddServerSideSessions() // Add in-memory implementation of server side sessions
     .AddBlazorServer();
 
+//builder.Services.AddHttpClient<WeatherHttpClient>(opt => opt.BaseAddress = new Uri("https://localhost:7007"));
 
 // Configure the authentication
 builder.Services.AddAuthentication(options =>
@@ -60,6 +61,9 @@ builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddAuthorization();
 
+// Register a server abstraction. 
+builder.Services.AddSingleton<IWeatherClient, ServerWeatherClient>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -88,6 +92,8 @@ app.UseAntiforgery();
 // Add the BFF management endpoints, such as login, logout, etc.
 app.MapBffManagementEndpoints();
 
+app.MapGet("/WeatherForecast", (IWeatherClient weatherClient) => weatherClient.GetWeatherForecasts());
+
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
@@ -95,3 +101,24 @@ app.MapRazorComponents<App>()
     .AddAdditionalAssemblies(typeof(BlazorBffApp.Client._Imports).Assembly);
 
 app.Run();
+
+
+public class ServerWeatherClient : IWeatherClient
+{
+    public Task<WeatherForecast[]> GetWeatherForecasts()
+    {
+        var startDate = DateOnly.FromDateTime(DateTime.Now);
+
+        string[] summaries = [
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        ];
+
+
+        return Task.FromResult(Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = startDate.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = summaries[Random.Shared.Next(summaries.Length)]
+        }).ToArray());
+    }
+}
