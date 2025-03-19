@@ -75,6 +75,8 @@ static string CreateClientToken(SigningCredentials credential, string clientId, 
         credential
     );
 
+    token.Header[JwtClaimTypes.TokenType] = "client-authentication+jwt";
+
     var tokenHandler = new JwtSecurityTokenHandler();
     var clientToken = tokenHandler.WriteToken(token);
     "\n\nClient Authentication Token:".ConsoleGreen();

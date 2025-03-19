@@ -21,6 +21,8 @@ internal static class HostingExtensions
             // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes
             options.EmitStaticAudienceClaim = true;
             options.PushedAuthorization.AllowUnregisteredPushedRedirectUris = true;
+
+            options.Preview.StrictClientAssertionAudienceValidation = true;
         })
             .AddTestUsers(TestUsers.Users);
 
