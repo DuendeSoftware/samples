@@ -1,6 +1,21 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using BlazorBffApp.Client.Components
+
+<Router AppAssembly="typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+            <NotAuthorized>
+                @if (context.User.Identity?.IsAuthenticated != true)
+                {
+                    <RedirectToLogin />
+                }
+                else
+                {
+                    <p role="alert">You (@context.User.Identity?.Name) are not authorized to access this resource.</p>
+                }
+            </NotAuthorized>
+        </AuthorizeRouteView>
+
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
 </Router>
