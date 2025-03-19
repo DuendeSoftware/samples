@@ -1,8 +1,13 @@
+using Duende.Bff;
 using Duende.Bff.Yarp;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddBff()
     .AddRemoteApis();
@@ -58,6 +63,24 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    app.Use(async (context, next) =>
+    {
+        var swaggerUIOptions = context.RequestServices.GetRequiredService<IOptions<SwaggerUIOptions>>().Value;
+        if (context.Request.Headers.Referer.Any(it => it.EndsWith($"/{swaggerUIOptions.RoutePrefix}/index.html")))
+        {
+            var bffOptions = context.RequestServices.GetRequiredService<IOptions<BffOptions>>().Value;
+            context.Request.Headers[bffOptions.AntiForgeryHeaderName]= bffOptions.AntiForgeryHeaderValue;
+        }
+        await next();
+    });
+}
+
 app.UseBff();
 app.UseAuthorization();
 

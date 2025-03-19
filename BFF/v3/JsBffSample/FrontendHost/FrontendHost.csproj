@@ -10,6 +10,8 @@
     <PackageReference Include="Duende.BFF.Yarp" Version="3.0.0" />
     
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.6" />
+    
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
