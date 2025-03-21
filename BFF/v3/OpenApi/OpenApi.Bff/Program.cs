@@ -95,8 +95,8 @@ app.MapRemoteBffApiEndpoint("/api2", Services.Api2.LogicalUri().ToString());
 //    .RequireAccessToken(api.RequiredToken);
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("../api1/openapi/v1.json", "Api1");
-    c.SwaggerEndpoint("../api2/openapi/v1.json", "Api2");
+    c.SwaggerEndpoint("/api1/openapi/v1.json", "Api1");
+    c.SwaggerEndpoint("/api2/openapi/v1.json", "Api2");
 });
 
 app.Run();
