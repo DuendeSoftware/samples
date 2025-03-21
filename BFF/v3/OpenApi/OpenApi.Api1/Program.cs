@@ -2,7 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.AddDefaultAuthentication("api");
+builder.AddDefaultAuthentication();
 builder.AddDefaultOpenApiConfig();
 
 var app = builder.Build();
@@ -22,7 +22,7 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecastFahrenheit", () =>
+app.MapGet("/weatherforecastFahrenheit", (HttpContext c) =>
 {
     var forecast =  Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
@@ -34,7 +34,7 @@ app.MapGet("/weatherforecastFahrenheit", () =>
         .ToArray();
     return forecast;
 })
-.RequireAuthorization("ApiScope")
+.RequireAuthorization()
 
 .WithName("GetWeatherForecast");
 

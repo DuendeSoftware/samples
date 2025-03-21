@@ -2,7 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.AddDefaultAuthentication("api");
+builder.AddDefaultAuthentication();
 
 builder.AddDefaultOpenApiConfig();
 
@@ -35,7 +35,7 @@ app.MapGet("/WeatherforecastCelcius", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast").RequireAuthorization("ApiScope");
+.WithName("GetWeatherForecast").RequireAuthorization();
 ;
 
 app.Run();

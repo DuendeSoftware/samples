@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.OpenApi;
@@ -87,7 +88,7 @@ public static class Extensions
         return builder;
     }
 
-    public static TBuilder AddDefaultAuthentication<TBuilder>(this TBuilder builder, string a)
+    public static TBuilder AddDefaultAuthentication<TBuilder>(this TBuilder builder)
         where TBuilder : IHostApplicationBuilder
     {
         // Add JWT authentication services
@@ -95,23 +96,23 @@ public static class Extensions
             .AddJwtBearer("Bearer", options =>
             {
                 options.Authority = "https://demo.duendesoftware.com";
-                options.Audience = "api";
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true
+                    ValidateAudience = false,
+                    ValidTypes = new[] { "at+jwt" },
+
+                    NameClaimType = "name",
+                    RoleClaimType = "role"
                 };
             });
 
         builder.Services.AddAuthorization(options =>
         {
-            options.AddPolicy("ApiScope", policy =>
-            {
-                policy.RequireAuthenticatedUser();
-                policy.RequireClaim("scope", "api2");
-            });
+            options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            //options.AddPolicy("ApiScope", policy =>
+            //{
+            //    policy.RequireAuthenticatedUser();
+            //});
         });
 
         return builder;

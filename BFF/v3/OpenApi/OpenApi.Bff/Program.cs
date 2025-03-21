@@ -6,6 +6,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Readers;
+using Duende.Bff;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,7 @@ builder.Services.AddAuthentication(options =>
     {
         options.Cookie.Name = "__Host-bff";
         options.Cookie.SameSite = SameSiteMode.Strict;
+        options.LoginPath = "/bff/login";
     })
     .AddOpenIdConnect("oidc", options =>
     {
@@ -58,6 +61,11 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+builder.Services.AddAuthorization(opt =>
+{
+    opt.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+});
+
 builder.Services.AddSingleton<BffYarpTransformBuilder>((path, c) =>
 {
     DefaultBffYarpTransformerBuilders.DirectProxyWithAccessToken(path, c);
@@ -72,10 +80,10 @@ app.UseStaticFiles();
 
 app.Use(async (c, n) =>
 {
-    if (c.Request.Path.ToString().EndsWith("/openapi/v1.json"))
-    {
-        c.Request.Headers.Add("X-CSRF", "1");
-    }
+    //if (c.Request.Path.ToString().EndsWith("/openapi/v1.json"))
+    //{
+    //    c.Request.Headers"X-CSRF", "1");
+    //}
     await n();
 });
 
@@ -85,13 +93,16 @@ app.UseBff();
 app.MapBffManagementEndpoints();
 
 app.MapRemoteBffApiEndpoint("/api1", Services.Api1.LogicalUri().ToString())
-    .RequireAccessToken();
+    .WithOptionalUserAccessToken();
 app.MapRemoteBffApiEndpoint("/api2", Services.Api2.LogicalUri().ToString())
-    .RequireAccessToken(); ;
-//    .RequireAccessToken(api.RequiredToken);
+    .WithOptionalUserAccessToken();
+
+app.UseAuthorization();
 app.UseSwaggerUI(c =>
 {
-    c.InjectJavascript("swagger-bff-login.js");
+    c.UseRequestInterceptor("function(request){ request.headers['X-CSRF'] = '1';return request;}");
+
+    c.InjectJavascript("bff-auth-button.js");
     c.SwaggerEndpoint("/api1/openapi/v1.json", "Api1");
     c.SwaggerEndpoint("/api2/openapi/v1.json", "Api2");
 });
@@ -119,28 +130,35 @@ public class OpenApiResponseTransform(string basePath) : ResponseTransform
 
             // remove the jwt security scheme
             doc.Components.SecuritySchemes.Clear();
-
+            // Add the cookie security scheme
+            //doc.Components.SecuritySchemes.Add("cookieAuth", new OpenApiSecurityScheme
+            //{
+            //    Type = SecuritySchemeType.Http,
+            //    In = ParameterLocation.Cookie,
+            //    Name = "__Host-bff",
+            //    Description = "Cookie-based authentication"
+            //});
 
             foreach (var path in doc.Paths)
             {
                 foreach (var operation in path.Value.Operations)
                 {
-                    operation.Value.Responses.Add("401", new OpenApiResponse()
-                    {
-                        Description = "Unauthorized"
-                    });
-                    operation.Value.Parameters.Add(new OpenApiParameter()
-                    {
-                        In = ParameterLocation.Header,
-                        Name = "X-CSRF",
-                        Required = true,
-                        Schema = new OpenApiSchema()
-                        {
-                            Type = "string",
-                            Default = new OpenApiString("1")
-                        }
+                    //operation.Value.Responses.Add("401", new OpenApiResponse()
+                    //{
+                    //    Description = "Unauthorized"
+                    //});
+                    //operation.Value.Parameters.Add(new OpenApiParameter()
+                    //{
+                    //    In = ParameterLocation.Header,
+                    //    Name = "X-CSRF",
+                    //    Required = true,
+                    //    Schema = new OpenApiSchema()
+                    //    {
+                    //        Type = "string",
+                    //        Default = new OpenApiString("1")
+                    //    }
 
-                    });
+                    //});
                 }
             }
             // Read and parse the existing JSON content
