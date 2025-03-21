@@ -5,20 +5,20 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <SpaRoot>..\angular.client</SpaRoot>
+    <SpaRoot>..\angular.ssr</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
     <RootNamespace>Angular.Bff</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\angular.client\angular.client.esproj">
+    <ProjectReference Include="..\angular.ssr\angular.ssr.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.Bff.Yarp" Version="3.0.0" />
+    <PackageReference Include="Duende.Bff.Yarp" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
     </PackageReference>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.58794-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+    <!-- Allows the build (or compile) script located on package.json to run on Build -->
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+    <!-- Folder where production build objects will be placed -->
+    <PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist\angular.ssr\</PublishAssetsDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\Interceptors\" />
+    <Folder Include="src\app\Services\" />
+  </ItemGroup>
+</Project>

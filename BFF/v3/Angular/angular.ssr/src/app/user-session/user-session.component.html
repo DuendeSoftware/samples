@@ -1,0 +1,27 @@
+<h1 id="tableLabel">User Session</h1>
+
+@if (isAnonymous()) {
+  <p><em>Loading...</em></p>
+}
+
+@if (isAuthenticated()) {
+  <table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Value(C)</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (claim of claims() || []; track $index) {
+        <tr>
+          <td>{{ claim.type }}</td>
+          <td>{{ claim.value }}</td>
+        </tr>
+      }
+      @empty {
+        <tr><td colspan="2">No claims available.</td></tr>
+      }
+    </tbody>
+  </table>
+}
