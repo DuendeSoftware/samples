@@ -1,10 +1,10 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityServerAspNetIdentity.Pages.Diagnostics;
 
@@ -17,7 +17,7 @@ public class Index : PageModel
     public async Task<IActionResult> OnGet()
     {
         var localAddresses = new List<string?> { "127.0.0.1", "::1" };
-        if(HttpContext.Connection.LocalIpAddress != null)
+        if (HttpContext.Connection.LocalIpAddress != null)
         {
             localAddresses.Add(HttpContext.Connection.LocalIpAddress.ToString());
         }
@@ -28,7 +28,7 @@ public class Index : PageModel
         }
 
         View = new ViewModel(await HttpContext.AuthenticateAsync());
-            
+
         return Page();
     }
 }

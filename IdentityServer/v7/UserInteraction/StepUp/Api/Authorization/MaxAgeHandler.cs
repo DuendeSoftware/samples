@@ -1,3 +1,5 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microsoft.AspNetCore.Authorization;
 
@@ -10,7 +12,7 @@ public class MaxAgeHandler : AuthorizationHandler<MaxAgeRequirement>
         MaxAgeRequirement requirement)
     {
         var authTimeClaim = ctx.User.FindFirst("auth_time")?.Value;
-        if (authTimeClaim == null) 
+        if (authTimeClaim == null)
         {
             return Task.CompletedTask;
         }
@@ -19,7 +21,7 @@ public class MaxAgeHandler : AuthorizationHandler<MaxAgeRequirement>
 
         var timeSinceAuth = DateTime.UtcNow - authTime;
 
-        if(timeSinceAuth < requirement.MaxAge)
+        if (timeSinceAuth < requirement.MaxAge)
         {
             ctx.Succeed(requirement);
         }

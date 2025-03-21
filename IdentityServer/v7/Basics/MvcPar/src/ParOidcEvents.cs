@@ -1,12 +1,15 @@
-using Duende.IdentityModel.Client;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Duende.IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Client;
 
@@ -15,7 +18,7 @@ public class ParOidcEvents(HttpClient httpClient, IDiscoveryCache discoveryCache
     private readonly HttpClient _httpClient = httpClient;
     private readonly IDiscoveryCache _discoveryCache = discoveryCache;
     private readonly ILogger<ParOidcEvents> _logger = logger;
-    
+
     public override async Task RedirectToIdentityProvider(RedirectContext context)
     {
         var clientId = context.ProtocolMessage.ClientId;
@@ -100,11 +103,11 @@ public class ParOidcEvents(HttpClient httpClient, IDiscoveryCache discoveryCache
         };
         var response = await _httpClient.PushAuthorizationAsync(par);
 
-        if (response.IsError )
+        if (response.IsError)
         {
             throw new Exception("PAR failure", response.Exception);
         }
-        return response; 
+        return response;
     }
 
     private static void SetAuthorizeParameters(RedirectContext context, string clientId, PushedAuthorizationResponse parResponse)

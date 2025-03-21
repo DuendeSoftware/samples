@@ -1,6 +1,8 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Duende.IdentityServer.Configuration;
 using Duende.IdentityServer.Configuration.Configuration;
-using Duende.IdentityServer.Configuration.Models;
 using Duende.IdentityServer.Configuration.Models.DynamicClientRegistration;
 using Duende.IdentityServer.Configuration.RequestProcessing;
 using Duende.IdentityServer.Models;
@@ -31,11 +33,11 @@ public class PermissionsCheckingRequestProcessor : DynamicClientRegistrationRequ
             // or inconsistent value
             context.Request.Extensions.Remove("client_secret");
 
-            if(!context.Caller.HasClaim("scope", "IdentityServer.Configuration:SetClientSecret"))
+            if (!context.Caller.HasClaim("scope", "IdentityServer.Configuration:SetClientSecret"))
             {
                 _logger.LogWarning("The dynamic client request includes a secret, but the required IdentityServer.Configuration:SetClientSecret scope is missing. The secret is ignored.");
-            } 
-            else 
+            }
+            else
             {
                 var plainText = secretParam.ToString();
                 ArgumentNullException.ThrowIfNull(plainText);

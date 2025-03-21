@@ -1,14 +1,14 @@
-﻿using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
+using Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Owin;
 using Microsoft.Owin.Extensions;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Notifications;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-using Client;
 
 [assembly: OwinStartup(typeof(WebForms.Startup))]
 

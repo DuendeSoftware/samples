@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +25,7 @@ public class ToDoController : ControllerBase
     public IActionResult GetAll()
     {
         _logger.LogInformation("GetAll");
-        
+
         return Ok(__data.AsEnumerable());
     }
 
@@ -34,7 +34,7 @@ public class ToDoController : ControllerBase
     {
         var item = __data.FirstOrDefault(x => x.Id == id);
         if (item == null) return NotFound();
-        
+
         _logger.LogInformation("Get {id}", id);
         return Ok(item);
     }
@@ -44,7 +44,7 @@ public class ToDoController : ControllerBase
     {
         model.Id = ToDo.NewId();
         model.User = $"{User.FindFirst("sub").Value} ({User.FindFirst("name").Value})";
-        
+
         __data.Add(model);
         _logger.LogInformation("Added todo");
 
@@ -61,10 +61,10 @@ public class ToDoController : ControllerBase
         item.Name = model.Name;
 
         _logger.LogInformation("Updated todo");
-        
+
         return NoContent();
     }
-    
+
     [HttpDelete("todos/{id}")]
     public IActionResult Delete(int id)
     {
@@ -85,7 +85,7 @@ public class ToDo
     {
         return _nextId++;
     }
-    
+
     public int Id { get; set; }
     public DateTimeOffset Date { get; set; }
     public string Name { get; set; }

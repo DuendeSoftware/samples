@@ -1,7 +1,10 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Duende.AccessTokenManagement.OpenIdConnect;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication;
-using Duende.AccessTokenManagement.OpenIdConnect;
 
 namespace WebClient.Controllers;
 
@@ -18,7 +21,7 @@ public class HomeController : Controller
     public IActionResult Index() => View();
 
     public IActionResult Secure() => View();
-    
+
     public async Task<IActionResult> Renew()
     {
         await HttpContext.GetUserAccessTokenAsync(new UserTokenRequestParameters { ForceRenewal = true });
@@ -33,7 +36,7 @@ public class HomeController : Controller
 
         var response = await client.GetStringAsync("identity");
         ViewBag.Json = response.PrettyPrintJson();
-        
+
         return View();
     }
 

@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Duende.IdentityServer.Models;
 
@@ -30,7 +30,7 @@ public static class Resources
             new ApiResource("resource1")
             {
                 Scopes = { "scope2" },
-                
+
                 ApiSecrets =
                 {
                     new Secret("secret".Sha256())

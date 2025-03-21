@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -24,11 +27,11 @@ try
             outputTemplate:
             "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
             theme: AnsiConsoleTheme.Code));
-    
+
     builder.Services.AddControllers();
     builder.Services.AddRazorPages();
     builder.Services.AddBff();
-    
+
     builder.Services.AddAuthentication(options =>
         {
             options.DefaultScheme = "cookie";
@@ -43,17 +46,17 @@ try
         .AddOpenIdConnect("oidc", options =>
         {
             options.Authority = "https://demo.duendesoftware.com";
-    
+
             // confidential client using code flow + PKCE
             options.ClientId = "interactive.confidential";
             options.ClientSecret = "secret";
             options.ResponseType = "code";
             options.ResponseMode = "query";
-    
+
             options.MapInboundClaims = false;
             options.GetClaimsFromUserInfoEndpoint = true;
             options.SaveTokens = true;
-    
+
             // request scopes + refresh tokens
             options.Scope.Clear();
             options.Scope.Add("openid");
@@ -61,11 +64,11 @@ try
             options.Scope.Add("api");
             options.Scope.Add("offline_access");
         });
-    
+
     var app = builder.Build();
 
     app.UseSerilogRequestLogging();
-    
+
     if (app.Environment.IsDevelopment())
     {
         app.UseWebAssemblyDebugging();
@@ -74,24 +77,24 @@ try
     {
         app.UseExceptionHandler("/Error");
     }
-    
+
     app.UseBlazorFrameworkFiles();
     app.UseStaticFiles();
-    
+
     app.UseRouting();
     app.UseAuthentication();
     app.UseBff();
     app.UseAuthorization();
-    
+
     app.MapBffManagementEndpoints();
     app.MapRazorPages();
 
     app.MapControllers()
         .RequireAuthorization()
         .AsBffApiEndpoint();
-    
+
     app.MapFallbackToFile("index.html");
-    
+
     app.Run();
 }
 catch (Exception ex)

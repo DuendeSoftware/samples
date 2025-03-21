@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Duende.IdentityServer;
@@ -18,8 +18,8 @@ public static class Config
             new IdentityResource()
             {
                 Name = "verification",
-                UserClaims = new List<string> 
-                { 
+                UserClaims = new List<string>
+                {
                     JwtClaimTypes.Email,
                     JwtClaimTypes.EmailVerified
                 }
@@ -28,12 +28,12 @@ public static class Config
 
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
-        { 
+        {
             new ApiScope(name: "api1", displayName: "My API")
         };
 
     public static IEnumerable<Client> Clients =>
-        new Client[] 
+        new Client[]
         {
             new Client
             {
@@ -82,12 +82,12 @@ public static class Config
                 ClientName = "JavaScript Client",
                 AllowedGrantTypes = GrantTypes.Code,
                 RequireClientSecret = false,
-                
+
                 RedirectUris =           { "https://localhost:5003/callback.html" },
                 PostLogoutRedirectUris = { "https://localhost:5003/index.html" },
                 AllowedCorsOrigins =     { "https://localhost:5003" },
 
-                AllowedScopes = 
+                AllowedScopes =
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,

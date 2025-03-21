@@ -1,9 +1,12 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System;
+using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using Duende.Bff.Yarp;
 
 namespace FrontendHost
 {
@@ -73,7 +76,7 @@ namespace FrontendHost
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBffManagementEndpoints();
-                
+
                 // if you want the TODOs API local
                 endpoints.MapControllers()
                     .RequireAuthorization()

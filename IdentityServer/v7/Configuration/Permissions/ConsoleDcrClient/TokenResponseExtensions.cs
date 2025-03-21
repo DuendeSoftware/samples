@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Text;
 using System.Text.Json;
 using IdentityModel;
@@ -21,7 +24,8 @@ public static class TokenResponseExtensions
 
                 Console.WriteLine(PrettyPrintJson(Encoding.UTF8.GetString(Base64Url.Decode(header))));
                 Console.WriteLine(PrettyPrintJson(Encoding.UTF8.GetString(Base64Url.Decode(payload))));
-            } else
+            }
+            else
             {
                 "Token response:".ConsoleGreen();
                 Console.WriteLine(response.Json);

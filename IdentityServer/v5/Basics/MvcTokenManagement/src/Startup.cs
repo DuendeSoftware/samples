@@ -1,10 +1,13 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace Client
 {
@@ -25,7 +28,7 @@ namespace Client
                 .AddCookie(options =>
                 {
                     options.Cookie.Name = "mvc";
-                    
+
                     options.Events.OnSigningOut = async e =>
                     {
                         // automatically revoke refresh token at signout time
@@ -63,7 +66,7 @@ namespace Client
                         RoleClaimType = "role"
                     };
                 });
-            
+
             // add automatic token management
             services.AddAccessTokenManagement();
 

@@ -1,9 +1,6 @@
-﻿using Duende.IdentityModel;
-using Duende.IdentityModel.Client;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,6 +8,12 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Client.Controllers;
 
@@ -54,10 +57,10 @@ public class LogoutController : Controller
         if (claims.FindFirst("sub") == null && claims.FindFirst("sid") == null) throw new Exception("Invalid logout token");
 
         var nonce = claims.FindFirstValue("nonce");
-        if (!String.IsNullOrWhiteSpace(nonce)) throw new Exception("Invalid logout token");
+        if (!string.IsNullOrWhiteSpace(nonce)) throw new Exception("Invalid logout token");
 
         var eventsJson = claims.FindFirst("events")?.Value;
-        if (String.IsNullOrWhiteSpace(eventsJson)) throw new Exception("Invalid logout token");
+        if (string.IsNullOrWhiteSpace(eventsJson)) throw new Exception("Invalid logout token");
 
         var events = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(eventsJson);
         var logoutEvent = events.TryGetValue("http://schemas.openid.net/event/backchannel-logout", out _);

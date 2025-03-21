@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Angular.Bff;
 
@@ -28,11 +30,11 @@ public static class TodoEndpointGroup
         {
             model.Id = ToDo.NewId();
             model.User = $"{user.FindFirst("sub")?.Value} ({user.FindFirst("name")?.Value})";
-            
+
             data.Add(model);
-            
+
             var url = new Uri($"{context.Request.GetEncodedUrl()}/{model.Id}");
-            
+
             return Results.Created(url, model);
         });
 

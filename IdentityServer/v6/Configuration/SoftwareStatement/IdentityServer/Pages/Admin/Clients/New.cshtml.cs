@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +27,7 @@ public class NewModel : PageModel
     public void OnGet()
     {
         InputModel = new CreateClientModel
-        { 
+        {
             Secret = Convert.ToBase64String(CryptoRandom.CreateRandomKey(16))
         };
     }

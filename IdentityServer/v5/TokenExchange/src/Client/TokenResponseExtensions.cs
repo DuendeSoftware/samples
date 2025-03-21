@@ -1,9 +1,12 @@
-﻿using IdentityModel;
-using IdentityModel.Client;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
+using IdentityModel;
+using IdentityModel.Client;
 
 namespace ResourcesScopesConsoleClient
 {
@@ -44,7 +47,7 @@ namespace ResourcesScopesConsoleClient
                 }
             }
         }
-        
+
         public static string PrettyPrintJson(this string raw)
         {
             var doc = JsonDocument.Parse(raw).RootElement;

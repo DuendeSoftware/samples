@@ -1,5 +1,6 @@
-﻿using System;
-using System.Net.Http;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Text.Json;
 using ConsoleDcrClient;
 using IdentityModel.Client;
@@ -11,10 +12,10 @@ using Microsoft.Extensions.Hosting;
 Console.Title = "DCR Client using PAT";
 
 "Obtaining initial access token".ConsoleYellow();
-using IHost host = Host.CreateDefaultBuilder(args).Build();
-IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
+using var host = Host.CreateDefaultBuilder(args).Build();
+var config = host.Services.GetRequiredService<IConfiguration>();
 var pat = config.GetValue<string>("IdentityServer.Configuration:PAT");
-while (String.IsNullOrEmpty(pat))
+while (string.IsNullOrEmpty(pat))
 {
     "No Personal Access Token (PAT) configured. You can create a PAT by going to https://localhost:5001/PAT. Then enter your PAT here, or add it to configuration using user-secrets, environment variables, etc".ConsoleYellow();
     pat = Console.ReadLine();
@@ -22,12 +23,12 @@ while (String.IsNullOrEmpty(pat))
 
 "\n\nRegistering dynamic client".ConsoleYellow();
 var dcrResponse = await RegisterClient(pat);
-if(dcrResponse.IsError)
+if (dcrResponse.IsError)
 {
     "Failed to register a client".ConsoleRed();
     dcrResponse.Error.ConsoleRed();
     return;
-} 
+}
 else
 {
     "Successfully registered a client with DCR!".ConsoleGreen();

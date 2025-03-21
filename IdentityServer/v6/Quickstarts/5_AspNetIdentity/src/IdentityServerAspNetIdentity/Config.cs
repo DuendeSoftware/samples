@@ -1,4 +1,7 @@
-﻿using Duende.IdentityServer;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 
 namespace IdentityServerAspNetIdentity;
@@ -47,7 +50,7 @@ public static class Config
 
                 // where to redirect to after logout
                 PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
-    
+
                 AllowOfflineAccess = true,
 
                 AllowedScopes = new List<string>

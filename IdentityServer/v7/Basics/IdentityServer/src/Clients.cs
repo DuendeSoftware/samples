@@ -1,16 +1,16 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using Duende.IdentityServer.Models;
 using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 
 namespace IdentityServerHost;
 
 public static class Clients
 {
     public static IEnumerable<Client> List =>
-        new []
+        new[]
         {
             // client credentials flow sample
             new Client
@@ -58,7 +58,7 @@ public static class Clients
 
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = { new Secret("secret".Sha256()) },
-                
+
                 AccessTokenType = AccessTokenType.Reference,
 
                 AllowedScopes = { "scope1", "scope2" }
@@ -69,7 +69,7 @@ public static class Clients
             {
                 ClientId = "interactive.mvc.sample",
                 ClientSecrets = { new Secret("secret".Sha256()) },
-                
+
                 AllowedGrantTypes = GrantTypes.Code,
 
                 RedirectUris = { "https://localhost:44300/signin-oidc" },
@@ -86,7 +86,7 @@ public static class Clients
             {
                 ClientId = "interactive.mvc.sample.short.token.lifetime",
                 ClientSecrets = { new Secret("secret".Sha256()) },
-                
+
                 AllowedGrantTypes = GrantTypes.Code,
                 AccessTokenLifetime = 75,
 
@@ -126,7 +126,7 @@ public static class Clients
                         """
                     }
                 },
-                
+
                 AllowedGrantTypes = GrantTypes.Code,
 
                 RedirectUris = { "https://localhost:44300/signin-oidc" },
@@ -142,7 +142,7 @@ public static class Clients
             {
                 ClientId = "mvc.backchannel.sample",
                 ClientSecrets = { new Secret("secret".Sha256()) },
-                
+
                 AllowedGrantTypes = GrantTypes.Code,
 
                 RedirectUris = { "https://localhost:44300/signin-oidc" },
@@ -169,7 +169,7 @@ public static class Clients
                 RequireRequestObject = false,
 
                 AllowedGrantTypes = GrantTypes.Code,
-                
+
                 RequirePushedAuthorization = true,
 
                 // Note that redirect uris are optional for PAR clients when the

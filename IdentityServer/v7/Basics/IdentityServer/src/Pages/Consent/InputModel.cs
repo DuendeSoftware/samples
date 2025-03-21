@@ -1,8 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
-
-
-using System.Collections.Generic;
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 namespace IdentityServerHost.Pages.Consent;
 

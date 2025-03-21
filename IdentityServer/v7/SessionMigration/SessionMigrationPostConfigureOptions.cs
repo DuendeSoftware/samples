@@ -1,4 +1,7 @@
-﻿using Duende.IdentityServer;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Duende.IdentityServer;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 
@@ -8,7 +11,7 @@ public class SessionMigrationPostConfigureOptions : IPostConfigureOptions<Cookie
 {
     private readonly IHttpContextAccessor httpContextAccessor;
 
-    public SessionMigrationPostConfigureOptions(IHttpContextAccessor httpContextAccessor) 
+    public SessionMigrationPostConfigureOptions(IHttpContextAccessor httpContextAccessor)
     {
         this.httpContextAccessor = httpContextAccessor;
     }
@@ -20,7 +23,7 @@ public class SessionMigrationPostConfigureOptions : IPostConfigureOptions<Cookie
             return;
         }
 
-        if(options.TicketDataFormat == null)
+        if (options.TicketDataFormat == null)
         {
             throw new InvalidOperationException(
                 "The session migration post configure relies on a TicketDataFormat being present. It is usually created by the default PostConfigureCookieOptions. Make sure the SessionMigrationPostConfigureOptions is added after the call to AddIdentityServer.");

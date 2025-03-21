@@ -1,12 +1,12 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
+using System.Security.Claims;
+using System.Text.Json;
 using Duende.IdentityModel;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Test;
-using System.Security.Claims;
-using System.Text.Json;
 
 namespace IdentityServerHost;
 
@@ -23,7 +23,7 @@ public class TestUsers
                 postal_code = "69118",
                 country = "Germany"
             };
-                
+
             return new List<TestUser>
             {
                 new TestUser

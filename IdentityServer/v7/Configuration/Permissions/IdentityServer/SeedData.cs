@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Serilog;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using Duende.IdentityServer.Models;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace IdentityServer;
 
@@ -10,7 +13,7 @@ internal static class SeedData
 {
     public static void EnsureSeedData(WebApplication app)
     {
-        using (IServiceScope scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
             scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
 

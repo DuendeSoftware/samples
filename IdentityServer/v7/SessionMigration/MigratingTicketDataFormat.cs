@@ -1,9 +1,11 @@
-﻿using Duende.IdentityServer.Extensions;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Security.Claims;
+using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Stores;
-using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
 
 namespace SessionMigration;
 public class MigratingTicketDataFormat : ISecureDataFormat<AuthenticationTicket>

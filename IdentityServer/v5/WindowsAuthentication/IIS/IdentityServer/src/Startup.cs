@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Microsoft.AspNetCore.Builder;
@@ -32,7 +32,7 @@ namespace IdentityServerHost
             services.AddControllersWithViews();
 
             var builder = services.AddIdentityServer();
-            
+
             builder.AddInMemoryIdentityResources(Resources.Identity);
             builder.AddInMemoryApiScopes(Resources.ApiScopes);
             builder.AddInMemoryClients(Clients.List);

@@ -1,7 +1,9 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Duende.IdentityServer;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
-using Otel;
 using Serilog;
 
 namespace Otel;
@@ -28,7 +30,7 @@ internal static class HostingExtensions
         isBuilder.AddInMemoryIdentityResources(Config.IdentityResources);
         isBuilder.AddInMemoryApiScopes(Config.ApiScopes);
         isBuilder.AddInMemoryClients(Config.Clients);
-        
+
         builder.Services.AddAuthentication()
             .AddGoogle(options =>
             {
@@ -40,19 +42,19 @@ internal static class HostingExtensions
                 options.ClientId = "copy client ID from Google here";
                 options.ClientSecret = "copy client secret from Google here";
             });
-        
+
         builder.Services.AddOpenTelemetryTracing(builder =>
         {
             builder
                 .AddConsoleExporter()
-                
+
                 // all avavilabe sources
                 .AddSource(IdentityServerConstants.Tracing.Basic)
                 .AddSource(IdentityServerConstants.Tracing.Cache)
                 .AddSource(IdentityServerConstants.Tracing.Services)
                 .AddSource(IdentityServerConstants.Tracing.Stores)
                 .AddSource(IdentityServerConstants.Tracing.Validation)
-                
+
                 .SetResourceBuilder(
                     ResourceBuilder.CreateDefault()
                         .AddService("IdentityServerHost.Sample"))
@@ -60,14 +62,14 @@ internal static class HostingExtensions
                 .AddAspNetCoreInstrumentation()
                 .AddSqlClientInstrumentation();
         });
-        
+
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
-    
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -77,7 +79,7 @@ internal static class HostingExtensions
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();
-        
+
         app.MapRazorPages()
             .RequireAuthorization();
 

@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using IdentityServerHost;
@@ -28,7 +28,7 @@ idsvrBuilder.AddExtensionGrantValidator<TokenExchangeGrantValidator>();
 // register a profile service to emit the act claim
 idsvrBuilder.AddProfileService<ProfileService>();
 
-var app =  builder.Build();
+var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
 

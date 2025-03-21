@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
@@ -46,7 +49,8 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPost()
     {
-        await _sessionManagementService.RemoveSessionsAsync(new RemoveSessionsContext { 
+        await _sessionManagementService.RemoveSessionsAsync(new RemoveSessionsContext
+        {
             SessionId = SessionId,
         });
         return RedirectToPage("/ServerSideSessions/Index", new { Token, Filter, Prev });

@@ -1,14 +1,14 @@
-﻿using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
+using Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.Owin;
 using Microsoft.Owin.Extensions;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Notifications;
 using Microsoft.Owin.Security.OpenIdConnect;
 using Owin;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-using Client;
 
 [assembly: OwinStartup(typeof(OwinMvc.Startup))]
 
@@ -43,7 +43,7 @@ namespace OwinMvc
 
                 ResponseType = "code",
                 Scope = "openid profile scope1 offline_access",
-                
+
                 UseTokenLifetime = false,
                 SaveTokens = true,
                 RedeemCode = true,
@@ -85,7 +85,7 @@ namespace OwinMvc
         private async Task ForbidInsteadOfChallengeIfAuthenticated(
             RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
-            if(notification.ProtocolMessage.RequestType == OpenIdConnectRequestType.Authentication &&
+            if (notification.ProtocolMessage.RequestType == OpenIdConnectRequestType.Authentication &&
                notification.OwinContext.Authentication.User.Identity.IsAuthenticated)
             {
                 notification.HandleResponse();

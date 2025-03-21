@@ -1,4 +1,4 @@
-﻿using Client;
+using Client;
 using IdentityModel.Client;
 namespace WebForms
 {

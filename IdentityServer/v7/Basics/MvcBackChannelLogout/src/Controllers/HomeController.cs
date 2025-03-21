@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,19 +14,19 @@ namespace Client.Controllers;
 public class HomeController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    
+
     public HomeController(IHttpClientFactory httpClientFactory)
     {
         _httpClientFactory = httpClientFactory;
     }
-    
+
     [AllowAnonymous]
     public IActionResult Index() => View();
 
     public IActionResult Secure() => View();
 
     public IActionResult Logout() => SignOut("oidc", "Cookies");
-    
+
     public async Task<IActionResult> CallApi()
     {
         var token = await HttpContext.GetTokenAsync("access_token");

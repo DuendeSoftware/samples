@@ -1,5 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -22,12 +22,12 @@ public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-         var builder = services.AddReverseProxy()
-                .AddBffExtensions();
+        var builder = services.AddReverseProxy()
+               .AddBffExtensions();
 
-            builder.LoadFromMemory(
-                new[]
-                {
+        builder.LoadFromMemory(
+            new[]
+            {
                     new RouteConfig()
                     {
                         RouteId = "user-token",
@@ -68,9 +68,9 @@ public class Startup
                             Path = "/yarp/anonymous/{**catch-all}"
                         }
                     }.WithAntiforgeryCheck()
-                },
-                new[]
-                {
+            },
+            new[]
+            {
                     new ClusterConfig
                     {
                         ClusterId = "cluster1",
@@ -80,7 +80,7 @@ public class Startup
                             { "destination1", new() { Address = "https://localhost:6001" } },
                         }
                     }
-                });
+            });
 
         // Add BFF services to DI - also add server-side session management
         services.AddBff(options =>
@@ -139,11 +139,11 @@ public class Startup
                 options.Scope.Add("api");
                 options.Scope.Add("offline_access");
             });
-    
+
         services.AddUserAccessTokenHttpClient("api",
-            configureClient: client => 
-            { 
-                client.BaseAddress = new Uri("https://localhost:6001/api"); 
+            configureClient: client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:6001/api");
             });
     }
 

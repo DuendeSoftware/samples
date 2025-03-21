@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Api.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +15,7 @@ builder.Services.AddAuthentication("jwt")
         opt.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateAudience = false,
-            ValidTypes = new [] { "at+jwt" }
+            ValidTypes = new[] { "at+jwt" }
         };
         opt.MapInboundClaims = false;
     });

@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Net;
 using System.Net.Http.Json;
 using System.Security.Claims;
@@ -35,7 +38,7 @@ public class BffAuthenticationStateProvider : AuthenticationStateProvider
         {
             _logger.LogInformation("starting background check..");
             Timer? timer = null;
-            
+
             timer = new Timer(async _ =>
             {
                 var currentUser = await GetUser(false);

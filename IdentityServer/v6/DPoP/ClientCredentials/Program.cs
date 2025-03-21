@@ -1,13 +1,14 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Serilog;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
-using Duende.AccessTokenManagement;
-using Serilog.Sinks.SystemConsole.Themes;
-using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Text.Json;
-using IdentityModel;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace ClientCredentialsDPoPClient;
 
@@ -27,7 +28,7 @@ public class Program
     {
         var host = Host.CreateDefaultBuilder(args)
             .UseSerilog()
-                
+
             .ConfigureServices((services) =>
             {
                 services.AddDistributedMemoryCache();

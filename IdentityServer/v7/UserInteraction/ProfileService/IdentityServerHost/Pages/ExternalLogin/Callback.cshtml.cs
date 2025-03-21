@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Services;
@@ -10,10 +9,8 @@ using Duende.IdentityServer.Test;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace IdentityServerHost.Pages.ExternalLogin;
 
@@ -39,7 +36,7 @@ public class Callback : PageModel
         _logger = logger;
         _events = events;
     }
-        
+
     public async Task<IActionResult> OnGet()
     {
         // read external identity from the temporary cookie
@@ -86,7 +83,7 @@ public class Callback : PageModel
         // for the specific protocols used and store them in the local auth cookie.
         // this is typically used to store data needed for signout from those protocols.
         var additionalLocalClaims = new List<Claim>();
-        
+
         // this is an example of capturing a claim from the external provider that
         // we are specifically not storing in our user database. it's only available
         // at login time and we add it to the claim in the session cookie here at IdentityServer.
@@ -100,7 +97,7 @@ public class Callback : PageModel
 
         var localSignInProps = new AuthenticationProperties();
         CaptureExternalLoginContext(result, additionalLocalClaims, localSignInProps);
-            
+
         // issue authentication cookie for user
         var isuser = new IdentityServerUser(user.SubjectId)
         {

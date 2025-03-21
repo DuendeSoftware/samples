@@ -1,9 +1,10 @@
-using System.Threading.Tasks;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityServerHost.Pages.Diagnostics;
 
@@ -12,7 +13,7 @@ namespace IdentityServerHost.Pages.Diagnostics;
 public class Index : PageModel
 {
     public ViewModel View { get; set; }
-        
+
     public async Task<IActionResult> OnGet()
     {
         var localAddresses = new string[] { "127.0.0.1", "::1", HttpContext.Connection.LocalIpAddress.ToString() };
@@ -22,7 +23,7 @@ public class Index : PageModel
         }
 
         View = new ViewModel(await HttpContext.AuthenticateAsync());
-            
+
         return Page();
     }
 }

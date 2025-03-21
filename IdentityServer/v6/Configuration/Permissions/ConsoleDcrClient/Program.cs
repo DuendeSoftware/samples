@@ -1,8 +1,6 @@
-﻿using System;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using ConsoleDcrClient;
 using IdentityModel.Client;
 
@@ -18,7 +16,7 @@ Console.ReadLine();
 var badDcrResponse = await RegisterClient(badTokenResponse.AccessToken);
 "This succeeded, but ignored our attempt to set a client secret.".ConsoleYellow();
 Console.ReadLine();
-  
+
 $"\n\nObtaining access token for dynamic client using clientId: {badDcrResponse.ClientId} and secret {badDcrResponse.ClientSecret}".ConsoleYellow();
 var badDynamicClientToken = await RequestTokenAsync(badDcrResponse.ClientId, badDcrResponse.ClientSecret);
 badDynamicClientToken.Show();

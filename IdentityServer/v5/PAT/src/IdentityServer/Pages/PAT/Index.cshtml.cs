@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -50,7 +53,7 @@ namespace IdentityServerHost.Pages.PAT
                     new("client_id", "pat.client"),
                     new("sub", User.GetSubjectId())
                 },
-                
+
                 AccessTokenType = View.IsReferenceToken ? AccessTokenType.Reference : AccessTokenType.Jwt
             };
 
@@ -58,7 +61,7 @@ namespace IdentityServerHost.Pages.PAT
             if (View.ForApi1)
             {
                 token.Audiences.Add("api1");
-                token.Claims.Add(new ("scope", "scope1"));
+                token.Claims.Add(new("scope", "scope1"));
             }
 
             if (View.ForApi2)
@@ -66,7 +69,7 @@ namespace IdentityServerHost.Pages.PAT
                 token.Audiences.Add("api2");
                 token.Claims.Add(new("scope", "scope2"));
             }
-            
+
             Token = await _tokenService.CreateSecurityTokenAsync(token);
             return Page();
         }

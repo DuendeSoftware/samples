@@ -1,9 +1,12 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.ComponentModel.DataAnnotations;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Entities;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using Duende.IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 namespace IdentityServer.Pages.Admin.Clients;
 
@@ -70,7 +73,7 @@ public class ClientRepository
             .Include(x => x.AllowedGrantTypes)
             .Where(x => x.AllowedGrantTypes.Count == 1 && x.AllowedGrantTypes.Any(grant => grants.Contains(grant.GrantType)));
 
-        if (!String.IsNullOrWhiteSpace(filter))
+        if (!string.IsNullOrWhiteSpace(filter))
         {
             query = query.Where(x => x.ClientId.Contains(filter) || x.ClientName.Contains(filter));
         }
@@ -118,7 +121,7 @@ public class ClientRepository
         client.ClientName = model.Name?.Trim();
 
         client.ClientSecrets.Add(new Duende.IdentityServer.Models.Secret(model.Secret.Sha256()));
-        
+
         if (model.Flow == Flow.ClientCredentials)
         {
             client.AllowedGrantTypes = GrantTypes.ClientCredentials;
@@ -152,7 +155,7 @@ public class ClientRepository
         }
 
         var scopes = model.AllowedScopes.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToArray();
-        var currentScopes = (client.AllowedScopes.Select(x => x.Scope) ?? Enumerable.Empty<String>()).ToArray();
+        var currentScopes = (client.AllowedScopes.Select(x => x.Scope) ?? Enumerable.Empty<string>()).ToArray();
 
         var scopesToAdd = scopes.Except(currentScopes).ToArray();
         var scopesToRemove = currentScopes.Except(scopes).ToArray();

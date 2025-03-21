@@ -1,5 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,7 +11,7 @@ public sealed class SecurityHeadersAttribute : ActionFilterAttribute
 {
     public override void OnResultExecuting(ResultExecutingContext context)
     {
-        if(context == null)
+        if (context == null)
         {
             throw new ArgumentNullException(nameof(context));
         }

@@ -1,14 +1,13 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Duende.Bff;
 using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
 using Serilog;
 
 namespace Blazor.Server
@@ -27,10 +26,10 @@ namespace Blazor.Server
             services.AddBff()
                 .AddRemoteApis()
                 .AddServerSideSessions();
-            
+
             services.AddControllers();
             services.AddRazorPages();
-            
+
             services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = "cookie";
@@ -45,7 +44,7 @@ namespace Blazor.Server
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = "https://demo.duendesoftware.com";
-                    
+
                     // confidential client using code flow + PKCE
                     options.ClientId = "interactive.confidential";
                     options.ClientSecret = "secret";
@@ -69,7 +68,7 @@ namespace Blazor.Server
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSerilogRequestLogging();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -88,22 +87,22 @@ namespace Blazor.Server
             app.UseAuthentication();
             app.UseBff();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBffManagementEndpoints();
-                
+
                 endpoints.MapRazorPages();
-                
+
                 // local APIs
                 endpoints.MapControllers()
                     .RequireAuthorization()
                     .AsBffApiEndpoint();
-                
+
                 // remote API
                 endpoints.MapRemoteBffApiEndpoint("/remote", "https://demo.duendesoftware.com/api/test")
                     .RequireAccessToken();
-                
+
                 endpoints.MapFallbackToFile("index.html");
             });
         }

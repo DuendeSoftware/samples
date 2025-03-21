@@ -1,14 +1,13 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using IdentityModel.AspNetCore.AccessTokenManagement;
 using IdentityModel.Client;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorServer.Data
 {
@@ -19,7 +18,7 @@ namespace BlazorServer.Data
         private readonly IHttpClientFactory _httpClientFactory;
 
         public WeatherForecastService(
-            AuthenticationStateProvider authenticationStateProvider, 
+            AuthenticationStateProvider authenticationStateProvider,
             IUserAccessTokenManagementService userAccessTokenManagementService,
             IHttpClientFactory httpClientFactory)
         {
@@ -27,7 +26,7 @@ namespace BlazorServer.Data
             _userAccessTokenManagementService = userAccessTokenManagementService;
             _httpClientFactory = httpClientFactory;
         }
-        
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -38,7 +37,7 @@ namespace BlazorServer.Data
             var weather = new Weather();
 
             var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-            
+
             if (!state.User.Identity.IsAuthenticated)
             {
                 weather.User = "anonymous";
@@ -48,12 +47,12 @@ namespace BlazorServer.Data
                 var token = await _userAccessTokenManagementService.GetUserAccessTokenAsync(state.User);
                 var client = _httpClientFactory.CreateClient("api_client");
                 client.SetBearerToken(token);
-                
+
                 var userName = await client.GetStringAsync("identity");
-                
+
                 weather.User = userName;
             }
-            
+
             var rng = new Random();
             weather.Forecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

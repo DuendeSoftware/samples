@@ -1,14 +1,14 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
+using System.Threading.Tasks;
 using Duende.IdentityServer.Configuration;
 using Duende.IdentityServer.Hosting.DynamicProviders;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.WsFederation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
 
 namespace IdentityServerHost.WsFed
 {
@@ -25,13 +25,13 @@ namespace IdentityServerHost.WsFed
 
             context.AuthenticationOptions.MetadataAddress = context.IdentityProvider.MetadataAddress;
             context.AuthenticationOptions.RequireHttpsMetadata = context.IdentityProvider.MetadataAddress.StartsWith("https");
-            
+
             context.AuthenticationOptions.Wtrealm = context.IdentityProvider.RelyingPartyId;
             context.AuthenticationOptions.AllowUnsolicitedLogins = context.IdentityProvider.AllowIdpInitiated;
-            
+
             context.AuthenticationOptions.TokenValidationParameters.NameClaimType = JwtClaimTypes.Name;
             context.AuthenticationOptions.TokenValidationParameters.RoleClaimType = JwtClaimTypes.Role;
-            
+
             context.AuthenticationOptions.CallbackPath = context.PathPrefix;
             context.AuthenticationOptions.RemoteSignOutPath = context.PathPrefix;
 
@@ -60,15 +60,15 @@ namespace IdentityServerHost.WsFed
             context.AuthenticationOptions.Events.OnRemoteFailure = ctx =>
             {
                 var identityServerOptions = ctx.HttpContext.RequestServices.GetRequiredService<IdentityServerOptions>();
-                
-                if (HttpMethods.IsGet(ctx.Request.Method) && 
+
+                if (HttpMethods.IsGet(ctx.Request.Method) &&
                     ctx.Request.Path == ctx.Options.CallbackPath &&
                     ctx.Request.Query.ContainsKey(identityServerOptions.UserInteraction.LogoutIdParameter))
                 {
                     ctx.Response.Redirect(identityServerOptions.UserInteraction.LogoutUrl + "?" + identityServerOptions.UserInteraction.LogoutIdParameter + "=" + ctx.Request.Query[identityServerOptions.UserInteraction.LogoutIdParameter]);
                     ctx.HandleResponse();
                 }
-                
+
                 return Task.CompletedTask;
             };
         }

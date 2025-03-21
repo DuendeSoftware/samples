@@ -1,15 +1,15 @@
-﻿using Client;
-using IdentityModel.Client;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Jwt;
-using Owin;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web.Http;
+using Client;
+using IdentityModel.Client;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Jwt;
+using Owin;
 
 namespace SimpleApi
 {
@@ -49,7 +49,8 @@ namespace SimpleApi
 
             var keys = disco.KeySet.Keys
                 .Where(x => x.N != null && x.E != null)
-                .Select(x => {
+                .Select(x =>
+                {
                     var rsa = new RSAParameters
                     {
                         Exponent = Base64UrlEncoder.DecodeBytes(x.E),

@@ -1,38 +1,40 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Threading.Tasks;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
-namespace Client
+namespace Client;
+
+public class OidcEvents : OpenIdConnectEvents
 {
-    public class OidcEvents : OpenIdConnectEvents
+    private readonly AssertionService _assertionService;
+
+    public OidcEvents(AssertionService assertionService)
     {
-        private readonly AssertionService _assertionService;
+        _assertionService = assertionService;
+    }
 
-        public OidcEvents(AssertionService assertionService)
-        {
-            _assertionService = assertionService;
-        }
-        
-        public override Task AuthorizationCodeReceived(AuthorizationCodeReceivedContext context)
-        {
-            context.TokenEndpointRequest.ClientAssertionType = OidcConstants.ClientAssertionTypes.JwtBearer;
-            context.TokenEndpointRequest.ClientAssertion = _assertionService.CreateClientToken();
+    public override Task AuthorizationCodeReceived(AuthorizationCodeReceivedContext context)
+    {
+        context.TokenEndpointRequest.ClientAssertionType = OidcConstants.ClientAssertionTypes.JwtBearer;
+        context.TokenEndpointRequest.ClientAssertion = _assertionService.CreateClientToken();
 
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
+    }
 
-        public override Task RedirectToIdentityProvider(RedirectContext context)
-        {
-            var request = _assertionService.SignAuthorizationRequest(context.ProtocolMessage);
-            var clientId = context.ProtocolMessage.ClientId;
-            var redirectUri = context.ProtocolMessage.RedirectUri;
-            
-            context.ProtocolMessage.Parameters.Clear();
-            context.ProtocolMessage.ClientId = clientId;
-            context.ProtocolMessage.RedirectUri = redirectUri;
-            context.ProtocolMessage.SetParameter("request", request);
+    public override Task RedirectToIdentityProvider(RedirectContext context)
+    {
+        var request = _assertionService.SignAuthorizationRequest(context.ProtocolMessage);
+        var clientId = context.ProtocolMessage.ClientId;
+        var redirectUri = context.ProtocolMessage.RedirectUri;
 
-            return Task.CompletedTask;
-        }
+        context.ProtocolMessage.Parameters.Clear();
+        context.ProtocolMessage.ClientId = clientId;
+        context.ProtocolMessage.RedirectUri = redirectUri;
+        context.ProtocolMessage.SetParameter("request", request);
+
+        return Task.CompletedTask;
     }
 }

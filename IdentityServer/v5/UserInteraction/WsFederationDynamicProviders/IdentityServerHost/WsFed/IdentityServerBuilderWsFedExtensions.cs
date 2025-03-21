@@ -1,12 +1,12 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Collections.Generic;
 using Duende.IdentityServer.Configuration;
 using IdentityServerHost.WsFed;
 using Microsoft.AspNetCore.Authentication.WsFederation;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

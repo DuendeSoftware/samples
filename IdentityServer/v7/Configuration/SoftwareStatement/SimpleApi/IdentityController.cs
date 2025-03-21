@@ -1,26 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Linq;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
-namespace SimpleApi.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace SimpleApi.Controllers;
+
+[Route("identity")]
+public class IdentityController : ControllerBase
 {
-    [Route("identity")]
-    public class IdentityController : ControllerBase
+    private readonly ILogger<IdentityController> _logger;
+
+    public IdentityController(ILogger<IdentityController> logger)
     {
-        private readonly ILogger<IdentityController> _logger;
+        _logger = logger;
+    }
 
-        public IdentityController(ILogger<IdentityController> logger)
-        {
-            _logger = logger;
-        }
+    [HttpGet]
+    public ActionResult Get()
+    {
+        var claims = User.Claims.Select(c => new { c.Type, c.Value });
+        _logger.LogInformation("claims: {claims}", claims);
 
-        [HttpGet]
-        public ActionResult Get()
-        {
-            var claims = User.Claims.Select(c => new { c.Type, c.Value });
-            _logger.LogInformation("claims: {claims}", claims);
-
-            return new JsonResult(claims);
-        }
+        return new JsonResult(claims);
     }
 }

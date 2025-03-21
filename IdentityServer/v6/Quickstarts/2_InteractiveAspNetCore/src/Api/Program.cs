@@ -1,7 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
-
-using Microsoft.IdentityModel.Tokens;
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 var builder = WebApplication.CreateBuilder(args);
 

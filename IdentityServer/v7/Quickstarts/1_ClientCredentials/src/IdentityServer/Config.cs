@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Duende.IdentityServer.Models;
@@ -10,12 +10,12 @@ public static class Config
 {
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
-        { 
+        {
             new ApiScope(name: "api1", displayName: "My API")
         };
 
     public static IEnumerable<Client> Clients =>
-        new Client[] 
+        new Client[]
         {
             new Client
             {

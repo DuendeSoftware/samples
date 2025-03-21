@@ -1,5 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
 using Duende.Bff;
@@ -71,9 +71,9 @@ public class Startup
         services.AddSingleton<ImpersonationAccessTokenRetriever>();
 
         services.AddUserAccessTokenHttpClient("api",
-            configureClient: client => 
-            { 
-                client.BaseAddress = new Uri("https://localhost:7001/api"); 
+            configureClient: client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7001/api");
             });
     }
 
@@ -107,7 +107,7 @@ public class Startup
             // On this path, we require the user token
             endpoints.MapRemoteBffApiEndpoint("/api/user-token", "https://localhost:7001")
                 .RequireAccessToken(TokenType.User);
-            
+
             // On this path, we perform token exchange to impersonate a different user
             // before making the api request
             endpoints.MapRemoteBffApiEndpoint("/api/impersonation", "https://localhost:7001")

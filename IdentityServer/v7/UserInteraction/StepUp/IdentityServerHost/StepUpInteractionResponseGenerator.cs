@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Security.Claims;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Configuration;
@@ -5,7 +8,6 @@ using Duende.IdentityServer.ResponseHandling;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
 using IdentityModel;
-using Microsoft.AspNetCore.Authentication;
 
 namespace IdentityServerHost;
 
@@ -28,7 +30,7 @@ public class StepUpInteractionResponseGenerator : AuthorizeInteractionResponseGe
         {
             if (MfaRequired(request) && !AuthenticatedWithMfa(request.Subject))
             {
-                if(UserDeclinedMfa(request.Subject))
+                if (UserDeclinedMfa(request.Subject))
                 {
                     result.Error = OidcConstants.AuthorizeErrors.UnmetAuthenticationRequirements;
                 }
@@ -41,8 +43,8 @@ public class StepUpInteractionResponseGenerator : AuthorizeInteractionResponseGe
         return result;
     }
 
-    private bool MfaRequired(ValidatedAuthorizeRequest request) => 
-        MfaRequestedByClient(request) || 
+    private bool MfaRequired(ValidatedAuthorizeRequest request) =>
+        MfaRequestedByClient(request) ||
         AlwaysUseMfaForUser(request.Subject.Identity.Name);
 
     private bool MfaRequestedByClient(ValidatedAuthorizeRequest request)
@@ -62,5 +64,5 @@ public class StepUpInteractionResponseGenerator : AuthorizeInteractionResponseGe
         user.Claims.Any(c => c.Type == "amr" && c.Value == "mfa");
 
     private bool UserDeclinedMfa(ClaimsPrincipal user) =>
-        user.Claims.Any(c => c.Type == "declined_mfa" && c.Value == "true");        
+        user.Claims.Any(c => c.Type == "declined_mfa" && c.Value == "true");
 }

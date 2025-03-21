@@ -1,4 +1,7 @@
-﻿using IdentityModel;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using IdentityModel;
 using IdentityModel.Client;
 
 namespace ResourcesScopesConsoleClient;
@@ -50,7 +53,7 @@ class Program
             Address = disco.TokenEndpoint,
             ClientId = "front.end",
             ClientSecret = "secret",
-            
+
             Scope = "scope1",
         });
 

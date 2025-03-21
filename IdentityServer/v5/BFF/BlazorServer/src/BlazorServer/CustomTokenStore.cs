@@ -1,8 +1,11 @@
-﻿using System;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System;
+using System.Collections.Concurrent;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityModel.AspNetCore.AccessTokenManagement;
-using System.Security.Claims;
-using System.Collections.Concurrent;
 
 namespace BlazorServer
 {

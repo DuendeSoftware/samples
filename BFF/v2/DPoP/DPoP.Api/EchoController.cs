@@ -1,8 +1,8 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DPoP.Api;
 
@@ -14,7 +14,7 @@ public class EchoController : ControllerBase
     {
         string message;
         var sub = User.FindFirst("sub");
-        
+
         if (!User.Identity.IsAuthenticated)
         {
             message = "Hello, anonymous caller";
@@ -29,7 +29,7 @@ public class EchoController : ControllerBase
             var client = User.FindFirst("client_id");
             message = $"Hello client, {client.Value}";
         }
-        
+
         var response = new
         {
             path = Request.Path.Value,

@@ -1,4 +1,7 @@
-﻿using Duende.IdentityServer.Models;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Duende.IdentityServer.Models;
 
 namespace IdentityServerHost;
 
@@ -34,7 +37,7 @@ public static class Config
                 ClientId = "step-up",
                 ClientName = "Step Up Demo",
                 ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                 AllowedGrantTypes = GrantTypes.Code,
 
                 RedirectUris = { "https://localhost:6001/signin-oidc" },
