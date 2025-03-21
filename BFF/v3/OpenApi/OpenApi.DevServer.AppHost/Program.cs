@@ -1,10 +1,16 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Microsoft.Extensions.Hosting;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.OpenApi_Api1>("openapi-api1");
+var api1 = builder.AddProject<Projects.OpenApi_Api1>(Services.Api1.ToString());
 
-builder.AddProject<Projects.OpenApi_Api2>("openapi-api2");
+var api2 = builder.AddProject<Projects.OpenApi_Api2>(Services.Api2.ToString());
+var bff = builder.AddProject<Projects.OpenApi_Bff>(Services.Bff.ToString());
+
+bff.WithReference(api1)
+    .WithReference(api2);
 
 builder.Build().Run();

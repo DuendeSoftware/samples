@@ -18,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\OpenApi.Api1\OpenApi.Api1.csproj" />
     <ProjectReference Include="..\OpenApi.Api2\OpenApi.Api2.csproj" />
+    <ProjectReference Include="..\OpenApi.Bff\OpenApi.Bff.csproj" />
+    <ProjectReference Include="..\OpenApi.DevServer.ServiceDefaults\OpenApi.DevServer.ServiceDefaults.csproj"  IsAspireProjectResource="false"  />
   </ItemGroup>
 
 </Project>
