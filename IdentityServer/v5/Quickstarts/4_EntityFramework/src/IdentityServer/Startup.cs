@@ -25,7 +25,7 @@ namespace IdentityServer
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             const string connectionString = @"Data Source=Duende.IdentityServer.Quickstart.EntityFramework-5.0.0.db";
-            
+
             var builder = services.AddIdentityServer()
                 .AddTestUsers(TestUsers.Users)
                 .AddConfigurationStore(options =>
@@ -116,9 +116,9 @@ namespace IdentityServer
 
                 if (!context.ApiScopes.Any())
                 {
-                    foreach (var resource in Config.ApiScopes)
+                    foreach (var apiScope in Config.ApiScopes)
                     {
-                        context.ApiScopes.Add(resource.ToEntity());
+                        context.ApiScopes.Add(apiScope.ToEntity());
                     }
                     context.SaveChanges();
                 }

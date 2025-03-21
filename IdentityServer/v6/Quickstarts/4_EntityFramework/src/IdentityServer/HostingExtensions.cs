@@ -38,9 +38,9 @@ internal static class HostingExtensions
 
             if (!context.ApiScopes.Any())
             {
-                foreach (var resource in Config.ApiScopes)
+                foreach (var apiScope in Config.ApiScopes)
                 {
-                    context.ApiScopes.Add(resource.ToEntity());
+                    context.ApiScopes.Add(apiScope.ToEntity());
                 }
                 context.SaveChanges();
             }
@@ -95,9 +95,9 @@ internal static class HostingExtensions
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
         if (app.Environment.IsDevelopment())
         {
@@ -108,7 +108,7 @@ internal static class HostingExtensions
 
         app.UseStaticFiles();
         app.UseRouting();
-            
+
         app.UseIdentityServer();
 
         app.UseAuthorization();
