@@ -1,7 +1,6 @@
-
 async function checkAuthentication() {
   try {
-    let response = await fetch('/bff/user', { credentials: 'include', headers: {"x-csrf": 1} });
+    let response = await fetch('/bff/user', { credentials: 'include', headers: { "x-csrf": 1 } });
 
     let wrapper = document.querySelector('.schemes.wrapper');
 
@@ -39,5 +38,15 @@ async function checkAuthentication() {
   }
 }
 
-setTimeout(checkAuthentication, 1000); // Delay to ensure UI is loaded
+const observer = new MutationObserver((mutations, obs) => {
+  const wrapper = document.querySelector('.schemes.wrapper');
+  if (wrapper) {
+    checkAuthentication();
+    obs.disconnect();
+  }
+});
 
+observer.observe(document, {
+  childList: true,
+  subtree: true
+});

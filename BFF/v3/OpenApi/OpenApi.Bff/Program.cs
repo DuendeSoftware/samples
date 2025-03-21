@@ -100,6 +100,7 @@ app.MapRemoteBffApiEndpoint("/api2", Services.Api2.LogicalUri().ToString())
 app.UseAuthorization();
 app.UseSwaggerUI(c =>
 {
+
     c.UseRequestInterceptor("function(request){ request.headers['X-CSRF'] = '1';return request;}");
 
     c.InjectJavascript("bff-auth-button.js");
