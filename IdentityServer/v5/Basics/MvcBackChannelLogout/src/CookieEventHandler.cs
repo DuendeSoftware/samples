@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Client
 {

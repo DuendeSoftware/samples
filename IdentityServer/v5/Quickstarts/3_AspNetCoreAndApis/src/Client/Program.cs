@@ -1,12 +1,12 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using IdentityModel.Client;
 using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 
 namespace Client
 {
@@ -33,7 +33,7 @@ namespace Client
 
                 Scope = "api1"
             });
-            
+
             if (tokenResponse.IsError)
             {
                 Console.WriteLine(tokenResponse.Error);

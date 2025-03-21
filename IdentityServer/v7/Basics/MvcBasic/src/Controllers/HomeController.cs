@@ -1,10 +1,13 @@
-﻿using Duende.IdentityModel.Client;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using Duende.IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace Client.Controllers;
@@ -19,14 +22,14 @@ public class HomeController : Controller
         _httpClientFactory = httpClientFactory;
         _discoveryCache = discoveryCache;
     }
-    
+
     [AllowAnonymous]
     public IActionResult Index() => View();
 
     public IActionResult Secure() => View();
 
     public IActionResult Logout() => SignOut("oidc", "Cookies");
-    
+
     public async Task<IActionResult> CallApi()
     {
         var token = await HttpContext.GetTokenAsync("access_token");
@@ -40,7 +43,7 @@ public class HomeController : Controller
         ViewBag.Json = JsonSerializer.Serialize(json, new JsonSerializerOptions { WriteIndented = true });
         return View();
     }
-    
+
     public async Task<IActionResult> RefreshToken()
     {
         var disco = await _discoveryCache.GetAsync();

@@ -1,9 +1,12 @@
-﻿using Duende.IdentityServer;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Security.Claims;
+using Duende.IdentityServer;
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Test;
-using System.Security.Claims;
 
 namespace IdentityServerHost;
 

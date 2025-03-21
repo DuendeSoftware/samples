@@ -1,24 +1,23 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using IdentityModel;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
-using Duende.IdentityServer.Stores;
 using Duende.IdentityServer.Test;
-using System.Security.Principal;
-using System.Security.Claims;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -149,7 +148,8 @@ namespace IdentityServerHost.Quickstart.UI
                             IsPersistent = true,
                             ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
                         };
-                    };
+                    }
+                    ;
 
                     // issue authentication cookie with subject ID and username
                     var isuser = new IdentityServerUser(user.SubjectId)
@@ -188,7 +188,7 @@ namespace IdentityServerHost.Quickstart.UI
                     }
                 }
 
-                await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId:context?.Client.ClientId));
+                await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId: context?.Client.ClientId));
                 ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
             }
 
@@ -196,7 +196,7 @@ namespace IdentityServerHost.Quickstart.UI
             return View(model);
         }
 
-        
+
         /// <summary>
         /// Show logout page
         /// </summary>
@@ -241,7 +241,7 @@ namespace IdentityServerHost.Quickstart.UI
                 // build a return URL so the upstream provider will redirect back
                 // to us after the user has logged out. this allows us to then
                 // complete our single sign-out processing.
-                string url = Url.Action("Logout", new { logoutId = vm.LogoutId });
+                var url = Url.Action("Logout", new { logoutId = vm.LogoutId });
 
                 // this triggers a redirect to the external provider for sign-out
                 return SignOut(new AuthenticationProperties { RedirectUri = url }, vm.ExternalAuthenticationScheme);

@@ -1,9 +1,9 @@
-﻿using Microsoft.Owin.Security;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Net.Http;
+using Microsoft.Owin.Security;
 using SimpleApi;
 
 namespace SampleOwinApi

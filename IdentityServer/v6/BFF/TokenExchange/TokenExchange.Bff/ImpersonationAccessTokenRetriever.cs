@@ -1,5 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,12 +15,12 @@ public class ImpersonationAccessTokenRetriever : DefaultAccessTokenRetriever
     public ImpersonationAccessTokenRetriever(ILogger<ImpersonationAccessTokenRetriever> logger) : base(logger)
     {
     }
-    
+
     public override async Task<AccessTokenResult> GetAccessToken(AccessTokenRetrievalContext context)
     {
         var result = await base.GetAccessToken(context);
 
-        if(result is BearerTokenResult bearerToken)
+        if (result is BearerTokenResult bearerToken)
         {
             var client = new HttpClient();
             var exchangeResponse = await client.RequestTokenExchangeTokenAsync(new TokenExchangeTokenRequest
@@ -34,14 +34,15 @@ public class ImpersonationAccessTokenRetriever : DefaultAccessTokenRetriever
                 SubjectToken = bearerToken.AccessToken,
                 SubjectTokenType = OidcConstants.TokenTypeIdentifiers.AccessToken
             });
-            if(exchangeResponse.IsError)
+            if (exchangeResponse.IsError)
             {
                 return new AccessTokenRetrievalError($"Token exchanged failed: {exchangeResponse.ErrorDescription}");
             }
-            if(exchangeResponse.AccessToken is null)
+            if (exchangeResponse.AccessToken is null)
             {
                 return new AccessTokenRetrievalError("Token exchanged failed. Access token is null");
-            } else
+            }
+            else
             {
                 return new BearerTokenResult(exchangeResponse.AccessToken);
             }

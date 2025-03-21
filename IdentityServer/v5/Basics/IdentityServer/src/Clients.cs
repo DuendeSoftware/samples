@@ -1,17 +1,17 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using Duende.IdentityServer.Models;
 using System.Collections.Generic;
 using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 
 namespace IdentityServerHost
 {
     public static class Clients
     {
         public static IEnumerable<Client> List =>
-            new []
+            new[]
             {
                 // client credentials flow sample
                 new Client
@@ -52,7 +52,7 @@ namespace IdentityServerHost
 
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                     AccessTokenType = AccessTokenType.Reference,
 
                     AllowedScopes = { "scope1", "scope2" }
@@ -63,7 +63,7 @@ namespace IdentityServerHost
                 {
                     ClientId = "interactive.mvc.sample",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                     AllowedGrantTypes = GrantTypes.Code,
 
                     RedirectUris = { "https://localhost:44300/signin-oidc" },
@@ -80,7 +80,7 @@ namespace IdentityServerHost
                 {
                     ClientId = "interactive.mvc.sample.short.token.lifetime",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                     AllowedGrantTypes = GrantTypes.Code,
                     AccessTokenLifetime = 75,
 
@@ -113,7 +113,7 @@ namespace IdentityServerHost
                             Value = "{'e':'AQAB','kid':'ZzAjSnraU3bkWGnnAqLapYGpTyNfLbjbzgAPbbW2GEA','kty':'RSA','n':'wWwQFtSzeRjjerpEM5Rmqz_DsNaZ9S1Bw6UbZkDLowuuTCjBWUax0vBMMxdy6XjEEK4Oq9lKMvx9JzjmeJf1knoqSNrox3Ka0rnxXpNAz6sATvme8p9mTXyp0cX4lF4U2J54xa2_S9NF5QWvpXvBeC4GAJx7QaSw4zrUkrc6XyaAiFnLhQEwKJCwUw4NOqIuYvYp_IXhw-5Ti_icDlZS-282PcccnBeOcX7vc21pozibIdmZJKqXNsL1Ibx5Nkx1F1jLnekJAmdaACDjYRLL_6n3W4wUp19UvzB1lGtXcJKLLkqB6YDiZNu16OSiSprfmrRXvYmvD8m6Fnl5aetgKw'}"
                         }
                     },
-                    
+
                     AllowedGrantTypes = GrantTypes.Code,
 
                     RedirectUris = { "https://localhost:44300/signin-oidc" },
@@ -129,7 +129,7 @@ namespace IdentityServerHost
                 {
                     ClientId = "mvc.backchannel.sample",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                     AllowedGrantTypes = GrantTypes.Code,
 
                     RedirectUris = { "https://localhost:44300/signin-oidc" },

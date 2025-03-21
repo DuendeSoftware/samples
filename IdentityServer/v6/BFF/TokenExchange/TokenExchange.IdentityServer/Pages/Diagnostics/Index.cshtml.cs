@@ -1,27 +1,29 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Authorization;
 
-namespace TokenExchange.IdentityServer.Pages.Diagnostics
+namespace TokenExchange.IdentityServer.Pages.Diagnostics;
+
+[SecurityHeaders]
+[Authorize]
+public class Index : PageModel
 {
-    [SecurityHeaders]
-    [Authorize]
-    public class Index : PageModel
-    {
-        public ViewModel View { get; set; }
-        
-        public async Task<IActionResult> OnGet()
-        {
-            var localAddresses = new string[] { "127.0.0.1", "::1", HttpContext.Connection.LocalIpAddress.ToString() };
-            if (!localAddresses.Contains(HttpContext.Connection.RemoteIpAddress.ToString()))
-            {
-                return NotFound();
-            }
+    public ViewModel View { get; set; }
 
-            View = new ViewModel(await HttpContext.AuthenticateAsync());
-            
-            return Page();
+    public async Task<IActionResult> OnGet()
+    {
+        var localAddresses = new string[] { "127.0.0.1", "::1", HttpContext.Connection.LocalIpAddress.ToString() };
+        if (!localAddresses.Contains(HttpContext.Connection.RemoteIpAddress.ToString()))
+        {
+            return NotFound();
         }
+
+        View = new ViewModel(await HttpContext.AuthenticateAsync());
+
+        return Page();
     }
 }

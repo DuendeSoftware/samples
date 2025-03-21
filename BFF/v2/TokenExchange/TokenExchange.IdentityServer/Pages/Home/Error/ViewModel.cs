@@ -1,21 +1,20 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Duende.IdentityServer.Models;
 
-namespace TokenExchange.IdentityServer.Pages.Error
+namespace TokenExchange.IdentityServer.Pages.Error;
+
+public class ViewModel
 {
-    public class ViewModel
+    public ViewModel()
     {
-        public ViewModel()
-        {
-        }
-
-        public ViewModel(string error)
-        {
-            Error = new ErrorMessage { Error = error };
-        }
-
-        public ErrorMessage Error { get; set; }
     }
+
+    public ViewModel(string error)
+    {
+        Error = new ErrorMessage { Error = error };
+    }
+
+    public ErrorMessage Error { get; set; }
 }

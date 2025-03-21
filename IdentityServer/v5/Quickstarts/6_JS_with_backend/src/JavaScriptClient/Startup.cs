@@ -1,11 +1,11 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace JavaScriptClient
 {
@@ -58,7 +58,7 @@ namespace JavaScriptClient
 
             app.UseRouting();
             app.UseAuthentication();
-            
+
             app.UseBff();
 
             app.UseAuthorization();

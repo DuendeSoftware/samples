@@ -1,13 +1,15 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MyApp.Namespace
+namespace MyApp.Namespace;
+
+public class SignoutModel : PageModel
 {
-    public class SignoutModel : PageModel
+    public IActionResult OnGet()
     {
-        public IActionResult OnGet()
-        {
-            return SignOut("Cookies", "oidc");
-        }
+        return SignOut("Cookies", "oidc");
     }
 }

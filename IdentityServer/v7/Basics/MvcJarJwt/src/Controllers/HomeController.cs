@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +34,7 @@ public class HomeController : Controller
 
         var json = JsonDocument.Parse(response);
         ViewBag.Json = JsonSerializer.Serialize(json, new JsonSerializerOptions { WriteIndented = true });
-    
+
         return View();
     }
 }

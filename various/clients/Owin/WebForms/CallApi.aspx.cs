@@ -1,7 +1,3 @@
-﻿using Client;
-using IdentityModel.Client;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +8,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Client;
+using IdentityModel.Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.Owin.Security;
 
 namespace WebForms
 {
@@ -88,12 +88,12 @@ namespace WebForms
         }
 
         private async Task ApiRequest()
-        { 
+        {
             var authResult = await Context.GetOwinContext().Authentication.AuthenticateAsync("cookies");
             var props = authResult.Properties.Dictionary;
-            if(props.TryGetValue("access_token", out var accessToken))
+            if (props.TryGetValue("access_token", out var accessToken))
             {
-                if(TokenIsExpired(authResult.Properties))
+                if (TokenIsExpired(authResult.Properties))
                 {
                     var tokenResponse = await RefreshToken(authResult.Properties, authResult.Identity);
                     accessToken = tokenResponse.AccessToken;

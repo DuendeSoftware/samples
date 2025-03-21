@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +40,7 @@ namespace IdentityServerHost.Pages.ExternalLogin
             _logger = logger;
             _events = events;
         }
-        
+
         public async Task<IActionResult> OnGet()
         {
             // read external identity from the temporary cookie
@@ -69,7 +72,7 @@ namespace IdentityServerHost.Pages.ExternalLogin
             var additionalLocalClaims = new List<Claim>();
             var localSignInProps = new AuthenticationProperties();
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
-            
+
             // issue authentication cookie for user
             var isuser = new IdentityServerUser(user.SubjectId)
             {

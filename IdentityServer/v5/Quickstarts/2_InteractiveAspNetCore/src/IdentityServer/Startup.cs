@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Duende.IdentityServer;
@@ -28,7 +28,7 @@ namespace IdentityServer
                 .AddGoogle("Google", options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-            
+
                     options.ClientId = "<insert here>";
                     options.ClientSecret = "<insert here>";
                 })
@@ -37,12 +37,12 @@ namespace IdentityServer
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                     options.SignOutScheme = IdentityServerConstants.SignoutScheme;
                     options.SaveTokens = true;
-            
+
                     options.Authority = "https://demo.duendesoftware.com";
                     options.ClientId = "interactive.confidential";
                     options.ClientSecret = "secret";
                     options.ResponseType = "code";
-            
+
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         NameClaimType = "name",

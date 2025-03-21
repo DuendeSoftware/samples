@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using IdentityModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +27,7 @@ public class IdentityController : ControllerBase
 
         return new JsonResult(new { scheme, proofToken, claims });
     }
-    
+
     public static string? GetAuthorizationScheme(HttpRequest request)
     {
         return request.Headers.Authorization.FirstOrDefault()?.Split(' ', System.StringSplitOptions.RemoveEmptyEntries)[0];

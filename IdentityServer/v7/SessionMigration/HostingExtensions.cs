@@ -1,9 +1,7 @@
-using Duende.IdentityServer;
-using SessionMigration;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Serilog;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Options;
 
 namespace SessionMigration;
 
@@ -59,11 +57,11 @@ internal static class HostingExtensions
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
-    
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -73,7 +71,7 @@ internal static class HostingExtensions
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();
-        
+
         app.MapRazorPages()
             .RequireAuthorization();
 

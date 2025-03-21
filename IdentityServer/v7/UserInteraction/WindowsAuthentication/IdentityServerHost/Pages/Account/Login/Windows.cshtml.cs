@@ -1,13 +1,13 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Security.Claims;
+using System.Security.Principal;
 using Duende.IdentityServer;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading.Tasks;
 
 namespace IdentityServerHost.Pages.Account.Login;
 

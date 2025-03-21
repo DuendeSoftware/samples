@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using IdentityServerHost.Quickstart.UI;
@@ -31,8 +31,8 @@ namespace IdentityServerWithSpaLogin
                 options.UserInteraction.LoginUrl = "/login.html";
                 options.UserInteraction.ConsentUrl = "/consent.html";
                 options.UserInteraction.LogoutUrl = "/logout.html";
-                options.UserInteraction.ErrorUrl = "/error.html"; 
-                
+                options.UserInteraction.ErrorUrl = "/error.html";
+
                 options.Events.RaiseErrorEvents = true;
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;

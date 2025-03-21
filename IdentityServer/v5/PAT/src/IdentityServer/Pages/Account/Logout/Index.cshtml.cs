@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Threading.Tasks;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
@@ -15,7 +18,7 @@ namespace IdentityServerHost.Pages.Logout
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IEventService _events;
 
-        [BindProperty] 
+        [BindProperty]
         public string LogoutId { get; set; }
 
         public Index(IIdentityServerInteractionService interaction, IEventService events)
@@ -44,7 +47,7 @@ namespace IdentityServerHost.Pages.Logout
                     showLogoutPrompt = false;
                 }
             }
-            
+
             if (showLogoutPrompt == false)
             {
                 // if the request for logout was properly authenticated from IdentityServer, then
@@ -63,7 +66,7 @@ namespace IdentityServerHost.Pages.Logout
                 // this captures necessary info from the current logged in user
                 // this can still return null if there is no context needed
                 LogoutId ??= await _interaction.CreateLogoutContextAsync();
-                
+
                 // delete local authentication cookie
                 await HttpContext.SignOutAsync();
 
@@ -82,7 +85,7 @@ namespace IdentityServerHost.Pages.Logout
                         // build a return URL so the upstream provider will redirect back
                         // to us after the user has logged out. this allows us to then
                         // complete our single sign-out processing.
-                        string url = Url.Page("/Account/Logout/Loggedout", new { logoutId = LogoutId });
+                        var url = Url.Page("/Account/Logout/Loggedout", new { logoutId = LogoutId });
 
                         // this triggers a redirect to the external provider for sign-out
                         return SignOut(new AuthenticationProperties { RedirectUri = url }, idp);

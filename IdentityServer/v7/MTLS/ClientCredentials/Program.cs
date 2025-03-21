@@ -1,4 +1,7 @@
-﻿using System.Security.Cryptography.X509Certificates;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using IdentityModel.Client;
 using Shared;

@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using IdentityServerHost;
@@ -54,7 +54,7 @@ namespace PAT
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

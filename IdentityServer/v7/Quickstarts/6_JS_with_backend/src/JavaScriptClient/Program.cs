@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Duende.Bff.Yarp;
@@ -62,7 +65,7 @@ app.MapRemoteBffApiEndpoint("/remote", "https://localhost:6001")
 
 app.Run();
 
-[Authorize] 
+[Authorize]
 static IResult LocalIdentityHandler(ClaimsPrincipal user, HttpContext context)
 {
     var name = user.FindFirst("name")?.Value ?? user.FindFirst("sub")?.Value;

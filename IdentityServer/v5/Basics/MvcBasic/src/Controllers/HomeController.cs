@@ -1,4 +1,7 @@
-﻿using System;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,14 +24,14 @@ namespace Client.Controllers
             _httpClientFactory = httpClientFactory;
             _discoveryCache = discoveryCache;
         }
-        
+
         [AllowAnonymous]
         public IActionResult Index() => View();
 
         public IActionResult Secure() => View();
 
         public IActionResult Logout() => SignOut("oidc");
-        
+
         public async Task<IActionResult> CallApi()
         {
             var token = await HttpContext.GetTokenAsync("access_token");
@@ -42,7 +45,7 @@ namespace Client.Controllers
             ViewBag.Json = JsonSerializer.Serialize(json, new JsonSerializerOptions { WriteIndented = true });
             return View();
         }
-        
+
         public async Task<IActionResult> RefreshToken()
         {
             var disco = await _discoveryCache.GetAsync();

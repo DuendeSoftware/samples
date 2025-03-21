@@ -1,13 +1,7 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using IdentityModel;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +12,12 @@ using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using Duende.IdentityServer.Test;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -62,20 +62,20 @@ namespace IdentityServerHost.Quickstart.UI
                 // user might have clicked on a malicious link - should be logged
                 throw new Exception("invalid return URL");
             }
-            
+
             // start challenge and roundtrip the return URL and scheme 
             var props = new AuthenticationProperties
             {
-                RedirectUri = Url.Action(nameof(Callback)), 
+                RedirectUri = Url.Action(nameof(Callback)),
                 Items =
                 {
-                    { "returnUrl", returnUrl }, 
+                    { "returnUrl", returnUrl },
                     { "scheme", scheme },
                 }
             };
 
             return Challenge(props, scheme);
-            
+
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace IdentityServerHost.Quickstart.UI
             var additionalLocalClaims = new List<Claim>();
             var localSignInProps = new AuthenticationProperties();
             ProcessLoginCallback(result, additionalLocalClaims, localSignInProps);
-            
+
             // issue authentication cookie for user
             var isuser = new IdentityServerUser(user.SubjectId)
             {
