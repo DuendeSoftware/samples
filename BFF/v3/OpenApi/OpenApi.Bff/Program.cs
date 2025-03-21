@@ -1,15 +1,9 @@
 using OpenApi.Bff;
 using Duende.Bff.Yarp;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using Yarp.ReverseProxy.Transforms;
-using Microsoft.AspNetCore.Http.Features;
-using System.Text.Json.Nodes;
-using System.Text.Json;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Writers;
-using System.IO;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Readers;
 
@@ -90,11 +84,14 @@ app.UseBff();
 
 app.MapBffManagementEndpoints();
 
-app.MapRemoteBffApiEndpoint("/api1", Services.Api1.LogicalUri().ToString());
-app.MapRemoteBffApiEndpoint("/api2", Services.Api2.LogicalUri().ToString());
+app.MapRemoteBffApiEndpoint("/api1", Services.Api1.LogicalUri().ToString())
+    .RequireAccessToken();
+app.MapRemoteBffApiEndpoint("/api2", Services.Api2.LogicalUri().ToString())
+    .RequireAccessToken(); ;
 //    .RequireAccessToken(api.RequiredToken);
 app.UseSwaggerUI(c =>
 {
+    c.InjectJavascript("swagger-bff-login.js");
     c.SwaggerEndpoint("/api1/openapi/v1.json", "Api1");
     c.SwaggerEndpoint("/api2/openapi/v1.json", "Api2");
 });
@@ -119,7 +116,12 @@ public class OpenApiResponseTransform(string basePath) : ResponseTransform
             {
                 Url = new Uri(Services.Bff.ActualUri(), basePath).ToString()
             });
-            foreach(var path in doc.Paths)
+
+            // remove the jwt security scheme
+            doc.Components.SecuritySchemes.Clear();
+
+
+            foreach (var path in doc.Paths)
             {
                 foreach (var operation in path.Value.Operations)
                 {
