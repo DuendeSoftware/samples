@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
+        versions: "*"
+        update-types: ["all"]
+        directory: "/IdentityServer/v5"
+      - dependency-name: "*"
+        versions: "*"
+        update-types: ["all"]
+        directory: "/IdentityServer/v6"
+      - dependency-name: "*"
+        versions: "*"
+        update-types: ["all"]
+        directory: "/BFF/v2"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"
+        versions: "*"
+        update-types: ["all"]
+        directory: "/IdentityServer/v5"
+      - dependency-name: "*"
+        versions: "*"
+        update-types: ["all"]
+        directory: "/IdentityServer/v6"
+      - dependency-name: "*"
+        versions: "*"
+        update-types: ["all"]
+        directory: "/BFF/v2"
