@@ -9,7 +9,10 @@
   <ItemGroup>
     <PackageReference Include="Duende.BFF.Yarp" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="9.0.0" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.23" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.0.0" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.23" />
+
   </ItemGroup>
 
   <ItemGroup>

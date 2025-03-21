@@ -11,6 +11,8 @@ var api2 = builder.AddProject<Projects.OpenApi_Api2>(Services.Api2.ToString());
 var bff = builder.AddProject<Projects.OpenApi_Bff>(Services.Bff.ToString());
 
 bff.WithReference(api1)
-    .WithReference(api2);
+    .WithReference(api2)
+    .WithReference(bff)
+    ;
 
 builder.Build().Run();
