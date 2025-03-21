@@ -30,14 +30,14 @@ dotnet_diagnostic.IDE0049.severity = error
 dotnet_style_predefined_type_for_locals_parameters_members = true
 dotnet_style_predefined_type_for_member_access = true
 
- # Formatting rule
-dotnet_diagnostic.IDE0055.severity = warning 
+# Formatting rule
+dotnet_diagnostic.IDE0055.severity = warning
 dotnet_sort_system_directives_first = true
 
 # Require file header
-dotnet_diagnostic.IDE0073.severity = warning  
+dotnet_diagnostic.IDE0073.severity = warning
 file_header_template = Copyright (c) Duende Software. All rights reserved.\nLicensed under the MIT License. See LICENSE in the project root for license information.
 
 # Use file-scoped namespace
-dotnet_diagnostic.IDE0161.severity = error  
+dotnet_diagnostic.IDE0161.severity = error
 csharp_style_namespace_declarations = file_scoped
