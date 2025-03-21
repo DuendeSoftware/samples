@@ -1,7 +1,7 @@
-﻿const loginUrl = "/bff/login";
+const loginUrl = "/bff/login";
 const silentLoginUrl = "/bff/silent-login";
 const userUrl = "/bff/user";
-const apiUrl = "/api";
+const apiUrl = "/api1/weatherforecastFahrenheit";
 let logoutUrl = "/bff/logout";
 
 async function onLoad() {
