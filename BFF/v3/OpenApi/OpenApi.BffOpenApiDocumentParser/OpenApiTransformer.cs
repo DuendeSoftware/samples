@@ -13,15 +13,11 @@ public class OpenApiTransformer
     {
         var doc = OpenApiStreamReader.Read(openApiDocumentStream, out var diagnostic);
 
-        // This line is needed because we're going to modify the output stream. 
-        // If we don't do this, it's going to send both the original and the modified stream.
-
         // Make sure the server is actually the BFF, not the original urls. 
         // All traffic is supposed to go through the bff. 
         doc.Servers.Clear();
         doc.Servers.Add(new OpenApiServer()
         {
-            //Url = new Uri(Services.Bff.ActualUri(), basePath).ToString()
             Url = serverUri.ToString()
         });
 

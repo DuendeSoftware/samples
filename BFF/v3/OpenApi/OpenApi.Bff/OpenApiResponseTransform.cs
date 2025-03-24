@@ -23,6 +23,9 @@ public class OpenApiResponseTransform(string basePath) : ResponseTransform
                 // nothing to do if no response from the proxy
                 return;
             var outputStream = context.HttpContext.Response.Body;
+
+            // This line is needed because we're going to modify the output stream. 
+            // If we don't do this, it's going to send both the original and the modified stream.
             context.SuppressResponseBody = true;
 
             var openApiDocumentStream = await context.ProxyResponse.Content.ReadAsStreamAsync();
@@ -30,19 +33,7 @@ public class OpenApiResponseTransform(string basePath) : ResponseTransform
         }
     }
 
-
-    private void AddPathBaseToAllPaths(OpenApiDocument doc)
-    {
-        var pathClones = doc.Paths.ToArray();
-        doc.Paths.Clear();
-
-        foreach (var path in pathClones)
-        {
-            doc.Paths[basePath + path.Key] = path.Value;
-        }
-    }
-
-    private bool ProxyingOpenApiDocument(ResponseTransformContext context)
+private bool ProxyingOpenApiDocument(ResponseTransformContext context)
     {
         return context.HttpContext.Request.Path.StartsWithSegments(basePath +"/openapi", out var remainingPath) &&
                remainingPath.HasValue && (remainingPath.Value.EndsWith(".json") || remainingPath.Value.EndsWith(".yaml"));

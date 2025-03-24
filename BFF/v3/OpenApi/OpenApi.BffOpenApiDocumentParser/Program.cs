@@ -38,7 +38,7 @@ class Program
 
         rootCommand.Description = "OpenApi.BffOpenApiDocumentParser";
 
-        rootCommand.Handler = CommandHandler.Create<string, string, string, string>(async (infile, apiPath, serverUrl, outputpath) =>
+        rootCommand.Handler = CommandHandler.Create<string, string, string, string>(async (inputFile, apiPath, serverUrl, outputPath) =>
         {
             //if (string.IsNullOrEmpty(infile) || string.IsNullOrEmpty(apiPath) || string.IsNullOrEmpty(serverUrl) || string.IsNullOrEmpty(outputpath))
             //{
@@ -46,19 +46,19 @@ class Program
             //    return;
             //}
 
-            if (!File.Exists(infile))
+            if (!File.Exists(inputFile))
             {
-                Console.WriteLine($"File not found: {infile}");
+                Console.WriteLine($"File not found: {inputFile}");
                 return;
             }
 
-            if (!Directory.Exists(outputpath))
+            if (!Directory.Exists(outputPath))
             {
-                Directory.CreateDirectory(outputpath);
+                Directory.CreateDirectory(outputPath);
             }
 
-            string destFile = Path.Combine(outputpath, Path.GetFileName(infile));
-            await ModifyAndCopyFile(infile, apiPath, serverUrl, destFile);
+            string destFile = Path.Combine(outputPath, Path.GetFileName(inputFile));
+            await ModifyAndCopyFile(inputFile, apiPath, serverUrl, destFile);
         });
 
         rootCommand.Invoke(args);
