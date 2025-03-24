@@ -1,11 +1,11 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Blazor.Shared;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace FrontendHost
@@ -30,7 +30,7 @@ namespace FrontendHost
         public IActionResult GetAll()
         {
             _logger.LogInformation("GetAll");
-            
+
             return Ok(__data.AsEnumerable());
         }
 
@@ -39,7 +39,7 @@ namespace FrontendHost
         {
             var item = __data.FirstOrDefault(x => x.Id == id);
             if (item == null) return NotFound();
-            
+
             _logger.LogInformation("Get {id}", id);
             return Ok(item);
         }
@@ -49,7 +49,7 @@ namespace FrontendHost
         {
             model.Id = ToDo.NewId();
             model.User = $"{User.FindFirst("sub").Value} ({User.FindFirst("name").Value})";
-            
+
             __data.Add(model);
             _logger.LogInformation("Add {name}", model.Name);
 
@@ -66,10 +66,10 @@ namespace FrontendHost
             item.Name = model.Name;
 
             _logger.LogInformation("Update {name}", model.Name);
-            
+
             return NoContent();
         }
-        
+
         [HttpDelete("todos/{id}")]
         public IActionResult Delete(int id)
         {

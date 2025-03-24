@@ -1,8 +1,11 @@
-﻿using Client;
-using Duende.IdentityModel.Client;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Client;
+using Duende.IdentityModel.Client;
 
 var response = await RequestTokenAsync();
 response.Show();
@@ -23,7 +26,7 @@ static async Task<TokenResponse> RequestTokenAsync()
 
         ClientId = "introspection.sample",
         ClientSecret = "secret",
-            
+
         Scope = "scope2"
     });
 

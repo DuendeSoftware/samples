@@ -1,9 +1,9 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using Duende.IdentityServer.Models;
 using System.Collections.Generic;
+using Duende.IdentityServer.Models;
 using IdentityModel;
 
 namespace IdentityServerHost
@@ -18,14 +18,14 @@ namespace IdentityServerHost
             };
 
         public static IEnumerable<Client> Clients =>
-            new []
+            new[]
             {
                 // represent the front end client
                 new Client
                 {
                     ClientId = "front.end",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = { "scope1" },
                     
@@ -42,7 +42,7 @@ namespace IdentityServerHost
                 {
                     ClientId = "api1",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    
+
                     AllowedGrantTypes = { OidcConstants.GrantTypes.TokenExchange },
                     AllowedScopes = { "scope2" }
                 }

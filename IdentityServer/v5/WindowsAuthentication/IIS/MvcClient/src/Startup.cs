@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Authentication;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http;
-using IdentityModel.Client;
 
 namespace Client
 {
@@ -17,8 +17,8 @@ namespace Client
 
             services.AddControllersWithViews();
             services.AddHttpClient();
-            
-         
+
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;

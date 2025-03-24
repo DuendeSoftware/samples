@@ -1,5 +1,5 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Duende.IdentityServer;
@@ -38,12 +38,12 @@ namespace IdentityServerHost
                 options.EmitStaticAudienceClaim = true;
             })
                 .AddTestUsers(TestUsers.Users);
-            
+
             builder.AddInMemoryIdentityResources(Resources.Identity);
             builder.AddInMemoryApiScopes(Resources.ApiScopes);
             builder.AddInMemoryApiResources(Resources.ApiResources);
             builder.AddInMemoryClients(Clients.List);
-            
+
             // this is only needed for the JAR and JWT samples and adds supports for JWT-based client authentication
             builder.AddJwtBearerClientAuthentication();
 

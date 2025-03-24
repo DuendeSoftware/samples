@@ -1,13 +1,15 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using IdentityModel.AspNetCore.AccessTokenManagement;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using IdentityModel.AspNetCore.AccessTokenManagement;
-using Microsoft.Extensions.Configuration;
-using Client;
 
 namespace Client
 {
@@ -19,7 +21,7 @@ namespace Client
         {
             _configuration = configuration;
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
@@ -35,7 +37,7 @@ namespace Client
                 .AddCookie(options =>
                 {
                     options.Cookie.Name = "mvc";
-                    
+
                     options.Events.OnSigningOut = async e =>
                     {
                         // automatically revoke refresh token at signout time
@@ -49,7 +51,7 @@ namespace Client
                     // no static client secret
                     // the secret id created dynamically
                     options.ClientId = _configuration.GetValue<string>("ClientId");
-                    
+
                     // needed to add JWR / private_key_jwt support
                     options.EventsType = typeof(OidcEvents);
 
@@ -76,16 +78,16 @@ namespace Client
                         RoleClaimType = "role"
                     };
                 });
-            
+
             // add service to create JWTs
             services.AddSingleton<AssertionService>();
-            
+
             // add event handler for OIDC events
             services.AddTransient<OidcEvents>();
-            
+
             // add automatic token management
             services.AddAccessTokenManagement();
-            
+
             // add service to create assertions for token management
             services.AddTransient<ITokenClientConfigurationService, AssertionConfigurationService>();
 

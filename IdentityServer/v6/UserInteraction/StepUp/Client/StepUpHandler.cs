@@ -1,4 +1,6 @@
-using System.Net.Http.Headers;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Microsoft.AspNetCore.Authentication;
 
 public class StepUpHandler : DelegatingHandler
@@ -28,11 +30,11 @@ public class StepUpHandler : DelegatingHandler
 
             var props = new AuthenticationProperties();
 
-            if (attributes.TryGetValue("max_age", out string? maxAge))
+            if (attributes.TryGetValue("max_age", out var maxAge))
             {
                 props.Items.Add("max_age", maxAge);
             }
-            if (attributes.TryGetValue("acr_values", out string? acrValues))
+            if (attributes.TryGetValue("acr_values", out var acrValues))
             {
                 props.Items.Add("acr_values", acrValues);
             }

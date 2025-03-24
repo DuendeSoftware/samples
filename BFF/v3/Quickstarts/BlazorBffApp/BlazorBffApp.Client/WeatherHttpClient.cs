@@ -1,4 +1,7 @@
-﻿using System.Net.Http.Json;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Net.Http.Json;
 using System.Text.Json;
 
 public class WeatherHttpClient(HttpClient client) : IWeatherClient

@@ -1,4 +1,7 @@
-﻿using System.Text.Json;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Text.Json;
 using IdentityModel.Client;
 
 namespace ConsoleDcrClient;
@@ -7,7 +10,7 @@ public static class DcrResponseExtensions
 {
     public static void Show(this DynamicClientRegistrationResponse response)
     {
-        Console.WriteLine(JsonSerializer.Serialize(new 
+        Console.WriteLine(JsonSerializer.Serialize(new
         {
             response.ClientId,
             response.ClientSecret

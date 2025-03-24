@@ -1,35 +1,33 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Duende.IdentityServer.Models;
-using System.Collections.Generic;
 
-namespace IdentityServerHost
+namespace IdentityServerHost;
+
+public static class Clients
 {
-    public static class Clients
-    {
-        public static IEnumerable<Client> List =>
-            new []
+    public static IEnumerable<Client> List =>
+        new[]
+        {
+            // MVC back-channel logout sample
+            new Client
             {
-                // MVC back-channel logout sample
-                new Client
-                {
-                    ClientId = "mvc.backchannel.sample",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
-                    
-                    AllowedGrantTypes = GrantTypes.Code,
+                ClientId = "mvc.backchannel.sample",
+                ClientSecrets = { new Secret("secret".Sha256()) },
 
-                    RedirectUris = { "https://localhost:44300/signin-oidc" },
-                    BackChannelLogoutUri = "https://localhost:44300/logout",
-                    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
+                AllowedGrantTypes = GrantTypes.Code,
 
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope1", "scope2" },
+                RedirectUris = { "https://localhost:44300/signin-oidc" },
+                BackChannelLogoutUri = "https://localhost:44300/logout",
+                PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
 
-                    // this causes refresh tokens to slide the user's session lifetime at IdentityServer
-                    CoordinateLifetimeWithUserSession = true,
-                },
-            };
-    }
+                AllowOfflineAccess = true,
+                AllowedScopes = { "openid", "profile", "scope1", "scope2" },
+
+                // this causes refresh tokens to slide the user's session lifetime at IdentityServer
+                CoordinateLifetimeWithUserSession = true,
+            },
+        };
 }

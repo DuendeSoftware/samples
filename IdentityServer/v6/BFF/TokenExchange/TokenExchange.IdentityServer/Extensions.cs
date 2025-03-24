@@ -1,8 +1,8 @@
-// // Copyright (c) Duende Software. All rights reserved.
-// // See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using TokenExchange.IdentityServer;
 using Serilog;
+using TokenExchange.IdentityServer;
 
 internal static class Extensions
 {
@@ -29,9 +29,9 @@ internal static class Extensions
 
         return builder.Build();
     }
-    
+
     public static WebApplication ConfigurePipeline(this WebApplication app)
-    { 
+    {
         app.UseSerilogRequestLogging();
         app.UseDeveloperExceptionPage();
         app.UseStaticFiles();
@@ -41,7 +41,7 @@ internal static class Extensions
         app.UseAuthorization();
         app.MapRazorPages()
             .RequireAuthorization();
-        
+
         return app;
     }
 }

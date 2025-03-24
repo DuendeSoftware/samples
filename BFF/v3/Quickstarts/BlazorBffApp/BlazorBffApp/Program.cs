@@ -1,4 +1,6 @@
-using BlazorBffApp.Client.Pages;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using BlazorBffApp.Components;
 using Duende.Bff.Blazor;
 

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Linq;
 
 namespace SampleApi.Controllers
 {

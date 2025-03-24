@@ -1,4 +1,7 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.IdentityModel.Tokens.Jwt;
 using Clients;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +15,7 @@ namespace SampleApi
         {
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -23,7 +26,7 @@ namespace SampleApi
                 {
                     options.Authority = Constants.Authority;
                     options.TokenValidationParameters.ValidateAudience = false;
-                    
+
                     options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
                 });
         }

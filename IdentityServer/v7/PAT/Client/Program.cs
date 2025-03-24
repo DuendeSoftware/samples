@@ -1,4 +1,7 @@
-﻿using System.Net.Http.Headers;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Net.Http.Headers;
 
 namespace Client;
 
@@ -15,7 +18,7 @@ class Program
             Console.WriteLine("Token:");
             var token = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(token)) break;
-            
+
             var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5002/identity");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
@@ -29,6 +32,6 @@ class Program
             var content = await response.Content.ReadAsStringAsync();
             Console.WriteLine(content);
             Console.ReadKey();
-        }      
+        }
     }
 }
