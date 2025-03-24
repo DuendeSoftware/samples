@@ -105,8 +105,8 @@ app.UseSwaggerUI(c =>
     c.InjectJavascript("bff-auth-button.js");
 
     // Add all swagger endpoints for all APIs
-    c.SwaggerEndpoint("/api1/openapi/v1.json", "Api1");
-    c.SwaggerEndpoint("/api1/openapi/v1.json", "Api1");
+    c.SwaggerEndpoint("/api1/openapi/v1.json", "API #1");
+    c.SwaggerEndpoint("/api2/openapi/v1.json", "API #2");
     c.SwaggerEndpoint("/swagger/combined/v1.json", "Combined");
 });
 
