@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "OpenApi.BffOpenApiDocumentParser": {
+      "commandName": "Project",
+      //"commandLineArgs": "-i ../OpenApi.Api1/OpenApi.Api1.json -s https://server -a /api1 -o d:/temp",
+      //"workingDirectory": "$(projectdir)"
+    }
+  }
+}
