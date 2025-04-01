@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.58794-alpha">
+  <PropertyGroup>
+    <!-- Change the startup command to whatever starts your Vue SSR dev server.
+         For Vue CLI with SSR you might use "npm run serve" (or a custom script) -->
+    <StartupCommand>npm run serve</StartupCommand>
+
+    <JavaScriptTestFramework>Vitest</JavaScriptTestFramework>
+
+    <!-- If you don’t want MSBuild to automatically run your build script, leave this as false -->
+    <ShouldRunBuildScript>false</ShouldRunBuildScript>
+
+    <!-- Set the folder where your built (production) assets will be placed.
+         Ensure that this path matches the output directory specified in your Vue build config. -->
+    <PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist\vue\</PublishAssetsDirectory>
+  </PropertyGroup>
+</Project>
