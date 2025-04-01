@@ -22,18 +22,17 @@ public static class ToDoEndpointGroup
         group.MapGet("/{id}", (int id) =>
         {
             var item = data.FirstOrDefault(x => x.Id == id);
-        });
+        }).WithName("todo#show");
 
         // POST
-        group.MapPost("/", (ToDo model, ClaimsPrincipal user, HttpContext context) =>
+        group.MapPost("/", (ToDo model, ClaimsPrincipal user, LinkGenerator links) =>
         {
             model.Id = ToDo.NewId();
             model.User = $"{user.FindFirst("sub")?.Value} ({user.FindFirst("name")?.Value})";
 
             data.Add(model);
 
-            var url = new Uri($"{context.Request.GetEncodedUrl()}/{model.Id}");
-
+            var url = links.GetPathByName("todo#show", new { id = model.Id });
             return Results.Created(url, model);
         });
 

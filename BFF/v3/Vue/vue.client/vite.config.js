@@ -3,14 +3,36 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { env } from 'process';
+import path from 'path';
+import child_process from 'child_process';
 
 const baseFolder =
-  process.env.APPDATA !== undefined && process.env.APPDATA !== ''
-    ? `${process.env.APPDATA}/ASP.NET/https`
-    : `${process.env.HOME}/.aspnet/https`
+  env.APPDATA !== undefined && env.APPDATA !== ''
+    ? `${env.APPDATA}/ASP.NET/https`
+    : `${env.HOME}/.aspnet/dev-certs/https`;
 
-const certificateName = process.env.npm_package_name
-const pemFilePath = `${baseFolder}/${certificateName}.pem`
+const certificateName = "vue.client"; // Change this to your app name
+const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+
+if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+  if (0 !== child_process.spawnSync('dotnet', [
+    'dev-certs',
+    'https',
+    '--export-path',
+    certFilePath,
+    '--format',
+    'Pem',
+    '--no-password',
+  ], { stdio: 'inherit', }).status) {
+    throw new Error("Could not create certificate.");
+  }
+}
+
+const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
+  env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:6001';
+
 
 export default defineConfig({
   plugins: [
@@ -20,35 +42,24 @@ export default defineConfig({
   server: {
     port: 4200,
     https: {
-      key: fs.readFileSync(`${baseFolder}/${certificateName}.key`),
-      cert: fs.readFileSync(`${baseFolder}/${certificateName}.pem`),
+      key: fs.readFileSync(keyFilePath),
+      cert: fs.readFileSync(certFilePath),
     },
     proxy: {
-      // Forward BFF API calls and specific auth paths to the backend
       '/bff': {
-        target: process.env.ASPNETCORE_HTTPS_PORT
-          ? `https://localhost:${process.env.ASPNETCORE_HTTPS_PORT}`
-          : 'https://localhost:6001', // Your BFF URL
+       target,
         secure: false,
       },
-      // Add this entry to proxy the OIDC callback
       '/signin-oidc': {
-        target: process.env.ASPNETCORE_HTTPS_PORT
-          ? `https://localhost:${process.env.ASPNETCORE_HTTPS_PORT}`
-          : 'https://localhost:6001', // Your BFF URL
+       target,
         secure: false,
       },
-      // Optional: You might also need to proxy the signout callback if using one
       '/signout-callback-oidc': {
-        target: process.env.ASPNETCORE_HTTPS_PORT
-          ? `https://localhost:${process.env.ASPNETCORE_HTTPS_PORT}`
-          : 'https://localhost:6001', // Your BFF URL
+        target,
         secure: false,
       },
       '/todos': {
-        target: process.env.ASPNETCORE_HTTPS_PORT
-          ? `https://localhost:${process.env.ASPNETCORE_HTTPS_PORT}`
-          : 'https://localhost:6001', // Your API URL
+        target,
         secure: false,
       }
     }
