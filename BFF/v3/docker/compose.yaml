@@ -1,0 +1,31 @@
+﻿services:
+  containerizedidentityserver:
+    image: containerizedidentityserver
+    build:
+      context: .
+      dockerfile: ContainerizedIdentityServer/Dockerfile
+    ports:
+      - "7050:80"
+      - "7051:443"
+    volumes:
+      - ./aspnetcore-dev-cert.pfx:/app/certs/aspnetcore-dev-cert.pfx
+    environment:
+      - ASPNETCORE_URLS=http://+:80;https://+:443
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certs/aspnetcore-dev-cert.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=MyPw123
+  frontendhost:
+    image: frontendhost
+    build:
+      context: .
+      dockerfile: FrontendHost/Dockerfile
+    ports:
+      - "5050:80"
+      - "5051:443"
+    depends_on:
+      - containerizedidentityserver
+    volumes:
+      - ./aspnetcore-dev-cert.pfx:/app/certs/aspnetcore-dev-cert.pfx
+    environment:
+      - ASPNETCORE_URLS=http://+:80;https://+:443
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/certs/aspnetcore-dev-cert.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=MyPw123
