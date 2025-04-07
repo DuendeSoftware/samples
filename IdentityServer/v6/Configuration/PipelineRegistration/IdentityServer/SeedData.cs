@@ -56,9 +56,9 @@ internal static class SeedData
         if (!context.ApiScopes.Any())
         {
             Log.Debug("ApiScopes being populated");
-            foreach (var resource in Config.ApiScopes.ToList())
+            foreach (var apiScope in Config.ApiScopes.ToList())
             {
-                context.ApiScopes.Add(resource.ToEntity());
+                context.ApiScopes.Add(apiScope.ToEntity());
             }
             context.SaveChanges();
         }
@@ -70,9 +70,9 @@ internal static class SeedData
         if (!context.ApiResources.Any())
         {
             Log.Debug("ApiResources being populated");
-            foreach (var resource in Config.ApiResources.ToList())
+            foreach (var apiScope in Config.ApiResources.ToList())
             {
-                context.ApiResources.Add(resource.ToEntity());
+                context.ApiResources.Add(apiScope.ToEntity());
             }
             context.SaveChanges();
         }

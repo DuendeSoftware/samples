@@ -41,9 +41,9 @@ internal static class HostingExtensions
 
             if (!context.ApiScopes.Any())
             {
-                foreach (var resource in Config.ApiScopes)
+                foreach (var apiScope in Config.ApiScopes)
                 {
-                    context.ApiScopes.Add(resource.ToEntity());
+                    context.ApiScopes.Add(apiScope.ToEntity());
                 }
                 context.SaveChanges();
             }
