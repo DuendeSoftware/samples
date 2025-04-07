@@ -1,4 +1,7 @@
-﻿using Otel;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Otel;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -19,7 +22,7 @@ try
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
-    
+
     app.Run();
 }
 catch (Exception ex)

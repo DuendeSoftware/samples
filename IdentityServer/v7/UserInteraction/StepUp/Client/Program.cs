@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Authentication;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,17 +10,19 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddTransient<StepUpHandler>();
 builder.Services.AddOpenIdConnectAccessTokenManagement();
-builder.Services.AddUserAccessTokenHttpClient("StepUp", 
-    configureClient: client => { client.BaseAddress = new Uri("https://localhost:7001/step-up/"); 
-}).AddHttpMessageHandler<StepUpHandler>();
+builder.Services.AddUserAccessTokenHttpClient("StepUp",
+    configureClient: client =>
+    {
+        client.BaseAddress = new Uri("https://localhost:7001/step-up/");
+    }).AddHttpMessageHandler<StepUpHandler>();
 
-builder.Services.AddAuthentication(opt => 
+builder.Services.AddAuthentication(opt =>
     {
         opt.DefaultScheme = "cookie";
         opt.DefaultChallengeScheme = "oidc";
     })
     .AddCookie("cookie")
-    .AddOpenIdConnect("oidc", opt => 
+    .AddOpenIdConnect("oidc", opt =>
     {
         opt.Authority = "https://localhost:5001";
         opt.ClientId = "step-up";
@@ -48,10 +51,10 @@ builder.Services.AddAuthentication(opt =>
 
         opt.Events.OnRemoteFailure = ctx =>
         {
-            if(ctx.Failure?.Data.Contains("error") ?? false)
+            if (ctx.Failure?.Data.Contains("error") ?? false)
             {
                 var error = ctx.Failure.Data["error"] as string;
-                if(error == IdentityModel.OidcConstants.AuthorizeErrors.UnmetAuthenticationRequirements)
+                if (error == IdentityModel.OidcConstants.AuthorizeErrors.UnmetAuthenticationRequirements)
                 {
                     ctx.HandleResponse();
                     ctx.Response.Redirect("/MfaDeclined");

@@ -1,26 +1,23 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Client.Pages
+namespace Client.Pages;
+
+[Authorize]
+public class SecureModel : PageModel
 {
-    [Authorize]
-    public class SecureModel : PageModel
+    private readonly ILogger<SecureModel> _logger;
+
+    public SecureModel(ILogger<SecureModel> logger)
     {
-        private readonly ILogger<SecureModel> _logger;
+        _logger = logger;
+    }
 
-        public SecureModel(ILogger<SecureModel> logger)
-        {
-            _logger = logger;
-        }
-
-        public void OnGet()
-        {
-        }
+    public void OnGet()
+    {
     }
 }

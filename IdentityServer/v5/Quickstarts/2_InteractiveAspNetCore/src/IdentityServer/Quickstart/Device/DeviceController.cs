@@ -1,5 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using System;
@@ -43,7 +43,7 @@ namespace IdentityServerHost.Quickstart.UI
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            string userCodeParamName = _options.Value.UserInteraction.DeviceVerificationUserCodeParameter;
+            var userCodeParamName = _options.Value.UserInteraction.DeviceVerificationUserCodeParameter;
             string userCode = Request.Query[userCodeParamName];
             if (string.IsNullOrWhiteSpace(userCode)) return View("UserCodeCapture");
 

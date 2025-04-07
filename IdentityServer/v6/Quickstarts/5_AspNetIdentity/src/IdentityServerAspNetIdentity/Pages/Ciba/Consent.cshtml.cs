@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
@@ -28,7 +31,7 @@ public class Consent : PageModel
     }
 
     public ViewModel View { get; set; }
-        
+
     [BindProperty]
     public InputModel Input { get; set; }
 
@@ -187,7 +190,7 @@ public class Consent : PageModel
     public ScopeViewModel CreateScopeViewModel(ParsedScopeValue parsedScopeValue, ApiScope apiScope, bool check)
     {
         var displayName = apiScope.DisplayName ?? apiScope.Name;
-        if (!String.IsNullOrWhiteSpace(parsedScopeValue.ParsedParameter))
+        if (!string.IsNullOrWhiteSpace(parsedScopeValue.ParsedParameter))
         {
             displayName += ":" + parsedScopeValue.ParsedParameter;
         }

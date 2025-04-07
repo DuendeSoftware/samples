@@ -1,3 +1,9 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
@@ -7,9 +13,6 @@ using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 
 namespace IdentityServerHost.Spa
 {
@@ -25,7 +28,7 @@ namespace IdentityServerHost.Spa
         [MaxLength(2000)]
         public string ReturnUrl { get; set; }
     }
-    
+
     public class ConsentRequest
     {
         public bool Deny { get; set; }
@@ -59,7 +62,7 @@ namespace IdentityServerHost.Spa
             var authzContext = await _interaction.GetAuthorizationContextAsync(returnUrl);
             if (authzContext != null)
             {
-                return Ok(new 
+                return Ok(new
                 {
                     loginHint = authzContext.LoginHint,
                     idp = authzContext.IdP,
@@ -92,17 +95,18 @@ namespace IdentityServerHost.Spa
                 }
 
                 var user = _users.FindByUsername(model.Username);
-                var isUser = new IdentityServerUser(user.SubjectId) { 
+                var isUser = new IdentityServerUser(user.SubjectId)
+                {
                     DisplayName = user.Username,
                 };
-                
+
                 var props = new AuthenticationProperties
                 {
                     IsPersistent = model.Remember
                 };
-                
+
                 await HttpContext.SignInAsync(isUser.CreatePrincipal(), props);
-                
+
                 return Ok(response);
             }
 
@@ -137,7 +141,7 @@ namespace IdentityServerHost.Spa
                                 ScopesValuesConsented = authzContext.ValidatedResources.RawScopeValues
                             });
                     }
-                    
+
                     return Ok(response);
                 }
             }
@@ -150,7 +154,8 @@ namespace IdentityServerHost.Spa
         public async Task<IActionResult> Error(string errorId)
         {
             var errorInfo = await _interaction.GetErrorContextAsync(errorId);
-            return Ok(new { 
+            return Ok(new
+            {
                 errorInfo.Error,
                 errorInfo.ErrorDescription
             });

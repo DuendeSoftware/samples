@@ -1,6 +1,6 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Models;
@@ -9,7 +9,6 @@ using Duende.IdentityServer.Stores;
 using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -27,10 +26,10 @@ public class Index : PageModel
     private readonly IIdentityProviderStore _identityProviderStore;
 
     public ViewModel View { get; set; }
-        
+
     [BindProperty]
     public InputModel Input { get; set; }
-        
+
     public Index(
         IIdentityServerInteractionService interaction,
         IClientStore clientStore,
@@ -41,7 +40,7 @@ public class Index : PageModel
     {
         // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
         _users = users ?? new TestUserStore(TestUsers.Users);
-            
+
         _interaction = interaction;
         _clientStore = clientStore;
         _schemeProvider = schemeProvider;
@@ -122,7 +121,8 @@ public class Index : PageModel
                         IsPersistent = true,
                         ExpiresUtc = DateTimeOffset.UtcNow.Add(LoginOptions.RememberMeLoginDuration)
                     };
-                };
+                }
+                ;
 
                 // issue authentication cookie with subject ID and username
                 var isuser = new IdentityServerUser(user.SubjectId)
@@ -161,7 +161,7 @@ public class Index : PageModel
                 }
             }
 
-            await _events.RaiseAsync(new UserLoginFailureEvent(Input.Username, "invalid credentials", clientId:context?.Client.ClientId));
+            await _events.RaiseAsync(new UserLoginFailureEvent(Input.Username, "invalid credentials", clientId: context?.Client.ClientId));
             ModelState.AddModelError(string.Empty, LoginOptions.InvalidCredentialsErrorMessage);
         }
 
@@ -169,14 +169,14 @@ public class Index : PageModel
         await BuildModelAsync(Input.ReturnUrl);
         return Page();
     }
-        
+
     private async Task BuildModelAsync(string returnUrl)
     {
         Input = new InputModel
         {
             ReturnUrl = returnUrl
         };
-            
+
         var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {

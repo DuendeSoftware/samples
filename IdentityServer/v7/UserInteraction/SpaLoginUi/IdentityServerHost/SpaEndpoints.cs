@@ -1,3 +1,7 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.ComponentModel.DataAnnotations;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
@@ -5,7 +9,6 @@ using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace IdentityServerHost;
 
@@ -57,7 +60,7 @@ public class SpaEndpoints : ControllerBase
         var authzContext = await _interaction.GetAuthorizationContextAsync(returnUrl);
         if (authzContext != null)
         {
-            return Ok(new 
+            return Ok(new
             {
                 loginHint = authzContext.LoginHint,
                 idp = authzContext.IdP,
@@ -90,17 +93,18 @@ public class SpaEndpoints : ControllerBase
             }
 
             var user = _users.FindByUsername(model.Username);
-            var isUser = new IdentityServerUser(user.SubjectId) { 
+            var isUser = new IdentityServerUser(user.SubjectId)
+            {
                 DisplayName = user.Username,
             };
-            
+
             var props = new AuthenticationProperties
             {
                 IsPersistent = model.Remember
             };
-            
+
             await HttpContext.SignInAsync(isUser.CreatePrincipal(), props);
-            
+
             return Ok(response);
         }
 
@@ -135,7 +139,7 @@ public class SpaEndpoints : ControllerBase
                             ScopesValuesConsented = authzContext.ValidatedResources.RawScopeValues
                         });
                 }
-                
+
                 return Ok(response);
             }
         }
@@ -148,7 +152,8 @@ public class SpaEndpoints : ControllerBase
     public async Task<IActionResult> Error(string errorId)
     {
         var errorInfo = await _interaction.GetErrorContextAsync(errorId);
-        return Ok(new { 
+        return Ok(new
+        {
             errorInfo.Error,
             errorInfo.ErrorDescription
         });

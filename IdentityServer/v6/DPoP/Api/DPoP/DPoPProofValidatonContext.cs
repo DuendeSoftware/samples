@@ -1,4 +1,8 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 
 namespace ApiHost;
@@ -29,4 +33,9 @@ public class DPoPProofValidatonContext
     /// The access token
     /// </summary>
     public string AccessToken { get; set; }
+
+    /// <summary>
+    /// The claims associated with the access token. 
+    /// </summary>
+    public IEnumerable<Claim> AccessTokenClaims { get; set; } = Enumerable.Empty<Claim>();
 }

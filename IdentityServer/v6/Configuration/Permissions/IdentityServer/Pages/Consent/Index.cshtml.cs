@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
@@ -35,7 +38,7 @@ public class Index : PageModel
 
     public async Task<IActionResult> OnGet(string? returnUrl)
     {
-        if(!await SetViewModelAsync(returnUrl))
+        if (!await SetViewModelAsync(returnUrl))
         {
             return RedirectToPage("/Home/Error/Index");
         }
@@ -197,8 +200,8 @@ public class Index : PageModel
 
     private static ScopeViewModel CreateScopeViewModel(ParsedScopeValue parsedScopeValue, ApiScope apiScope, bool check)
     {
-		var displayName = apiScope.DisplayName ?? apiScope.Name;
-        if (!String.IsNullOrWhiteSpace(parsedScopeValue.ParsedParameter))
+        var displayName = apiScope.DisplayName ?? apiScope.Name;
+        if (!string.IsNullOrWhiteSpace(parsedScopeValue.ParsedParameter))
         {
             displayName += ":" + parsedScopeValue.ParsedParameter;
         }

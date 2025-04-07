@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Security.Claims;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
@@ -35,7 +38,7 @@ public class Callback : PageModel
         _logger = logger;
         _events = events;
     }
-        
+
     public async Task<IActionResult> OnGet()
     {
         // read external identity from the temporary cookie
@@ -110,7 +113,7 @@ public class Callback : PageModel
     private async Task<ApplicationUser> AutoProvisionUserAsync(string provider, string providerUserId, IEnumerable<Claim> claims)
     {
         var sub = Guid.NewGuid().ToString();
-            
+
         var user = new ApplicationUser
         {
             Id = sub,
@@ -124,7 +127,7 @@ public class Callback : PageModel
         {
             user.Email = email;
         }
-            
+
         // create a list of claims that we want to transfer into our store
         var filtered = new List<Claim>();
 

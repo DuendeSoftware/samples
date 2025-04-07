@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MvcClient.Models;
-using System.Diagnostics;
 
 namespace MvcClient.Controllers
 {

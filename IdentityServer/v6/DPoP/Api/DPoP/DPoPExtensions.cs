@@ -1,10 +1,11 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Linq;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 
 namespace ApiHost;
 
@@ -55,19 +56,6 @@ static class DPoPExtensions
     public static void SetDPoPNonce(this AuthenticationProperties props, string nonce)
     {
         props.Items["DPoP-Nonce"] = nonce;
-    }
-
-    /// <summary>
-    /// Create the value of a thumbprint-based cnf claim
-    /// </summary>
-    public static string CreateThumbprintCnf(this JsonWebKey jwk)
-    {
-        var jkt = jwk.CreateThumbprint();
-        var values = new Dictionary<string, string>
-        {
-            { JwtClaimTypes.ConfirmationMethods.JwkThumbprint, jkt }
-        };
-        return JsonSerializer.Serialize(values);
     }
 
     /// <summary>

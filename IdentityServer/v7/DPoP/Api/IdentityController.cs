@@ -1,5 +1,7 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using IdentityModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -20,20 +22,19 @@ public class IdentityController : ControllerBase
         var claims = User.Claims.Select(c => new { c.Type, c.Value });
         _logger.LogInformation("claims: {claims}", claims);
 
-        var scheme = Request.GetAuthorizationScheme();
-        var proofToken = Request.GetDPoPProofToken();
+        var scheme = GetAuthorizationScheme(Request);
+        var proofToken = GetDPoPProofToken(Request);
 
         return new JsonResult(new { scheme, proofToken, claims });
     }
 
-    [HttpGet("TestNonce")]
-    [AllowAnonymous]
-    public ActionResult TestNonce()
+    public static string? GetAuthorizationScheme(HttpRequest request)
     {
-        var x = Request.GetDPoPProofToken();
-        var props = new AuthenticationProperties();
-        props.SetDPoPNonce("custom-nonce");
+        return request.Headers.Authorization.FirstOrDefault()?.Split(' ', System.StringSplitOptions.RemoveEmptyEntries)[0];
+    }
 
-        return Challenge(props);
+    public static string? GetDPoPProofToken(HttpRequest request)
+    {
+        return request.Headers[OidcConstants.HttpHeaders.DPoP].FirstOrDefault();
     }
 }

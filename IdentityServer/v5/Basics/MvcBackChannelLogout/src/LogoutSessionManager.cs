@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Client
@@ -10,7 +13,7 @@ namespace Client
 
         public void Add(string sub, string sid)
         {
-            _sessions.Add(new Session { Sub = sub, Sid = sid }); 
+            _sessions.Add(new Session { Sub = sub, Sid = sid });
         }
 
         public bool IsLoggedOut(string sub, string sid)

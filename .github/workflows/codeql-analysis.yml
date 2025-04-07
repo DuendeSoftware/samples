@@ -36,20 +36,23 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Setup net8
-      uses: actions/setup-dotnet@v4
+      
+    - name: Setup Dotnet
+      uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: |-
+          6.0.x
+          8.0.x
+          9.0.103
 
-    - run: dotnet --info
+    - run: dotnet --list-sdks
 
     - name: Install .NET Aspire workload
       run: dotnet workload install aspire
       
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0
       with:
         languages: ${{ matrix.language }}
         # If you wish to specify custom queries, you can do so here or in a config file.
@@ -60,4 +63,4 @@ jobs:
     - run: ./build.sh build
     
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0

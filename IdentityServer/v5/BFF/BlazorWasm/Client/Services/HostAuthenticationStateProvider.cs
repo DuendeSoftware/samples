@@ -1,9 +1,6 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -11,6 +8,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace Blazor.Client.Services
 {
@@ -73,7 +73,7 @@ namespace Blazor.Client.Services
                         nameof(HostAuthenticationStateProvider),
                         "name",
                         "role");
-                    
+
                     foreach (var claim in claims)
                     {
                         identity.AddClaim(new Claim(claim.Type, claim.Value.ToString()));

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IdentityServerAspNetIdentity.Data
 {

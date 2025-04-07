@@ -1,12 +1,15 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
+using BlazorServer.Data;
+using IdentityModel.AspNetCore.AccessTokenManagement;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BlazorServer.Data;
-using Microsoft.AspNetCore.Http;
-using IdentityModel.AspNetCore.AccessTokenManagement;
 
 namespace BlazorServer
 {
@@ -74,10 +77,10 @@ namespace BlazorServer
                         RoleClaimType = "role"
                     };
 
-                    options.Events.OnTokenValidated = async n => 
+                    options.Events.OnTokenValidated = async n =>
                     {
                         var svc = n.HttpContext.RequestServices.GetRequiredService<IUserAccessTokenStore>();
-                        var exp = DateTimeOffset.UtcNow.AddSeconds(Double.Parse(n.TokenEndpointResponse.ExpiresIn));
+                        var exp = DateTimeOffset.UtcNow.AddSeconds(double.Parse(n.TokenEndpointResponse.ExpiresIn));
                         await svc.StoreTokenAsync(n.Principal, n.TokenEndpointResponse.AccessToken, exp, n.TokenEndpointResponse.RefreshToken);
                     };
                 });

@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MvcClient.Models;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using MvcClient.Models;
 using Newtonsoft.Json.Linq;
 
 namespace MvcClient.Controllers
@@ -23,7 +26,7 @@ namespace MvcClient.Controllers
         {
             return View();
         }
-        
+
         public async Task<IActionResult> CallApi()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");

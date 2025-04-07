@@ -1,4 +1,6 @@
-using System.Text.Json;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,7 +12,7 @@ public class SecureModel : PageModel
     public SecureModel(ILogger<SecureModel> logger, IHttpClientFactory clientFactory)
     {
         _logger = logger;
-        _http = clientFactory.CreateClient("StepUp");    
+        _http = clientFactory.CreateClient("StepUp");
     }
 
     private readonly ILogger<SecureModel> _logger;

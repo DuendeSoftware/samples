@@ -7,7 +7,7 @@
             "command": "dotnet",
             "args": [
                 "build",
-                "${workspaceFolder}/MvcBasic.sln",
+                "${workspaceFolder}/MvcJarJwt.sln",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

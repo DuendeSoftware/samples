@@ -1,8 +1,11 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
@@ -22,13 +25,13 @@ public class AssertionService
     {
         var now = DateTime.UtcNow;
         var clientId = _configuration.GetValue<string>("ClientId");
-    
+
         // in production you should load that key from some secure location
         var key = _configuration.GetValue<string>("Secrets:Key");
 
         var token = new JwtSecurityToken(
             clientId,
-            Urls.IdentityServer + "/connect/token",
+            Urls.IdentityServer,
             new List<Claim>()
             {
                 new Claim(JwtClaimTypes.JwtId, Guid.NewGuid().ToString()),
@@ -40,9 +43,11 @@ public class AssertionService
             new SigningCredentials(new JsonWebKey(key), "RS256")
         );
 
+        token.Header[JwtClaimTypes.TokenType] = "client-authentication+jwt";
+
         var tokenHandler = new JwtSecurityTokenHandler();
         tokenHandler.OutboundClaimTypeMap.Clear();
-    
+
         return tokenHandler.WriteToken(token);
     }
 
@@ -50,7 +55,7 @@ public class AssertionService
     {
         var now = DateTime.UtcNow;
         var clientId = _configuration.GetValue<string>("ClientId");
-    
+
         // in production you should load that key from some secure location
         var key = _configuration.GetValue<string>("Secrets:Key");
 
@@ -68,10 +73,10 @@ public class AssertionService
             now.AddMinutes(1),
             new SigningCredentials(new JsonWebKey(key), "RS256")
         );
-    
+
         var tokenHandler = new JwtSecurityTokenHandler();
         tokenHandler.OutboundClaimTypeMap.Clear();
-    
+
         return tokenHandler.WriteToken(token);
     }
 }

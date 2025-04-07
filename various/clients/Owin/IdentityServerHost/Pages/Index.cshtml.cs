@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +12,7 @@ namespace IdentityServerHost.Pages.Home;
 public class Index : PageModel
 {
     public string Version;
-        
+
     public void OnGet()
     {
         Version = typeof(Duende.IdentityServer.Hosting.IdentityServerMiddleware).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+').First();

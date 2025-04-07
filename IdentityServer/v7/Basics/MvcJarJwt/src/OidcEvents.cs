@@ -1,5 +1,8 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Threading.Tasks;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace Client;
@@ -26,7 +29,7 @@ public class OidcEvents : OpenIdConnectEvents
         var request = _assertionService.SignAuthorizationRequest(context.ProtocolMessage);
         var clientId = context.ProtocolMessage.ClientId;
         var redirectUri = context.ProtocolMessage.RedirectUri;
-    
+
         context.ProtocolMessage.Parameters.Clear();
         context.ProtocolMessage.ClientId = clientId;
         context.ProtocolMessage.RedirectUri = redirectUri;

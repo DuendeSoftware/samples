@@ -1,5 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Duende.IdentityServer;
@@ -74,7 +74,7 @@ internal static class HostingExtensions
 
         var googleClientId = builder.Configuration["Authentication:Google:ClientId"];
         var googleClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-        if(googleClientId != null && googleClientSecret != null)
+        if (googleClientId != null && googleClientSecret != null)
         {
             authenticationBuilder.AddGoogle("Google", options =>
             {

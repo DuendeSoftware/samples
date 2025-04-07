@@ -1,4 +1,7 @@
-﻿using System;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System;
 using Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +13,8 @@ using Serilog.Sinks.SystemConsole.Themes;
 Console.Title = "Resource based API";
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Verbose()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-    .MinimumLevel.Override("System", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .MinimumLevel.Override("System", LogEventLevel.Information)
     .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
     .Enrich.FromLogContext()
     .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)

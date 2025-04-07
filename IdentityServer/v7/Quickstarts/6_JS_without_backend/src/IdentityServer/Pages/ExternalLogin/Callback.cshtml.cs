@@ -1,5 +1,5 @@
 // Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Security.Claims;
 using Duende.IdentityServer;
@@ -36,19 +36,19 @@ public class Callback : PageModel
         _logger = logger;
         _events = events;
     }
-        
+
     public async Task<IActionResult> OnGet()
     {
         // read external identity from the temporary cookie
         var result = await HttpContext.AuthenticateAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
         if (result.Succeeded != true)
         {
-            throw new InvalidOperationException($"External authentication error: { result.Failure }");
+            throw new InvalidOperationException($"External authentication error: {result.Failure}");
         }
 
-        var externalUser = result.Principal ?? 
+        var externalUser = result.Principal ??
             throw new InvalidOperationException("External authentication produced a null Principal");
-		
+
         if (_logger.IsEnabled(LogLevel.Debug))
         {
             var externalClaims = externalUser.Claims.Select(c => $"{c.Type}: {c.Value}");
@@ -86,7 +86,7 @@ public class Callback : PageModel
         var additionalLocalClaims = new List<Claim>();
         var localSignInProps = new AuthenticationProperties();
         CaptureExternalLoginContext(result, additionalLocalClaims, localSignInProps);
-            
+
         // issue authentication cookie for user
         var isuser = new IdentityServerUser(user.SubjectId)
         {

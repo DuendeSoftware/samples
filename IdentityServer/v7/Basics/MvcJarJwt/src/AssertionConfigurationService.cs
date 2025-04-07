@@ -1,7 +1,10 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Threading.Tasks;
-using IdentityModel;
-using IdentityModel.Client;
 using Duende.AccessTokenManagement;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 
 namespace Client;
 
@@ -9,7 +12,7 @@ public class ClientAssertionService : IClientAssertionService
 {
     private readonly AssertionService _assertionService;
 
-    public ClientAssertionService(AssertionService assertionService) 
+    public ClientAssertionService(AssertionService assertionService)
     {
         _assertionService = assertionService;
     }

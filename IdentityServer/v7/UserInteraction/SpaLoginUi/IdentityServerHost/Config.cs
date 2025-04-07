@@ -1,9 +1,8 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
 using Duende.IdentityServer.Models;
-using System.Collections.Generic;
 
 namespace IdentityServerHost;
 
@@ -24,7 +23,7 @@ public static class Config
             {
                 ClientId = "interactive",
                 ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-                
+
                 AllowedGrantTypes = GrantTypes.Code,
 
                 RequireConsent = true,

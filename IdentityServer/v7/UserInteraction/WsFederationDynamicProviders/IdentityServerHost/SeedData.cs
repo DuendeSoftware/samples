@@ -1,16 +1,13 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
-using Serilog;
-using Duende.IdentityServer.EntityFramework.Storage;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
+using Duende.IdentityServer.EntityFramework.Storage;
 using Duende.IdentityServer.Models;
-using System;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace IdentityServerHost;
 
