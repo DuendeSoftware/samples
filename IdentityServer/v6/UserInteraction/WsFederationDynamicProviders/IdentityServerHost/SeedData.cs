@@ -70,12 +70,13 @@ public class SeedData
             Log.Debug("IdentityResources already populated");
         }
 
+
         if (!context.ApiScopes.Any())
         {
             Log.Debug("ApiScopes being populated");
-            foreach (var resource in Config.ApiScopes.ToList())
+            foreach (var apiScope in Config.ApiScopes.ToList())
             {
-                context.ApiScopes.Add(resource.ToEntity());
+                context.ApiScopes.Add(apiScope.ToEntity());
             }
             context.SaveChanges();
         }
