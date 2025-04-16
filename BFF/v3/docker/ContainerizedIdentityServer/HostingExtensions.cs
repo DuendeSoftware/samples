@@ -21,7 +21,7 @@ internal static class HostingExtensions
                 // see https://docs.duendesoftware.com/identityserver/fundamentals/resources#resources-isolation
                 options.EmitStaticAudienceClaim = true;
                 options.IssuerUri = "https://localhost:7051";
-                })
+            })
             .AddTestUsers(TestUsers.Users);
 
         // in-memory, code config
