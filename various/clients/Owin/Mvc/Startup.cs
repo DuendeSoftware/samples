@@ -81,7 +81,7 @@ namespace OwinMvc
             }
         }
 
-        // Do not challenge if the user is already authenticated, otherwise you get an inifinte loop on authorization failure
+        // Do not challenge if the user is already authenticated, otherwise you get an infinte loop on authorization failure
         private async Task ForbidInsteadOfChallengeIfAuthenticated(
             RedirectToIdentityProviderNotification<OpenIdConnectMessage, OpenIdConnectAuthenticationOptions> notification)
         {
