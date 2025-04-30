@@ -4,7 +4,7 @@
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
-using IdentityModel;
+using Duende.IdentityModel;
 
 namespace Shared;
 

@@ -18,13 +18,6 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Override("System", LogEventLevel.Warning)
     .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
     .Enrich.FromLogContext()
-    // uncomment to write to Azure diagnostics stream
-    //.WriteTo.File(
-    //    @"D:\home\LogFiles\Application\identityserver.txt",
-    //    fileSizeLimitBytes: 1_000_000,
-    //    rollOnFileSizeLimit: true,
-    //    shared: true,
-    //    flushToDiskInterval: TimeSpan.FromSeconds(1))
     .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
     .CreateLogger();
 
@@ -34,6 +27,14 @@ builder.Services.AddSerilog();
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddAuthentication()
+    .AddCertificate(opt =>
+    {
+        // Revocation check disabled for mkcert certificate. 
+        // In production, revocation should be checked.
+        opt.RevocationMode = X509RevocationMode.NoCheck;
+    });
+
 var idsvrBuilder = builder.Services.AddIdentityServer(options =>
 {
     options.Events.RaiseErrorEvents = true;
@@ -41,15 +42,8 @@ var idsvrBuilder = builder.Services.AddIdentityServer(options =>
     options.Events.RaiseFailureEvents = true;
     options.Events.RaiseSuccessEvents = true;
 
-    // see https://docs.duendesoftware.com/identityserver/v5/basics/resources
-    options.EmitStaticAudienceClaim = true;
-
-    // MTLS stuff
+    // MTLS Configuration
     options.MutualTls.Enabled = true;
-    options.MutualTls.AlwaysEmitConfirmationClaim = true;
-    options.MutualTls.DomainName = "mtls.localhost:5099";
-    // set this to be explicit when using a domain name for mTLS
-    options.IssuerUri = "https://localhost:5001";
 });
 
 idsvrBuilder.AddTestUsers(TestUsers.Users);
@@ -60,20 +54,15 @@ idsvrBuilder.AddInMemoryApiScopes(Resources.ApiScopes);
 // this allows MTLS to be used as client authentication
 idsvrBuilder.AddMutualTlsSecretValidators();
 
-// for local testing, we will use kestrel's MTLS
-// this requires DNS to be setup -- hosts file would contain:
-// 127.0.0.1 ::1 mtls.localhost
-var mtls_localhost = new X509Certificate2("mtls.localhost.pfx", "password");
+// for local testing, we will use kestrel's mTLS
 builder.Services.Configure<KestrelServerOptions>(options =>
 {
-    options.ListenLocalhost(5001, config => config.UseHttps());
-    options.ListenLocalhost(5099, config =>
+    options.ListenLocalhost(5001, config =>
     {
         config.UseHttps(https =>
         {
-            https.ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.RequireCertificate;
+            https.ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.AllowCertificate;
             https.AllowAnyClientCertificate();
-            https.ServerCertificate = mtls_localhost;
         });
     });
 });

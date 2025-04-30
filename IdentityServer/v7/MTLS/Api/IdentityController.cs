@@ -6,14 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [Route("identity")]
-public class IdentityController : ControllerBase
+public class IdentityController(ILogger<IdentityController> logger) : ControllerBase
 {
-    private readonly ILogger<IdentityController> _logger;
-
-    public IdentityController(ILogger<IdentityController> logger)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<IdentityController> _logger = logger;
 
     // this action simply echoes the claims back to the client
     [HttpGet]
