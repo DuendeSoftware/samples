@@ -3,7 +3,7 @@
 
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
-using IdentityModel.Client;
+using Duende.IdentityModel.Client;
 using Shared;
 
 namespace ClientCredentials;
@@ -12,7 +12,7 @@ public static class Urls
 {
     public const string IdentityServer = "https://localhost:5001";
 
-    public const string ApiBaseMtls = "https://api.localhost:6002";
+    public const string ApiBaseMtls = "https://localhost:6001";
     public const string ApiMtls = ApiBaseMtls + "/identity";
 }
 
@@ -33,7 +33,10 @@ public class Program
         var client = new HttpClient(GetHandler());
 
         var disco = await client.GetDiscoveryDocumentAsync(Urls.IdentityServer);
-        if (disco.IsError) throw new Exception(disco.Error);
+        if (disco.IsError)
+        {
+            throw new Exception(disco.Error);
+        }
 
         var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
         {
@@ -44,7 +47,11 @@ public class Program
             Scope = "scope1"
         });
 
-        if (response.IsError) throw new Exception(response.Error);
+        if (response.IsError)
+        {
+            throw new Exception(response.Error);
+        }
+
         return response;
     }
 
@@ -63,7 +70,7 @@ public class Program
     {
         var handler = new SocketsHttpHandler();
 
-        var cert = new X509Certificate2("client.p12", "changeit");
+        var cert = new X509Certificate2("../localhost-client.p12", "changeit");
         handler.SslOptions.ClientCertificates = new X509CertificateCollection { cert };
 
         return handler;

@@ -21,7 +21,7 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
-            "console": "externalTerminal",
+            "console": "integratedTerminal"
         },
         {
             "name": "Api",
@@ -34,7 +34,7 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
-            "console": "externalTerminal",
+            "console": "integratedTerminal",
         },
         {
             "name": "ClientCredentials",
@@ -44,7 +44,7 @@
             "program": "${workspaceFolder}/ClientCredentials/bin/Debug/net8.0/ClientCredentials.dll",
             "args": [],
             "cwd": "${workspaceFolder}/ClientCredentials",
-            "console": "externalTerminal",
+            "console": "integratedTerminal",
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },

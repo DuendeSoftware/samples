@@ -11,9 +11,7 @@ namespace Api;
 public static class ConfirmationValidationExtensions
 {
     public static IApplicationBuilder UseConfirmationValidation(this IApplicationBuilder app, ConfirmationValidationMiddlewareOptions options = default)
-    {
-        return app.UseMiddleware<ConfirmationValidationMiddleware>(options ?? new ConfirmationValidationMiddlewareOptions());
-    }
+        => app.UseMiddleware<ConfirmationValidationMiddleware>(options ?? new ConfirmationValidationMiddlewareOptions());
 }
 
 public class ConfirmationValidationMiddlewareOptions
@@ -32,7 +30,7 @@ public class ConfirmationValidationMiddleware
     {
         _next = next;
         _logger = logger;
-        _options ??= new ConfirmationValidationMiddlewareOptions();
+        _options = options ?? new ConfirmationValidationMiddlewareOptions();
     }
 
     public async Task Invoke(HttpContext ctx)
