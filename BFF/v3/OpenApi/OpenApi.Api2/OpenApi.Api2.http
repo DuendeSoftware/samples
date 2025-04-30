@@ -1,0 +1,6 @@
+@OpenApi.Api2_HostAddress = https://localhost:7289
+
+GET {{OpenApi.Api2_HostAddress}}/weatherforecastfahrenheit/
+Accept: application/json
+
+###
