@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer.EntityFramework" Version="5.2.1" />
+    <PackageReference Include="Duende.IdentityServer.EntityFramework" Version="5.2.3" />
 
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.13" />
 
