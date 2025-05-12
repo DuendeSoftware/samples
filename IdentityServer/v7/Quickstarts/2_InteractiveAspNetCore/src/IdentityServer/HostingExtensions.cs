@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Duende.IdentityServer;
+using Google.Apis.Auth.AspNetCore3;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
@@ -25,13 +26,19 @@ internal static class HostingExtensions
         var googleClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
         if (googleClientId != null && googleClientSecret != null)
         {
-            authenticationBuilder.AddGoogle("Google", options =>
-            {
-                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-
-                options.ClientId = googleClientId;
-                options.ClientSecret = googleClientSecret;
-            });
+            authenticationBuilder
+                .AddGoogleOpenIdConnect(
+                    authenticationScheme: GoogleOpenIdConnectDefaults.AuthenticationScheme,
+                    displayName: "Google",
+                    configureOptions: options =>
+                    {
+                        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+  
+                        options.ClientId = googleClientId;
+                        options.ClientSecret = googleClientSecret;
+          
+                        options.CallbackPath = "/signin-google";
+                    });
         }
 
         authenticationBuilder.AddOpenIdConnect("oidc", "Demo IdentityServer", options =>

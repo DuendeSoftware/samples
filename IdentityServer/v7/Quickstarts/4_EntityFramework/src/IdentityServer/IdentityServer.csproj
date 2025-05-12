@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Duende.IdentityServer.EntityFramework" Version="7.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.1" />
+    <PackageReference Include="Google.Apis.Auth.AspNetCore3" Version="1.69.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
