@@ -7,8 +7,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer.Configuration" Version="6.3.3" />
-    <PackageReference Include="Duende.IdentityServer.Configuration.EntityFramework" Version="6.3.3" />
+    <PackageReference Include="Duende.IdentityServer.Configuration" Version="6.3.10" />
+    <PackageReference Include="Duende.IdentityServer.Configuration.EntityFramework" Version="6.3.10" />
     <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.16" />

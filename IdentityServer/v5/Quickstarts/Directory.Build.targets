@@ -7,9 +7,9 @@
     <ItemGroup>
         <PackageReference Update="IdentityModel" Version="5.0.0" />
         
-        <PackageReference Update="Duende.IdentityServer" Version="5.0.0" />
-        <PackageReference Update="Duende.IdentityServer.EntityFramework" Version="5.0.0" />
-        <PackageReference Update="Duende.IdentityServer.AspNetIdentity" Version="5.0.0" />
+        <PackageReference Update="Duende.IdentityServer" Version="5.2.3" />
+        <PackageReference Update="Duende.IdentityServer.EntityFramework" Version="5.2.3" />
+        <PackageReference Update="Duende.IdentityServer.AspNetIdentity" Version="5.2.3" />
 
         <PackageReference Update="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="$(AspNetVersion)" />
         <PackageReference Update="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspNetVersion)" />
