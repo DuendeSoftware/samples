@@ -3,7 +3,7 @@
 
 using System.Text.Json;
 using ConsoleDcrClient;
-using IdentityModel.Client;
+using Duende.IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

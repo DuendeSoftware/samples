@@ -4,7 +4,7 @@
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
-using IdentityModel;
+using Duende.IdentityModel;
 
 namespace IdentityServerHost;
 

@@ -4,7 +4,7 @@
 
 using System.Text;
 using System.Text.Json;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 
 namespace SessionMigration.Pages.Diagnostics;

@@ -4,7 +4,7 @@
 using System.Security.Claims;
 using System.Security.Principal;
 using Duende.IdentityServer;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

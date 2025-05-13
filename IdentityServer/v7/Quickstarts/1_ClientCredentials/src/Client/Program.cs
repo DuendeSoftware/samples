@@ -3,7 +3,7 @@
 
 
 using System.Text.Json;
-using IdentityModel.Client;
+using Duende.IdentityModel.Client;
 
 // discover endpoints from metadata
 var client = new HttpClient();

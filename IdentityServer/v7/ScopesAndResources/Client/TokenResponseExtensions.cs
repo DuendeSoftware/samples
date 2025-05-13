@@ -4,8 +4,8 @@
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
-using IdentityModel;
-using IdentityModel.Client;
+using Duende.IdentityModel;
+using Duende.IdentityModel.Client;
 
 namespace Client;
 

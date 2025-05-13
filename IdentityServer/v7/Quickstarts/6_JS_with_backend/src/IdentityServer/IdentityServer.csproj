@@ -9,7 +9,6 @@
 	<ItemGroup>
 		<PackageReference Include="Duende.IdentityServer" Version="7.2.3" />
     <PackageReference Include="Google.Apis.Auth.AspNetCore3" Version="1.69.0" />
-
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
 	</ItemGroup>
 </Project>
