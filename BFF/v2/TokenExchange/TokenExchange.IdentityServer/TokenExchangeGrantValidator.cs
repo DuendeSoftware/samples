@@ -3,7 +3,7 @@
 
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Validation;
-using IdentityModel;
+using Duende.IdentityModel;
 
 namespace TokenExchange.IdentityServer;
 

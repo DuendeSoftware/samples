@@ -9,12 +9,13 @@ using IdentityModel;
 using Microsoft.AspNetCore.Authentication.WsFederation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace IdentityServerHost.WsFed;
 
 class WsFedConfigureOptions : ConfigureAuthenticationOptions<WsFederationOptions, WsFedProvider>
 {
-    public WsFedConfigureOptions(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+    public WsFedConfigureOptions(IHttpContextAccessor httpContextAccessor, ILogger<ConfigureAuthenticationOptions<WsFederationOptions, WsFedProvider>> logger) : base(httpContextAccessor, logger)
     {
     }
 
