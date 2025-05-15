@@ -3,7 +3,7 @@
 
 using Duende.IdentityServer.Configuration;
 using Duende.IdentityServer.Hosting.DynamicProviders;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authentication.WsFederation;
 
 namespace IdentityServerHost;

@@ -18,9 +18,9 @@ public class AcrDiscoveryDocumentGenerator : DiscoveryResponseGenerator
     public override async Task<Dictionary<string, object>> CreateDiscoveryDocumentAsync(string baseUrl, string issuerUri)
     {
         var result = await base.CreateDiscoveryDocumentAsync(baseUrl, issuerUri);
-        if (!result.ContainsKey(IdentityModel.OidcConstants.Discovery.AcrValuesSupported))
+        if (!result.ContainsKey(Duende.IdentityModel.OidcConstants.Discovery.AcrValuesSupported))
         {
-            result.Add(IdentityModel.OidcConstants.Discovery.AcrValuesSupported, new[] { "1" });
+            result.Add(Duende.IdentityModel.OidcConstants.Discovery.AcrValuesSupported, new[] { "1" });
         }
         return result;
     }

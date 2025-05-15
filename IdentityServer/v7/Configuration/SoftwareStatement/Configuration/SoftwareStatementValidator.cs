@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using Duende.IdentityServer.Configuration.Models;
 using Duende.IdentityServer.Configuration.Models.DynamicClientRegistration;
 using Duende.IdentityServer.Configuration.Validation.DynamicClientRegistration;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 

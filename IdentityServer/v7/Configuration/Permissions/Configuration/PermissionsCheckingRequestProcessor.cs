@@ -6,7 +6,7 @@ using Duende.IdentityServer.Configuration.Configuration;
 using Duende.IdentityServer.Configuration.Models.DynamicClientRegistration;
 using Duende.IdentityServer.Configuration.RequestProcessing;
 using Duende.IdentityServer.Models;
-using IdentityModel;
+using Duende.IdentityModel;
 
 namespace Configuration;
 

@@ -35,18 +35,22 @@ internal static class HostingExtensions
         idsvrBuilder.AddJwtBearerClientAuthentication();
 
         builder.Services.AddAuthentication()
-            .AddOpenIdConnect("Google", "Sign-in with Google", options =>
+            .AddOpenIdConnect("oidc", "Sign-in with demo.duendesoftware.com", options =>
             {
                 options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                options.ForwardSignOut = IdentityServerConstants.DefaultCookieAuthenticationScheme;
-
-                options.Authority = "https://accounts.google.com/";
-                options.ClientId = "708778530804-rhu8gc4kged3he14tbmonhmhe7a43hlp.apps.googleusercontent.com";
-
-                options.CallbackPath = "/signin-google";
-                options.Scope.Add("email");
-                //Disable x-client-SKU and x-client-ver headers (security issue)
-                options.DisableTelemetry = true;
+                options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+                options.SaveTokens = true;
+        
+                options.Authority = "https://demo.duendesoftware.com";
+                options.ClientId = "interactive.confidential";
+                options.ClientSecret = "secret";
+                options.ResponseType = "code";
+        
+                options.TokenValidationParameters = new()
+                {
+                    NameClaimType = "name",
+                    RoleClaimType = "role"
+                };
             });
 
         return builder.Build();

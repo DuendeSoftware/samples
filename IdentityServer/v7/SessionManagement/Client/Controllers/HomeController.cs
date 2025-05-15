@@ -4,7 +4,7 @@
 using System.Globalization;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using IdentityModel.Client;
+using Duende.IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

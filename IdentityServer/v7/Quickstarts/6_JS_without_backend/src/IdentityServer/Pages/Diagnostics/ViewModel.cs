@@ -3,7 +3,7 @@
 
 using System.Text;
 using System.Text.Json;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 
 namespace IdentityServer.Pages.Diagnostics;

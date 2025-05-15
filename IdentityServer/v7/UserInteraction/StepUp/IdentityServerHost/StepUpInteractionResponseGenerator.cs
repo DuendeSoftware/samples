@@ -7,7 +7,7 @@ using Duende.IdentityServer.Configuration;
 using Duende.IdentityServer.ResponseHandling;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
-using IdentityModel;
+using Duende.IdentityModel;
 
 namespace IdentityServerHost;
 

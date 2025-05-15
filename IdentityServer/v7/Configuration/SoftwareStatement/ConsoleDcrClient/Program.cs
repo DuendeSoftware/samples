@@ -4,7 +4,7 @@
 using System.Security.Cryptography;
 using System.Text.Json;
 using ConsoleDcrClient;
-using IdentityModel.Client;
+using Duende.IdentityModel.Client;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
@@ -76,8 +76,8 @@ static string CreateSoftwareStatement()
 
     var claims = new Dictionary<string, string>
     {
-        { IdentityModel.OidcConstants.ClientMetadata.ClientName, "demo-client" },
-        { IdentityModel.OidcConstants.ClientMetadata.SoftwareId, Guid.NewGuid().ToString() }
+        { Duende.IdentityModel.OidcConstants.ClientMetadata.ClientName, "demo-client" },
+        { Duende.IdentityModel.OidcConstants.ClientMetadata.SoftwareId, Guid.NewGuid().ToString() }
     };
 
     var payload = JsonSerializer.Serialize(claims);

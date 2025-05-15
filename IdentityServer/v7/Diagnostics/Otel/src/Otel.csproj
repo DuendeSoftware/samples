@@ -6,11 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer" Version="6.1.0-preview.3" />
-    
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.0" />
+    <PackageReference Include="Duende.IdentityServer" Version="6.3.10" />
     <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
-
+    
     <!-- open telemetry -->
     <PackageReference Include="OpenTelemetry" Version="1.2.0-rc2" />
     <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.2.0-rc2" />

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Duende.IdentityServer;
+using Google.Apis.Auth.AspNetCore3;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
@@ -21,36 +22,42 @@ internal static class HostingExtensions
 
         var authenticationBuilder = builder.Services.AddAuthentication();
 
+        authenticationBuilder.AddOpenIdConnect("oidc", "Sign-in with demo.duendesoftware.com", options =>
+        {
+            options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+            options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+            options.SaveTokens = true;
+        
+            options.Authority = "https://demo.duendesoftware.com";
+            options.ClientId = "interactive.confidential";
+            options.ClientSecret = "secret";
+            options.ResponseType = "code";
+        
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                NameClaimType = "name",
+                RoleClaimType = "role"
+            };
+        });
+
         var googleClientId = builder.Configuration["Authentication:Google:ClientId"];
         var googleClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
         if (googleClientId != null && googleClientSecret != null)
         {
-            authenticationBuilder.AddGoogle("Google", options =>
-            {
-                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-
-                options.ClientId = googleClientId;
-                options.ClientSecret = googleClientSecret;
-            });
+            authenticationBuilder
+                .AddGoogleOpenIdConnect(
+                    authenticationScheme: GoogleOpenIdConnectDefaults.AuthenticationScheme,
+                    displayName: "Google",
+                    configureOptions: options =>
+                    {
+                        options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+  
+                        options.ClientId = googleClientId;
+                        options.ClientSecret = googleClientSecret;
+          
+                        options.CallbackPath = "/signin-google";
+                    });
         }
-
-        authenticationBuilder.AddOpenIdConnect("oidc", "Demo IdentityServer", options =>
-            {
-                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-                options.SignOutScheme = IdentityServerConstants.SignoutScheme;
-                options.SaveTokens = true;
-
-                options.Authority = "https://demo.duendesoftware.com";
-                options.ClientId = "interactive.confidential";
-                options.ClientSecret = "secret";
-                options.ResponseType = "code";
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    NameClaimType = "name",
-                    RoleClaimType = "role"
-                };
-            });
 
         return builder.Build();
     }

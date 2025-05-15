@@ -1,7 +1,7 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
