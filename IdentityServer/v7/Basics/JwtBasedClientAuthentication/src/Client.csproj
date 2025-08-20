@@ -7,7 +7,7 @@
   
   <ItemGroup>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.1" />
-    <PackageReference Include="Duende.IdentityModel" Version="7.0.0" />
+    <PackageReference Include="Duende.IdentityModel" Version="7.1.0" />
   </ItemGroup>
   
   <!-- Constants and helpers -->
