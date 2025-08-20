@@ -1,5 +1,5 @@
-﻿using IdentityModel.Client;
-using IdentityModel.OidcClient;
+﻿using Duende.IdentityModel.Client;
+using Duende.IdentityModel.OidcClient;
 using System.Text;
 using System.Text.Json;
 

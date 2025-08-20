@@ -1,4 +1,7 @@
-﻿using IdentityModel.OidcClient;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Duende.IdentityModel.OidcClient;
 using Microsoft.Extensions.Logging;
 
 namespace MauiApp1;
@@ -16,7 +19,7 @@ public static class MauiProgram
             });
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
         // setup OidcClient
