@@ -85,7 +85,7 @@ public class BffAuthenticationStateProvider : AuthenticationStateProvider
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                var claims = await response.Content.ReadFromJsonAsync<List<ClaimRecord>>();
+                var claims = await response.Content.ReadFromJsonAsync<List<ClaimRecord>>() ?? new(0);
 
                 var identity = new ClaimsIdentity(
                     nameof(BffAuthenticationStateProvider),
