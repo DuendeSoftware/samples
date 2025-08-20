@@ -1,4 +1,7 @@
-﻿using Android.App;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Android.App;
 using Android.Content.PM;
 
 namespace YourNameSpace;
