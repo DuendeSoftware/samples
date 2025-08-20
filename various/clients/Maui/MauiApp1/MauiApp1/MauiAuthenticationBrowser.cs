@@ -1,9 +1,9 @@
-using IdentityModel.Client;
-using IdentityModel.OidcClient.Browser;
+using Duende.IdentityModel.Client;
+using Duende.IdentityModel.OidcClient.Browser;
 
 namespace MauiApp1;
 
-public class MauiAuthenticationBrowser : IdentityModel.OidcClient.Browser.IBrowser
+public class MauiAuthenticationBrowser : Duende.IdentityModel.OidcClient.Browser.IBrowser
 {
     public async Task<BrowserResult> InvokeAsync(BrowserOptions options, CancellationToken cancellationToken = default)
     {
