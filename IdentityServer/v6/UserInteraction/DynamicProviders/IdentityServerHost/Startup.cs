@@ -37,7 +37,7 @@ public class Startup
             options.Events.RaiseFailureEvents = true;
             options.Events.RaiseSuccessEvents = true;
 
-            // see https://docs.duendesoftware.com/identityserver/v5/fundamentals/resources/
+            // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
             options.EmitStaticAudienceClaim = true;
 
             // this controls how long the dynamic providers are cached, if caching is enabled (see AddConfigurationStoreCache() below)

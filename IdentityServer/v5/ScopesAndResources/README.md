@@ -1,6 +1,6 @@
 This sample shows the effect of API scope / API resource configuration on the resulting access token.
 
-See the [documentation](https://docs.duendesoftware.com/identityserver/v5/basics/resources/) for more information.
+See the [documentation](https://docs.duendesoftware.com/identityserver/fundamentals/resources//) for more information.
 
 Relevant points
 

@@ -22,16 +22,16 @@ public static class Clients
 
                 AllowedScopes = { "scope1", "scope2" }
             },
-            
+
             // JWT-based client authentication sample
             new Client
             {
                 ClientId = "jwt.client.credentials.sample",
 
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
-                
+
                 // this client uses an RSA key as client secret
-                // and https://docs.duendesoftware.com/identityserver/v5/tokens/authentication/jwt/
+                // and https://docs.duendesoftware.com/identityserver/tokens/client-authentication
                 ClientSecrets =
                 {
                     new Secret
@@ -50,7 +50,7 @@ public static class Clients
 
                 AllowedScopes = { "scope1", "scope2" }
             },
-            
+
             // introspection sample
             new Client
             {
@@ -79,7 +79,7 @@ public static class Clients
                 AllowOfflineAccess = true,
                 AllowedScopes = { "openid", "profile", "scope1", "scope2" }
             },
-            
+
             // MVC basic sample with token management
             // this client has a short access token lifetime to experiment with automatic refresh
             new Client
@@ -97,20 +97,20 @@ public static class Clients
                 AllowOfflineAccess = true,
                 AllowedScopes = { "openid", "profile", "scope1", "scope2" }
             },
-            
+
             // MVC sample using JAR (signed authorize requests) and JWTs for client authentication
             new Client
             {
                 ClientId = "interactive.mvc.sample.jarjwt",
-                
+
                 // force client to use signed authorize request
                 RequireRequestObject = true,
-                
+
                 // this client uses an RSA key as client secret
                 // this key is used for both validating the signature on the authorize request
                 // and for client authentication
                 // see https://docs.duendesoftware.com/identityserver/v5/advanced/jar/
-                // and https://docs.duendesoftware.com/identityserver/v5/tokens/authentication/jwt/
+                // and https://docs.duendesoftware.com/identityserver/tokens/client-authentication
                 ClientSecrets =
                 {
                     new Secret
@@ -136,7 +136,7 @@ public static class Clients
                 AllowOfflineAccess = true,
                 AllowedScopes = { "openid", "profile", "scope1", "scope2" }
             },
-            
+
             // MVC back-channel logout sample
             new Client
             {

@@ -18,7 +18,7 @@ internal static class HostingExtensions
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
 
-                // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
+                // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
                 options.EmitStaticAudienceClaim = true;
             })
             .AddTestUsers(TestUsers.Users);
@@ -52,7 +52,7 @@ internal static class HostingExtensions
         //    options.Conventions.AuthorizeFolder("/ServerSideSessions", "admin"));
 
         // //** This is the code that adds migration of sessions. Enabling server side sessions through the
-        // //** block above without enabling this will invalidate all existing sessions. 
+        // //** block above without enabling this will invalidate all existing sessions.
         // builder.Services.AddTransient<IPostConfigureOptions<CookieAuthenticationOptions>, SessionMigrationPostConfigureOptions>();
 
         return builder.Build();

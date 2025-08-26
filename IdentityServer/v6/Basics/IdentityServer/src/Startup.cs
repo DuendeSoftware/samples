@@ -33,7 +33,7 @@ public class Startup
             options.Events.RaiseFailureEvents = true;
             options.Events.RaiseSuccessEvents = true;
 
-            // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes
+            // see https://docs.duendesoftware.com/identityserver/fundamentals/resources/api-scopes
             options.EmitStaticAudienceClaim = true;
         })
             .AddTestUsers(TestUsers.Users);
