@@ -1,4 +1,7 @@
-﻿using System.Buffers.Text;
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using System.Buffers.Text;
 using System.Diagnostics.CodeAnalysis;
 using IdentityServerAspNetIdentityPasskeys.Models;
 using Microsoft.AspNetCore.Identity;

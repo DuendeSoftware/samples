@@ -16,26 +16,23 @@ public class PasskeySubmitTagHelper : TagHelper
 
     [HtmlAttributeName("name")]
     public string Name { get; set; } = null!;
-    
+
     [HtmlAttributeName("email-name")]
     public string? EmailName { get; set; }
 
-    public PasskeySubmitTagHelper(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-    }
+    public PasskeySubmitTagHelper(IHttpContextAccessor httpContextAccessor) => _httpContextAccessor = httpContextAccessor;
 
     public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
         // Get tokens
         var tokens = _httpContextAccessor.HttpContext?.RequestServices
             .GetService<IAntiforgery>()?.GetTokens(_httpContextAccessor.HttpContext);
-        
+
         // Button is the main element we want to create, capture all attributes etc.
         var buttonAttributes = output.Attributes.Where(it => it.Name != "operation" && it.Name != "name" && it.Name != "email-name").ToList();
         var buttonContent = (await output.GetChildContentAsync(NullHtmlEncoder.Default))
             .GetContent(NullHtmlEncoder.Default);
-        
+
         // Create the button
         using var htmlWriter = new StringWriter();
         htmlWriter.Write("<button type=\"submit\" name=\"__passkeySubmit\" ");
@@ -51,7 +48,7 @@ public class PasskeySubmitTagHelper : TagHelper
         }
         htmlWriter.Write("</button>");
         htmlWriter.WriteLine();
-        
+
         // Create the element
         htmlWriter.Write("<passkey-submit ");
         htmlWriter.Write($"operation=\"{Operation}\" ");
@@ -61,7 +58,7 @@ public class PasskeySubmitTagHelper : TagHelper
         htmlWriter.Write($"request-token-value=\"{tokens?.RequestToken ?? ""}\" ");
         htmlWriter.Write(">");
         htmlWriter.Write("</passkey-submit>");
-        
+
         // Emit the element
         output.TagName = null;
         output.Attributes.Clear();
