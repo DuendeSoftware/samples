@@ -2,6 +2,7 @@ using System.Globalization;
 using Duende.IdentityServer;
 using IdentityServerAspNetIdentityPasskeys.Data;
 using IdentityServerAspNetIdentityPasskeys.Models;
+using IdentityServerAspNetIdentityPasskeys.Passkeys;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -117,6 +118,8 @@ internal static class HostingExtensions
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();
+
+        app.MapPasskeyEndpoints();
 
         app.MapRazorPages()
             .RequireAuthorization();
