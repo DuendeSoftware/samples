@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace IdentityServerAspNetIdentityPasskeys.Pages.Login;
 
@@ -62,14 +63,14 @@ public class Index : PageModel
         var context = await _interaction.GetAuthorizationContextAsync(Input.ReturnUrl);
 
         // the user clicked the "cancel" button
-        if (Input.Button != "login")
+        if (Input.Button != "login" && Input.Button != "__passkeySubmit" && Input.Button != null)
         {
             if (context != null)
             {
                 // This "can't happen", because if the ReturnUrl was null, then the context would be null
                 ArgumentNullException.ThrowIfNull(Input.ReturnUrl, nameof(Input.ReturnUrl));
 
-                // if the user cancels, send a result back into IdentityServer as if they 
+                // if the user cancels, send a result back into IdentityServer as if they
                 // denied the consent (even if this client does not require consent).
                 // this will send back an access denied OIDC error response to the client.
                 await _interaction.DenyAuthorizationAsync(context, AuthorizationError.AccessDenied);
@@ -91,59 +92,72 @@ public class Index : PageModel
             }
         }
 
-        if (ModelState.IsValid)
+        SignInResult? result = null;
+        ApplicationUser? user = null;
+        if (!string.IsNullOrEmpty(Input.Passkey?.CredentialJson))
+        {
+            // When performing passkey sign-in, don't perform form validation.
+            ModelState.Clear();
+
+            result = await _signInManager.PasskeySignInAsync(Input.Passkey.CredentialJson);
+            if (result.Succeeded)
+            {
+                user = await _userManager.GetUserAsync(User);
+            }
+        }
+        else if (ModelState.IsValid)
         {
             // Only remember login if allowed
             var rememberLogin = LoginOptions.AllowRememberLogin && Input.RememberLogin;
 
-            var result = await _signInManager.PasswordSignInAsync(Input.Username!, Input.Password!,
-                isPersistent: rememberLogin, lockoutOnFailure: true);
+            result = await _signInManager.PasswordSignInAsync(Input.Username!, Input.Password!, isPersistent: rememberLogin, lockoutOnFailure: true);
             if (result.Succeeded)
             {
-                var user = await _userManager.FindByNameAsync(Input.Username!);
-                await _events.RaiseAsync(new UserLoginSuccessEvent(user!.UserName, user.Id, user.UserName,
-                    clientId: context?.Client.ClientId));
-                Telemetry.Metrics.UserLogin(context?.Client.ClientId, IdentityServerConstants.LocalIdentityProvider);
+                user = await _userManager.FindByNameAsync(Input.Username!);
+            }
+        }
 
-                if (context != null)
+        if (result?.Succeeded == true && user != null)
+        {
+            await _events.RaiseAsync(new UserLoginSuccessEvent(user!.UserName, user.Id, user.UserName, clientId: context?.Client.ClientId));
+            Telemetry.Metrics.UserLogin(context?.Client.ClientId, IdentityServerConstants.LocalIdentityProvider);
+
+            if (context != null)
+            {
+                // This "can't happen", because if the ReturnUrl was null, then the context would be null
+                ArgumentNullException.ThrowIfNull(Input.ReturnUrl, nameof(Input.ReturnUrl));
+
+                if (context.IsNativeClient())
                 {
-                    // This "can't happen", because if the ReturnUrl was null, then the context would be null
-                    ArgumentNullException.ThrowIfNull(Input.ReturnUrl, nameof(Input.ReturnUrl));
-
-                    if (context.IsNativeClient())
-                    {
-                        // The client is native, so this change in how to
-                        // return the response is for better UX for the end user.
-                        return this.LoadingPage(Input.ReturnUrl);
-                    }
-
-                    // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
-                    return Redirect(Input.ReturnUrl ?? "~/");
+                    // The client is native, so this change in how to
+                    // return the response is for better UX for the end user.
+                    return this.LoadingPage(Input.ReturnUrl);
                 }
 
-                // request for a local page
-                if (Url.IsLocalUrl(Input.ReturnUrl))
-                {
-                    return Redirect(Input.ReturnUrl);
-                }
-                else if (string.IsNullOrEmpty(Input.ReturnUrl))
-                {
-                    return Redirect("~/");
-                }
-                else
-                {
-                    // user might have clicked on a malicious link - should be logged
-                    throw new ArgumentException("invalid return URL");
-                }
+                // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
+                return Redirect(Input.ReturnUrl ?? "~/");
             }
 
-            const string error = "invalid credentials";
-            await _events.RaiseAsync(new UserLoginFailureEvent(Input.Username, error,
-                clientId: context?.Client.ClientId));
-            Telemetry.Metrics.UserLoginFailure(context?.Client.ClientId, IdentityServerConstants.LocalIdentityProvider,
-                error);
-            ModelState.AddModelError(string.Empty, LoginOptions.InvalidCredentialsErrorMessage);
+            // request for a local page
+            if (Url.IsLocalUrl(Input.ReturnUrl))
+            {
+                return Redirect(Input.ReturnUrl);
+            }
+            else if (string.IsNullOrEmpty(Input.ReturnUrl))
+            {
+                return Redirect("~/");
+            }
+            else
+            {
+                // user might have clicked on a malicious link - should be logged
+                throw new ArgumentException("invalid return URL");
+            }
         }
+
+        const string error = "invalid credentials";
+        await _events.RaiseAsync(new UserLoginFailureEvent(Input.Username, error, clientId: context?.Client.ClientId));
+        Telemetry.Metrics.UserLoginFailure(context?.Client.ClientId, IdentityServerConstants.LocalIdentityProvider, error);
+        ModelState.AddModelError(string.Empty, LoginOptions.InvalidCredentialsErrorMessage);
 
         // something went wrong, show form with error
         await BuildModelAsync(Input.ReturnUrl);

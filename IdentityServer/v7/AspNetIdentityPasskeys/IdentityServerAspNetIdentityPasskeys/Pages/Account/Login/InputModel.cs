@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using IdentityServerAspNetIdentityPasskeys.Models;
 
 namespace IdentityServerAspNetIdentityPasskeys.Pages.Login;
 
@@ -9,4 +10,6 @@ public class InputModel
     public bool RememberLogin { get; set; }
     public string? ReturnUrl { get; set; }
     public string? Button { get; set; }
+
+    public PasskeyInputModel? Passkey { get; set; }
 }
