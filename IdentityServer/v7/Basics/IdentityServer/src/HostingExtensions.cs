@@ -18,7 +18,7 @@ internal static class HostingExtensions
             options.Events.RaiseFailureEvents = true;
             options.Events.RaiseSuccessEvents = true;
 
-            // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes
+            // see https://docs.duendesoftware.com/identityserver/fundamentals/resources/api-scopes
             options.EmitStaticAudienceClaim = true;
             options.PushedAuthorization.AllowUnregisteredPushedRedirectUris = true;
 
@@ -40,12 +40,12 @@ internal static class HostingExtensions
                 options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                 options.SignOutScheme = IdentityServerConstants.SignoutScheme;
                 options.SaveTokens = true;
-        
+
                 options.Authority = "https://demo.duendesoftware.com";
                 options.ClientId = "interactive.confidential";
                 options.ClientSecret = "secret";
                 options.ResponseType = "code";
-        
+
                 options.TokenValidationParameters = new()
                 {
                     NameClaimType = "name",

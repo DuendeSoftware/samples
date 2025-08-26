@@ -38,7 +38,7 @@ namespace IdentityServerWithSpaLogin
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
 
-                // see https://docs.duendesoftware.com/identityserver/v5/fundamentals/resources/
+                // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
                 options.EmitStaticAudienceClaim = true;
             })
                 .AddTestUsers(TestUsers.Users);

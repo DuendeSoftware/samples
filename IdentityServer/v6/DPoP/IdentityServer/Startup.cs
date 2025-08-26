@@ -25,7 +25,7 @@ public class Startup
             options.Events.RaiseFailureEvents = true;
             options.Events.RaiseSuccessEvents = true;
 
-            // see https://docs.duendesoftware.com/identityserver/v5/basics/resources
+            // see https://docs.duendesoftware.com/identityserver/fundamentals/resources/
             options.EmitStaticAudienceClaim = true;
         });
 
