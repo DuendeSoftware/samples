@@ -63,6 +63,16 @@ internal static class HostingExtensions
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Services.Configure<IdentityPasskeyOptions>(options =>
+            {
+                // Allow https://localhost:5001 origin.
+                options.ValidateOrigin = context => ValueTask.FromResult(
+                    context.Origin == "https://localhost:5001");
+            });
+        }
+
         builder.Services
             .AddIdentityServer(options =>
             {
