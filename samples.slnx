@@ -460,6 +460,9 @@
     <Project Path="IdentityServer/v7/AspNetIdentity/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/AspNetIdentity/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v7/AspNetIdentityPasskeys/">
+    <Project Path="IdentityServer/v7/AspNetIdentityPasskeys/IdentityServerAspNetIdentityPasskeys/IdentityServerAspNetIdentityPasskeys.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v7/Basics/" />
   <Folder Name="/IdentityServer/v7/Basics/Apis/">
     <Project Path="IdentityServer/v7/Basics/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />

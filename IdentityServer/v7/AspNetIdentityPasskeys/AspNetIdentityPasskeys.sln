@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerAspNetIdentityPasskeys", "IdentityServerAspNetIdentityPasskeys\IdentityServerAspNetIdentityPasskeys.csproj", "{BFF3D2A2-391A-477F-81DE-9A2ED321C41C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{0BF13ED9-61A5-4DAC-9E47-E2D0372F8DF6}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".config", ".config", "{2D99DC4E-FF98-48C7-B897-E4C6F0CE42A0}"
+	ProjectSection(SolutionItems) = preProject
+		dotnet-tools.json = .config/dotnet-tools.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFF3D2A2-391A-477F-81DE-9A2ED321C41C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFF3D2A2-391A-477F-81DE-9A2ED321C41C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFF3D2A2-391A-477F-81DE-9A2ED321C41C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFF3D2A2-391A-477F-81DE-9A2ED321C41C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2D99DC4E-FF98-48C7-B897-E4C6F0CE42A0} = {0BF13ED9-61A5-4DAC-9E47-E2D0372F8DF6}
+	EndGlobalSection
+EndGlobal
