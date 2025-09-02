@@ -12,94 +12,82 @@ namespace GraphQL.Client.Tests
         /// </summary>
         public static async Task Main(string[] args)
         {
-            // --- Arrange ---
-            using var client = new ClientWebSocket();
-            // Hot Chocolate and other GraphQL servers use the 'graphql-ws' sub-protocol.
-            client.Options.AddSubProtocol("graphql-ws");
-
-            // Define the server URI.
             var serverUri = new Uri("ws://localhost:5197/graphql");
-
-            // Use a CancellationTokenSource to handle graceful shutdown on Ctrl+C.
             using var cts = new CancellationTokenSource();
             Console.CancelKeyPress += (sender, e) =>
             {
-                e.Cancel = true; // Prevent the process from terminating immediately.
+                e.Cancel = true;
                 Console.WriteLine("Ctrl+C detected. Shutting down.");
                 cts.Cancel();
             };
 
-
-            // --- Main Logic ---
-            try
+            while (!cts.IsCancellationRequested)
             {
-                // 1. Connect to the server.
-                Console.WriteLine($"Connecting to {serverUri}...");
-                await client.ConnectAsync(serverUri, cts.Token);
-                Console.WriteLine("Connection established.");
+                using var client = new ClientWebSocket();
+                client.Options.AddSubProtocol("graphql-ws");
 
-                // 2. Send the connection initialization message.
-                // This is the first message the client must send after the WebSocket is open.
-                var initRequest = new { type = "connection_init" };
-                await SendMessageAsync(client, initRequest, cts.Token);
-                Console.WriteLine("Sent connection_init message.");
-
-                // 3. Wait for the 'connection_ack' message from the server.
-                // The server will acknowledge the connection before accepting any operations.
-                var ackMessage = await ReceiveMessageAsync(client, cts.Token);
-                if (ackMessage == null || !ackMessage.Contains("\"type\":\"connection_ack\"", StringComparison.OrdinalIgnoreCase))
+                try
                 {
-                    Console.WriteLine("Server did not acknowledge the connection. Exiting.");
-                    return;
-                }
-                Console.WriteLine("Connection acknowledged by server.");
+                    Console.WriteLine($"Connecting to {serverUri}...");
+                    await client.ConnectAsync(serverUri, cts.Token);
+                    Console.WriteLine("Connection established.");
 
-                // 4. Send the subscription 'start' message.
-                var subscriptionQuery = "subscription { bookAdded { title } }";
-                var startRequest = new
-                {
-                    id = "1", // A unique ID for this subscription.
-                    type = "start",
-                    payload = new { query = subscriptionQuery }
-                };
-                await SendMessageAsync(client, startRequest, cts.Token);
-                Console.WriteLine("Sent subscription 'start' message.");
+                    var initRequest = new { type = "connection_init" };
+                    await SendMessageAsync(client, initRequest, cts.Token);
+                    Console.WriteLine("Sent connection_init message.");
 
-                // 5. Listen continuously for data from the subscription.
-                Console.WriteLine("Listening for subscription data... Press Ctrl+C to exit.");
-                while (client.State == WebSocketState.Open && !cts.IsCancellationRequested)
-                {
-                    var receivedData = await ReceiveMessageAsync(client, cts.Token);
-                    // If we receive data (and it's not a keep-alive message), print it.
-                    if (!string.IsNullOrEmpty(receivedData) && !receivedData.Contains("\"type\":\"ka\""))
+                    var ackMessage = await ReceiveMessageAsync(client, cts.Token);
+                    if (!ackMessage.Contains("\"type\":\"connection_ack\"", StringComparison.OrdinalIgnoreCase))
                     {
-                        Console.WriteLine($"Received: {receivedData}");
+                        Console.WriteLine("Server did not acknowledge the connection.");
+                        Console.WriteLine("Waiting 3 seconds before reconnecting...");
+                        await Task.Delay(3000, CancellationToken.None);
+                        continue;
+                    }
+                    Console.WriteLine("Connection acknowledged by server.");
+
+                    var subscriptionQuery = "subscription { bookAdded { title } }";
+                    var startRequest = new
+                    {
+                        id = "1",
+                        type = "start",
+                        payload = new { query = subscriptionQuery }
+                    };
+                    await SendMessageAsync(client, startRequest, cts.Token);
+                    Console.WriteLine("Sent subscription 'start' message.");
+
+                    Console.WriteLine("Listening for subscription data... Press Ctrl+C to exit.");
+                    while (client.State == WebSocketState.Open && !cts.IsCancellationRequested)
+                    {
+                        var receivedData = await ReceiveMessageAsync(client, cts.Token);
+                        if (string.IsNullOrEmpty(receivedData))
+                        {
+                            Console.WriteLine("Connection closed by server. Attempting to reconnect...");
+                            break;
+                        }
+                        if (!receivedData.Contains("\"type\":\"ka\""))
+                        {
+                            Console.WriteLine($"Received: {receivedData}");
+                        }
                     }
                 }
-            }
-            catch (OperationCanceledException)
-            {
-                // This is expected when Ctrl+C is pressed. The application will then proceed to the finally block.
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
-            finally
-            {
-                // Ensure the connection is closed gracefully.
-                if (client.State == WebSocketState.Open)
+                catch (OperationCanceledException)
                 {
-                    // 6. Stop the subscription and clean up.
-                    // It's good practice to tell the server you are no longer listening.
-                    var stopRequest = new { id = "1", type = "stop" };
-                    await SendMessageAsync(client, stopRequest, CancellationToken.None);
-                    Console.WriteLine("Sent 'stop' message.");
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
 
-                    await client.CloseAsync(WebSocketCloseStatus.NormalClosure, "Client closing connection", CancellationToken.None);
-                    Console.WriteLine("WebSocket connection closed.");
+                if (!cts.IsCancellationRequested)
+                {
+                    Console.WriteLine("Waiting 3 seconds before reconnecting...");
+                    await Task.Delay(3000, CancellationToken.None);
                 }
             }
+
+            Console.WriteLine("Application exiting.");
         }
 
         /// <summary>
