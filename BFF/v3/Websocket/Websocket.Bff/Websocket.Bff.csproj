@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Duende.BFF" Version="4.0.0-rc.1" />
+    <PackageReference Include="Duende.BFF.Yarp" Version="4.0.0-rc.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
   </ItemGroup>
 

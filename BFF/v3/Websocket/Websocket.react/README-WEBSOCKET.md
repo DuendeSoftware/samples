@@ -1,6 +1,6 @@
 # React WebSocket GraphQL Client
 
-A React application that connects to a GraphQL server via WebSockets for real-time communication.
+A React application that connects to a HotChocolate GraphQL server via WebSockets for real-time communication.
 
 ## Features
 
@@ -8,40 +8,53 @@ A React application that connects to a GraphQL server via WebSockets for real-ti
 - **Real-time Subscriptions**: Support for GraphQL subscriptions to receive real-time data
 - **GraphQL Queries**: Execute GraphQL queries and display results
 - **Connection Management**: Manual connect/disconnect functionality
-- **Real-time Chat**: Example chat implementation using GraphQL subscriptions
+- **Book Management**: Example book management system using GraphQL subscriptions and mutations
 - **Modern UI**: Clean, responsive interface with tabbed navigation
 
-## GraphQL Server Requirements
+## HotChocolate Server Requirements
 
 Your GraphQL server at `http://localhost:5095` should support:
 
 ### WebSocket Endpoint
 - WebSocket endpoint at `ws://localhost:5095/graphql`
 - Support for graphql-ws protocol
+- HotChocolate v15+ with subscription support
 
-### Example Schema
+### Expected Schema
 
-The app expects the following GraphQL schema (or similar):
+The app works with the HotChocolate sample schema:
 
 ```graphql
 type Query {
-  hello: String
-  messages: [Message!]!
+  book: Book!
 }
 
 type Mutation {
-  sendMessage(content: String!, user: String!): Message!
+  addBook(book: BookInput!): Book!
+  publishBook(title: String!, author: String!): Book!
 }
 
 type Subscription {
-  messageAdded: Message!
+  bookAdded: Book!
+  publishBook: Book!
 }
 
-type Message {
-  id: ID!
-  content: String!
-  timestamp: String!
-  user: String
+type Book {
+  title: String!
+  author: Author!
+}
+
+type Author {
+  name: String!
+}
+
+input BookInput {
+  title: String!
+  author: AuthorInput!
+}
+
+input AuthorInput {
+  name: String!
 }
 ```
 
@@ -66,15 +79,16 @@ npm run dev
 
 1. **GraphQL Testing Tab**:
    - View connection status
-   - Execute test queries
-   - Start subscriptions
+   - Execute test queries (get sample book)
+   - Start subscriptions (book events)
    - View real-time messages and data
 
-2. **Real-time Chat Tab**:
-   - Enter a username
-   - Send messages
-   - View real-time message updates
-   - Automatic subscription to new messages
+2. **Book Manager Tab**:
+   - View current books
+   - Add new books using mutations
+   - Publish books using mutations  
+   - Subscribe to book events (bookAdded or publishBook)
+   - Real-time updates when books are added or published
 
 ## Dependencies
 
@@ -100,7 +114,7 @@ Change this to match your GraphQL server URL.
 src/
 ├── App.tsx              # Main application component with tabs
 ├── App.css              # Application styles
-├── Chat.tsx             # Real-time chat component
+├── BookManager.tsx      # Book management component
 ├── graphql-client.ts    # GraphQL WebSocket client utility
 ├── useGraphQL.ts        # React hook for GraphQL operations
 ├── main.tsx             # Application entry point
@@ -119,10 +133,11 @@ src/
 - Connection state management
 - Easy-to-use query and subscription methods
 
-### Chat Component (`Chat.tsx`)
-- Example real-time chat implementation
-- Demonstrates subscription usage
-- Message sending and receiving
+### BookManager Component (`BookManager.tsx`)
+- Example book management implementation
+- Demonstrates subscription usage (bookAdded, publishBook)
+- Book adding and publishing with mutations
+- Real-time book updates
 
 ## Troubleshooting
 
@@ -135,48 +150,24 @@ src/
 Make sure your GraphQL server allows connections from `http://localhost:5173` (or your dev server port).
 
 ### GraphQL Schema
-The example queries assume specific schema types. Modify the queries in the components to match your server's schema.
+The example queries match the HotChocolate server schema. The server provides:
+- A sample book query that returns "C# in depth." by "Jon Skeet"
+- Mutations for adding and publishing books
+- Subscriptions for real-time book events
 
-## Example Server Setup
+## Example Server (Already Provided)
 
-For testing, you can use this minimal GraphQL server setup:
+The HotChocolate GraphQL server is already set up in the `WebSocket.GraphQLServer` project with:
 
-```javascript
-// server.js (Node.js + Apollo Server example)
-import { ApolloServer } from 'apollo-server-express';
-import { WebSocketServer } from 'ws';
-import { useServer } from 'graphql-ws/lib/use/ws';
-import { makeExecutableSchema } from '@graphql-tools/schema';
+- **Query**: `book` - Returns sample book
+- **Mutations**: `addBook` and `publishBook` - Add or publish books
+- **Subscriptions**: `bookAdded` and `publishBook` - Real-time book events
+- **Types**: `Book` (title, author) and `Author` (name)
 
-const typeDefs = `
-  type Query {
-    hello: String
-    messages: [Message!]!
-  }
-  
-  type Mutation {
-    sendMessage(content: String!, user: String!): Message!
-  }
-  
-  type Subscription {
-    messageAdded: Message!
-  }
-  
-  type Message {
-    id: ID!
-    content: String!
-    timestamp: String!
-    user: String
-  }
-`;
-
-// Add your resolvers here
-const resolvers = { /* ... */ };
-
-const schema = makeExecutableSchema({ typeDefs, resolvers });
-
-// Setup Apollo Server and WebSocket server
-// ... server configuration
+To start the server:
+```bash
+cd ../WebSocket.GraphQLServer
+dotnet run
 ```
 
 ## License

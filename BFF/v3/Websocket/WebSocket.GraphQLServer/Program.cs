@@ -25,9 +25,6 @@ public class Subscription
     [Subscribe]
     public Book BookAdded([EventMessage] Book book) => book;
 
-    [Subscribe]
-    [Topic(nameof(Mutation.PublishBook))]
-    public Book PublishBook([EventMessage] Book book) => book;
 }
 
 public class Mutation
@@ -40,12 +37,5 @@ public class Mutation
         return book;
     }
 
-    public async Task<Book> PublishBook(string title, string author, [Service] ITopicEventSender eventSender, CancellationToken ct)
-    {
-        var book = new Book(title, new Author(author));
-
-        await eventSender.SendAsync(nameof(PublishBook), book, ct);
-        return book;
-    }
 
 }

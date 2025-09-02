@@ -201,8 +201,8 @@ button:disabled {
   border-color: #ced4da;
 }
 
-/* Chat Component Styles */
-.chat-container {
+/* Book Manager Component Styles */
+.book-manager-container {
   background: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 8px;
@@ -211,13 +211,18 @@ button:disabled {
   max-width: 800px;
 }
 
-.chat-container h2 {
+.book-manager-container h2 {
   margin-top: 0;
   color: #495057;
   text-align: center;
 }
 
-.chat-status {
+.book-manager-container h3 {
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.book-status {
   background: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 4px;
@@ -228,7 +233,7 @@ button:disabled {
   flex-wrap: wrap;
 }
 
-.chat-status p {
+.book-status p {
   margin: 0;
   font-size: 0.9rem;
 }
@@ -243,110 +248,167 @@ button:disabled {
   font-weight: bold;
 }
 
-.chat-messages {
-  height: 400px;
-  overflow-y: auto;
+.subscription-controls {
+  background: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.subscription-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.subscription-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.subscription-options input[type="radio"] {
+  margin: 0;
+}
+
+.book-operations {
+  background: #f1f3f4;
+  border: 1px solid #d1ecf1;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.operation-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.book-list {
+  background: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 4px;
   padding: 1rem;
   margin-bottom: 1rem;
-  background: #f8f9fa;
 }
 
-.chat-message {
+.books {
+  max-height: 300px;
+  overflow-y: auto;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.book-item {
   background: #ffffff;
   border: 1px solid #e9ecef;
-  border-radius: 8px;
-  padding: 0.75rem;
-  margin-bottom: 0.75rem;
+  border-radius: 6px;
+  padding: 1rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s ease;
 }
 
-.chat-message:last-child {
-  margin-bottom: 0;
+.book-item:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.message-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-}
-
-.message-user {
+.book-title {
   font-weight: bold;
-  color: #495057;
-}
-
-.message-time {
-  color: #6c757d;
-}
-
-.message-content {
   color: #212529;
-  line-height: 1.4;
-  word-wrap: break-word;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
 
-.chat-input {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.username-input {
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
+.book-author {
+  color: #6c757d;
   font-size: 0.9rem;
-  max-width: 200px;
+  font-style: italic;
 }
 
-.message-input-container {
+.no-books {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  margin: 2rem 0;
+}
+
+.book-input {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.input-group {
   display: flex;
   gap: 0.75rem;
-  align-items: flex-end;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.message-input {
+.book-title-input,
+.book-author-input {
   flex: 1;
+  min-width: 200px;
   padding: 0.75rem;
   border: 1px solid #ced4da;
   border-radius: 4px;
   font-size: 1rem;
-  font-family: inherit;
-  resize: vertical;
-  min-height: 60px;
 }
 
-.message-input:focus {
+.book-title-input:focus,
+.book-author-input:focus {
   outline: none;
   border-color: #80bdff;
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
 
-.message-input:disabled {
+.book-title-input:disabled,
+.book-author-input:disabled {
   background-color: #e9ecef;
   opacity: 1;
 }
 
-.send-button {
+.button-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.add-book-button,
+.publish-book-button {
   padding: 0.75rem 1.5rem;
-  background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
-  height: fit-content;
+  transition: background-color 0.2s ease;
 }
 
-.send-button:hover:not(:disabled) {
+.add-book-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.add-book-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.publish-book-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.publish-book-button:hover:not(:disabled) {
   background-color: #0056b3;
 }
 
-.send-button:disabled {
+.add-book-button:disabled,
+.publish-book-button:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
 }

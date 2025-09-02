@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { useGraphQL } from './useGraphQL'
-import { Chat } from './Chat'
+import { BookManager } from './BookManager'
 
-type TabType = 'testing' | 'chat';
+type TabType = 'testing' | 'books';
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('testing')
@@ -22,7 +22,12 @@ function App() {
     try {
       const result = await query(`
         query {
-          hello
+          book {
+            title
+            author {
+              name
+            }
+          }
         }
       `)
       setQueryResult(result)
@@ -37,16 +42,17 @@ function App() {
     try {
       const subscription = subscribe(`
         subscription {
-          messageAdded {
-            id
-            content
-            timestamp
+          bookAdded {
+            title
+            author {
+              name
+            }
           }
         }
       `)
 
       if (subscription) {
-        setMessages(prev => [...prev, 'Starting subscription...'])
+        setMessages(prev => [...prev, 'Starting book subscription...'])
         
         for await (const result of subscription) {
           setSubscriptionData(prev => [...prev, result])
@@ -84,10 +90,10 @@ function App() {
           GraphQL Testing
         </button>
         <button 
-          className={`tab ${activeTab === 'chat' ? 'active' : ''}`}
-          onClick={() => setActiveTab('chat')}
+          className={`tab ${activeTab === 'books' ? 'active' : ''}`}
+          onClick={() => setActiveTab('books')}
         >
-          Real-time Chat
+          Book Manager
         </button>
       </div>
 
@@ -115,10 +121,10 @@ function App() {
             <h2>GraphQL Operations</h2>
             <div className="operation-controls">
               <button onClick={handleQuery} disabled={!isConnected}>
-                Execute Query
+                Get Sample Book
               </button>
               <button onClick={handleSubscription} disabled={!isConnected}>
-                Start Subscription
+                Subscribe to Books
               </button>
               <button onClick={clearMessages}>
                 Clear Messages
@@ -159,8 +165,8 @@ function App() {
         </>
       )}
 
-      {activeTab === 'chat' && (
-        <Chat serverUrl={serverUrl} />
+      {activeTab === 'books' && (
+        <BookManager serverUrl={serverUrl} />
       )}
     </div>
   )
