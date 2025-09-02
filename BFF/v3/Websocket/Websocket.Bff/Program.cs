@@ -1,6 +1,6 @@
 using Duende.Bff;
+using Duende.Bff.AccessTokenManagement;
 using Duende.Bff.Yarp;
-using Yarp.ReverseProxy.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,37 +29,7 @@ builder.Services.AddBff()
             RoleClaimType = "role"
         };
     })
-    .AddRemoteApis()
-    .AddYarpConfig([
-        new RouteConfig()
-        {
-            RouteId = "graphql-route",
-            ClusterId = "graphql-cluster",
-            Match = new RouteMatch
-            {
-                // Matches requests to "http://yarp-url/graphql/*"
-                Path = "/g1/{**catch-all}"
-            },
-            // Strips the "/graphql" prefix before forwarding
-            Transforms = new[] { new Dictionary<string, string> { { "PathPattern", "{**catch-all}" } } }
-        }],
-        [new ClusterConfig()
-        {
-            ClusterId = "graphql-cluster",
-            Destinations = new Dictionary<string, DestinationConfig>(StringComparer.OrdinalIgnoreCase)
-            {
-                {
-                    "destination1", new DestinationConfig()
-                    { 
-                        // Address of your Hot Chocolate server
-                        Address = "http://localhost:5095/graphql"
-                    }
-                }
-            }
-        }]
-    );
-
-
+    .AddRemoteApis();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -75,22 +45,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
 app.UseWebSockets();
-
-app.MapReverseProxy();
 
 app.MapGet("/", () => "welcome");
 
-app.MapRemoteBffApiEndpoint("/graphql", new Uri("http://localhost:5095/graphql"));
+app.MapRemoteBffApiEndpoint("/graphql", new Uri("http://localhost:5095/graphql"))
+    .WithAccessToken(RequiredTokenType.Client);
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

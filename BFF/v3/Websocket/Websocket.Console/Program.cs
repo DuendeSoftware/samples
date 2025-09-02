@@ -12,6 +12,7 @@ namespace GraphQL.Client.Tests
         /// </summary>
         public static async Task Main(string[] args)
         {
+            //var serverUri = new Uri("ws://localhost:5095/graphql");
             var serverUri = new Uri("ws://localhost:5197/graphql");
             using var cts = new CancellationTokenSource();
             Console.CancelKeyPress += (sender, e) =>
