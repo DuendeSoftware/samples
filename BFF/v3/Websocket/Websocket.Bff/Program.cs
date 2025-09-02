@@ -1,5 +1,6 @@
 using Duende.Bff;
 using Duende.Bff.Yarp;
+using Yarp.ReverseProxy.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,37 @@ builder.Services.AddBff()
             RoleClaimType = "role"
         };
     })
-    .AddRemoteApis();
+    .AddRemoteApis()
+    .AddYarpConfig([
+        new RouteConfig()
+        {
+            RouteId = "graphql-route",
+            ClusterId = "graphql-cluster",
+            Match = new RouteMatch
+            {
+                // Matches requests to "http://yarp-url/graphql/*"
+                Path = "/g1/{**catch-all}"
+            },
+            // Strips the "/graphql" prefix before forwarding
+            Transforms = new[] { new Dictionary<string, string> { { "PathPattern", "{**catch-all}" } } }
+        }],
+        [new ClusterConfig()
+        {
+            ClusterId = "graphql-cluster",
+            Destinations = new Dictionary<string, DestinationConfig>(StringComparer.OrdinalIgnoreCase)
+            {
+                {
+                    "destination1", new DestinationConfig()
+                    { 
+                        // Address of your Hot Chocolate server
+                        Address = "http://localhost:5095/graphql"
+                    }
+                }
+            }
+        }]
+    );
+
+
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -50,6 +81,8 @@ var summaries = new[]
 };
 
 app.UseWebSockets();
+
+app.MapReverseProxy();
 
 app.MapGet("/", () => "welcome");
 

@@ -11,7 +11,7 @@ function App() {
   const [queryResult, setQueryResult] = useState<any>(null)
   const [subscriptionData, setSubscriptionData] = useState<any[]>([])
   
-  const serverUrl = 'http://localhost:5095'
+  const serverUrl = 'http://localhost:5197'
   const { isConnected, error, connect, disconnect, query, subscribe } = useGraphQL({
     url: serverUrl,
     autoConnect: true
@@ -61,6 +61,32 @@ function App() {
       }
     } catch (err) {
       setMessages(prev => [...prev, `Subscription error: ${err instanceof Error ? err.message : 'Unknown error'}`])
+    }
+  }
+
+  // Example AddBook mutation
+  const handleAddBook = async () => {
+    try {
+      const result = await query(`
+        mutation{
+          addBook(input:  {
+            book:  {
+                author:  {
+                  name: "name"
+                },
+                title: "name"
+            }
+          }){
+            book{
+              title
+            }
+          }
+        }
+      `)
+      setQueryResult(result)
+      setMessages(prev => [...prev, `AddBook mutation executed: ${JSON.stringify(result)}`])
+    } catch (err) {
+      setMessages(prev => [...prev, `AddBook error: ${err instanceof Error ? err.message : 'Unknown error'}`])
     }
   }
 
@@ -125,6 +151,9 @@ function App() {
               </button>
               <button onClick={handleSubscription} disabled={!isConnected}>
                 Subscribe to Books
+              </button>
+              <button onClick={handleAddBook} disabled={!isConnected}>
+                Add Sample Book
               </button>
               <button onClick={clearMessages}>
                 Clear Messages

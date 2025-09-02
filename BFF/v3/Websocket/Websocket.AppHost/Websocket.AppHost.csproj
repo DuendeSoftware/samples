@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Websocket.Bff\Websocket.Bff.csproj" />
+    <ProjectReference Include="..\Websocket.Console\Websocket.Console.csproj" />
     <ProjectReference Include="..\WebSocket.GraphQLServer\Websocket.GraphQLServer.csproj" />
   </ItemGroup>
 

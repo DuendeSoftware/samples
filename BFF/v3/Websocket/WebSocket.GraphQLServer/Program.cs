@@ -1,4 +1,5 @@
 using HotChocolate.Subscriptions;
+using Microsoft.AspNetCore.HttpOverrides;
 using WebSocket.GraphQLServer.Types;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,15 @@ builder.AddGraphQL()
     .AddMutationConventions()
     .AddTypes();
 
+
 var app = builder.Build();
 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                       ForwardedHeaders.XForwardedProto |
+                       ForwardedHeaders.XForwardedHost
+});
 app.UseWebSockets();
 app.MapGraphQL();
 
