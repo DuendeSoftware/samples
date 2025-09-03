@@ -4,6 +4,8 @@ using Websocket.GraphQLServer.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<FakeDatabase>();
+
 builder.AddGraphQL()
     .AddAuthorization()
     .AddInMemorySubscriptions()

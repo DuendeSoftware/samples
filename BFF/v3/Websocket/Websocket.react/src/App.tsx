@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { useGraphQL } from './useGraphQL'
-import { BookManager } from './BookManager'
 
-type TabType = 'testing' | 'books';
+type TabType = 'testing';
 
 interface ClaimRecord {
   [type: string]: any;
@@ -16,12 +15,12 @@ function App() {
   const [messages, setMessages] = useState<string[]>([])
   const [queryResult, setQueryResult] = useState<any>(null)
   const [subscriptionData, setSubscriptionData] = useState<any[]>([])
-  
+
   // Authentication state
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [userClaims, setUserClaims] = useState<ClaimRecord[]>([])
   const [authLoading, setAuthLoading] = useState<boolean>(true)
-  
+
   const serverUrl = 'wss://localhost:7140'
   const { isConnected, error, connect, disconnect, query, subscribe } = useGraphQL({
     url: serverUrl,
@@ -31,6 +30,7 @@ function App() {
   // Check authentication status on startup
   useEffect(() => {
     checkAuthStatus()
+    setMessages(prev => [...prev, 'Start a subscription first. Then add a book. This should trigger the subscription to report an added book.']);
   }, [])
 
   // Auto-connect to GraphQL when logged in
@@ -49,7 +49,7 @@ function App() {
         },
         credentials: 'include' // Include cookies for authentication
       })
-      
+
       if (response.ok) {
         const claims = await response.json()
         console.log(claims);
@@ -80,7 +80,7 @@ function App() {
   }
 
   const handleLogout = async () => {
-      window.location.href = userClaims.find(claim => claim.type === 'bff:logout_url' && claim.value)?.value || '/bff/logout'
+    window.location.href = userClaims.find(claim => claim.type === 'bff:logout_url' && claim.value)?.value || '/bff/logout'
   }
 
   const getUserDisplayName = (): string => {
@@ -88,8 +88,7 @@ function App() {
 
     var name = userClaims.find(claim => claim.type === 'name' && claim.value)?.value;
 
-    if (name)
-    {
+    if (name) {
       return name;
     }
     return 'Unknown User';
@@ -100,7 +99,7 @@ function App() {
     try {
       const result = await query(`
         query {
-          book {
+          books {
             title
             author {
               name
@@ -131,7 +130,7 @@ function App() {
 
       if (subscription) {
         setMessages(prev => [...prev, 'Starting book subscription...'])
-        
+
         for await (const result of subscription) {
           setSubscriptionData(prev => [...prev, result])
           setMessages(prev => [...prev, `Subscription data: ${JSON.stringify(result)}`])
@@ -222,19 +221,13 @@ function App() {
           </button>
         </div>
       </div>
-      
+
       <div className="tabs">
-        <button 
+        <button
           className={`tab ${activeTab === 'testing' ? 'active' : ''}`}
           onClick={() => setActiveTab('testing')}
         >
           GraphQL Testing
-        </button>
-        <button 
-          className={`tab ${activeTab === 'books' ? 'active' : ''}`}
-          onClick={() => setActiveTab('books')}
-        >
-          Book Manager
         </button>
       </div>
 
@@ -247,7 +240,7 @@ function App() {
             </span></p>
             <p>Server: {serverUrl}/graphql</p>
             {error && <p className="error">Error: {error}</p>}
-            
+
             <div className="connection-controls">
               <button onClick={connect} disabled={isConnected}>
                 Connect
@@ -261,14 +254,14 @@ function App() {
           <div className="graphql-operations">
             <h2>GraphQL Operations</h2>
             <div className="operation-controls">
-              <button onClick={handleQuery} disabled={!isConnected}>
-                Get Sample Book
-              </button>
               <button onClick={handleSubscription} disabled={!isConnected}>
                 Subscribe to Books
               </button>
               <button onClick={handleAddBook} disabled={!isConnected}>
                 Add Sample Book
+              </button>
+              <button onClick={handleQuery} disabled={!isConnected}>
+                Query Books
               </button>
               <button onClick={clearMessages}>
                 Clear Messages
@@ -307,10 +300,6 @@ function App() {
             </div>
           )}
         </>
-      )}
-
-      {activeTab === 'books' && (
-        <BookManager serverUrl={serverUrl} />
       )}
     </div>
   )
