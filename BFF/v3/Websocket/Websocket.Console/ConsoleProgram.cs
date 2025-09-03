@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace GraphQL.Client.Tests
 {
-    public class Program
+    public class ConsoleProgram
     {
         /// <summary>
         /// This console application connects to a GraphQL WebSocket endpoint,

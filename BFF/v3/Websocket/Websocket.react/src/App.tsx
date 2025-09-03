@@ -5,17 +5,113 @@ import { BookManager } from './BookManager'
 
 type TabType = 'testing' | 'books';
 
+interface UserClaims {
+  [key: string]: any;
+  name?: string;
+  sub?: string;
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('testing')
   const [messages, setMessages] = useState<string[]>([])
   const [queryResult, setQueryResult] = useState<any>(null)
   const [subscriptionData, setSubscriptionData] = useState<any[]>([])
   
+  // Authentication state
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [userClaims, setUserClaims] = useState<UserClaims | null>(null)
+  const [authLoading, setAuthLoading] = useState<boolean>(true)
+  
   const serverUrl = 'http://localhost:5197'
   const { isConnected, error, connect, disconnect, query, subscribe } = useGraphQL({
     url: serverUrl,
-    autoConnect: true
+    autoConnect: false // Don't auto-connect until we're authenticated
   })
+
+  // Check authentication status on startup
+  useEffect(() => {
+    checkAuthStatus()
+  }, [])
+
+  // Auto-connect to GraphQL when logged in
+  useEffect(() => {
+    if (isLoggedIn && !isConnected) {
+      connect()
+    }
+  }, [isLoggedIn, isConnected, connect])
+
+  const checkAuthStatus = async () => {
+    try {
+      setAuthLoading(true)
+      const response = await fetch('/bff/user', {
+        headers: {
+          'x-csrf': '1'
+        },
+        credentials: 'include' // Include cookies for authentication
+      })
+      
+      if (response.ok) {
+        const claims = await response.json()
+        if (claims && Object.keys(claims).length > 0) {
+          setIsLoggedIn(true)
+          setUserClaims(claims)
+          setMessages(prev => [...prev, 'User authenticated successfully'])
+        } else {
+          setIsLoggedIn(false)
+          setUserClaims(null)
+        }
+      } else {
+        setIsLoggedIn(false)
+        setUserClaims(null)
+        setMessages(prev => [...prev, 'User not authenticated'])
+      }
+    } catch (err) {
+      setIsLoggedIn(false)
+      setUserClaims(null)
+      setMessages(prev => [...prev, `Auth check error: ${err instanceof Error ? err.message : 'Unknown error'}`])
+    } finally {
+      setAuthLoading(false)
+    }
+  }
+
+  const handleLogin = () => {
+    // Redirect to BFF login endpoint
+    window.location.href = '/bff/login'
+  }
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/bff/logout', {
+        method: 'POST',
+        credentials: 'include'
+      })
+      
+      if (response.ok) {
+        setIsLoggedIn(false)
+        setUserClaims(null)
+        disconnect() // Disconnect from GraphQL
+        setMessages(prev => [...prev, 'Logged out successfully'])
+        // Optionally redirect to home or login page
+        window.location.href = '/'
+      } else {
+        setMessages(prev => [...prev, 'Logout failed'])
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, `Logout error: ${err instanceof Error ? err.message : 'Unknown error'}`])
+    }
+  }
+
+  const getUserDisplayName = (): string => {
+    if (!userClaims) return 'Unknown User'
+    
+    // Try different claim types for the user's name
+    return userClaims.name || 
+           userClaims.given_name || 
+           userClaims.preferred_username || 
+           userClaims.email || 
+           userClaims.sub || 
+           'Unknown User'
+  }
 
   // Example GraphQL query
   const handleQuery = async () => {
@@ -104,9 +200,46 @@ function App() {
     }
   }, [isConnected, error])
 
+  // Show loading state while checking authentication
+  if (authLoading) {
+    return (
+      <div className="app">
+        <div className="auth-loading">
+          <h2>Checking authentication...</h2>
+        </div>
+      </div>
+    )
+  }
+
+  // Show login screen if not authenticated
+  if (!isLoggedIn) {
+    return (
+      <div className="app">
+        <div className="auth-container">
+          <h1>React WebSocket GraphQL Client</h1>
+          <div className="login-section">
+            <h2>Authentication Required</h2>
+            <p>Please log in to access the GraphQL client.</p>
+            <button onClick={handleLogin} className="login-button">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
-      <h1>React WebSocket GraphQL Client</h1>
+      <div className="header">
+        <h1>React WebSocket GraphQL Client</h1>
+        <div className="user-info">
+          <span className="welcome-message">Hello, {getUserDisplayName()}!</span>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>
+        </div>
+      </div>
       
       <div className="tabs">
         <button 
