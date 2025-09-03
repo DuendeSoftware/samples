@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(ImplicitUsings)' == 'enable'">
-    <Using Include="WebSocket.GraphQLServer" />
+    <Using Include="Websocket.GraphQLServer" />
   </ItemGroup>
 
   <ItemGroup>

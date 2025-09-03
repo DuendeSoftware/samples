@@ -12,11 +12,12 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.NodeJs" Version="9.4.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Websocket.Bff\Websocket.Bff.csproj" />
-    <ProjectReference Include="..\WebSocket.GraphQLServer\Websocket.GraphQLServer.csproj" />
+    <ProjectReference Include="..\Websocket.GraphQLServer\Websocket.GraphQLServer.csproj" />
   </ItemGroup>
 
 </Project>

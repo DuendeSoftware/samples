@@ -1,3 +1,3 @@
-namespace WebSocket.GraphQLServer.Types;
+namespace Websocket.GraphQLServer.Types;
 
 public record Author(string Name);

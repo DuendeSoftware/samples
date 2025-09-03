@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace WebSocket.GraphQLServer.Types;
+namespace Websocket.GraphQLServer.Types;
 
 [QueryType]
 public static class Query

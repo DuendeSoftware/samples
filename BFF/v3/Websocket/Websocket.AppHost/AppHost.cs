@@ -7,5 +7,5 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 builder.AddProject<Websocket_Bff>("bff");
 builder.AddProject<Websocket_GraphQLServer>("graphql");
-
+builder.AddNpmApp("frontend", "../Websocket.React", "dev");
 builder.Build().Run();
