@@ -1,6 +1,7 @@
 using Duende.Bff;
 using Duende.Bff.AccessTokenManagement;
 using Duende.Bff.Yarp;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ builder.Services.AddBff()
     .ConfigureOpenIdConnect(options =>
     {
         options.Authority = "https://demo.duendesoftware.com";
-        options.ClientId = "interactive.confidential";
+        options.ClientId = "interactive.confidential.short"; // Access tokens are valid for 1 minute 15 seconds
         options.ClientSecret = "secret";
         options.ResponseType = "code";
         options.ResponseMode = "query";

@@ -149,24 +149,36 @@ public class SubscriptionAuthMiddleware(JwtBearerValidator bearerValidator) : De
             var token = bearerToken.ToString().Replace("Bearer ", string.Empty, StringComparison.OrdinalIgnoreCase);
             var validatedToken = await bearerValidator.ValidateToken(token);
 
-            //if (validatedToken == null)
+            if (validatedToken == null)
+            {
+                return ConnectionStatus.Accept();
+            }
             //{
             //    return ConnectionStatus.Reject("provided token was invalid");
             //}
 
             CancellationTokenSource ct = new CancellationTokenSource();
 
-            _connections.TryAdd(session, new Connection()
+            var validity = validatedToken.Value.Token.ValidTo - DateTime.UtcNow;
+
+            if (validity < TimeSpan.Zero)
             {
-                TokenSource = ct,
-                CancelTask = Task.Delay(TimeSpan.FromSeconds(5))
-                    .ContinueWith(async (_, __) =>
-                    {
-                        _connections.Remove(session, out var _);
-                        await session.Connection.CloseAsync("Refresh", ConnectionCloseReason.NormalClosure,
-                            ct.Token);
-                    }, null, ct.Token)
-            });
+                return ConnectionStatus.Reject("token no longer valid");
+            }
+
+            Console.WriteLine("Token valid for " + validity);
+
+            _connections.TryAdd(session, new Connection()
+                           {
+                               TokenSource = ct,
+                               CancelTask = Task.Delay(validity)
+                                   .ContinueWith(async (_, __) =>
+                                   {
+                                       _connections.Remove(session, out var _);
+                                       await session.Connection.CloseAsync("Refresh", ConnectionCloseReason.NormalClosure,
+                                           ct.Token);
+                                   }, null, ct.Token)
+                           });
 
             return ConnectionStatus.Accept();
         }
