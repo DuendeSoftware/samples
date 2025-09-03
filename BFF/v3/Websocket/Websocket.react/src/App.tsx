@@ -22,7 +22,7 @@ function App() {
   const [userClaims, setUserClaims] = useState<ClaimRecord[]>([])
   const [authLoading, setAuthLoading] = useState<boolean>(true)
   
-  const serverUrl = 'http://localhost:5059'
+  const serverUrl = 'wss://localhost:7140'
   const { isConnected, error, connect, disconnect, query, subscribe } = useGraphQL({
     url: serverUrl,
     autoConnect: false // Don't auto-connect until we're authenticated
@@ -69,7 +69,6 @@ function App() {
     } catch (err) {
       setIsLoggedIn(false)
       setUserClaims([])
-      setMessages(prev => [...prev, `Auth check error: ${err instanceof Error ? err.message : 'Unknown error'}`])
     } finally {
       setAuthLoading(false)
     }

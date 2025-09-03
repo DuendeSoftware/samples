@@ -49,7 +49,8 @@ app.UseBff();
 app.UseWebSockets();
 
 app.MapRemoteBffApiEndpoint("/graphql", new Uri("http://localhost:5095/graphql"))
-    .WithAccessToken(RequiredTokenType.User);
+    .WithAccessToken(RequiredTokenType.User)
+    .SkipAntiforgery();
 
 //app.MapBffManagementEndpoints();
 
