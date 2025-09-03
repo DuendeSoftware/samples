@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import { useGraphQL } from './useGraphQL'
 
@@ -20,6 +20,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [userClaims, setUserClaims] = useState<ClaimRecord[]>([])
   const [authLoading, setAuthLoading] = useState<boolean>(true)
+  const authChecked = useRef<boolean>(false)
 
   const serverUrl = 'wss://localhost:7140'
   const { isConnected, error, connect, disconnect, query, subscribe } = useGraphQL({
@@ -29,8 +30,10 @@ function App() {
 
   // Check authentication status on startup
   useEffect(() => {
-    checkAuthStatus()
-    setMessages(prev => [...prev, 'Start a subscription first. Then add a book. This should trigger the subscription to report an added book.']);
+    if (!authChecked.current) {
+      authChecked.current = true
+      checkAuthStatus()
+    }
   }, [])
 
   // Auto-connect to GraphQL when logged in
@@ -56,10 +59,11 @@ function App() {
         if (claims && Object.keys(claims).length > 0) {
           setIsLoggedIn(true)
           setUserClaims(claims)
-          setMessages(prev => [...prev, 'User authenticated successfully'])
+          setMessages(prev => [...prev, 'User authenticated successfully', 'Start a subscription first. Then add a book. This should trigger the subscription to report an added book.'])
         } else {
           setIsLoggedIn(false)
           setUserClaims([])
+          setMessages(prev => [...prev, 'User not authenticated'])
         }
       } else {
         setIsLoggedIn(false)
@@ -192,27 +196,27 @@ function App() {
     )
   }
 
-  // // Show login screen if not authenticated
-  // if (!isLoggedIn) {
-  //   return (
-  //     <div className="app">
-  //       <div className="auth-container">
-  //         <h1>React WebSocket GraphQL Client</h1>
-  //         <div className="login-section">
-  //           <h2>Authentication Required</h2>
-  //           <p>Please log in to access the GraphQL client.</p>
-  //           <button onClick={handleLogin} className="login-button">
-  //             Login
-  //           </button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  // Show login screen if not authenticated
+  if (!isLoggedIn) {
+    return (
+      <div className="app">
+        <div className="auth-container">
+          <h1>React WebSocket GraphQL Client</h1>
+          <div className="login-section">
+            <h2>Authentication Required</h2>
+            <p>Please log in to access the GraphQL client.</p>
+            <button onClick={handleLogin} className="login-button">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="app">
-      <div className="header">
+      <header className="header">
         <h1>React WebSocket GraphQL Client</h1>
         <div className="user-info">
           <span className="welcome-message">Hello, {getUserDisplayName()}!</span>
@@ -220,7 +224,7 @@ function App() {
             Logout
           </button>
         </div>
-      </div>
+      </header>
 
       <div className="tabs">
         <button

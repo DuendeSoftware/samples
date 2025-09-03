@@ -18,6 +18,18 @@ This will launch the .NET Aspire dashboard and orchestrate all the required serv
 
 Once running, navigate to the BFF URL (https://localhost:7140) to access the application.
 
+You'll need to log in. This system uses the duende demo server: https://demo.duendesoftware.com/
+
+You should be able to log in using:
+user / password: bob/bob or alice/alice
+
+Once logged in, it should automatically establish a websocket connection. Then:
+1. Click 'Subscribe to books'. This sets up a graphql subscription
+2. Click 'Add Sample book'. This shows that the sample book is reported back over the websocket connection.
+
+After 75 seconds, you can observe (in the network tab), that the websocket connection is terminated and re-established. 
+This is because the token has expired.
+
 ## Project Structure
 
 ### Websocket.AppHost
