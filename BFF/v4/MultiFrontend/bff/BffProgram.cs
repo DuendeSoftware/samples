@@ -4,7 +4,6 @@ using Duende.Bff;
 using Duende.Bff.AccessTokenManagement;
 using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Yarp;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Yarp.ReverseProxy.Forwarder;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +34,7 @@ builder.Services.AddBff(options => options.DisableAntiForgeryCheck = (c) => true
             RoleClaimType = "role"
         };
     })
+    .ConfigureCookies(x => x.Cookie.SameSite = SameSiteMode.Lax)
     .AddRemoteApis()
     .AddFrontends(
         new BffFrontend(BffFrontendName.Parse("customer-portal"))
@@ -68,8 +68,6 @@ app.MapGet("/{*rest}", async (IHttpForwarder forwarder, HttpContext context) =>
 app.MapRemoteBffApiEndpoint("/api", ServiceDiscovery.ResolveService("api"))
     .WithAccessToken(RequiredTokenType.User)
     .SkipAntiforgery();
-
-
 
 app.Run();
 
