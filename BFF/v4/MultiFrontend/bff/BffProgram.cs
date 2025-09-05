@@ -9,6 +9,7 @@ using Yarp.ReverseProxy.Forwarder;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
+var targetUri = new Uri(ServiceDiscovery.ResolveService("api").ToString() + "weatherforecast");
 builder.Services.AddBff(options => options.DisableAntiForgeryCheck = (c) => true)
     .ConfigureOpenIdConnect(options =>
     {
@@ -38,9 +39,10 @@ builder.Services.AddBff(options => options.DisableAntiForgeryCheck = (c) => true
     .AddRemoteApis()
     .AddFrontends(
         new BffFrontend(BffFrontendName.Parse("customer-portal"))
-            .MappedToPath(LocalPath.Parse("/customers"))
+            .MappedToOrigin(Origin.Parse("https://localhost:7255"))
+            //.MappedToPath(LocalPath.Parse("/customers"))
             //.WithIndexHtmlUrl(ServiceDiscovery.ResolveService("customer-portal"))
-            //.WithRemoteApis(new RemoteApi(LocalPath.Parse("/"), ServiceDiscovery.ResolveService("customer-portal")).WithAccessToken(RequiredTokenType.None))
+            .WithRemoteApis(new RemoteApi(LocalPath.Parse("/api"),  targetUri).WithAccessToken(RequiredTokenType.None))
             ,
         new BffFrontend(BffFrontendName.Parse("management-app"))
             .MappedToPath(LocalPath.Parse("/management"))
@@ -58,16 +60,16 @@ app.UseAuthentication();
 app.UseRouting();
 app.UseBff();
 
-// adds authorization for local and remote API endpoints
-//app.UseAuthorization();
-app.MapGet("/{*rest}", async (IHttpForwarder forwarder, HttpContext context) =>
-{
-    await ForwardAllRequestsToNpmDevServer(forwarder, context, "https://localhost:3000");
-});
+//// adds authorization for local and remote API endpoints
+////app.UseAuthorization();
+//app.MapGet("/{*rest}", async (IHttpForwarder forwarder, HttpContext context) =>
+//{
+//    await ForwardAllRequestsToNpmDevServer(forwarder, context, "https://localhost:3000");
+//});
 
-app.MapRemoteBffApiEndpoint("/api", ServiceDiscovery.ResolveService("api"))
-    .WithAccessToken(RequiredTokenType.User)
-    .SkipAntiforgery();
+//app.MapRemoteBffApiEndpoint("/api", ServiceDiscovery.ResolveService("api"))
+//    .WithAccessToken(RequiredTokenType.User)
+//    .SkipAntiforgery();
 
 app.Run();
 
