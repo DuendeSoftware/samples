@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TokenExchange.Api;
 
-[AllowAnonymous]
 public class GreetingsController : ControllerBase
 {
     [HttpGet("{**catch-all}")]
