@@ -24,17 +24,17 @@ public class IdentityController : ControllerBase
 
         var scheme = GetAuthorizationScheme(Request);
         var proofToken = GetDPoPProofToken(Request);
+        var accessToken = GetAccessToken(Request);
 
-        return new JsonResult(new { scheme, proofToken, claims });
+        return new JsonResult(new { scheme, proofToken, claims, accessToken });
     }
 
-    public static string? GetAuthorizationScheme(HttpRequest request)
-    {
-        return request.Headers.Authorization.FirstOrDefault()?.Split(' ', System.StringSplitOptions.RemoveEmptyEntries)[0];
-    }
+    public static string? GetAuthorizationScheme(HttpRequest request) =>
+        request.Headers.Authorization.FirstOrDefault()?.Split(' ', StringSplitOptions.RemoveEmptyEntries)[0];
 
-    public static string? GetDPoPProofToken(HttpRequest request)
-    {
-        return request.Headers[OidcConstants.HttpHeaders.DPoP].FirstOrDefault();
-    }
+    public static string? GetDPoPProofToken(HttpRequest request) =>
+        request.Headers[OidcConstants.HttpHeaders.DPoP].FirstOrDefault();
+
+    public static string? GetAccessToken(HttpRequest request) =>
+        request.Headers.Authorization.FirstOrDefault()?.Split(' ', StringSplitOptions.RemoveEmptyEntries)[1];
 }
