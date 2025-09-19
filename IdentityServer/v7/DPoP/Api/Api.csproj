@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Duende.IdentityModel" Version="7.1.0" />
     <PackageReference Include="Duende.AspNetCore.Authentication.JwtBearer" Version="0.2.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="8.1.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

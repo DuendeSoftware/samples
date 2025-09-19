@@ -7,6 +7,7 @@ using Client;
 using Duende.AccessTokenManagement;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -43,6 +44,9 @@ builder.Services.AddAuthentication(options =>
 
         // needed to add JWR / private_key_jwt support
         options.EventsType = typeof(OidcEvents);
+
+        // TODO: PushedAuthorization was added in .NET 9 and is now turned on by default.
+        options.PushedAuthorizationBehavior = PushedAuthorizationBehavior.Disable;
 
         // code flow + PKCE (PKCE is turned on by default)
         options.ResponseType = "code";
