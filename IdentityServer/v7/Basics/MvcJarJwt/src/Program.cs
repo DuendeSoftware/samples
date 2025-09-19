@@ -45,7 +45,9 @@ builder.Services.AddAuthentication(options =>
         // needed to add JWR / private_key_jwt support
         options.EventsType = typeof(OidcEvents);
 
-        // TODO: PushedAuthorization was added in .NET 9 and is now turned on by default.
+        // NOTE: PushedAuthorization was added in .NET 9 and is turned on by default.
+        // There is some additional setup involved, which we do nto want to cover in this particular sample.
+        // See the MvcPar sample if you want to work with PushedAuthorization (PAR).
         options.PushedAuthorizationBehavior = PushedAuthorizationBehavior.Disable;
 
         // code flow + PKCE (PKCE is turned on by default)
