@@ -1,6 +1,8 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Duende.AccessTokenManagement.OpenIdConnect;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -54,7 +56,7 @@ builder.Services.AddAuthentication(opt =>
             if (ctx.Failure?.Data.Contains("error") ?? false)
             {
                 var error = ctx.Failure.Data["error"] as string;
-                if (error == IdentityModel.OidcConstants.AuthorizeErrors.UnmetAuthenticationRequirements)
+                if (error == Duende.IdentityModel.OidcConstants.AuthorizeErrors.UnmetAuthenticationRequirements)
                 {
                     ctx.HandleResponse();
                     ctx.Response.Redirect("/MfaDeclined");
