@@ -14,7 +14,7 @@ The sample contains 4 projects:
 
 First, you need to create seed data for IdentityServer. This IdentityServer host is configured to store its configuration in a Sqlite database. Seed its configuration data by running the following commands:
 
-```
+```shell
 cd IdentityServer
 dotnet run /seed
 ```

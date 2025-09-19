@@ -7,6 +7,7 @@ using Client;
 using Duende.AccessTokenManagement;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -43,6 +44,11 @@ builder.Services.AddAuthentication(options =>
 
         // needed to add JWR / private_key_jwt support
         options.EventsType = typeof(OidcEvents);
+
+        // NOTE: PushedAuthorization was added in .NET 9 and is turned on by default.
+        // There is some additional setup involved, which we do nto want to cover in this particular sample.
+        // See the MvcPar sample if you want to work with PushedAuthorization (PAR).
+        options.PushedAuthorizationBehavior = PushedAuthorizationBehavior.Disable;
 
         // code flow + PKCE (PKCE is turned on by default)
         options.ResponseType = "code";
