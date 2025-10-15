@@ -33,9 +33,9 @@ This sample illustrates coordinated sign-out across multiple frontends that shar
    dotnet run
    ```
 3. Navigate to the client application in your browser at https://localhost:5002
-4. Sign In to both frontends. 
-    - The first frontend signed into would require credentials (`bob:bob`) to be provided. Once signed in, the user has an active session at the IDP.
-    - Subsequent signins, should not prompt you for credentials as you have an active session with the identity provider.
+4. Sign in to both frontends. 
+    - The first frontend you're signing in into requires the following credentials: username = `bob`, password = `bob`.  Once you've signed in, you have an active session in the Identity Provider.
+    - As long as you have an active session, you can now sign in into the other frontend application without being prompted for your credentials, demonstrating single sign-on.
 5a. Sign out from any of the frontends.
     - When a frontend initiates logout, IdentityServer sends backchannel logout notifications to all other clients that share the same user session by making server-to-server HTTP POST requests to each client's configured BackChannelLogoutUri.
     - Each client's BFF backchannel endpoint receives the notification and clears its local session, effectively signing the user out of all frontends.
