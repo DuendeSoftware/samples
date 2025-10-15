@@ -91,6 +91,21 @@
     <Project Path="BFF/v3/Vue/Vue.Api/Vue.Api.csproj" />
     <Project Path="BFF/v3/Vue/Vue.Bff/Vue.Bff.csproj" />
   </Folder>
+  <Folder Name="/BFF/v4/" />
+  <Folder Name="/BFF/v4/MultiFrontendSSO/">
+    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj" Type="Classic C#">
+      <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
+      <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
+      <Configuration Solution="Release|x64" Project="Release|Any CPU" />
+      <Configuration Solution="Release|x86" Project="Release|Any CPU" />
+    </Project>
+    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.IdentityServer\MultiFrontendSSO.IdentityServer.csproj" Type="Classic C#">
+      <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
+      <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
+      <Configuration Solution="Release|x64" Project="Release|Any CPU" />
+      <Configuration Solution="Release|x86" Project="Release|Any CPU" />
+    </Project>
+  </Folder>
   <Folder Name="/IdentityServer/" />
   <Folder Name="/IdentityServer/v5/" />
   <Folder Name="/IdentityServer/v5/AspNetIdentity/">
