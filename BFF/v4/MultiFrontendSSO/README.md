@@ -37,8 +37,8 @@ This sample illustrates coordinated sign-out across multiple frontends that shar
     - The first frontend you're signing in into requires the following credentials: username = `bob`, password = `bob`.  Once you've signed in, you have an active session in the Identity Provider.
     - As long as you have an active session, you can now sign in into the other frontend application without being prompted for your credentials, demonstrating single sign-on.
 5a. Sign out from any of the frontends.
-    - When a frontend initiates logout, IdentityServer sends backchannel logout notifications to all other clients that share the same user session by making server-to-server HTTP POST requests to each client's configured BackChannelLogoutUri.
-    - Each client's BFF backchannel endpoint receives the notification and clears its local session, effectively signing the user out of all frontends.
-5b. Sign out of the IDP at https://localhost:5001
-    - Once you completed the sign out at the IDP, refresh your client browser or use the link back to the frontend and notice that you have been signed out of both frontends.
+    - When you sign out from one of the frontend applications, this will trigger the sign out process at the BFF level. This includes signing you out from IdentityServer, which in return sends a back-channel logout notification to all other clients sharing the same user session, by making server-to-server HTTP POST requests to each client's configured `BackChannelLogoutUri`.
+    - Each client's back-channel endpoint receives the notification and clears its local session, effectively signing the user out of all frontends in the BFF client application.
+5b. Sign out from IdentityServer at https://localhost:5001
+    - When you sign out directly at the level of IdentityServer, refresh your BFF client browser tab (or use the link back to one of the frontend apps) and notice that you have been signed out of both frontends.
 6. Observe that once signed out of 1 frontend, that navigating to the 2nd frontend also indicates that you are not signed in.
