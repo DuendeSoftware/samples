@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer.Configuration" Version="7.3.1" />
-    <PackageReference Include="Duende.IdentityServer.Configuration.EntityFramework" Version="7.3.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0-rc.1.25451.107" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0-rc.1.25451.107" />
+    <PackageReference Include="Duende.IdentityServer.Configuration" Version="7.3.2" />
+    <PackageReference Include="Duende.IdentityServer.Configuration.EntityFramework" Version="7.3.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
   </ItemGroup>
 
 </Project>
