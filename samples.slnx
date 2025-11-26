@@ -552,6 +552,11 @@
     <Project Path="IdentityServer/v7/DPoP/IdentityServerHost/IdentityServerHost.csproj" />
     <Project Path="IdentityServer/v7/DPoP/WebClient/WebClient.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v7/McpDemo/">
+    <Project Path="IdentityServer/v7/McpDemo/McpDemo.Client/McpDemo.Client.csproj" />
+    <Project Path="IdentityServer/v7/McpDemo/McpDemo.IdentityServer/McpDemo.IdentityServer.csproj" />
+    <Project Path="IdentityServer/v7/McpDemo/McpDemo.McpServer/McpDemo.McpServer.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v7/MTLS/">
     <Project Path="IdentityServer/v7/MTLS/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/MTLS/ClientCredentials/ClientCredentials.csproj" />
