@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.BFF" Version="4.0.0-rc.2"/>
+    <PackageReference Include="Duende.BFF" Version="4.0.0"/>
   </ItemGroup>
 
   <ItemGroup>
