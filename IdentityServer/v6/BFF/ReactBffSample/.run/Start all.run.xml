@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Start all" type="CompoundRunConfigurationType">
-    <toRun name="BackendApiHost" type="LaunchSettings" />
-    <toRun name="FrontEndHost: cra_latest" type="LaunchSettings" />
-    <method v="2" />
-  </configuration>
-</component>
