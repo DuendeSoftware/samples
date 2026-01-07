@@ -4,6 +4,8 @@
 using System;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Duende.AccessTokenManagement;
+using Duende.AccessTokenManagement.DPoP;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -38,16 +40,16 @@ public class Program
                 services.AddClientCredentialsTokenManagement()
                     .AddClient("dpop", client =>
                     {
-                        client.TokenEndpoint = "https://localhost:5001/connect/token";
+                        client.TokenEndpoint = new Uri("https://localhost:5001/connect/token");
 
-                        client.ClientId = "dpop";
-                        client.ClientSecret = "905e4892-7610-44cb-a122-6209b38c882f";
+                        client.ClientId = ClientId.Parse("dpop");
+                        client.ClientSecret = ClientSecret.Parse("905e4892-7610-44cb-a122-6209b38c882f");
 
-                        client.Scope = "scope1";
-                        client.DPoPJsonWebKey = CreateDPoPKey();
+                        client.Scope = Scope.Parse("scope1");
+                        client.DPoPJsonWebKey = DPoPProofKey.Parse(CreateDPoPKey());
                     });
 
-                services.AddClientCredentialsHttpClient("client", "dpop", client =>
+                services.AddClientCredentialsHttpClient("client", ClientCredentialsClientName.Parse("dpop"), client =>
                 {
                     client.BaseAddress = new Uri("https://localhost:5005/");
                 });
