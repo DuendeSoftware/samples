@@ -11,10 +11,5 @@
   </ItemGroup>
 
   <!-- Constants and helpers -->
-  <ItemGroup>
-    <Compile Include="..\..\Shared\Constants.cs">
-      <Link>Shared\Constants.cs</Link>
-    </Compile>
-  </ItemGroup>
 
 </Project>

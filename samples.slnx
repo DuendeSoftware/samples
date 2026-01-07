@@ -93,13 +93,13 @@
   </Folder>
   <Folder Name="/BFF/v4/" />
   <Folder Name="/BFF/v4/MultiFrontendSSO/">
-    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj" Type="C#">
+    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
     </Project>
-    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.IdentityServer\MultiFrontendSSO.IdentityServer.csproj" Type="C#">
+    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.IdentityServer\MultiFrontendSSO.IdentityServer.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
@@ -108,6 +108,10 @@
   </Folder>
   <Folder Name="/IdentityServer/" />
   <Folder Name="/IdentityServer/v7/" />
+  <Folder Name="/IdentityServer/v7/Apis/">
+    <Project Path="IdentityServer/v7/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />
+    <Project Path="IdentityServer/v7/Apis/SimpleApi/SimpleApi.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v7/AspNetIdentity/">
     <Project Path="IdentityServer/v7/AspNetIdentity/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/AspNetIdentity/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj" />
@@ -116,15 +120,8 @@
     <Project Path="IdentityServer/v7/AspNetIdentityPasskeys/IdentityServerAspNetIdentityPasskeys/IdentityServerAspNetIdentityPasskeys.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/" />
-  <Folder Name="/IdentityServer/v7/Basics/Apis/">
-    <Project Path="IdentityServer/v7/Basics/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />
-    <Project Path="IdentityServer/v7/Basics/Apis/SimpleApi/SimpleApi.csproj" />
-  </Folder>
   <Folder Name="/IdentityServer/v7/Basics/ClientCredentials/">
     <Project Path="IdentityServer/v7/Basics/ClientCredentials/src/Client.csproj" />
-  </Folder>
-  <Folder Name="/IdentityServer/v7/Basics/IdentityServer/">
-    <Project Path="IdentityServer/v7/Basics/IdentityServer/src/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/Introspection/">
     <Project Path="IdentityServer/v7/Basics/Introspection/src/Client.csproj" />
@@ -188,6 +185,9 @@
     <Project Path="IdentityServer/v7/DPoP/ClientCredentials/ClientCredentials.csproj" />
     <Project Path="IdentityServer/v7/DPoP/IdentityServerHost/IdentityServerHost.csproj" />
     <Project Path="IdentityServer/v7/DPoP/WebClient/WebClient.csproj" />
+  </Folder>
+  <Folder Name="/IdentityServer/v7/IdentityServerHost/">
+    <Project Path="IdentityServer/v7/IdentityServerHost/src/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/McpDemo/">
     <Project Path="IdentityServer/v7/McpDemo/McpDemo.Client/McpDemo.Client.csproj" />
@@ -329,7 +329,7 @@
     <Project Path="various/JwtSecuredAzureFunction/Client/Client.csproj" />
     <Project Path="various/JwtSecuredAzureFunction/JwtSecuredFunction/JwtSecuredFunction.csproj" />
   </Folder>
-  <Project Path="IdentityServer\v7\SessionMigration\SessionMigration.csproj" Type="C#">
+  <Project Path="IdentityServer\v7\SessionMigration\SessionMigration.csproj">
     <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
     <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
     <Configuration Solution="Release|x64" Project="Release|Any CPU" />

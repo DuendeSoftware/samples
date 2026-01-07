@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System;
-using Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using ResourceBasedApi;
@@ -32,7 +31,7 @@ builder.Services.AddAuthentication("token")
     // JWT tokens
     .AddJwtBearer("token", options =>
     {
-        options.Authority = Urls.IdentityServer;
+        options.Authority = "https://localhost:5001";
         options.Audience = "resource2";
 
         options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
@@ -44,7 +43,7 @@ builder.Services.AddAuthentication("token")
     // reference tokens
     .AddOAuth2Introspection("introspection", options =>
     {
-        options.Authority = Urls.IdentityServer;
+        options.Authority = "https://localhost:5001";
 
         options.ClientId = "resource1";
         options.ClientSecret = "secret";
