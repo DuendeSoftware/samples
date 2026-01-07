@@ -1,7 +1,6 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Client;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -26,7 +25,7 @@ builder.Services.AddControllers();
 builder.Services.AddAuthentication("token")
     .AddJwtBearer("token", options =>
     {
-        options.Authority = Urls.IdentityServer;
+        options.Authority = "https://localhost:5001";
         options.TokenValidationParameters.ValidateAudience = false;
 
         options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
