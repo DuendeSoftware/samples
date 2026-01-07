@@ -183,5 +183,25 @@ public static class Clients
 
                 AllowedScopes = { "openid", "profile", "scope1", "scope2" }
             },
+            ///////////////////////////////////////////
+            // DPoP Sample
+            //////////////////////////////////////////
+            new Client
+            {
+                ClientId = "dpop",
+                // "905e4892-7610-44cb-a122-6209b38c882f" hashed
+                ClientSecrets = { new Secret("H+90jjtmDc3/HiNmtKwuBZG9eNOvpahx2jscGscejqE=") },
+
+                AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
+
+                RedirectUris = { "https://localhost:5010/signin-oidc" },
+                FrontChannelLogoutUri = "https://localhost:5010/signout-oidc",
+                PostLogoutRedirectUris = { "https://localhost:5010/signout-callback-oidc" },
+
+                AllowOfflineAccess = true,
+                AllowedScopes = { "openid", "profile", "scope1" },
+
+                RequireDPoP = true,
+            },
         };
 }

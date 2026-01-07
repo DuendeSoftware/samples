@@ -3,6 +3,8 @@
 
 using System.Security.Cryptography;
 using System.Text.Json;
+using Duende.AccessTokenManagement.DPoP;
+using Duende.AccessTokenManagement.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -81,7 +83,7 @@ builder.Services.AddOpenIdConnectAccessTokenManagement(options =>
     var rsaKey = new RsaSecurityKey(RSA.Create(2048));
     var jwk = JsonWebKeyConverter.ConvertFromSecurityKey(rsaKey);
     jwk.Alg = "PS256";
-    options.DPoPJsonWebKey = JsonSerializer.Serialize(jwk);
+    options.DPoPJsonWebKey = DPoPProofKey.Parse(JsonSerializer.Serialize(jwk));
 });
 
 // add HTTP client to call protected API
