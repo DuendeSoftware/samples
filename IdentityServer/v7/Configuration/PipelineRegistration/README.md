@@ -13,10 +13,11 @@ In this sample, we imagine that the IdentityServer host, IdentityServer.Configur
 
 ## Running the solution
 
-First, you need to create seed data for IdentityServer. This IdentityServer host is configured to store its configuration in a Sqlite database. Seed its configuration data by running the following commands:
+The configuration samples use a shared IdentityServer Host.
+Before running the first example, you need to create seed data for IdentityServer. This IdentityServer host is configured to store its configuration in a Sqlite database. Seed its configuration data by running the following commands:
 
 ```shell
-cd IdentityServer
+cd ../IdentityServerHost
 dotnet run /seed
 ```
 

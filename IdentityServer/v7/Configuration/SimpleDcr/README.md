@@ -12,7 +12,8 @@ The sample contains 4 projects:
 
 ## Running the solution
 
-First, you need to create seed data for IdentityServer. This IdentityServer host is configured to store its configuration in a Sqlite database. Seed its configuration data by running the following commands:
+All configuration samples use a shared IdentityServer host.
+Before running your first sample, you need to create seed data for IdentityServer. This IdentityServer host is configured to store its configuration in a Sqlite database. Seed its configuration data by running the following commands:
 
 ```shell
 cd IdentityServer

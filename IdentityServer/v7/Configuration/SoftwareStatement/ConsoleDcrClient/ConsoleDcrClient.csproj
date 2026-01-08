@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Duende.IdentityModel" Version="7.1.0" />
-      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="7.2.0" />
+      <PackageReference Include="Duende.IdentityModel" Version="8.0.0" />
+      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.15.0" />
     </ItemGroup>
 
 </Project>
