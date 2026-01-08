@@ -13,7 +13,7 @@ namespace Configuration;
 /// <summary>
 /// This request processor can set the client secret, if it is supplied as a
 /// property of the dynamic client registration request document. A special
-/// scope is also 
+/// scope is also checked.
 /// </summary>
 public class PermissionsCheckingRequestProcessor : DynamicClientRegistrationRequestProcessor
 {
@@ -29,7 +29,7 @@ public class PermissionsCheckingRequestProcessor : DynamicClientRegistrationRequ
     {
         if (context.Request.Extensions.TryGetValue("client_secret", out var secretParam))
         {
-            // Remove the client_secret, so that we don't echo back a duplicate 
+            // Remove the client_secret, so that we don't echo back a duplicate
             // or inconsistent value
             context.Request.Extensions.Remove("client_secret");
 
