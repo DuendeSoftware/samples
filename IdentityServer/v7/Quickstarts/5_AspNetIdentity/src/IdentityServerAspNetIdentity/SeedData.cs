@@ -28,7 +28,7 @@ public class SeedData
                 alice = new ApplicationUser
                 {
                     UserName = "alice",
-                    Email = "AliceSmith@example.com",
+                    Email = "AliceSmith@email.example",
                     EmailConfirmed = true,
                     FavoriteColor = "red",
                 };
@@ -42,7 +42,7 @@ public class SeedData
                             new Claim(JwtClaimTypes.Name, "Alice Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Alice"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://alice.example.com"),
+                            new Claim(JwtClaimTypes.WebSite, "http://alice.example"),
                         }).Result;
                 if (!result.Succeeded)
                 {
@@ -61,7 +61,7 @@ public class SeedData
                 bob = new ApplicationUser
                 {
                     UserName = "bob",
-                    Email = "BobSmith@example.com",
+                    Email = "BobSmith@email.example",
                     EmailConfirmed = true
                 };
                 var result = userMgr.CreateAsync(bob, "Pass123$").Result;
@@ -74,7 +74,7 @@ public class SeedData
                             new Claim(JwtClaimTypes.Name, "Bob Smith"),
                             new Claim(JwtClaimTypes.GivenName, "Bob"),
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://bob.example.com"),
+                            new Claim(JwtClaimTypes.WebSite, "http://bob.example"),
                             new Claim("location", "somewhere")
                         }).Result;
                 if (!result.Succeeded)
