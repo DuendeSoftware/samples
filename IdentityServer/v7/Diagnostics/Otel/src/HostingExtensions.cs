@@ -50,21 +50,24 @@ internal static class HostingExtensions
                 };
             });
 
-        builder.Services.AddOpenTelemetryTracing(builder =>
+        builder.Services.AddOpenTelemetry()
+            .ConfigureResource(resource => resource
+                .AddService("IdentityServerHost.Sample"))
+            .WithTracing(tracing =>
         {
-            builder
+            tracing
                 .AddConsoleExporter()
+                // This configuration will only show the information in the console
+                // Optional: export Otlp: tracing.AddOtlpExporter();
 
-                // all avavilabe sources
+                // all available sources
                 .AddSource(IdentityServerConstants.Tracing.Basic)
                 .AddSource(IdentityServerConstants.Tracing.Cache)
                 .AddSource(IdentityServerConstants.Tracing.Services)
                 .AddSource(IdentityServerConstants.Tracing.Stores)
                 .AddSource(IdentityServerConstants.Tracing.Validation)
 
-                .SetResourceBuilder(
-                    ResourceBuilder.CreateDefault()
-                        .AddService("IdentityServerHost.Sample"))
+
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
                 .AddSqlClientInstrumentation();
