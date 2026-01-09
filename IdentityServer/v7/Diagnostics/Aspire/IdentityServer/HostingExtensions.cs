@@ -27,7 +27,9 @@ internal static class HostingExtensions
         // in-memory, code config
         isBuilder.AddInMemoryIdentityResources(Config.IdentityResources);
         isBuilder.AddInMemoryApiScopes(Config.ApiScopes);
-        isBuilder.AddInMemoryClients(Config.Clients);
+
+        var webUrl = builder.Configuration["services:webfrontend:https:0"];
+        isBuilder.AddInMemoryClients(Config.GetClients(webUrl));
 
 
         // if you want to use server-side sessions: https://blog.duendesoftware.com/posts/20220406_session_management/
@@ -67,6 +69,8 @@ internal static class HostingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        app.MapDefaultEndpoints();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();

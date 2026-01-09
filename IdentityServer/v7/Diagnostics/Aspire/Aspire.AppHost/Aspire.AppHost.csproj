@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Sdk Name="Aspire.AppHost.Sdk" Version="9.4.2" />
+  <Sdk Name="Aspire.AppHost.Sdk" Version="13.1.0" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -13,11 +13,6 @@
     <ProjectReference Include="..\Aspire.ApiService\Aspire.ApiService.csproj" />
     <ProjectReference Include="..\Aspire.Web\Aspire.Web.csproj" />
     <ProjectReference Include="..\IdentityServer\IdentityServer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Aspire.Hosting" Version="9.4.2" />
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.4.2" />
   </ItemGroup>
 
 </Project>
