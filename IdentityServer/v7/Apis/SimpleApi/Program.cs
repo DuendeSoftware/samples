@@ -21,7 +21,7 @@ builder.Services.AddSerilog();
 
 builder.Services.AddControllers();
 
-// this API will accept any access token from the authority
+// Attention: This API will accept any access token from the authority in this configuration
 builder.Services.AddAuthentication("token")
     .AddJwtBearer("token", options =>
     {
@@ -32,6 +32,12 @@ builder.Services.AddAuthentication("token")
         options.MapInboundClaims = false;
     });
 
+// To require a scope, use a policy like this and apply it
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("SimpleApi", p => p.RequireClaim("scope", "SimpleApi"));
+});
+
 var app = builder.Build();
 
 app.UseRouting();
@@ -39,5 +45,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers().RequireAuthorization();
+//app.MapControllers().RequireAuthorization("SimpleApi");
 
 app.Run();
