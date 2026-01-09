@@ -35,7 +35,7 @@ static async Task<DynamicClientRegistrationResponse> RegisterClient(string acces
 
     var request = new DynamicClientRegistrationRequest
     {
-        Address = "https://localhost:5002/connect/dcr",
+        Address = $"{Constants.ConfigurationApi}/connect/dcr",
         Document = new DynamicClientRegistrationDocument
         {
             GrantTypes = { "client_credentials" },
@@ -89,7 +89,7 @@ static async Task<TokenResponse> RequestTokenAsync(string clientId = "client", s
 {
     var client = new HttpClient();
 
-    var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5001");
+    var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
     if (disco.IsError) throw new Exception(disco.Error);
 
     var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest

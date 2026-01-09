@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Self": {
+    "SelfHost": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

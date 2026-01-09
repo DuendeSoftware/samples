@@ -6,5 +6,6 @@ namespace ConsoleDcrClient;
 public class Constants
 {
     public const string Authority = "https://localhost:5001";
-    public const string SimpleApi = "https://localhost:6001/";
+    public const string SimpleApi = "https://localhost:5002/";
+    public const string ConfigurationApi = "https://localhost:5003";
 }

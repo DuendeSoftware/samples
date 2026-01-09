@@ -151,22 +151,18 @@
   <Folder Name="/IdentityServer/v7/Configuration/Permissions/">
     <Project Path="IdentityServer/v7/Configuration/Permissions/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v7/Configuration/Permissions/ConsoleDcrClient/ConsoleDcrClient.csproj" />
-    <Project Path="IdentityServer/v7/Configuration/Permissions/SimpleApi/SimpleApi.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/PipelineRegistration/">
     <Project Path="IdentityServer/v7/Configuration/PipelineRegistration/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v7/Configuration/PipelineRegistration/ConsoleDcrClient/ConsoleDcrClient.csproj" />
-    <Project Path="IdentityServer/v7/Configuration/PipelineRegistration/SimpleApi/SimpleApi.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/SimpleDcr/">
     <Project Path="IdentityServer/v7/Configuration/SimpleDcr/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v7/Configuration/SimpleDcr/ConsoleDcrClient/ConsoleDcrClient.csproj" />
-    <Project Path="IdentityServer/v7/Configuration/SimpleDcr/SimpleApi/SimpleApi.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/SoftwareStatement/">
     <Project Path="IdentityServer/v7/Configuration/SoftwareStatement/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v7/Configuration/SoftwareStatement/ConsoleDcrClient/ConsoleDcrClient.csproj" />
-    <Project Path="IdentityServer/v7/Configuration/SoftwareStatement/SimpleApi/SimpleApi.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Diagnostics/" />
   <Folder Name="/IdentityServer/v7/Diagnostics/Aspire/">
