@@ -1,4 +1,5 @@
 using Aspire.Web;
+using Duende.AccessTokenManagement.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
@@ -15,7 +16,7 @@ builder.Services.AddAuthentication(opt =>
     .AddCookie()
     .AddOpenIdConnect(opt =>
     {
-        opt.Authority = "https://localhost:5001";
+        opt.Authority = builder.Configuration["services:identityserver:https:0"];
         opt.ClientId = "web";
         opt.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
 

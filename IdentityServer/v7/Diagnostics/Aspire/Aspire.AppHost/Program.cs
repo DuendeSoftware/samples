@@ -1,10 +1,16 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var apiService = builder.AddProject<Projects.Aspire_ApiService>("apiservice");
+var identityServer = builder.AddProject<Projects.IdentityServer>("identityserver")
+    .WithExternalHttpEndpoints();
 
-builder.AddProject<Projects.Aspire_Web>("webfrontend")
-    .WithReference(apiService);
+var apiService = builder.AddProject<Projects.Aspire_ApiService>("apiservice")
+    .WithReference(identityServer);
 
-builder.AddProject<Projects.IdentityServer>("identityserver");
+var webFrontend = builder.AddProject<Projects.Aspire_Web>("webfrontend")
+    .WithReference(apiService)
+    .WithReference(identityServer)
+    .WithExternalHttpEndpoints();
+
+identityServer.WithReference(webFrontend);
 
 builder.Build().Run();
