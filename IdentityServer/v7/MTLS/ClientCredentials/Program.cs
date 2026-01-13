@@ -76,7 +76,7 @@ public class Program
         var assemblyDir = typeof(Program).Assembly.Location;
         var certPath = Path.GetFullPath(Path.Combine(assemblyDir, "../../../../../localhost-client.p12"));
 
-        var cert = new X509Certificate2(certPath, "changeit");
+        var cert = X509CertificateLoader.LoadPkcs12FromFile(certPath, "changeit");
         handler.SslOptions.ClientCertificates = new X509CertificateCollection { cert };
 
         return handler;
