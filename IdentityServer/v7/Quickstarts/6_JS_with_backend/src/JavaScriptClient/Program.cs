@@ -3,6 +3,8 @@
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Duende.Bff;
+using Duende.Bff.AccessTokenManagement;
 using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Authorization;
 
@@ -13,17 +15,7 @@ builder.Services.AddAuthorization();
 
 builder.Services
     .AddBff()
-    .AddRemoteApis();
-
-builder.Services
-    .AddAuthentication(options =>
-    {
-        options.DefaultScheme = "Cookies";
-        options.DefaultChallengeScheme = "oidc";
-        options.DefaultSignOutScheme = "oidc";
-    })
-    .AddCookie("Cookies")
-    .AddOpenIdConnect("oidc", options =>
+    .ConfigureOpenIdConnect(options =>
     {
         options.Authority = "https://localhost:5001";
         options.ClientId = "bff";
@@ -33,7 +25,10 @@ builder.Services
         options.Scope.Add("offline_access");
         options.SaveTokens = true;
         options.GetClaimsFromUserInfoEndpoint = true;
-    });
+        options.MapInboundClaims = false;
+    })
+    .ConfigureCookies(options => options.Cookie.SameSite = SameSiteMode.Strict)
+    .AddRemoteApis();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -60,8 +55,8 @@ app.MapBffManagementEndpoints();
 app.MapGet("/local/identity", LocalIdentityHandler)
     .AsBffApiEndpoint();
 
-app.MapRemoteBffApiEndpoint("/remote", "https://localhost:6001")
-    .RequireAccessToken(Duende.Bff.TokenType.User);
+app.MapRemoteBffApiEndpoint("/remote", new Uri("https://localhost:6001"))
+    .WithAccessToken(RequiredTokenType.User);
 
 app.Run();
 
