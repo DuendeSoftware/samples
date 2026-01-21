@@ -1,0 +1,238 @@
+IdentityServer:
+bin        HostingExtensions.cs   keys  Pages       Properties
+Config.cs  IdentityServer.csproj  obj   Program.cs  wwwroot
+IdentityServer/bin:
+Debug
+IdentityServer/bin/Debug:
+net10.0
+IdentityServer/bin/Debug/net10.0:
+Aspire.ServiceDefaults.dll
+Aspire.ServiceDefaults.pdb
+Duende.IdentityModel.dll
+Duende.IdentityServer.dll
+Duende.IdentityServer.Storage.dll
+IdentityServer
+IdentityServer.deps.json
+IdentityServer.dll
+IdentityServer.pdb
+IdentityServer.runtimeconfig.json
+IdentityServer.staticwebassets.endpoints.json
+IdentityServer.staticwebassets.runtime.json
+keys
+Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+Microsoft.Extensions.AmbientMetadata.Application.dll
+Microsoft.Extensions.Compliance.Abstractions.dll
+Microsoft.Extensions.DependencyInjection.AutoActivation.dll
+Microsoft.Extensions.DependencyModel.dll
+Microsoft.Extensions.Diagnostics.ExceptionSummarization.dll
+Microsoft.Extensions.Http.Diagnostics.dll
+Microsoft.Extensions.Http.Resilience.dll
+Microsoft.Extensions.Resilience.dll
+Microsoft.Extensions.ServiceDiscovery.Abstractions.dll
+Microsoft.Extensions.ServiceDiscovery.dll
+Microsoft.Extensions.Telemetry.Abstractions.dll
+Microsoft.Extensions.Telemetry.dll
+Microsoft.IdentityModel.Abstractions.dll
+Microsoft.IdentityModel.JsonWebTokens.dll
+Microsoft.IdentityModel.Logging.dll
+Microsoft.IdentityModel.Protocols.dll
+Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+Microsoft.IdentityModel.Tokens.dll
+OpenTelemetry.Api.dll
+OpenTelemetry.Api.ProviderBuilderExtensions.dll
+OpenTelemetry.dll
+OpenTelemetry.Exporter.OpenTelemetryProtocol.dll
+OpenTelemetry.Extensions.Hosting.dll
+OpenTelemetry.Instrumentation.AspNetCore.dll
+OpenTelemetry.Instrumentation.GrpcNetClient.dll
+OpenTelemetry.Instrumentation.Http.dll
+OpenTelemetry.Instrumentation.Runtime.dll
+Polly.Core.dll
+Polly.Extensions.dll
+Polly.RateLimiting.dll
+Serilog.AspNetCore.dll
+Serilog.dll
+Serilog.Extensions.Hosting.dll
+Serilog.Extensions.Logging.dll
+Serilog.Formatting.Compact.dll
+Serilog.Settings.Configuration.dll
+Serilog.Sinks.Console.dll
+Serilog.Sinks.Debug.dll
+Serilog.Sinks.File.dll
+System.IdentityModel.Tokens.Jwt.dll
+IdentityServer/bin/Debug/net10.0/keys:
+is-signing-key-11124551225742F3D5B14A98948855A7.json
+IdentityServer/keys:
+is-signing-key-11124551225742F3D5B14A98948855A7.json
+IdentityServer/obj:
+Debug                                    project.nuget.cache
+IdentityServer.csproj.nuget.dgspec.json  project.packagespec.json
+IdentityServer.csproj.nuget.g.props      rider.project.model.nuget.info
+IdentityServer.csproj.nuget.g.targets    rider.project.restore.info
+project.assets.json
+IdentityServer/obj/Debug:
+net10.0
+IdentityServer/obj/Debug/net10.0:
+apphost
+compressed
+Identity.FDBE6C83.Up2Date
+IdentityServer.AssemblyInfo.cs
+IdentityServer.AssemblyInfoInputs.cache
+IdentityServer.assets.cache
+IdentityServer.csproj.AssemblyReference.cache
+IdentityServer.csproj.CoreCompileInputs.cache
+IdentityServer.csproj.FileListAbsolute.txt
+IdentityServer.dll
+IdentityServer.GeneratedMSBuildEditorConfig.editorconfig
+IdentityServer.genruntimeconfig.cache
+IdentityServer.GlobalUsings.g.cs
+IdentityServer.MvcApplicationPartsAssemblyInfo.cache
+IdentityServer.pdb
+IdentityServer.RazorAssemblyInfo.cache
+IdentityServer.RazorAssemblyInfo.cs
+IdentityServer.sourcelink.json
+rbcswa.dswa.cache.json
+ref
+refint
+rjimswa.dswa.cache.json
+rjsmcshtml.dswa.cache.json
+rjsmrazor.dswa.cache.json
+rpswa.dswa.cache.json
+staticwebassets
+staticwebassets.build.endpoints.json
+staticwebassets.build.json
+staticwebassets.build.json.cache
+staticwebassets.development.json
+swae.build.ex.cache
+IdentityServer/obj/Debug/net10.0/compressed:
+0ouvb1wwxx-{0}-33bcjk7gyg-33bcjk7gyg.gz
+26725elcve-{0}-m4xw55ispg-m4xw55ispg.gz
+2qiwwvvzy9-{0}-4a76qqeh1j-4a76qqeh1j.gz
+32oxmv53fo-{0}-6w8okl6t67-6w8okl6t67.gz
+3c113tcfur-{0}-dlkct352rx-dlkct352rx.gz
+3pyb8v3x0p-{0}-vwa26bmbsk-vwa26bmbsk.gz
+5d7joa7emr-{0}-l5aubhu0bo-l5aubhu0bo.gz
+5z1yb3vfii-{0}-hz64uadaut-hz64uadaut.gz
+7r6o3indm7-{0}-qf3xwza7k1-qf3xwza7k1.gz
+84uewl3zf7-{0}-ylw7lh1xni-ylw7lh1xni.gz
+86ebyaf8fj-{0}-v56xyg1lj8-v56xyg1lj8.gz
+8tdtjkhq5z-{0}-c8jjcjvi6o-c8jjcjvi6o.gz
+9ahrz4jw1w-{0}-pbe9k3zi67-pbe9k3zi67.gz
+a20kzdhjs9-{0}-516mnhqjuj-516mnhqjuj.gz
+a85ig1x9vn-{0}-9rqdqbz9l5-9rqdqbz9l5.gz
+az018l64gb-{0}-maky9z0zlp-maky9z0zlp.gz
+b0axnw6g6b-{0}-569jtchv1l-569jtchv1l.gz
+cxh1msjq7f-{0}-v2ivwpkqad-v2ivwpkqad.gz
+d4hcu8c4bl-{0}-r27yxon8ig-r27yxon8ig.gz
+ddbzxybs03-{0}-yvnwahudtr-yvnwahudtr.gz
+drraycx4qs-{0}-0zglhag6zb-0zglhag6zb.gz
+g3sfwz1abi-{0}-i6jovj3f6q-i6jovj3f6q.gz
+h543q1ys1s-{0}-wkvz2kpl07-wkvz2kpl07.gz
+h6y9ppatkk-{0}-gvt36kw2jb-gvt36kw2jb.gz
+h7zkl4d7kp-{0}-ismbivwgyj-ismbivwgyj.gz
+hf5aju0edh-{0}-j3c2yxqwht-j3c2yxqwht.gz
+iqjiwxe7og-{0}-5trh6b1mit-5trh6b1mit.gz
+kgjhhfwggh-{0}-2hk6trcn89-2hk6trcn89.gz
+kqeutnx79t-{0}-dtb4w11tg4-dtb4w11tg4.gz
+m2bnshwhs6-{0}-dsw5v3fbc5-dsw5v3fbc5.gz
+mbkj9qbr5t-{0}-yks9jwqdnr-yks9jwqdnr.gz
+n2br1b19cz-{0}-poap4f3u6o-poap4f3u6o.gz
+nfkv0i6nof-{0}-owsa6kxplw-owsa6kxplw.gz
+niqja72aps-{0}-80qsln72n7-80qsln72n7.gz
+p6bcgl80t0-{0}-3h6z8rn2jh-3h6z8rn2jh.gz
+tbaw105om5-{0}-x0syeyqenc-x0syeyqenc.gz
+w2b2zxfdhm-{0}-4t2ehcb3e4-4t2ehcb3e4.gz
+xz15245rbp-{0}-masyeah4yd-masyeah4yd.gz
+y332r0qnha-{0}-t0knxd0p3j-t0knxd0p3j.gz
+yev70dsv35-{0}-oljugxoxj0-oljugxoxj0.gz
+IdentityServer/obj/Debug/net10.0/ref:
+IdentityServer.dll
+IdentityServer/obj/Debug/net10.0/refint:
+IdentityServer.dll
+IdentityServer/obj/Debug/net10.0/staticwebassets:
+IdentityServer/Pages:
+Account        Grants                         SecurityHeadersAttribute.cs
+Ciba           Home                           ServerSideSessions
+Consent        IdentityServerSuppressions.cs  Shared
+Device         Index.cshtml                   Telemetry.cs
+Diagnostics    Index.cshtml.cs                TestUsers.cs
+Extensions.cs  Log.cs                         _ViewImports.cshtml
+ExternalLogin  Redirect                       _ViewStart.cshtml
+IdentityServer/Pages/Account:
+AccessDenied.cshtml  AccessDenied.cshtml.cs  Create  Login  Logout
+IdentityServer/Pages/Account/Create:
+Index.cshtml  Index.cshtml.cs  InputModel.cs
+IdentityServer/Pages/Account/Login:
+Index.cshtml  Index.cshtml.cs  InputModel.cs  LoginOptions.cs  ViewModel.cs
+IdentityServer/Pages/Account/Logout:
+Index.cshtml     LoggedOut.cshtml     LoggedOutViewModel.cs
+Index.cshtml.cs  LoggedOut.cshtml.cs  LogoutOptions.cs
+IdentityServer/Pages/Ciba:
+All.cshtml      Consent.cshtml.cs  Index.cshtml.cs        ViewModel.cs
+All.cshtml.cs   ConsentOptions.cs  InputModel.cs
+Consent.cshtml  Index.cshtml       _ScopeListItem.cshtml
+IdentityServer/Pages/Consent:
+ConsentOptions.cs  Index.cshtml.cs  _ScopeListItem.cshtml
+Index.cshtml       InputModel.cs    ViewModel.cs
+IdentityServer/Pages/Device:
+DeviceOptions.cs  Index.cshtml.cs  _ScopeListItem.cshtml  Success.cshtml.cs
+Index.cshtml      InputModel.cs    Success.cshtml         ViewModel.cs
+IdentityServer/Pages/Diagnostics:
+Index.cshtml  Index.cshtml.cs  ViewModel.cs
+IdentityServer/Pages/ExternalLogin:
+Callback.cshtml  Callback.cshtml.cs  Challenge.cshtml  Challenge.cshtml.cs
+IdentityServer/Pages/Grants:
+Index.cshtml  Index.cshtml.cs  ViewModel.cs
+IdentityServer/Pages/Home:
+Error
+IdentityServer/Pages/Home/Error:
+Index.cshtml  Index.cshtml.cs  ViewModel.cs
+IdentityServer/Pages/Redirect:
+Index.cshtml  Index.cshtml.cs
+IdentityServer/Pages/ServerSideSessions:
+Index.cshtml  Index.cshtml.cs
+IdentityServer/Pages/Shared:
+_Layout.cshtml  _Nav.cshtml  _ValidationSummary.cshtml
+IdentityServer/Properties:
+launchSettings.json
+IdentityServer/wwwroot:
+css  duende-logo.svg  favicon.ico  js  lib
+IdentityServer/wwwroot/css:
+site.css  site.min.css  site.scss
+IdentityServer/wwwroot/js:
+signin-redirect.js  signout-redirect.js
+IdentityServer/wwwroot/lib:
+bootstrap  bootstrap4-glyphicons  jquery
+IdentityServer/wwwroot/lib/bootstrap:
+dist  LICENSE  README.md
+IdentityServer/wwwroot/lib/bootstrap/dist:
+css  js
+IdentityServer/wwwroot/lib/bootstrap/dist/css:
+bootstrap.css               bootstrap.min.css
+bootstrap.css.map           bootstrap.min.css.map
+bootstrap-grid.css          bootstrap-reboot.css
+bootstrap-grid.css.map      bootstrap-reboot.css.map
+bootstrap-grid.min.css      bootstrap-reboot.min.css
+bootstrap-grid.min.css.map  bootstrap-reboot.min.css.map
+IdentityServer/wwwroot/lib/bootstrap/dist/js:
+bootstrap.bundle.js      bootstrap.bundle.min.js.map  bootstrap.min.js
+bootstrap.bundle.js.map  bootstrap.js                 bootstrap.min.js.map
+bootstrap.bundle.min.js  bootstrap.js.map
+IdentityServer/wwwroot/lib/bootstrap4-glyphicons:
+css  fonts  LICENSE  maps
+IdentityServer/wwwroot/lib/bootstrap4-glyphicons/css:
+bootstrap-glyphicons.css  bootstrap-glyphicons.min.css
+IdentityServer/wwwroot/lib/bootstrap4-glyphicons/fonts:
+glyphicons
+IdentityServer/wwwroot/lib/bootstrap4-glyphicons/fonts/glyphicons:
+glyphicons-halflings-regular.eot  glyphicons-halflings-regular.woff
+glyphicons-halflings-regular.svg  glyphicons-halflings-regular.woff2
+glyphicons-halflings-regular.ttf
+IdentityServer/wwwroot/lib/bootstrap4-glyphicons/maps:
+glyphicons-fontawesome.css   glyphicons-fontawesome.min.css
+glyphicons-fontawesome.less
+IdentityServer/wwwroot/lib/jquery:
+dist  LICENSE.txt  README.md
+IdentityServer/wwwroot/lib/jquery/dist:
+jquery.js      jquery.min.map  jquery.slim.min.js
+jquery.min.js  jquery.slim.js  jquery.slim.min.map
