@@ -258,9 +258,8 @@
   </Folder>
   <Folder Name="/IdentityServer/v7/Quickstarts/7_Blazor/" />
   <Folder Name="/IdentityServer/v7/Quickstarts/7_Blazor/src/">
-    <Project Path="IdentityServer/v7/Quickstarts/7_Blazor/src/Client/Blazor6.Client.csproj" />
-    <Project Path="IdentityServer/v7/Quickstarts/7_Blazor/src/Server/Blazor6.Server.csproj" />
-    <Project Path="IdentityServer/v7/Quickstarts/7_Blazor/src/Shared/Blazor6.Shared.csproj" />
+    <Project Path="IdentityServer/v7/Quickstarts/7_Blazor/BFF/BFF.csproj" />
+    <Project Path="IdentityServer/v7/Quickstarts/7_Blazor/BlazorWasm/BlazorWasm.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/ScopesAndResources/">
     <Project Path="IdentityServer/v7/ScopesAndResources/Client/Client.csproj" />
