@@ -1,0 +1,48 @@
+@page "/claims"
+@inject HttpClient Http
+
+<PageTitle>Claims</PageTitle>
+
+<h1>Claims</h1>
+
+<p>This component demonstrates fetching data from a remote API.</p>
+
+@if (claims == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var claim in claims)
+        {
+            <tr>
+                <td>@claim.Type</td>
+                <td>@claim.Value</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Claim[]? claims;
+
+    protected override async Task OnInitializedAsync()
+    {
+        claims = await Http.GetFromJsonAsync<Claim[]>("/remoteapi/test");
+    }
+
+    public class Claim
+    {
+        public string Type { get; set; } = "";
+        public string Value { get; set; } = "";
+    }
+}
