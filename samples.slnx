@@ -92,6 +92,15 @@
     <Project Path="BFF/v3/Vue/Vue.Bff/Vue.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/" />
+  <Folder Name="/BFF/v4/Angular/">
+    <Project Path="BFF/v4/Angular/Angular.Api/Angular.Api.csproj" />
+    <Project Path="BFF/v4/Angular/Angular.Bff/Angular.Bff.csproj" />
+    <Project Path="BFF/v4/Angular/angular.ssr/angular.ssr.esproj">
+      <BuildType Project="Debug" />
+      <Platform Project="AnyCPU" />
+      <Build />
+    </Project>
+  </Folder>
   <Folder Name="/BFF/v4/MultiFrontendSSO/">
     <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
