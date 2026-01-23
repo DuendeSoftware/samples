@@ -100,6 +100,14 @@
       <Platform Project="AnyCPU" />
       <Build />
     </Project>
+  <Folder Name="/BFF/v4/BlazorAutoRendering/">
+    <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering.Api/BlazorAutoRendering.Api.csproj" />
+    <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering.Client/BlazorAutoRendering.Client.csproj" />
+    <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering/BlazorAutoRendering.csproj" />
+  </Folder>
+  <Folder Name="/BFF/v4/BlazorWebAssembly/">
+    <Project Path="BFF/v4/BlazorWasm/BFF/BFF.csproj" />
+    <Project Path="BFF/v4/BlazorWasm/BlazorWasm/BlazorWasm.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/MultiFrontendSSO/">
     <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj">
