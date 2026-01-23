@@ -1,0 +1,68 @@
+@page "/greet"
+@using System.Text.Json
+@using Microsoft.AspNetCore.Authorization
+@inject IHttpClientFactory HttpClientFactory
+@rendermode InteractiveAuto
+
+@attribute [Authorize]
+
+<PageTitle>Greet</PageTitle>
+
+<h1>Greet</h1>
+
+<p>This component demonstrates fetching data from a remote api.</p>
+
+@if (_response == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>Uri: @_requestUri</p>
+    <p>Path: @_response.Path</p>
+    <p>Message: @_response.Message</p>
+    <p>Time: @_response.Time</p>
+}
+
+@code {
+    private GreetingsResponse? _response = null;
+    private Uri? _requestUri = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            using var client = HttpClientFactory.CreateClient("greet");
+
+            var response = await client.GetAsync("greet");
+            response.EnsureSuccessStatusCode();
+            _response = JsonSerializer.Deserialize<GreetingsResponse>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? throw new InvalidOperationException("Failed to deserialize");
+
+            
+            // Show the request URI. This clearly indicates if a request is made from the server (directly to the api) 
+            // or via blazor and the remote api proxy. 
+            _requestUri = response.RequestMessage?.RequestUri;
+
+            Console.WriteLine(_response?.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.ToString());
+            Console.WriteLine(_response?.Message);
+        }
+        
+    }
+    
+    public class GreetingsResponse
+    {
+        public string? Url { get; set; }
+        public string? Path { get; set; }
+        public string? Message { get; set; }
+
+        public string? Time { get; set; }
+        public Dictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
+    }
+}
