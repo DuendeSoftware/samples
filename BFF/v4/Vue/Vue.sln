@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vue.Api", "Vue.Api\Vue.Api.csproj", "{1BD6BAFE-FA80-4805-A3D2-02B790809556}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vue.Bff", "Vue.Bff\Vue.Bff.csproj", "{3B11A6E4-408D-40E0-B9C1-A04A6708CBF1}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "vue", "vue.client\vue.esproj", "{61103CF1-1788-456F-B13C-A4A9EF160ED8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BD6BAFE-FA80-4805-A3D2-02B790809556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD6BAFE-FA80-4805-A3D2-02B790809556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD6BAFE-FA80-4805-A3D2-02B790809556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD6BAFE-FA80-4805-A3D2-02B790809556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B11A6E4-408D-40E0-B9C1-A04A6708CBF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B11A6E4-408D-40E0-B9C1-A04A6708CBF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B11A6E4-408D-40E0-B9C1-A04A6708CBF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B11A6E4-408D-40E0-B9C1-A04A6708CBF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61103CF1-1788-456F-B13C-A4A9EF160ED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61103CF1-1788-456F-B13C-A4A9EF160ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61103CF1-1788-456F-B13C-A4A9EF160ED8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{61103CF1-1788-456F-B13C-A4A9EF160ED8}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
