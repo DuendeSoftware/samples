@@ -1,37 +1,17 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Duende.AccessTokenManagement.OpenIdConnect;
+using Duende.Bff;
+using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Yarp;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddBff();
-
-var yarpBuilder = builder.Services.AddReverseProxy()
-    .AddTransforms<AccessTokenTransformProvider>();
-//Configure from included extension method
-yarpBuilder.Configure();
-
-// registers HTTP client that uses the managed user access token
-builder.Services.AddUserAccessTokenHttpClient("api_client", configureClient: client =>
-{
-    client.BaseAddress = new Uri("https://localhost:5002/");
-});
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = "cookie";
-    options.DefaultChallengeScheme = "oidc";
-    options.DefaultSignOutScheme = "oidc";
-})
-    .AddCookie("cookie", options =>
-    {
-        options.Cookie.Name = "__Host-bff";
-        options.Cookie.SameSite = SameSiteMode.Strict;
-    })
-    .AddOpenIdConnect("oidc", options =>
+builder.Services.AddBff()
+    .ConfigureOpenIdConnect(options =>
     {
         options.Authority = "https://demo.duendesoftware.com";
         options.ClientId = "interactive.confidential";
@@ -55,7 +35,29 @@ builder.Services.AddAuthentication(options =>
             NameClaimType = "name",
             RoleClaimType = "role"
         };
+    })
+    .ConfigureCookies(options =>
+    {
+        options.Cookie.Name = "__Host-bff";
+        options.Cookie.SameSite = SameSiteMode.Strict;
     });
+
+var yarpBuilder = builder.Services.AddReverseProxy();
+//Configure from included extension method
+yarpBuilder.Configure();
+
+// registers HTTP client that uses the managed user access token
+builder.Services.AddUserAccessTokenHttpClient("api_client", configureClient: client =>
+{
+    client.BaseAddress = new Uri("https://localhost:5002/");
+});
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = BffAuthenticationSchemes.BffCookie;
+    options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
+    options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
+});
 
 var app = builder.Build();
 
@@ -67,8 +69,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseBff();
 app.UseAuthorization();
-
-app.MapBffManagementEndpoints();
 
 // if you want the TODOs API local
 // endpoints.MapControllers()
