@@ -12,7 +12,6 @@ namespace OpenApi.Bff;
 /// <param name="basePath"></param>
 public class OpenApiResponseTransform(string basePath) : ResponseTransform
 {
-
     public override async ValueTask ApplyAsync(ResponseTransformContext context)
     {
         // Check if the request path matches /openapi/{document}.json / .yaml
@@ -32,9 +31,10 @@ public class OpenApiResponseTransform(string basePath) : ResponseTransform
         }
     }
 
-private bool ProxyingOpenApiDocument(ResponseTransformContext context)
+    private bool ProxyingOpenApiDocument(ResponseTransformContext context)
     {
-        return context.HttpContext.Request.Path.StartsWithSegments(basePath +"/openapi", out var remainingPath) &&
-               remainingPath.HasValue && (remainingPath.Value.EndsWith(".json") || remainingPath.Value.EndsWith(".yaml"));
+        return context.HttpContext.Request.Path.StartsWithSegments(basePath + "/openapi", out var remainingPath) &&
+               remainingPath.HasValue &&
+               (remainingPath.Value.EndsWith(".json") || remainingPath.Value.EndsWith(".yaml"));
     }
 }

@@ -1,10 +1,12 @@
+using System.Text;
 using Microsoft.OpenApi;
 
 namespace OpenApi.BffOpenApiDocumentParser;
 
 public class OpenApiTransformer
 {
-    public static async Task TransformOpenApiDocumentForBff(Stream openApiDocumentStream, Stream outputStream, Uri serverUri, string localPath)
+    public static async Task TransformOpenApiDocumentForBff(Stream openApiDocumentStream, Stream outputStream,
+        Uri serverUri, string localPath)
     {
         var result = await OpenApiDocument.LoadAsync(openApiDocumentStream);
         var doc = result.Document;
@@ -36,14 +38,26 @@ public class OpenApiTransformer
     }
 
 
-
     private static async Task WriteDocumentTo(OpenApiDocument doc, Stream responseBody)
     {
         await using var textWriter = new StreamWriter(responseBody);
-        OpenApiJsonWriter writer = new(textWriter);
 
-        doc.SerializeAsV3(writer);
+        // The OpenAPI library's async calls are actually synchronous
+        // which explodes the pipeline since ASP.NET Core
+        // purposely denies synchronous calls that may lead to a deadlock
+        //
+        // Also, don't try to upgrade the OpenAPI library to 3.x, it is
+        // not currently compatible with .NET 10 :\
+        // https://github.com/dotnet/aspnetcore/issues/64317
+        //
+        // 💣 This will mess up your day.
+        // Please, trust us -- ❤️Duende Team
+        //
+        // await doc.SerializeAsync(writer, OpenApiSpecVersion.OpenApi3_0);
+
+        var json = await doc.SerializeAsJsonAsync(OpenApiSpecVersion.OpenApi3_0);
+        await textWriter.WriteAsync(json);
+
         await responseBody.FlushAsync();
     }
-
 }
