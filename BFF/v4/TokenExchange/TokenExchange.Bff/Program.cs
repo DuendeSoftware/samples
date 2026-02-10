@@ -1,7 +1,10 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Duende.AccessTokenManagement.OpenIdConnect;
 using Duende.Bff;
+using Duende.Bff.AccessTokenManagement;
+using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Yarp;
 using Serilog;
 using Serilog.Events;
@@ -24,23 +27,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSerilog();
 // Add BFF services to DI - also add server-side session management
 builder.Services.AddBff(options =>
-{
-    //options.UserEndpointReturnNullForAnonymousUser = true;
-})
+    {
+        //options.UserEndpointReturnNullForAnonymousUser = true;
+    })
     .AddRemoteApis()
-    .AddServerSideSessions();
-
-// local APIs
-builder.Services.AddControllers();
-
-// cookie options
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = "cookie";
-    options.DefaultChallengeScheme = "oidc";
-    options.DefaultSignOutScheme = "oidc";
-})
-    .AddCookie("cookie", options =>
+    .AddServerSideSessions()
+    .ConfigureCookies(options =>
     {
         // set session lifetime
         options.ExpireTimeSpan = TimeSpan.FromHours(8);
@@ -54,7 +46,7 @@ builder.Services.AddAuthentication(options =>
         // strict SameSite handling
         options.Cookie.SameSite = SameSiteMode.Strict;
     })
-    .AddOpenIdConnect("oidc", options =>
+    .ConfigureOpenIdConnect(options =>
     {
         options.Authority = "https://localhost:5001";
 
@@ -76,6 +68,17 @@ builder.Services.AddAuthentication(options =>
         options.Scope.Add("api");
         options.Scope.Add("offline_access");
     });
+
+// local APIs
+builder.Services.AddControllers();
+
+// cookie options
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = BffAuthenticationSchemes.BffCookie;
+    options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
+    options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
+});
 builder.Services.AddSingleton<ImpersonationAccessTokenRetriever>();
 
 builder.Services.AddUserAccessTokenHttpClient("api",
@@ -109,13 +112,13 @@ app.MapControllers()
 app.MapBffManagementEndpoints();
 
 // On this path, we require the user token
-app.MapRemoteBffApiEndpoint("/api/user-token", "https://localhost:7001")
-    .RequireAccessToken(TokenType.User);
+app.MapRemoteBffApiEndpoint("/api/user-token", new Uri("https://localhost:7001"))
+    .WithAccessToken(RequiredTokenType.User);
 
 // On this path, we perform token exchange to impersonate a different user
 // before making the api request
-app.MapRemoteBffApiEndpoint("/api/impersonation", "https://localhost:7001")
-    .RequireAccessToken(TokenType.User)
+app.MapRemoteBffApiEndpoint("/api/impersonation", new Uri("https://localhost:7001"))
+    .WithAccessToken(RequiredTokenType.User)
     .WithAccessTokenRetriever<ImpersonationAccessTokenRetriever>();
 
 app.Run();

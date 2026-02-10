@@ -1,15 +1,14 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Duende.Bff;
+using Duende.Bff.Endpoints;
 
 namespace BackendHost;
 
-class FrontendHostReturnUrlValidator : IReturnUrlValidator
+internal class FrontendHostReturnUrlValidator : IReturnUrlValidator
 {
-    public Task<bool> IsValidAsync(string returnUrl)
+    public bool IsValidAsync(Uri returnUrl)
     {
-        var uri = new Uri(returnUrl);
-        return Task.FromResult(uri.Host == "localhost" && uri.Port == 5011);
+        return returnUrl is { Host: "localhost", Port: 5011 };
     }
 }
