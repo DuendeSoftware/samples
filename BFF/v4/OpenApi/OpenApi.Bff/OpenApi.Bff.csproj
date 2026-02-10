@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Duende.BFF.Yarp" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery.Yarp" Version="10.2.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.2" />
+
+    <PackageReference Include="Microsoft.OpenApi" Version="2.6.1" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenApi.BffOpenApiDocumentParser\OpenApi.BffOpenApiDocumentParser.csproj" />
+    <ProjectReference Include="..\OpenApi.DevServer.ServiceDefaults\OpenApi.DevServer.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+
+</Project>

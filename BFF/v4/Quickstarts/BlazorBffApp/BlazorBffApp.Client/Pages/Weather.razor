@@ -1,0 +1,10 @@
+﻿@page "/weather"
+@using BlazorBffApp.Client.Components
+@using Microsoft.AspNetCore.Authorization
+
+@rendermode InteractiveWebAssembly
+@attribute [Authorize]
+
+<PageTitle>Weather</PageTitle>
+
+<WeatherComponent @rendermode="new InteractiveWebAssemblyRenderMode(prerender:false)" />
