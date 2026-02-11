@@ -32,31 +32,43 @@ namespace OpenApi.Bff.OpenApi
                     doc.Paths[source.LocalPath + path.Key] = path.Value;
                 }
 
-                foreach (var schema in docToMerge.Components.Schemas)
+                doc.Components ??= new OpenApiComponents();
+                doc.Components.Schemas ??= new Dictionary<string, IOpenApiSchema>();
+                doc.Components.Responses ??= new Dictionary<string, IOpenApiResponse>();
+                doc.Components.Parameters ??= new Dictionary<string, IOpenApiParameter>();
+                doc.Components.Examples ??= new Dictionary<string, IOpenApiExample>();
+                doc.Components.RequestBodies ??= new Dictionary<string, IOpenApiRequestBody>();
+                doc.Components.Headers ??= new Dictionary<string, IOpenApiHeader>();
+                doc.Components.Links ??= new Dictionary<string, IOpenApiLink>();
+                doc.Components.Callbacks ??= new Dictionary<string, IOpenApiCallback>();
+
+                docToMerge.Components ??= new OpenApiComponents();
+
+                foreach (var schema in docToMerge.Components.Schemas?.ToArray() ??[])
                 {
                     doc.Components.Schemas[schema.Key] = schema.Value;
                 }
-                foreach (var response in docToMerge.Components.Responses)
+                foreach (var response in docToMerge.Components.Responses?.ToArray() ??[])
                 {
                     doc.Components.Responses[response.Key] = response.Value;
                 }
 
-                foreach (var parameter in docToMerge.Components.Parameters)
+                foreach (var parameter in docToMerge.Components.Parameters?.ToArray() ??[])
                 {
                     doc.Components.Parameters[parameter.Key] = parameter.Value;
                 }
 
-                foreach (var example in docToMerge.Components.Examples)
+                foreach (var example in docToMerge.Components.Examples?.ToArray() ??[])
                 {
                     doc.Components.Examples[example.Key] = example.Value;
                 }
 
-                foreach (var requestBody in docToMerge.Components.RequestBodies)
+                foreach (var requestBody in docToMerge.Components.RequestBodies?.ToArray() ??[])
                 {
                     doc.Components.RequestBodies[requestBody.Key] = requestBody.Value;
                 }
 
-                foreach (var header in docToMerge.Components.Headers)
+                foreach (var header in docToMerge.Components.Headers?.ToArray() ??[])
                 {
                     doc.Components.Headers[header.Key] = header.Value;
                 }
@@ -67,27 +79,33 @@ namespace OpenApi.Bff.OpenApi
                 //    doc.Components.SecuritySchemes[securityScheme.Key] = securityScheme.Value;
                 //}
 
-                foreach (var link in docToMerge.Components.Links)
+                foreach (var link in docToMerge.Components.Links?.ToArray() ?? [] )
                 {
                     doc.Components.Links[link.Key] = link.Value;
                 }
 
-                foreach (var callback in docToMerge.Components.Callbacks)
+                foreach (var callback in docToMerge.Components.Callbacks?.ToArray() ?? [])
                 {
                     doc.Components.Callbacks[callback.Key] = callback.Value;
                 }
 
             }
 
-            await using var memoryStream = new MemoryStream();
-            await using var textWriter = new StreamWriter(memoryStream);
+            var memoryStream = await WriteToMemoryStream(cancellationToken, doc);
+
+            return TypedResults.Stream(memoryStream);
+        }
+
+        private static async Task<MemoryStream> WriteToMemoryStream(CancellationToken cancellationToken, OpenApiDocument doc)
+        {
+            var memoryStream = new MemoryStream();
+            await using var textWriter = new StreamWriter(memoryStream, leaveOpen: true);
             OpenApiJsonWriter writer = new(textWriter);
 
             doc.SerializeAsV3(writer);
-            await memoryStream.FlushAsync(cancellationToken);
+            await textWriter.FlushAsync(cancellationToken);
             memoryStream.Position = 0;
-
-            return TypedResults.Stream(memoryStream);
+            return memoryStream;
         }
     }
 }
