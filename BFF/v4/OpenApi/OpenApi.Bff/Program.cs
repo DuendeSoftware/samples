@@ -8,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
+var bffConfig = builder.Configuration.GetSection("BFF");
 builder.Services.AddBff()
-    .AddRemoteApis();
+    .AddRemoteApis()
+    .LoadConfiguration(bffConfig);
 
 // Make sure Yarp understands aspire's service discovery.
 builder.Services.AddHttpForwarderWithServiceDiscovery();
@@ -24,47 +26,6 @@ builder.Services.AddOpenApiDocumentsCombiner(opt =>
     };
 });
 
-
-Configuration config = new();
-builder.Configuration.Bind("BFF", config);
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = "cookie";
-    options.DefaultChallengeScheme = "oidc";
-    options.DefaultSignOutScheme = "oidc";
-})
-    .AddCookie("cookie", options =>
-    {
-        options.Cookie.Name = "__Host-bff";
-        options.Cookie.SameSite = SameSiteMode.Strict;
-        options.LoginPath = "/bff/login";
-    })
-    .AddOpenIdConnect("oidc", options =>
-    {
-        options.Authority = config.Authority;
-        options.ClientId = config.ClientId;
-        options.ClientSecret = config.ClientSecret;
-
-        options.ResponseType = "code";
-        options.ResponseMode = "query";
-
-        options.GetClaimsFromUserInfoEndpoint = true;
-        options.MapInboundClaims = false;
-        options.SaveTokens = true;
-
-        options.Scope.Clear();
-        foreach (var scope in config.Scopes)
-        {
-            options.Scope.Add(scope);
-        }
-
-        options.TokenValidationParameters = new()
-        {
-            NameClaimType = "name",
-            RoleClaimType = "role"
-        };
-    });
 
 builder.Services.AddSingleton<BffYarpTransformBuilder>((path, c) =>
 {
@@ -83,10 +44,10 @@ app.UseBff();
 
 app.MapDefaultEndpoints();
 
-// proxy all api's.
-app.MapRemoteBffApiEndpoint("/api1", new Uri(Services.Api1.LogicalUri().ToString()))
+// Proxy all API's.
+app.MapRemoteBffApiEndpoint("/api1", Services.Api1.LogicalUri())
     .WithAccessToken(RequiredTokenType.UserOrNone);
-app.MapRemoteBffApiEndpoint("/api2", new Uri(Services.Api2.LogicalUri().ToString()))
+app.MapRemoteBffApiEndpoint("/api2", Services.Api2.LogicalUri())
     .WithAccessToken(RequiredTokenType.UserOrNone);
 
 app.MapGet("/swagger/combined/v1.json",
