@@ -1,0 +1,8 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@OpenApi.Api2_HostAddress = https://localhost:7082/api1
+
+GET {{OpenApi.Api2_HostAddress}}/weatherforecastfahrenheit/
+Accept: application/json
+X-CSRF: 1
+
+###
