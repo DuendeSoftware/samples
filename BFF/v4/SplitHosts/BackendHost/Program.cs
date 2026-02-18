@@ -63,13 +63,6 @@ builder.Services.AddUserAccessTokenHttpClient("api_client", configureClient: cli
     client.BaseAddress = new Uri("https://localhost:5002/");
 });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = BffAuthenticationSchemes.BffCookie;
-    options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-    options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-});
-
 var app = builder.Build();
 
 app.UseDefaultFiles();
