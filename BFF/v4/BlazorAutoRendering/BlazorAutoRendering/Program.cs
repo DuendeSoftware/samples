@@ -16,12 +16,6 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = BffAuthenticationSchemes.BffCookie;
-    options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-});
-
 // BFF setup for blazor
 builder.Services.AddBff()
     .AddServerSideSessions() // Add in-memory implementation of server side sessions

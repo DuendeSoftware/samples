@@ -75,13 +75,6 @@ builder.Services.AddBff()
         options.Cookie.SameSite = SameSiteMode.Strict;
     });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = BffAuthenticationSchemes.BffCookie;
-    options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-    options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-});
-
 builder.Services.AddUserAccessTokenHttpClient("api_client", configureClient: client =>
 {
     client.BaseAddress = new Uri("https://localhost:5002/");

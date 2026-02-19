@@ -42,7 +42,7 @@ builder.Services.AddBff()
         options.Cookie.SameSite = SameSiteMode.Strict;
     });
 
-var yarpBuilder = builder.Services.AddReverseProxy();
+var yarpBuilder = builder.Services.AddReverseProxy().AddBffExtensions();
 //Configure from included extension method
 yarpBuilder.Configure();
 

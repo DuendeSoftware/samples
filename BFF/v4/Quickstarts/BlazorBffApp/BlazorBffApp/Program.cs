@@ -52,14 +52,6 @@ builder.Services.AddBff()
 
 //builder.Services.AddHttpClient<WeatherHttpClient>(opt => opt.BaseAddress = new Uri("https://localhost:7007"));
 
-// Configure the authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = BffAuthenticationSchemes.BffCookie;
-    options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-    options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-});
-
 // Make sure authentication state is available to all components.
 builder.Services.AddCascadingAuthenticationState();
 

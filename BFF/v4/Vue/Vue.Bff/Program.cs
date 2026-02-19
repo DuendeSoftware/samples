@@ -37,13 +37,6 @@ builder.Services.AddBff()
         options.Cookie.SameSite = SameSiteMode.Strict;
     });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = BffAuthenticationSchemes.BffCookie;
-    options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-    options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
-});
-
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
