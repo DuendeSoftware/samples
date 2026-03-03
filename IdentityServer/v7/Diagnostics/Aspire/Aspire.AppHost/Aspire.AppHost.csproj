@@ -15,4 +15,8 @@
     <ProjectReference Include="..\IdentityServer\IdentityServer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.1.2" />
+  </ItemGroup>
+
 </Project>

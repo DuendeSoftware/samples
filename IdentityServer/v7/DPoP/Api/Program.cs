@@ -33,7 +33,7 @@ builder.Services.AddAuthentication("token")
 // layers DPoP onto the "token" scheme above
 builder.Services.ConfigureDPoPTokensForScheme("token", opt =>
 {
-    // Chose a validation mode: either Nonce or IssuedAt. With nonce validation,
+    // Choose a expiration mode: either Nonce or IssuedAt. With nonce validation,
     // the api supplies a nonce that must be used to prove that the token was
     // not pre-generated. With IssuedAt validation, the client includes the
     // current time in the proof token, which is compared to the clock. Nonce
@@ -42,7 +42,7 @@ builder.Services.ConfigureDPoPTokensForScheme("token", opt =>
     // required each time the API is invoked.
     //
     // See RFC 9449 for more details.
-    opt.ValidationMode = ExpirationValidationMode.IssuedAt; // IssuedAt is the default.
+    opt.ProofTokenExpirationMode = DPoPProofExpirationMode.IssuedAt; // IssuedAt is the default.
 });
 
 var app = builder.Build();
