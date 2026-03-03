@@ -100,6 +100,7 @@
       <Platform Project="AnyCPU" />
       <Build />
     </Project>
+  </Folder>
   <Folder Name="/BFF/v4/BlazorAutoRendering/">
     <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering.Api/BlazorAutoRendering.Api.csproj" />
     <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering.Client/BlazorAutoRendering.Client.csproj" />
@@ -124,7 +125,9 @@
     </Project>
   </Folder>
   <Folder Name="/IdentityServer/" />
-  <Folder Name="/IdentityServer/v7/" />
+  <Folder Name="/IdentityServer/v7/">
+    <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v7/Apis/">
     <Project Path="IdentityServer/v7/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />
     <Project Path="IdentityServer/v7/Apis/SimpleApi/SimpleApi.csproj" />
@@ -339,10 +342,4 @@
     <Project Path="various/JwtSecuredAzureFunction/Client/Client.csproj" />
     <Project Path="various/JwtSecuredAzureFunction/JwtSecuredFunction/JwtSecuredFunction.csproj" />
   </Folder>
-  <Project Path="IdentityServer\v7\SessionMigration\SessionMigration.csproj">
-    <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
-    <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
-    <Configuration Solution="Release|x64" Project="Release|Any CPU" />
-    <Configuration Solution="Release|x86" Project="Release|Any CPU" />
-  </Project>
 </Solution>
