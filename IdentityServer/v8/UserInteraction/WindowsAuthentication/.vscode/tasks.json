@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+          "label": "build-identityserver",
+          "type": "process",
+          "command": "dotnet",
+          "args": [
+              "build",
+              "${workspaceFolder}/IdentityServerHost/IdentityServerHost.csproj",
+              "/property:GenerateFullPaths=true",
+              "/consoleloggerparameters:NoSummary"
+          ],
+          "problemMatcher": "$msCompile"
+        },
+        {
+          "label": "build-client",
+          "type": "process",
+          "command": "dotnet",
+          "args": [
+              "build",
+              "${workspaceFolder}/Client/Client.csproj",
+              "/property:GenerateFullPaths=true",
+              "/consoleloggerparameters:NoSummary"
+          ],
+          "problemMatcher": "$msCompile"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpDemo.McpServer", "McpDemo.McpServer\McpDemo.McpServer.csproj", "{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpDemo.IdentityServer", "McpDemo.IdentityServer\McpDemo.IdentityServer.csproj", "{DFEA935E-28EE-406D-8055-7407106EF1B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpDemo.Client", "McpDemo.Client\McpDemo.Client.csproj", "{8D81440F-4979-4964-B851-2AE6BF348D01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFEA935E-28EE-406D-8055-7407106EF1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFEA935E-28EE-406D-8055-7407106EF1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFEA935E-28EE-406D-8055-7407106EF1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFEA935E-28EE-406D-8055-7407106EF1B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D81440F-4979-4964-B851-2AE6BF348D01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D81440F-4979-4964-B851-2AE6BF348D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D81440F-4979-4964-B851-2AE6BF348D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D81440F-4979-4964-B851-2AE6BF348D01}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

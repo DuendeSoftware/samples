@@ -1,0 +1,58 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+          "name": "Run All",
+          "configurations": ["IdentityServerHost", "SimpleApiWithResources", "Client"],
+          "presentation": {
+            "group": "10-compunds",
+          }
+        }
+    ],
+    "configurations": [
+        {
+            "name": "IdentityServerHost",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-identityserver",
+            "program": "${workspaceFolder}/../IdentityServer/src/bin/Debug/net8.0/IdentityServerHost.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/../IdentityServer/src",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+        },
+        {
+            "name": "SimpleApiWithResources",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-resourceapi",
+            "program": "${workspaceFolder}/../Apis/ResourceBasedApi/bin/Debug/net8.0/ResourceBasedApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/../Apis/ResourceBasedApi",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+        },
+        {
+            "name": "Client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-client",
+            "program": "${workspaceFolder}/src/bin/Debug/net8.0/Client.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src",
+            "console": "externalTerminal",
+          }
+    ]
+}

@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Run All",
+            "configurations": ["Client","IdentityServerHost"],
+            "presentation": {
+                "group": "10-compounds",
+                "order": 1
+            }
+        }
+    ],
+    "configurations": [
+        {
+          "name": "IdentityServerHost",
+          "type": "coreclr",
+          "request": "launch",
+          "preLaunchTask": "build-identityserver",
+          "program": "${workspaceFolder}/IdentityServerHost/bin/Debug/net8.0/IdentityServerHost.dll",
+          "args": [],
+          "cwd": "${workspaceFolder}/IdentityServerHost",
+          "env": {
+              "ASPNETCORE_ENVIRONMENT": "Development"
+          },
+          "console": "externalTerminal"
+        },
+        {
+          "name": "Client",
+          "type": "coreclr",
+          "request": "launch",
+          "preLaunchTask": "build-client",
+          "program": "${workspaceFolder}/Client/bin/Debug/net8.0/Client.dll",
+          "args": [],
+          "cwd": "${workspaceFolder}/Client",
+          "serverReadyAction": {
+              "action": "openExternally",
+              "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+          },
+          "env": {
+              "ASPNETCORE_ENVIRONMENT": "Development"
+          },
+          "console": "externalTerminal"
+        }
+    ]
+}

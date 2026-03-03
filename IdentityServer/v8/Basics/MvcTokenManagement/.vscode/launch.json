@@ -1,0 +1,65 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+          "name": "Run All",
+          "configurations": ["IdentityServerHost", "SimpleApi", "Client"],
+          "presentation": {
+            "group": "10-compunds",
+          }
+        }
+    ],
+    "configurations": [
+        {
+            "name": "IdentityServerHost",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-identityserver",
+            "program": "${workspaceFolder}/../IdentityServer/src/bin/Debug/net8.0/IdentityServerHost.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/../IdentityServer/src",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+        },
+        {
+            "name": "SimpleApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-simpleapi",
+            "program": "${workspaceFolder}/../Apis/SimpleApi/bin/Debug/net8.0/SimpleApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/../Apis/SimpleApi",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+        },
+        {
+            "name": "Client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-client",
+            "program": "${workspaceFolder}/src/bin/Debug/net8.0/Client.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src",
+            "console": "externalTerminal",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+          }
+    ]
+}
