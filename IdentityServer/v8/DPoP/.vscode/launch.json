@@ -1,0 +1,77 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+          "name": "Run All (interactive)",
+          "configurations": ["IdentityServerHost", "Api", "Web"],
+          "presentation": {
+            "group": "10-compunds",
+          }
+        },
+        {
+            "name": "Run All (client credentials)",
+            "configurations": ["IdentityServerHost", "Api", "ClientCredentials"],
+            "presentation": {
+              "group": "10-compunds",
+            }
+          }
+    ],
+    "configurations": [
+        {
+            "name": "IdentityServerHost",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-IdentityServerHost",
+            "program": "${workspaceFolder}/IdentityServerHost/bin/Debug/net8.0/IdentityServerHost.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/IdentityServerHost",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+        },
+        {
+            "name": "Api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-api",
+            "program": "${workspaceFolder}/Api/bin/Debug/net8.0/Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Api/",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+        },
+        {
+            "name": "ClientCredentials",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-clientcredentials",
+            "program": "${workspaceFolder}/ClientCredentials/bin/Debug/net8.0/ClientCredentials.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/ClientCredentials",
+            "console": "externalTerminal",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        },
+        {
+            "name": "Web",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-web",
+            "program": "${workspaceFolder}/WebClient/bin/Debug/net8.0/WebClient.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/WebClient",
+            "console": "externalTerminal",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+        }
+    ]
+}

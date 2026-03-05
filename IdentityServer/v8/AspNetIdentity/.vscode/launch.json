@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+          "name": "Run All",
+          "configurations": ["IdentityServer", "Client"],
+          "presentation": {
+            "group": "10-compunds",
+          }
+        }
+    ],
+    "configurations": [
+        {
+            "name": "IdentityServer",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-identityserver",
+            "program": "${workspaceFolder}/IdentityServerAspNetIdentity/bin/Debug/net8.0/IdentityServerAspNetIdentity.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/IdentityServerAspNetIdentity",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+        },
+        {
+            "name": "Client",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-client",
+            "program": "${workspaceFolder}/Client/bin/Debug/net8.0/Client.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Client",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "console": "externalTerminal",
+          }
+    ]
+}
