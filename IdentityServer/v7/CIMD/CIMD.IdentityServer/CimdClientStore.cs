@@ -38,7 +38,10 @@ public partial class CimdClientStore(
             return null;
         }
 
-        var ct = CancellationToken.None;
+        // The IClientStore interface doesn't provide a CancellationToken, so we
+        // create our own with a timeout to bound all outgoing network calls
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        var ct = cts.Token;
 
         if (!await PassesSsrfChecksAsync(clientUri, ct))
         {
