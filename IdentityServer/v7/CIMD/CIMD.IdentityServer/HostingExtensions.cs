@@ -83,7 +83,12 @@ internal static class HostingExtensions
         builder.Services.AddSingleton<IEnumerable<Client>>([]);
         builder.Services.AddSingleton<ICimdPolicy, McpCimdPolicy>();
         builder.Services.AddSingleton<IClientStore, CimdClientStore>();
-        builder.Services.AddHttpClient(CimdClientStore.HttpClientName)
+        builder.Services.AddHttpClient(CimdClientStore.HttpClientName, client =>
+            {
+                // Limit how long we'll wait for a CIMD document to prevent
+                // malicious servers from holding connections open indefinitely
+                client.Timeout = TimeSpan.FromSeconds(5);
+            })
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {
                 // Per CIMD spec section 4: MUST NOT automatically follow HTTP redirects
