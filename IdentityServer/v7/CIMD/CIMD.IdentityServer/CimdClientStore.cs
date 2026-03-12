@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -147,23 +148,41 @@ public partial class CimdClientStore(
         }
 
         // Per spec section 6.6: SHOULD limit response size to 5 KB.
-        var buffer = new byte[MaxDocumentSizeBytes + 1];
-        var stream = await response.Content.ReadAsStreamAsync(ct);
-        var bytesRead = await stream.ReadAtLeastAsync(buffer, buffer.Length - 1, throwOnEndOfStream: false, cancellationToken: ct);
-        if (bytesRead > MaxDocumentSizeBytes)
+        // Check Content-Length first to reject obviously oversized responses
+        // before reading any body bytes.
+        if (response.Content.Headers.ContentLength is > MaxDocumentSizeBytes)
         {
-            Log.DocumentTooLarge(logger, clientUri, bytesRead, MaxDocumentSizeBytes);
+            Log.DocumentTooLarge(logger, clientUri, response.Content.Headers.ContentLength.Value, MaxDocumentSizeBytes);
             return null;
         }
 
+        // Use ArrayPool to avoid allocating a new buffer on every request
+        var buffer = ArrayPool<byte>.Shared.Rent(MaxDocumentSizeBytes + 1);
         try
         {
-            return JsonSerializer.Deserialize<DynamicClientRegistrationDocument>(buffer.AsSpan(0, bytesRead));
+            var stream = await response.Content.ReadAsStreamAsync(ct);
+            var bytesRead = await stream.ReadAtLeastAsync(buffer, MaxDocumentSizeBytes + 1, throwOnEndOfStream: false, cancellationToken: ct);
+
+            // Content-Length can be absent or lying — verify actual bytes read
+            if (bytesRead > MaxDocumentSizeBytes)
+            {
+                Log.DocumentTooLarge(logger, clientUri, bytesRead, MaxDocumentSizeBytes);
+                return null;
+            }
+
+            try
+            {
+                return JsonSerializer.Deserialize<DynamicClientRegistrationDocument>(buffer.AsSpan(0, bytesRead));
+            }
+            catch (Exception ex)
+            {
+                Log.DocumentDeserializationFailed(logger, clientUri, ex);
+                return null;
+            }
         }
-        catch (Exception ex)
+        finally
         {
-            Log.DocumentDeserializationFailed(logger, clientUri, ex);
-            return null;
+            ArrayPool<byte>.Shared.Return(buffer);
         }
     }
 

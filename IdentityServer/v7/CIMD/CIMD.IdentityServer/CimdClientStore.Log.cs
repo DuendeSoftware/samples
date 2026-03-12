@@ -31,7 +31,7 @@ public partial class CimdClientStore
         public static partial void NonSuccessStatusCode(ILogger logger, Uri clientUri, HttpStatusCode statusCode);
 
         [LoggerMessage(LogLevel.Error, "CIMD document at '{ClientUri}' is {BytesRead} bytes, exceeding the {MaxBytes}-byte limit")]
-        public static partial void DocumentTooLarge(ILogger logger, Uri clientUri, int bytesRead, int maxBytes);
+        public static partial void DocumentTooLarge(ILogger logger, Uri clientUri, long bytesRead, int maxBytes);
 
         [LoggerMessage(LogLevel.Error, "Failed to deserialize CIMD document from '{ClientUri}'")]
         public static partial void DocumentDeserializationFailed(ILogger logger, Uri clientUri, Exception ex);
