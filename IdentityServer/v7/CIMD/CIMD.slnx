@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CIMD.IdentityServer/CIMD.IdentityServer.csproj" />
+  <Project Path="CIMD.McpServer/CIMD.McpServer.csproj" />
+</Solution>
