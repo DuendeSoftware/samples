@@ -79,13 +79,12 @@ dotnet run --project CIMD.McpServer
 
 ## Using with VS Code
 
-This sample includes a `.vscode/mcp.json` that configures a `cimd-demo` MCP server. When you open this folder in VS Code:
-
-1. VS Code discovers the MCP server at `https://localhost:7241/`
-2. The MCP server's resource metadata points VS Code to the authorization server at `https://localhost:5101/`
-3. VS Code uses a CIMD URL as its `client_id` — IdentityServer fetches the metadata document from that URL to learn about the client
-4. VS Code opens a browser for you to log in (use one of the [test users](https://github.com/DuendeSoftware/Samples/blob/main/IdentityServer/v7/CIMD/CIMD.IdentityServer/Pages/TestUsers.cs))
-5. After login, VS Code receives tokens and can call MCP tools
+1. Open `.vscode/mcp.json` — VS Code will show a **Start** button above the `cimd-demo` server entry
+2. Click **Start** to connect to the MCP server at `https://localhost:7241/`
+3. The MCP server's resource metadata points VS Code to the authorization server at `https://localhost:5101/`
+4. VS Code uses a CIMD URL as its `client_id` — IdentityServer fetches the metadata document from that URL to learn about the client
+5. VS Code opens a browser for you to log in (use one of the [test users](https://github.com/DuendeSoftware/Samples/blob/main/IdentityServer/v7/CIMD/CIMD.IdentityServer/Pages/TestUsers.cs))
+6. After login, VS Code receives tokens and can call MCP tools
 
 The weather tools (`GetAlerts`, `GetForecast`) should appear in Copilot chat once the server is connected.
 
