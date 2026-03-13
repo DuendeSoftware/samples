@@ -16,18 +16,26 @@ public partial class CimdClientStore(
     HybridCache cache,
     ILogger<CimdClientStore> logger) : IClientStore
 {
+    private static readonly TimeSpan ResolutionTimeout = TimeSpan.FromSeconds(15);
+
     public async Task<Client?> FindClientByIdAsync(string clientId)
     {
+        using var cts = new CancellationTokenSource(ResolutionTimeout);
         try
         {
             return await cache.GetOrCreateAsync(
                 $"cimd-client:{clientId}",
                 async ct => await ResolveClientAsync(clientId, ct),
-                cancellationToken: CancellationToken.None);
+                cancellationToken: cts.Token);
         }
         catch (CimdResolutionException)
         {
             // Resolution failed — don't cache the failure
+            return null;
+        }
+        catch (OperationCanceledException) when (cts.IsCancellationRequested)
+        {
+            Log.ResolutionTimedOut(logger, clientId);
             return null;
         }
     }
@@ -145,5 +153,8 @@ public partial class CimdClientStore(
 
         [LoggerMessage(LogLevel.Error, "CIMD document for '{ClientId}' failed auth method validation: {Reason}")]
         public static partial void AuthMethodCheckFailed(ILogger logger, string clientId, string reason);
+
+        [LoggerMessage(LogLevel.Error, "CIMD resolution for '{ClientId}' timed out")]
+        public static partial void ResolutionTimedOut(ILogger logger, string clientId);
     }
 }
