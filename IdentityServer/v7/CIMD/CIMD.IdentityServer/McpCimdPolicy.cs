@@ -1,5 +1,3 @@
-using Duende.IdentityModel.Client;
-
 namespace CIMD.IdentityServer;
 
 /// <summary>
@@ -17,14 +15,13 @@ internal sealed class McpCimdPolicy : ICimdPolicy
         Task.FromResult(CimdPolicyResult.Allow);
 
     public Task<CimdPolicyResult> ValidateDocumentAsync(
-        Uri clientUri,
-        DynamicClientRegistrationDocument document,
+        CimdRequestContext context,
         CancellationToken ct)
     {
         // Merge default scopes into whatever the document already declares
-        var existing = document.Scope?.Split(' ', StringSplitOptions.RemoveEmptyEntries) ?? [];
+        var existing = context.Document.Scope?.Split(' ', StringSplitOptions.RemoveEmptyEntries) ?? [];
         var merged = existing.Union(DefaultScopes, StringComparer.OrdinalIgnoreCase);
-        document.Scope = string.Join(' ', merged);
+        context.Document.Scope = string.Join(' ', merged);
 
         return Task.FromResult(CimdPolicyResult.Allow);
     }

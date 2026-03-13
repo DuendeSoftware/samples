@@ -1,5 +1,3 @@
-using Duende.IdentityModel.Client;
-
 namespace CIMD.IdentityServer;
 
 /// <summary>
@@ -19,10 +17,12 @@ public interface ICimdPolicy
     /// <summary>
     /// Called after the CIMD document has been fetched and its basic
     /// structural validity verified, but before it is mapped to an
-    /// IdentityServer <c>Client</c>. Use this to validate or restrict
-    /// sensitive fields such as requested scopes or grant types.
+    /// IdentityServer <c>Client</c>. The <see cref="CimdRequestContext"/>
+    /// provides the parsed document along with the HTTP response headers
+    /// from the fetch, enabling policies to inspect Content-Type,
+    /// Cache-Control, or custom headers when making validation decisions.
     /// </summary>
-    Task<CimdPolicyResult> ValidateDocumentAsync(Uri clientUri, DynamicClientRegistrationDocument document, CancellationToken ct);
+    Task<CimdPolicyResult> ValidateDocumentAsync(CimdRequestContext context, CancellationToken ct);
 }
 
 /// <summary>

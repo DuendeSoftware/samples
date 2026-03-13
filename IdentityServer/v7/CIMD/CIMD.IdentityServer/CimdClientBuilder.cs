@@ -1,6 +1,5 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Duende.IdentityModel.Client;
 using Duende.IdentityModel.Jwk;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
@@ -21,7 +20,7 @@ public static class CimdClientBuilder
 
     public static Client Build(
         string clientId,
-        DynamicClientRegistrationDocument document,
+        CimdDocument document,
         JsonWebKeySet? keySet)
     {
         var scopes = document.Scope?.Split(' ').ToList() ?? [];

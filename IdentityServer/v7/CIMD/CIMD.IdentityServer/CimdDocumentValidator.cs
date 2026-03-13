@@ -1,5 +1,3 @@
-using Duende.IdentityModel.Client;
-
 namespace CIMD.IdentityServer;
 
 /// <summary>
@@ -32,7 +30,7 @@ public static class CimdDocumentValidator
     /// simple string comparison.
     /// </summary>
     public static bool ClientIdMatchesDocument(
-        string clientId, DynamicClientRegistrationDocument document) =>
+        string clientId, CimdDocument document) =>
         document.Extensions.TryGetValue("client_id", out var clientIdElement) &&
         clientIdElement.GetString() == clientId;
 
@@ -42,7 +40,7 @@ public static class CimdDocumentValidator
     /// MUST NOT be present.
     /// </summary>
     public static bool PassesAuthMethodChecks(
-        DynamicClientRegistrationDocument document, out string failureReason)
+        CimdDocument document, out string failureReason)
     {
         if (document.TokenEndpointAuthenticationMethod is { } method &&
             BannedAuthMethods.Contains(method))

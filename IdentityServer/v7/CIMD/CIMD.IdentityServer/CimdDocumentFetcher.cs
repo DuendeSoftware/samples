@@ -20,11 +20,13 @@ public partial class CimdDocumentFetcher(
     private const int MaxDocumentSizeBytes = 5 * 1024;
 
     /// <summary>
-    /// Fetches and deserializes a CIMD document from the given URI.
-    /// Returns null if the fetch fails, the response is non-200, the document
-    /// exceeds the size limit, or deserialization fails.
+    /// Fetches and deserializes a CIMD document from the given URI, returning
+    /// a <see cref="CimdRequestContext"/> that bundles the parsed document with
+    /// the HTTP response metadata. Returns null if the fetch fails, the
+    /// response is non-200, the document exceeds the size limit, or
+    /// deserialization fails.
     /// </summary>
-    public async Task<DynamicClientRegistrationDocument?> FetchDocumentAsync(
+    public async Task<CimdRequestContext?> FetchAsync(
         Uri clientUri, CancellationToken ct)
     {
         using var httpClient = httpClientFactory.CreateClient(HttpClientName);
@@ -70,15 +72,24 @@ public partial class CimdDocumentFetcher(
                 return null;
             }
 
+            CimdDocument document;
             try
             {
-                return JsonSerializer.Deserialize<DynamicClientRegistrationDocument>(buffer.AsSpan(0, bytesRead));
+                document = JsonSerializer.Deserialize<CimdDocument>(buffer.AsSpan(0, bytesRead))!;
             }
             catch (Exception ex)
             {
                 Log.DocumentDeserializationFailed(logger, clientUri, ex);
                 return null;
             }
+
+            return new CimdRequestContext
+            {
+                ClientUri = clientUri,
+                Document = document,
+                ResponseHeaders = response.Headers,
+                ContentHeaders = response.Content.Headers,
+            };
         }
         finally
         {
@@ -91,27 +102,27 @@ public partial class CimdDocumentFetcher(
     /// falls back to fetching jwks_uri.
     /// </summary>
     public async Task<JsonWebKeySet?> ResolveJwksAsync(
-        DynamicClientRegistrationDocument document, CancellationToken ct)
+        CimdRequestContext context, CancellationToken ct)
     {
-        if (document.Jwks is not null)
+        if (context.Document.Jwks is not null)
         {
             Log.UsingInlineJwks(logger);
-            return document.Jwks;
+            return context.Document.Jwks;
         }
 
-        if (document.JwksUri is not null)
+        if (context.Document.JwksUri is not null)
         {
-            Log.FetchingJwksUri(logger, document.JwksUri);
+            Log.FetchingJwksUri(logger, context.Document.JwksUri);
 
             using var httpClient = httpClientFactory.CreateClient(HttpClientName);
             JsonWebKeySetResponse jwksResponse;
             try
             {
-                jwksResponse = await httpClient.GetJsonWebKeySetAsync(document.JwksUri.ToString(), ct);
+                jwksResponse = await httpClient.GetJsonWebKeySetAsync(context.Document.JwksUri.ToString(), ct);
             }
             catch (Exception ex)
             {
-                Log.JwksUriFetchFailed(logger, document.JwksUri, ex);
+                Log.JwksUriFetchFailed(logger, context.Document.JwksUri, ex);
                 return null;
             }
 
@@ -120,7 +131,7 @@ public partial class CimdDocumentFetcher(
                 return jwksResponse.KeySet;
             }
 
-            Log.JwksUriResponseError(logger, document.JwksUri, jwksResponse.Error);
+            Log.JwksUriResponseError(logger, context.Document.JwksUri, jwksResponse.Error);
             return null;
         }
 

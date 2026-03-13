@@ -62,27 +62,27 @@ public partial class CimdClientStore(
         }
 
         // Fetch and deserialize the CIMD document
-        var document = await fetcher.FetchDocumentAsync(clientUri, ct);
-        if (document == null)
+        var context = await fetcher.FetchAsync(clientUri, ct);
+        if (context == null)
         {
             throw new CimdResolutionException();
         }
 
         // Validate document contents
-        if (!CimdDocumentValidator.ClientIdMatchesDocument(clientId, document))
+        if (!CimdDocumentValidator.ClientIdMatchesDocument(clientId, context.Document))
         {
             Log.ClientIdMismatch(logger, clientId);
             throw new CimdResolutionException();
         }
 
-        if (!CimdDocumentValidator.PassesAuthMethodChecks(document, out var authMethodFailureReason))
+        if (!CimdDocumentValidator.PassesAuthMethodChecks(context.Document, out var authMethodFailureReason))
         {
             Log.AuthMethodCheckFailed(logger, clientId, authMethodFailureReason);
             throw new CimdResolutionException();
         }
 
-        // Document-level policy check
-        var documentResult = await policy.ValidateDocumentAsync(clientUri, document, ct);
+        // Document-level policy check (has access to response headers via context)
+        var documentResult = await policy.ValidateDocumentAsync(context, ct);
         if (!documentResult.IsAllowed)
         {
             Log.DocumentDeniedByPolicy(logger, clientId, documentResult.Reason);
@@ -90,8 +90,8 @@ public partial class CimdClientStore(
         }
 
         // Resolve keys and build the IdentityServer client
-        var keySet = await fetcher.ResolveJwksAsync(document, ct);
-        var client = CimdClientBuilder.Build(clientId, document, keySet);
+        var keySet = await fetcher.ResolveJwksAsync(context, ct);
+        var client = CimdClientBuilder.Build(clientId, context.Document, keySet);
 
         Log.RegisteredCimdClient(logger, clientId);
         return client;
