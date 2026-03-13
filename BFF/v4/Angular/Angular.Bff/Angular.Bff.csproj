@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.Bff.Yarp" Version="4.1.1" />
+    <PackageReference Include="Duende.Bff.Yarp" Version="4.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>10.0.2</Version>
     </PackageReference>
