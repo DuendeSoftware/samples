@@ -25,8 +25,13 @@ public static class Config
 
     /// <summary>
     /// Statically configured clients. These coexist with CIMD clients, which
-    /// are resolved dynamically by <see cref="CimdClientStore"/>.
+    /// are resolved dynamically by <see cref="CimdClientStore{T}"/>.
     /// </summary>
+    /// <remarks>
+    /// Per the CIMD spec, static client IDs must not look like HTTPS URIs with
+    /// a path, since those are interpreted as CIMD metadata document URLs.
+    /// Simple names like "m2m" are safe.
+    /// </remarks>
     public static IEnumerable<Client> Clients =>
     [
         new()
