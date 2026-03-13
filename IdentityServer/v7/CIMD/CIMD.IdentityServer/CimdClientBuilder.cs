@@ -7,7 +7,7 @@ using Duende.IdentityServer.Models;
 namespace CIMD.IdentityServer;
 
 /// <summary>
-/// Pure mapping function: CIMD document + optional JWKS → IdentityServer Client.
+/// Creates the IdentityServer Client model from a CIMD document and optional JWKS
 /// </summary>
 public static class CimdClientBuilder
 {
