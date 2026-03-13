@@ -82,8 +82,10 @@ internal static class HostingExtensions
         // CIMD support: custom client store that fetches client metadata from URLs
         builder.Services.AddSingleton<IEnumerable<Client>>([]);
         builder.Services.AddSingleton<ICimdPolicy, McpCimdPolicy>();
+        builder.Services.AddSingleton<SsrfGuard>();
+        builder.Services.AddSingleton<CimdDocumentFetcher>();
         builder.Services.AddSingleton<IClientStore, CimdClientStore>();
-        builder.Services.AddHttpClient(CimdClientStore.HttpClientName, client =>
+        builder.Services.AddHttpClient(CimdDocumentFetcher.HttpClientName, client =>
             {
                 // Limit how long we'll wait for a CIMD document to prevent
                 // malicious servers from holding connections open indefinitely
