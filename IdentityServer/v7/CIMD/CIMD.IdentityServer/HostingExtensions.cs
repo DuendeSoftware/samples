@@ -1,8 +1,8 @@
 using System.Globalization;
 using Duende.IdentityServer;
-using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Stores;
 using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Filters;
@@ -76,36 +76,11 @@ internal static class HostingExtensions
         isBuilder.AddInMemoryIdentityResources(Config.IdentityResources);
         isBuilder.AddInMemoryApiScopes(Config.ApiScopes);
         isBuilder.AddInMemoryApiResources(Config.ApiResources);
-        // No pre-configured clients — CIMD provides them dynamically
-        // TODO - check that mixing works
-        isBuilder.AddInMemoryClients([]);
+        isBuilder.AddInMemoryClients(Config.Clients);
 
-        // CIMD support: custom client store that fetches client metadata from URLs
-        builder.Services.AddHybridCache(options =>
-        {
-            options.DefaultEntryOptions = new HybridCacheEntryOptions
-            {
-                // Cache resolved CIMD clients for 15 minutes so that changes
-                // to the metadata document are eventually picked up.
-                Expiration = TimeSpan.FromMinutes(15),
-                LocalCacheExpiration = TimeSpan.FromMinutes(15),
-            };
-        });
-        builder.Services.AddSingleton<ICimdPolicy, McpCimdPolicy>();
-        builder.Services.AddSingleton<SsrfGuard>();
-        builder.Services.AddSingleton<CimdDocumentFetcher>();
-        builder.Services.AddSingleton<IClientStore, CimdClientStore>();
-        builder.Services.AddHttpClient(CimdDocumentFetcher.HttpClientName, client =>
-            {
-                // Limit how long we'll wait for a CIMD document to prevent
-                // malicious servers from holding connections open indefinitely
-                client.Timeout = TimeSpan.FromSeconds(5);
-            })
-            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-            {
-                // Per CIMD spec section 4: MUST NOT automatically follow HTTP redirects
-                AllowAutoRedirect = false
-            });
+        // Add CIMD support so that CIMD clients are resolved dynamically
+        // while statically configured clients still work.
+        isBuilder.AddCimdClientStore<InMemoryClientStore>();
 
         builder.Services.AddAuthentication()
             .AddOpenIdConnect("oidc", "Sign-in with demo.duendesoftware.com", options =>
@@ -127,6 +102,51 @@ internal static class HostingExtensions
             });
 
         return builder.Build();
+    }
+
+    /// <summary>
+    /// Adds CIMD (Client ID Metadata Document) support by stacking
+    /// <see cref="CimdClientStore{T}"/> on top of the existing client store.
+    /// </summary>
+    /// <typeparam name="T">The concrete <see cref="IClientStore"/> implementation
+    /// to decorate (e.g., <c>InMemoryClientStore</c>). This method automatically
+    /// wraps it in <see cref="ValidatingClientStore{T}"/> before stacking the
+    /// CIMD layer on top.</typeparam>
+    public static IIdentityServerBuilder AddCimdClientStore<T>(
+        this IIdentityServerBuilder builder) where T : class, IClientStore
+    {
+        builder.Services.AddHybridCache(options =>
+        {
+            options.DefaultEntryOptions = new HybridCacheEntryOptions
+            {
+                // Cache resolved CIMD clients for 15 minutes so that changes
+                // to the metadata document are eventually picked up.
+                Expiration = TimeSpan.FromMinutes(15),
+                LocalCacheExpiration = TimeSpan.FromMinutes(15),
+            };
+        });
+        builder.Services.AddSingleton<ICimdPolicy, McpCimdPolicy>();
+        builder.Services.AddSingleton<SsrfGuard>();
+        builder.Services.AddSingleton<CimdDocumentFetcher>();
+
+        builder.Services.TryAddTransient(typeof(T));
+        builder.Services.AddTransient<ValidatingClientStore<T>>();
+        builder.Services.AddSingleton<IClientStore,
+            CimdClientStore<ValidatingClientStore<T>>>();
+
+        builder.Services.AddHttpClient(CimdDocumentFetcher.HttpClientName, client =>
+            {
+                // Limit how long we'll wait for a CIMD document to prevent
+                // malicious servers from holding connections open indefinitely
+                client.Timeout = TimeSpan.FromSeconds(5);
+            })
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                // Per CIMD spec section 4: MUST NOT automatically follow HTTP redirects
+                AllowAutoRedirect = false
+            });
+
+        return builder;
     }
 
     public static WebApplication ConfigurePipeline(this WebApplication app)

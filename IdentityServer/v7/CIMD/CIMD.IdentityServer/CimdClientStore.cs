@@ -5,10 +5,17 @@ using Microsoft.Extensions.Caching.Hybrid;
 namespace CIMD.IdentityServer;
 
 /// <summary>
-/// Custom <see cref="IClientStore"/> that dynamically creates clients by
-/// fetching and validating Client ID Metadata Documents (CIMD).
+/// Decorating <see cref="IClientStore"/> that adds CIMD (Client ID Metadata
+/// Document) support. If the client_id is a well-formed CIMD URI (HTTPS with
+/// a path), the document is fetched, validated, and mapped to a
+/// <see cref="Client"/>. Otherwise, the request is delegated to the inner
+/// store, allowing statically configured clients to coexist with CIMD clients.
 /// Uses <see cref="HybridCache"/> for caching with automatic expiration.
 /// </summary>
+/// <typeparam name="T">The inner <see cref="IClientStore"/> implementation to
+/// delegate to for non-CIMD client IDs. Resolved automatically by DI, following
+/// the same generic-constraint stacking pattern used by IdentityServer's own
+/// <c>CachingClientStore&lt;T&gt;</c> and <c>ValidatingClientStore&lt;T&gt;</c>.</typeparam>
 /// <remarks>
 /// <para><strong>Known limitation — document change detection:</strong>
 /// When a cached CIMD document expires and is re-fetched, this implementation
@@ -21,17 +28,26 @@ namespace CIMD.IdentityServer;
 /// <para>As of this writing, the CIMD draft itself has an open TODO in
 /// section 4.3 (Metadata Caching) regarding stale data considerations.</para>
 /// </remarks>
-public partial class CimdClientStore(
+public partial class CimdClientStore<T>(
+    T innerStore,
     CimdDocumentFetcher fetcher,
     SsrfGuard ssrfGuard,
     ICimdPolicy policy,
     HybridCache cache,
-    ILogger<CimdClientStore> logger) : IClientStore
+    ILogger<CimdClientStore<T>> logger) : IClientStore
+    where T : IClientStore
 {
     private static readonly TimeSpan ResolutionTimeout = TimeSpan.FromSeconds(15);
 
     public async Task<Client?> FindClientByIdAsync(string clientId)
     {
+        // If the client_id isn't a valid CIMD URI, delegate to the inner store
+        // (e.g., in-memory clients configured in Config.cs).
+        if (!TryParseClientUri(clientId, out _))
+        {
+            return await innerStore.FindClientByIdAsync(clientId);
+        }
+
         using var cts = new CancellationTokenSource(ResolutionTimeout);
         try
         {
@@ -59,10 +75,10 @@ public partial class CimdClientStore(
     /// </summary>
     private async Task<Client> ResolveClientAsync(string clientId, CancellationToken ct)
     {
-        // Validate the client_id is a well-formed CIMD URI
+        // TryParseClientUri was already called by FindClientByIdAsync — this
+        // is guaranteed to succeed, but we parse again to get the Uri value.
         if (!TryParseClientUri(clientId, out var clientUri))
         {
-            Log.InvalidClientUri(logger, clientId);
             throw new CimdResolutionException();
         }
 
@@ -147,9 +163,6 @@ public partial class CimdClientStore(
     {
         [LoggerMessage(LogLevel.Debug, "Successfully registered CIMD client '{ClientId}'")]
         public static partial void RegisteredCimdClient(ILogger logger, string clientId);
-
-        [LoggerMessage(LogLevel.Error, "'{ClientId}' is not a valid CIMD client URI: must be https, have a non-empty path, and contain no fragment, credentials, or dot-segments")]
-        public static partial void InvalidClientUri(ILogger logger, string clientId);
 
         [LoggerMessage(LogLevel.Error, "CIMD client URI '{ClientId}' resolves to a special-use IP address (RFC 6890); rejecting to prevent SSRF")]
         public static partial void SsrfCheckFailed(ILogger logger, string clientId);

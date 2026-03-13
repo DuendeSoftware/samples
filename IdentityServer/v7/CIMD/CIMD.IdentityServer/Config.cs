@@ -22,4 +22,19 @@ public static class Config
     [
         new("mcp")
     ];
+
+    /// <summary>
+    /// Statically configured clients. These coexist with CIMD clients, which
+    /// are resolved dynamically by <see cref="CimdClientStore"/>.
+    /// </summary>
+    public static IEnumerable<Client> Clients =>
+    [
+        new()
+        {
+            ClientId = "m2m",
+            ClientSecrets = { new Secret("secret".Sha256()) },
+            AllowedGrantTypes = GrantTypes.ClientCredentials,
+            AllowedScopes = { "mcp" }
+        }
+    ];
 }
