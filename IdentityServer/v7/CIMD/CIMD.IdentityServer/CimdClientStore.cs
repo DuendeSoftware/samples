@@ -40,7 +40,7 @@ public partial class CimdClientStore(
     private async Task<Client> ResolveClientAsync(string clientId, CancellationToken ct)
     {
         // Validate the client_id is a well-formed CIMD URI
-        if (!CimdDocumentValidator.TryParseClientUri(clientId, out var clientUri))
+        if (!TryParseClientUri(clientId, out var clientUri))
         {
             Log.InvalidClientUri(logger, clientId);
             throw new CimdResolutionException();
@@ -95,6 +95,26 @@ public partial class CimdClientStore(
 
         Log.RegisteredCimdClient(logger, clientId);
         return client;
+    }
+
+    /// <summary>
+    /// Per spec section 3: client URI must be HTTPS, contain a path component,
+    /// and MUST NOT contain single/double-dot path segments, a fragment, or
+    /// a username or password.
+    /// </summary>
+    private static bool TryParseClientUri(string clientId, out Uri clientUri)
+    {
+        if (!Uri.TryCreate(clientId, UriKind.Absolute, out clientUri!) ||
+            clientUri.Scheme != "https" ||
+            string.IsNullOrEmpty(clientUri.AbsolutePath.TrimStart('/')) ||
+            !string.IsNullOrEmpty(clientUri.Fragment) ||
+            !string.IsNullOrEmpty(clientUri.UserInfo) ||
+            clientUri.Segments.Any(s => s == "./" || s == "../"))
+        {
+            clientUri = null!;
+            return false;
+        }
+        return true;
     }
 
     /// <summary>
