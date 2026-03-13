@@ -4,9 +4,6 @@ public partial class CimdClientStore
 {
     private static partial class Log
     {
-        [LoggerMessage(LogLevel.Debug, "CIMD client '{ClientId}' found in cache")]
-        public static partial void FoundCachedClient(ILogger logger, string clientId);
-
         [LoggerMessage(LogLevel.Debug, "Successfully registered CIMD client '{ClientId}'")]
         public static partial void RegisteredCimdClient(ILogger logger, string clientId);
 

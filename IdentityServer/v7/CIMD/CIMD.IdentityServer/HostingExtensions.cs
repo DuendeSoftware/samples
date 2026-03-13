@@ -2,6 +2,7 @@ using System.Globalization;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Stores;
+using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Filters;
@@ -80,7 +81,16 @@ internal static class HostingExtensions
         isBuilder.AddInMemoryClients([]);
 
         // CIMD support: custom client store that fetches client metadata from URLs
-        builder.Services.AddSingleton<IEnumerable<Client>>([]);
+        builder.Services.AddHybridCache(options =>
+        {
+            options.DefaultEntryOptions = new HybridCacheEntryOptions
+            {
+                // Cache resolved CIMD clients for 15 minutes so that changes
+                // to the metadata document are eventually picked up.
+                Expiration = TimeSpan.FromMinutes(15),
+                LocalCacheExpiration = TimeSpan.FromMinutes(15),
+            };
+        });
         builder.Services.AddSingleton<ICimdPolicy, McpCimdPolicy>();
         builder.Services.AddSingleton<SsrfGuard>();
         builder.Services.AddSingleton<CimdDocumentFetcher>();

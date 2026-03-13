@@ -1,48 +1,56 @@
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Stores;
+using Microsoft.Extensions.Caching.Hybrid;
 
 namespace CIMD.IdentityServer;
 
 /// <summary>
 /// Custom <see cref="IClientStore"/> that dynamically creates clients by
 /// fetching and validating Client ID Metadata Documents (CIMD).
+/// Uses <see cref="HybridCache"/> for caching with automatic expiration.
 /// </summary>
 public partial class CimdClientStore(
     CimdDocumentFetcher fetcher,
     SsrfGuard ssrfGuard,
-    IEnumerable<Client> staticClients,
     ICimdPolicy policy,
+    HybridCache cache,
     ILogger<CimdClientStore> logger) : IClientStore
 {
-    private readonly List<Client> _clients = new(staticClients);
-
     public async Task<Client?> FindClientByIdAsync(string clientId)
     {
-        // Check cache first
-        var existing = _clients.FirstOrDefault(c => c.ClientId == clientId);
-        if (existing != null)
+        try
         {
-            Log.FoundCachedClient(logger, clientId);
-            return existing;
+            return await cache.GetOrCreateAsync(
+                $"cimd-client:{clientId}",
+                async ct => await ResolveClientAsync(clientId, ct),
+                cancellationToken: CancellationToken.None);
         }
+        catch (CimdResolutionException)
+        {
+            // Resolution failed — don't cache the failure
+            return null;
+        }
+    }
 
+    /// <summary>
+    /// Performs the full CIMD resolution pipeline. Throws
+    /// <see cref="CimdResolutionException"/> on any validation failure so that
+    /// <see cref="HybridCache"/> does not cache the negative result.
+    /// </summary>
+    private async Task<Client> ResolveClientAsync(string clientId, CancellationToken ct)
+    {
         // Validate the client_id is a well-formed CIMD URI
         if (!CimdDocumentValidator.TryParseClientUri(clientId, out var clientUri))
         {
             Log.InvalidClientUri(logger, clientId);
-            return null;
+            throw new CimdResolutionException();
         }
-
-        // The IClientStore interface doesn't provide a CancellationToken, so we
-        // create our own with a timeout to bound all outgoing network calls
-        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
-        var ct = cts.Token;
 
         // SSRF protection (CIMD spec section 6.5)
         if (!await ssrfGuard.IsSafeAsync(clientUri, ct))
         {
             Log.SsrfCheckFailed(logger, clientId);
-            return null;
+            throw new CimdResolutionException();
         }
 
         // Domain allowlist policy
@@ -50,27 +58,27 @@ public partial class CimdClientStore(
         if (!domainResult.IsAllowed)
         {
             Log.DomainDeniedByPolicy(logger, clientId, domainResult.Reason);
-            return null;
+            throw new CimdResolutionException();
         }
 
         // Fetch and deserialize the CIMD document
         var document = await fetcher.FetchDocumentAsync(clientUri, ct);
         if (document == null)
         {
-            return null;
+            throw new CimdResolutionException();
         }
 
         // Validate document contents
         if (!CimdDocumentValidator.ClientIdMatchesDocument(clientId, document))
         {
             Log.ClientIdMismatch(logger, clientId);
-            return null;
+            throw new CimdResolutionException();
         }
 
         if (!CimdDocumentValidator.PassesAuthMethodChecks(document, out var authMethodFailureReason))
         {
             Log.AuthMethodCheckFailed(logger, clientId, authMethodFailureReason);
-            return null;
+            throw new CimdResolutionException();
         }
 
         // Document-level policy check
@@ -78,15 +86,20 @@ public partial class CimdClientStore(
         if (!documentResult.IsAllowed)
         {
             Log.DocumentDeniedByPolicy(logger, clientId, documentResult.Reason);
-            return null;
+            throw new CimdResolutionException();
         }
 
         // Resolve keys and build the IdentityServer client
         var keySet = await fetcher.ResolveJwksAsync(document, ct);
         var client = CimdClientBuilder.Build(clientId, document, keySet);
 
-        _clients.Add(client);
         Log.RegisteredCimdClient(logger, clientId);
         return client;
     }
+
+    /// <summary>
+    /// Thrown when CIMD resolution fails, signaling that the result should
+    /// not be cached by <see cref="HybridCache"/>.
+    /// </summary>
+    private sealed class CimdResolutionException : Exception;
 }
