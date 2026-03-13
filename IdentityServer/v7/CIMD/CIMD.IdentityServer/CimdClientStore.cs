@@ -9,6 +9,18 @@ namespace CIMD.IdentityServer;
 /// fetching and validating Client ID Metadata Documents (CIMD).
 /// Uses <see cref="HybridCache"/> for caching with automatic expiration.
 /// </summary>
+/// <remarks>
+/// <para><strong>Known limitation — document change detection:</strong>
+/// When a cached CIMD document expires and is re-fetched, this implementation
+/// does not compare the new document to the previously accepted one. If the
+/// document has changed (e.g., new redirect URIs, rotated keys, different
+/// grant types), the new version is accepted without review. A production
+/// implementation should consider persisting previously accepted documents
+/// and comparing on re-fetch so that policy can evaluate whether the changes
+/// are acceptable or represent a potential compromise.</para>
+/// <para>As of this writing, the CIMD draft itself has an open TODO in
+/// section 4.3 (Metadata Caching) regarding stale data considerations.</para>
+/// </remarks>
 public partial class CimdClientStore(
     CimdDocumentFetcher fetcher,
     SsrfGuard ssrfGuard,
