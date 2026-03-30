@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Net.Http.Headers;
 using CIMD.McpServer.Tools;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

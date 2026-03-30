@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.ComponentModel;
 using System.Globalization;
 using System.Text.Json;
@@ -11,10 +14,7 @@ public sealed class WeatherTools
 {
     private readonly IHttpClientFactory _httpClientFactory;
 
-    public WeatherTools(IHttpClientFactory httpClientFactory)
-    {
-        _httpClientFactory = httpClientFactory;
-    }
+    public WeatherTools(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
     [McpServerTool, Description("Get weather alerts for a US state.")]
     public async Task<string> GetAlerts(
@@ -33,7 +33,7 @@ public sealed class WeatherTools
 
         return string.Join("\n--\n", alerts.Select(alert =>
         {
-            JsonElement properties = alert.GetProperty("properties");
+            var properties = alert.GetProperty("properties");
             return $"""
                     Event: {properties.GetProperty("event").GetString()}
                     Area: {properties.GetProperty("areaDesc").GetString()}

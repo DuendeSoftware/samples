@@ -1,10 +1,13 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using CIMD.IdentityServer.Pages.Consent;
 using Duende.IdentityServer.Configuration;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
-using CIMD.IdentityServer.Pages.Consent;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -204,15 +207,15 @@ public class Index : PageModel
 
     private static ScopeViewModel
         CreateScopeViewModel(ParsedScopeValue parsedScopeValue, ApiScope apiScope, bool check) => new ScopeViewModel
-    {
-        Value = parsedScopeValue.RawValue,
-        // todo: use the parsed scope value in the display?
-        DisplayName = apiScope.DisplayName ?? apiScope.Name,
-        Description = apiScope.Description,
-        Emphasize = apiScope.Emphasize,
-        Required = apiScope.Required,
-        Checked = check || apiScope.Required
-    };
+        {
+            Value = parsedScopeValue.RawValue,
+            // todo: use the parsed scope value in the display?
+            DisplayName = apiScope.DisplayName ?? apiScope.Name,
+            Description = apiScope.Description,
+            Emphasize = apiScope.Emphasize,
+            Required = apiScope.Required,
+            Checked = check || apiScope.Required
+        };
 
     private static ScopeViewModel GetOfflineAccessScope(bool check) => new ScopeViewModel
     {

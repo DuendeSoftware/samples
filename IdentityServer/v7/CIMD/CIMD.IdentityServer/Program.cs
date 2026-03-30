@@ -1,7 +1,10 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using System.Globalization;
 using System.Text;
-using Duende.IdentityServer.Licensing;
 using CIMD.IdentityServer;
+using Duende.IdentityServer.Licensing;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
