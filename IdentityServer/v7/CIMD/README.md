@@ -1,8 +1,8 @@
 # CIMD Sample
 
-This sample demonstrates how to use **Client ID Metadata Documents (CIMD)** to secure an MCP server with OAuth, as an alternative to Dynamic Client Registration (DCR).
+This sample demonstrates how to use **Client ID Metadata Documents (CIMD)** to secure an MCP server with OAuth.
 
-With CIMD, the MCP client (VS Code) uses a URL as its `client_id`. The authorization server fetches a metadata document from that URL to learn about the client — no pre-registration or DCR endpoint is needed.
+With CIMD, the MCP client (in this demo, VS Code) uses a URL as its `client_id`. The authorization server fetches a metadata document from that URL to learn about the client without needing pre-registration or DCR.
 
 ## Components
 
@@ -13,7 +13,6 @@ A Duende IdentityServer configured to support CIMD. Key differences from a stand
 - **`CimdClientStore`** — A custom `IClientStore` that, when it receives an unknown `client_id`, treats it as a URL, fetches the metadata document, validates it per the CIMD spec (SSRF checks, auth method restrictions, client_id matching), and dynamically creates a `Client`.
 - **`ICimdPolicy` / `McpCimdPolicy`** — A policy interface that controls which domains are allowed and can modify or restrict document fields. The sample policy allows all domains and merges default scopes (`openid`, `profile`, `mcp`) into documents that don't declare scopes.
 - **Discovery** — Advertises `"client_id_metadata_document_supported": true` so clients know CIMD is available.
-- **No DCR** — Unlike the McpDemo sample, there is no `AddIdentityServerConfiguration`, `AddInMemoryClientConfigurationStore`, or `MapDynamicClientRegistration`.
 - **AppAuth Redirect URI Validation** — VS Code is a native app, so it performs OAuth using the [RFC 8252](https://datatracker.ietf.org/doc/html/rfc8252) (OAuth 2.0 for Native Apps) flow. It starts a temporary HTTP listener on `http://127.0.0.1` with a random port to receive the authorization callback. IdentityServer's `AddAppAuthRedirectUriValidator()` enables this by allowing loopback redirect URIs with any port.
 
 Runs on `https://localhost:5101`.
