@@ -88,6 +88,68 @@ dotnet run --project CIMD.McpServer
 
 The weather tools (`GetAlerts`, `GetForecast`) should appear in Copilot chat once the server is connected.
 
+## Adding CIMD to Your Own IdentityServer
+
+To add CIMD support to an existing IdentityServer project, you need to copy the custom CIMD types and wire up the discovery and HTTP client configuration.
+
+### 1. Copy the CIMD Types
+
+Copy these files from `CIMD.IdentityServer/` into your project:
+
+| File | Purpose |
+|------|---------|
+| `CimdDocument.cs` | Model representing a CIMD metadata document (reuses the RFC 7591 JSON schema from `Duende.IdentityModel`) |
+| `CimdDocumentFetcher.cs` | Fetches CIMD documents and JWKS from remote URLs with size limits and security checks |
+| `CimdDocumentValidator.cs` | Validates that `client_id` matches the document URL and that no shared secrets are used |
+| `CimdClientStore.cs` | Decorating `IClientStore` that resolves CIMD URLs into `Client` objects, with caching |
+| `CimdClientBuilder.cs` | Converts a `CimdDocument` into a Duende `Client` model |
+| `CimdRequestContext.cs` | Bundles the fetched document with its URI and HTTP headers for policy inspection |
+| `ICimdPolicy.cs` | Policy interface for domain allow/deny and post-fetch document validation |
+| `McpCimdPolicy.cs` | Sample policy — allows all domains and merges default scopes. **Replace this with your own policy.** |
+| `SsrfGuard.cs` | SSRF protection that blocks requests to private/reserved IP ranges per the CIMD spec |
+
+### 2. Add NuGet Dependencies
+
+Ensure your project references:
+
+```xml
+<PackageReference Include="Duende.IdentityModel" Version="8.0.0" />
+<PackageReference Include="Microsoft.Extensions.Caching.Hybrid" Version="10.4.0" />
+```
+
+(`Duende.IdentityServer` provides `ValidatingClientStore<T>` and `IClientStore` — you likely already have it.)
+
+### 3. Wire Up Services
+
+In your `HostingExtensions.cs` (or wherever you configure IdentityServer), add:
+
+**Discovery** — advertise CIMD support so clients know it's available:
+
+```csharp
+options.Discovery.CustomEntries.Add("client_id_metadata_document_supported", true);
+```
+
+**AppAuth redirect URIs** — if your CIMD clients are native apps (like VS Code) that use loopback redirects:
+
+```csharp
+isBuilder.AddAppAuthRedirectUriValidator();
+```
+
+**CIMD client store** — stack CIMD resolution on top of your existing client store:
+
+```csharp
+isBuilder.AddCimdClientStore<InMemoryClientStore>(); // or your IClientStore implementation
+```
+
+The `AddCimdClientStore<T>` extension method (included in the copied files) registers the `HybridCache`, policy, SSRF guard, document fetcher, and a named HTTP client with redirect-following disabled per the CIMD spec.
+
+### 4. Customize the Policy
+
+Replace `McpCimdPolicy` with your own `ICimdPolicy` implementation to control:
+
+- **`CheckDomainAsync`** — which domains are allowed to host CIMD documents (the sample allows all)
+- **`ValidateDocumentAsync`** — additional validation or modification of fetched documents (the sample merges default scopes)
+
 ## Why CIMD Instead of DCR?
 
 | | DCR | CIMD |
