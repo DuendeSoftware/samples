@@ -3,8 +3,8 @@
 
 using System.Globalization;
 using Duende.IdentityServer;
-using idunno.Security;
 using Duende.IdentityServer.Stores;
+using idunno.Security;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;

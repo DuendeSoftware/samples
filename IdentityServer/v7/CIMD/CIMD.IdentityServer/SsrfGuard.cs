@@ -5,7 +5,6 @@ using System.Net;
 using idunno.Security;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.Extensions.Hosting;
 
 namespace CIMD.IdentityServer;
 
