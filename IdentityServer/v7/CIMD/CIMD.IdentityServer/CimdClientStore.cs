@@ -128,6 +128,13 @@ public partial class CimdClientStore<T>(
             throw new CimdResolutionException();
         }
 
+        // Enforce scope policy: merge defaults and filter disallowed scopes
+        var removedScopes = EnforceScopePolicy(context.Document, policy);
+        if (removedScopes.Count > 0)
+        {
+            Log.ScopesRemovedByPolicy(logger, clientId, string.Join(", ", removedScopes));
+        }
+
         // Resolve keys and build the IdentityServer client
         var keySet = await fetcher.ResolveJwksAsync(context, ct);
         var client = CimdClientBuilder.Build(clientId, context.Document, keySet);
@@ -162,6 +169,33 @@ public partial class CimdClientStore<T>(
     /// </summary>
     private sealed class CimdResolutionException : Exception;
 
+    /// <summary>
+    /// Merges the policy's <see cref="ICimdPolicy.DefaultScopes"/> into the
+    /// document and removes any scopes not present in the combined set of
+    /// default + allowed scopes. Scope comparison is case-sensitive per
+    /// RFC 6749 section 3.3.
+    /// </summary>
+    /// <returns>The list of scopes that were removed from the document.</returns>
+    private static IReadOnlyList<string> EnforceScopePolicy(
+        CimdDocument document, ICimdPolicy policy)
+    {
+        var requested = document.Scope?
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries) ?? [];
+
+        // Build the full set of permitted scopes (case-sensitive per RFC 6749 §3.3)
+        var permitted = new HashSet<string>(
+            policy.DefaultScopes.Concat(policy.AllowedScopes),
+            StringComparer.Ordinal);
+
+        var removed = requested.Where(s => !permitted.Contains(s)).ToList();
+
+        var filtered = requested.Where(s => permitted.Contains(s));
+        var final = filtered.Union(policy.DefaultScopes, StringComparer.Ordinal);
+
+        document.Scope = string.Join(' ', final);
+        return removed;
+    }
+
     private static partial class Log
     {
         [LoggerMessage(LogLevel.Debug, "Successfully registered CIMD client '{ClientId}'")]
@@ -184,5 +218,8 @@ public partial class CimdClientStore<T>(
 
         [LoggerMessage(LogLevel.Error, "CIMD resolution for '{ClientId}' timed out")]
         public static partial void ResolutionTimedOut(ILogger logger, string clientId);
+
+        [LoggerMessage(LogLevel.Information, "CIMD client '{ClientId}' requested scopes not permitted by policy; removed: {RemovedScopes}")]
+        public static partial void ScopesRemovedByPolicy(ILogger logger, string clientId, string removedScopes);
     }
 }

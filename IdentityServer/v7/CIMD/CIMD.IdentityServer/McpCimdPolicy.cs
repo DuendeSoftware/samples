@@ -10,22 +10,19 @@ namespace CIMD.IdentityServer;
 /// </summary>
 internal sealed class McpCimdPolicy : ICimdPolicy
 {
-    // Scopes that all CIMD clients should be granted. The authorization server
-    // owns this list — the client doesn't need to know about them upfront.
-    private static readonly string[] DefaultScopes = ["openid", "profile", "mcp"];
+    // Scopes that all CIMD clients are always granted, regardless of what
+    // the metadata document declares.
+    public IReadOnlyCollection<string> DefaultScopes { get; } = ["openid", "profile", "mcp"];
+
+    // Additional scopes that CIMD clients are permitted to request.
+    // offline_access is not a default but clients may opt in to it.
+    public IReadOnlyCollection<string> AllowedScopes { get; } = ["offline_access"];
 
     public Task<CimdPolicyResult> CheckDomainAsync(Uri clientUri, CancellationToken ct) =>
         Task.FromResult(CimdPolicyResult.Allow);
 
     public Task<CimdPolicyResult> ValidateDocumentAsync(
         CimdRequestContext context,
-        CancellationToken ct)
-    {
-        // Merge default scopes into whatever the document already declares
-        var existing = context.Document.Scope?.Split(' ', StringSplitOptions.RemoveEmptyEntries) ?? [];
-        var merged = existing.Union(DefaultScopes, StringComparer.OrdinalIgnoreCase);
-        context.Document.Scope = string.Join(' ', merged);
-
-        return Task.FromResult(CimdPolicyResult.Allow);
-    }
+        CancellationToken ct) =>
+        Task.FromResult(CimdPolicyResult.Allow);
 }
