@@ -42,6 +42,15 @@ public interface ICimdPolicy
     /// If empty, only <see cref="DefaultScopes"/> are permitted.
     /// </summary>
     IReadOnlyCollection<string> AllowedScopes { get; }
+
+    /// Called for each redirect URI declared in the CIMD document, allowing
+    /// the policy to approve or deny individual redirect URIs. Per
+    /// <see href="https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-01.html#section-6.1">
+    /// CIMD spec section 6.1</see>, an authorization server MAY impose
+    /// restrictions on <c>redirect_uris</c>, for example restricting them to
+    /// the same origin as the <c>client_id</c>.
+    /// </summary>
+    Task<CimdPolicyResult> ValidateRedirectUriAsync(Uri redirectUri, CimdRequestContext context, CancellationToken ct);
 }
 
 /// <summary>

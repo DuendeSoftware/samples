@@ -135,6 +135,17 @@ public partial class CimdClientStore<T>(
             Log.ScopesRemovedByPolicy(logger, clientId, string.Join(", ", removedScopes));
         }
 
+        // Redirect URI validation (CIMD spec section 6.1)
+        foreach (var redirectUri in context.Document.RedirectUris)
+        {
+            var redirectResult = await policy.ValidateRedirectUriAsync(redirectUri, context, ct);
+            if (!redirectResult.IsAllowed)
+            {
+                Log.RedirectUriDeniedByPolicy(logger, clientId, redirectUri.ToString(), redirectResult.Reason);
+                throw new CimdResolutionException();
+            }
+        }
+
         // Resolve keys and build the IdentityServer client
         var keySet = await fetcher.ResolveJwksAsync(context, ct);
         var client = CimdClientBuilder.Build(clientId, context.Document, keySet);
@@ -215,6 +226,9 @@ public partial class CimdClientStore<T>(
 
         [LoggerMessage(LogLevel.Error, "CIMD document for '{ClientId}' failed auth method validation: {Reason}")]
         public static partial void AuthMethodCheckFailed(ILogger logger, string clientId, string reason);
+
+        [LoggerMessage(LogLevel.Error, "CIMD document for '{ClientId}' has redirect URI '{RedirectUri}' denied by policy: {Reason}")]
+        public static partial void RedirectUriDeniedByPolicy(ILogger logger, string clientId, string redirectUri, string? reason);
 
         [LoggerMessage(LogLevel.Error, "CIMD resolution for '{ClientId}' timed out")]
         public static partial void ResolutionTimedOut(ILogger logger, string clientId);

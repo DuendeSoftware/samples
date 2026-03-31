@@ -7,6 +7,9 @@ namespace CIMD.IdentityServer;
 /// CIMD policy that ensures all CIMD clients receive the scopes needed to
 /// access our protected resources. CIMD documents (e.g., VS Code's) typically
 /// don't declare any scopes, so this policy adds them server-side.
+///
+/// Also validates that redirect URIs share the same origin as the client_id,
+/// as recommended by CIMD spec section 6.1.
 /// </summary>
 internal sealed class McpCimdPolicy : ICimdPolicy
 {
