@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using Duende.IdentityModel.Jwk;
+using idunno.Security;
 
 namespace CIMD.IdentityServer;
 
@@ -115,6 +116,11 @@ public partial class CimdDocumentFetcher(
         {
             response = await httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, ct);
         }
+        catch (HttpRequestException ex) when (ex.InnerException is SsrfException)
+        {
+            Log.SsrfProtectionBlocked(logger, uri, ex);
+            return null;
+        }
         catch (Exception ex)
         {
             Log.HttpRequestFailed(logger, uri, ex);
@@ -170,6 +176,9 @@ public partial class CimdDocumentFetcher(
     {
         [LoggerMessage(LogLevel.Error, "HTTP request to '{Uri}' failed")]
         public static partial void HttpRequestFailed(ILogger logger, Uri uri, Exception ex);
+
+        [LoggerMessage(LogLevel.Error, "SSRF protection blocked request to '{Uri}' — resolved IP is in a special-use range (RFC 6890)")]
+        public static partial void SsrfProtectionBlocked(ILogger logger, Uri uri, Exception ex);
 
         [LoggerMessage(LogLevel.Error, "'{Uri}' returned non-200 status {StatusCode}")]
         public static partial void NonSuccessStatusCode(ILogger logger, Uri uri, HttpStatusCode statusCode);

@@ -3,6 +3,7 @@
 
 using System.Globalization;
 using Duende.IdentityServer;
+using idunno.Security;
 using Duende.IdentityServer.Stores;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -143,10 +144,26 @@ internal static class HostingExtensions
                 // malicious servers from holding connections open indefinitely
                 client.Timeout = TimeSpan.FromSeconds(5);
             })
-            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            .ConfigurePrimaryHttpMessageHandler(sp =>
             {
-                // Per CIMD spec section 4: MUST NOT automatically follow HTTP redirects
-                AllowAutoRedirect = false
+                var env = sp.GetRequiredService<IHostEnvironment>();
+                var ssrfGuard = sp.GetRequiredService<SsrfGuard>();
+
+                // In development, when the server is on loopback, skip handler-level SSRF
+                // protection. This is allowed in section 6.5 of the CIMD draft, and facilitates
+                // running on localhost (as we do in this sample).
+                if (env.IsDevelopment() && ssrfGuard.ServerIsOnLoopback())
+                {
+                    return new SocketsHttpHandler
+                    {
+                        // Per CIMD spec section 4: MUST NOT automatically follow HTTP redirects
+                        AllowAutoRedirect = false
+                    };
+                }
+
+                // In production, enable handler-level SSRF protection.
+                // Note that the handler from idunno.Security.Ssrf disables auto redirect by default.
+                return SsrfSocketsHttpHanderFactory.Create();
             });
 
         return builder;
