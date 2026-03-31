@@ -26,6 +26,22 @@ public interface ICimdPolicy
     /// Cache-Control, or custom headers when making validation decisions.
     /// </summary>
     Task<CimdPolicyResult> ValidateDocumentAsync(CimdRequestContext context, CancellationToken ct);
+
+    /// <summary>
+    /// Scopes that are always added to every CIMD client, regardless of what
+    /// the metadata document requests. These are merged into the final scope
+    /// set unconditionally.
+    /// </summary>
+    IReadOnlyCollection<string> DefaultScopes { get; }
+
+    /// <summary>
+    /// Additional scopes (beyond <see cref="DefaultScopes"/>) that a CIMD
+    /// client is permitted to request. Any scope in the metadata document
+    /// that is not in <see cref="DefaultScopes"/> or
+    /// <see cref="AllowedScopes"/> will be silently removed.
+    /// If empty, only <see cref="DefaultScopes"/> are permitted.
+    /// </summary>
+    IReadOnlyCollection<string> AllowedScopes { get; }
 }
 
 /// <summary>
