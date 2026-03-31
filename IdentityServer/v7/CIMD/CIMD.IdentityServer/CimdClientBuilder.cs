@@ -41,7 +41,12 @@ public static class CimdClientBuilder
             AllowedGrantTypes = document.GrantTypes?.ToList() ?? GrantTypes.Code,
             RequireClientSecret = keySet is not null,
             AllowedScopes = scopes,
-            AllowOfflineAccess = allowOfflineAccess
+            AllowOfflineAccess = allowOfflineAccess,
+
+            // MCP clients discovered via CIMD are untrusted by default — require user
+            // consent so that the end-user explicitly authorises the tools/scopes an
+            // AI agent is requesting before access is granted.
+            RequireConsent = true
         };
 
         if (keySet is not null)
