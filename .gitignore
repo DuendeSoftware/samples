@@ -197,9 +197,6 @@ FakesAssemblies/
 *.opt
 docs/_build/
 
-# Local .NET CLI tools
-tools/
-
 # IdentityServer temp files
 tempkey.jwk
 keys
