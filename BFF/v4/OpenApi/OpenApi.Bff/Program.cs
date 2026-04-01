@@ -1,6 +1,7 @@
 using Duende.Bff;
 using Duende.Bff.AccessTokenManagement;
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.DataProtection;
 using OpenApi.Bff;
 using OpenApi.Bff.OpenApi;
 
@@ -12,6 +13,11 @@ var bffConfig = builder.Configuration.GetSection("BFF");
 builder.Services.AddBff()
     .AddRemoteApis()
     .LoadConfiguration(bffConfig);
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("BFF");
 
 // Make sure Yarp understands aspire's service discovery.
 builder.Services.AddHttpForwarderWithServiceDiscovery();

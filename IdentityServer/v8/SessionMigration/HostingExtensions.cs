@@ -1,6 +1,7 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using Microsoft.AspNetCore.DataProtection;
 using Serilog;
 
 namespace SessionMigration;
@@ -54,6 +55,11 @@ internal static class HostingExtensions
         // //** This is the code that adds migration of sessions. Enabling server side sessions through the
         // //** block above without enabling this will invalidate all existing sessions.
         // builder.Services.AddTransient<IPostConfigureOptions<CookieAuthenticationOptions>, SessionMigrationPostConfigureOptions>();
+
+        // Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
+        // See more at https://docs.duendesoftware.com/general/data-protection
+        builder.Services.AddDataProtection()
+            .SetApplicationName("IdentityServer");
 
         return builder.Build();
     }

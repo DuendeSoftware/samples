@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using IdentityServerHost;
+using Microsoft.AspNetCore.DataProtection;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
@@ -34,6 +35,11 @@ idsvrBuilder.AddScopeParser<ParameterizedScopeParser>();
 
 // register the token request validator to access the parsed scope in the pipeline
 idsvrBuilder.AddCustomTokenRequestValidator<TokenRequestValidator>();
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("IdentityServer");
 
 var app = builder.Build();
 

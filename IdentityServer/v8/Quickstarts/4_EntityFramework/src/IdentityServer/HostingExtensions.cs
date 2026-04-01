@@ -6,6 +6,7 @@ using Duende.IdentityServer;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using Google.Apis.Auth.AspNetCore3;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -109,6 +110,11 @@ internal static class HostingExtensions
                         options.CallbackPath = "/signin-google";
                     });
         }
+
+        // Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
+        // See more at https://docs.duendesoftware.com/general/data-protection
+        builder.Services.AddDataProtection()
+            .SetApplicationName("IdentityServer");
 
         return builder.Build();
     }

@@ -7,6 +7,7 @@ using Duende.Bff;
 using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Endpoints;
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,11 @@ builder.Services.AddUserAccessTokenHttpClient("api_client", configureClient: cli
 {
     client.BaseAddress = new Uri("https://localhost:5002/");
 });
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("BFF");
 
 var app = builder.Build();
 

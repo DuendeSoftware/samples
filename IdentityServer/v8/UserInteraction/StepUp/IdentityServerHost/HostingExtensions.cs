@@ -3,6 +3,7 @@
 
 using Duende.IdentityServer;
 using Duende.IdentityServer.ResponseHandling;
+using Microsoft.AspNetCore.DataProtection;
 using Serilog;
 
 namespace IdentityServerHost;
@@ -66,6 +67,11 @@ internal static class HostingExtensions
                     RoleClaimType = "role"
                 };
             });
+
+        // Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
+        // See more at https://docs.duendesoftware.com/general/data-protection
+        builder.Services.AddDataProtection()
+            .SetApplicationName("IdentityServer");
 
         return builder.Build();
     }
