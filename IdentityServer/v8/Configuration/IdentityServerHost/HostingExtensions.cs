@@ -95,7 +95,7 @@ internal static class HostingExtensions
         //builder.Services.Configure<RazorPagesOptions>(options =>
         //    options.Conventions.AuthorizeFolder("/ServerSideSessions", "admin"));
 
-        // Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+        // Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
         // See more at https://docs.duendesoftware.com/general/data-protection
         builder.Services.AddDataProtection()
             .SetApplicationName("IdentityServer");

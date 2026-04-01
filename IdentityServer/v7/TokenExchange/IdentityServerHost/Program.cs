@@ -29,7 +29,7 @@ idsvrBuilder.AddExtensionGrantValidator<TokenExchangeGrantValidator>();
 // register a profile service to emit the act claim
 idsvrBuilder.AddProfileService<ProfileService>();
 
-// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
 // See more at https://docs.duendesoftware.com/general/data-protection
 builder.Services.AddDataProtection()
     .SetApplicationName("IdentityServer");

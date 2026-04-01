@@ -64,7 +64,7 @@ builder.Services.AddUserAccessTokenHttpClient("api_client", configureClient: cli
     client.BaseAddress = new Uri("https://localhost:5002/");
 });
 
-// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
 // See more at https://docs.duendesoftware.com/general/data-protection
 builder.Services.AddDataProtection()
     .SetApplicationName("BFF");

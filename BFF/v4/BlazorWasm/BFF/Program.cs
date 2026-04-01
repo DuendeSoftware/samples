@@ -39,7 +39,7 @@ builder.Services
         options.Cookie.SameSite = SameSiteMode.Strict;
     });
 
-// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
 // See more at https://docs.duendesoftware.com/general/data-protection
 builder.Services.AddDataProtection()
     .SetApplicationName("BFF");

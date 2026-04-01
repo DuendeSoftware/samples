@@ -36,7 +36,7 @@ idsvrBuilder.AddScopeParser<ParameterizedScopeParser>();
 // register the token request validator to access the parsed scope in the pipeline
 idsvrBuilder.AddCustomTokenRequestValidator<TokenRequestValidator>();
 
-// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()` calls
 // See more at https://docs.duendesoftware.com/general/data-protection
 builder.Services.AddDataProtection()
     .SetApplicationName("IdentityServer");
