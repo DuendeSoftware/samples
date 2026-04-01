@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using IdentityServerHost;
+using Microsoft.AspNetCore.DataProtection;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
@@ -33,6 +34,11 @@ var idsvrBuilder = builder.Services.AddIdentityServer(options =>
 idsvrBuilder.AddInMemoryIdentityResources(Resources.Identity);
 idsvrBuilder.AddInMemoryApiScopes(Resources.ApiScopes);
 idsvrBuilder.AddInMemoryClients(Clients.List);
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("IdentityServer");
 
 var app = builder.Build();
 

@@ -6,6 +6,7 @@ using Duende.IdentityServer;
 using IdentityServerAspNetIdentityPasskeys.Data;
 using IdentityServerAspNetIdentityPasskeys.Models;
 using IdentityServerAspNetIdentityPasskeys.Passkeys;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -114,6 +115,11 @@ internal static class HostingExtensions
                     RoleClaimType = "role"
                 };
             });
+
+        // Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+        // See more at https://docs.duendesoftware.com/general/data-protection
+        builder.Services.AddDataProtection()
+            .SetApplicationName("IdentityServer");
 
         return builder.Build();
     }

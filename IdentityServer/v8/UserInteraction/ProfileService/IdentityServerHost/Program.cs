@@ -3,6 +3,7 @@
 
 using Duende.IdentityServer;
 using IdentityServerHost;
+using Microsoft.AspNetCore.DataProtection;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -63,6 +64,11 @@ builder.Services.AddAuthentication()
         options.Scope.Add("email");
         options.DisableTelemetry = true;
     });
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("IdentityServer");
 
 var app = builder.Build();
 

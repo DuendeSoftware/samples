@@ -3,6 +3,7 @@
 
 using Duende.IdentityServer;
 using IdentityServerHost;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -87,6 +88,11 @@ builder.Services.AddAuthentication()
             RoleClaimType = "role"
         };
     });
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("IdentityServer");
 
 var app = builder.Build();
 

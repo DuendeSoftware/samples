@@ -4,6 +4,7 @@
 
 using System.Security.Cryptography.X509Certificates;
 using IdentityServerHost;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Serilog;
 using Serilog.Events;
@@ -34,6 +35,11 @@ builder.Services.AddAuthentication()
         // In production, revocation should be checked.
         opt.RevocationMode = X509RevocationMode.NoCheck;
     });
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("IdentityServer");
 
 var idsvrBuilder = builder.Services.AddIdentityServer(options =>
 {
