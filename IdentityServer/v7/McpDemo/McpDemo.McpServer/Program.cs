@@ -1,5 +1,5 @@
 using System.Net.Http.Headers;
-using McpDemo.McpServer.Tools;
+using McpDemo.McpServer.McpTools;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using ModelContextProtocol.AspNetCore.Authentication;
