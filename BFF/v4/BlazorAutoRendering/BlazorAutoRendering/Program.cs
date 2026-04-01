@@ -9,6 +9,7 @@ using Duende.Bff.AccessTokenManagement;
 using Duende.Bff.Blazor;
 using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -65,6 +66,11 @@ builder.Services.AddSingleton<IWeatherClient, ServerWeatherClient>();
 builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddAuthorization();
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("BFF");
 
 var app = builder.Build();
 

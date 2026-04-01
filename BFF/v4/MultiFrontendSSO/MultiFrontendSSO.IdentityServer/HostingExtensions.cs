@@ -2,6 +2,7 @@
 // See LICENSE in the project root for license information.
 
 using IdentityServer;
+using Microsoft.AspNetCore.DataProtection;
 using Serilog;
 
 namespace MultiFrontendSSO.IdentityServer;
@@ -32,6 +33,11 @@ public static class HostingExtensions
 
         builder.Services
             .AddAuthentication();
+
+        // Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+        // See more at https://docs.duendesoftware.com/general/data-protection
+        builder.Services.AddDataProtection()
+            .SetApplicationName("BFF");
 
         return builder.Build();
     }

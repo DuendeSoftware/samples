@@ -5,6 +5,7 @@ using Duende.AccessTokenManagement.OpenIdConnect;
 using Duende.Bff;
 using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,11 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
     options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
 });
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("BFF");
 
 var app = builder.Build();
 

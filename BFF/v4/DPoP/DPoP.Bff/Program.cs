@@ -8,6 +8,7 @@ using Duende.Bff;
 using Duende.Bff.AccessTokenManagement;
 using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Events;
@@ -90,6 +91,11 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = BffAuthenticationSchemes.BffOpenIdConnect;
     options.DefaultSignOutScheme = BffAuthenticationSchemes.BffOpenIdConnect;
 });
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("BFF");
 
 builder.Services.AddUserAccessTokenHttpClient("api",
     configureClient: client =>

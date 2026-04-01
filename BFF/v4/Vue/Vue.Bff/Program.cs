@@ -1,6 +1,7 @@
 using Duende.Bff;
 using Duende.Bff.DynamicFrontends;
 using Duende.Bff.Yarp;
+using Microsoft.AspNetCore.DataProtection;
 using Vue.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +39,11 @@ builder.Services.AddBff()
     });
 
 builder.Services.AddAuthorization();
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("BFF");
 
 var app = builder.Build();
 

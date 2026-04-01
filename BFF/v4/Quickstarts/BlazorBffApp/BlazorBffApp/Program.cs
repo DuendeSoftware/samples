@@ -5,6 +5,7 @@ using BlazorBffApp.Components;
 using Duende.Bff;
 using Duende.Bff.Blazor;
 using Duende.Bff.DynamicFrontends;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,11 @@ builder.Services.AddBff()
 builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddAuthorization();
+
+// Add `.PersistKeysTo…()` and `.ProtectKeysWith…()`calls
+// See more at https://docs.duendesoftware.com/general/data-protection
+builder.Services.AddDataProtection()
+    .SetApplicationName("BFF");
 
 // Register a server abstraction.
 builder.Services.AddSingleton<IWeatherClient, ServerWeatherClient>();
