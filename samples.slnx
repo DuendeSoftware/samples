@@ -295,6 +295,7 @@
   <Folder Name="/IdentityServer/v7/TokenExchange/">
     <Project Path="IdentityServer/v7/TokenExchange/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/TokenExchange/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/TokenExchange/TokenExchange.AppHost/TokenExchange.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/" />
   <Folder Name="/IdentityServer/v7/UserInteraction/Ciba/">
@@ -498,6 +499,7 @@
   <Folder Name="/IdentityServer/v8/TokenExchange/">
     <Project Path="IdentityServer/v8/TokenExchange/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/TokenExchange/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/TokenExchange/TokenExchange.AppHost/TokenExchange.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/" />
   <Folder Name="/IdentityServer/v8/UserInteraction/Ciba/">
