@@ -4,20 +4,12 @@
 
 using IdentityServerHost;
 using Microsoft.AspNetCore.DataProtection;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
 Console.Title = "IdentityServer";
 
-Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Information()
-            .Enrich.FromLogContext()
-            .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-            .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSerilog();
+builder.AddServiceDefaults();
 
 var idsvrBuilder = builder.Services.AddIdentityServer()
     .AddInMemoryApiScopes(Config.Scopes)
@@ -38,6 +30,7 @@ var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
 
+app.MapDefaultEndpoints();
 app.UseIdentityServer();
 
 app.Run();
