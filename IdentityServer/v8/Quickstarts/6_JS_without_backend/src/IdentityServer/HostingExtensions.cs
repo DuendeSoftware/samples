@@ -3,6 +3,7 @@
 
 using Duende.IdentityServer;
 using Google.Apis.Auth.AspNetCore3;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
@@ -27,12 +28,12 @@ internal static class HostingExtensions
             options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
             options.SignOutScheme = IdentityServerConstants.SignoutScheme;
             options.SaveTokens = true;
-        
+
             options.Authority = "https://demo.duendesoftware.com";
             options.ClientId = "interactive.confidential";
             options.ClientSecret = "secret";
             options.ResponseType = "code";
-        
+
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 NameClaimType = "name",
@@ -51,10 +52,10 @@ internal static class HostingExtensions
                     configureOptions: options =>
                     {
                         options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-  
+
                         options.ClientId = googleClientId;
                         options.ClientSecret = googleClientSecret;
-          
+
                         options.CallbackPath = "/signin-google";
                     });
         }
