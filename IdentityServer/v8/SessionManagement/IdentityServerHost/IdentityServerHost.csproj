@@ -7,7 +7,10 @@
 
   <ItemGroup>
     <PackageReference Include="Duende.IdentityServer" Version="8.0.0-alpha.1" />
-    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Apire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

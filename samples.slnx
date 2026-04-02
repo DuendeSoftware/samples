@@ -126,6 +126,7 @@
   </Folder>
   <Folder Name="/IdentityServer/" />
   <Folder Name="/IdentityServer/v7/">
+    <Project Path="IdentityServer/v7/Apire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Apis/">
@@ -289,6 +290,7 @@
     <Project Path="IdentityServer/v7/SessionManagement/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/SessionManagement/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/SessionManagement/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/SessionManagement/SessionManagement.AppHost/SessionManagement.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/TokenExchange/">
     <Project Path="IdentityServer/v7/TokenExchange/Client/Client.csproj" />
@@ -327,6 +329,7 @@
     <Project Path="IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/">
+    <Project Path="IdentityServer/v8/Apire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Apis/">
@@ -490,6 +493,7 @@
     <Project Path="IdentityServer/v8/SessionManagement/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/SessionManagement/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/SessionManagement/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/SessionManagement/SessionManagement.AppHost/SessionManagement.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/TokenExchange/">
     <Project Path="IdentityServer/v8/TokenExchange/Client/Client.csproj" />
