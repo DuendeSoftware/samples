@@ -126,7 +126,7 @@
   </Folder>
   <Folder Name="/IdentityServer/" />
   <Folder Name="/IdentityServer/v7/">
-    <Project Path="IdentityServer/v7/Apire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+    <Project Path="IdentityServer/v7/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Apis/">
@@ -329,7 +329,7 @@
     <Project Path="IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/">
-    <Project Path="IdentityServer/v8/Apire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+    <Project Path="IdentityServer/v8/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Apis/">
