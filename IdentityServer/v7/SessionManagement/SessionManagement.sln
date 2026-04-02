@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerHost", "IdentityServerHost\IdentityServerHost.csproj", "{2880B5FF-9B88-476B-9869-E8A76FE65CB8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionManagement.AppHost", "SessionManagement.AppHost\SessionManagement.AppHost.csproj", "{BD383672-7EF5-4737-91A9-92918CF2BBA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\Apire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{A614B4B7-AB24-421D-808F-C35D4139F8E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{2880B5FF-9B88-476B-9869-E8A76FE65CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2880B5FF-9B88-476B-9869-E8A76FE65CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2880B5FF-9B88-476B-9869-E8A76FE65CB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD383672-7EF5-4737-91A9-92918CF2BBA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD383672-7EF5-4737-91A9-92918CF2BBA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD383672-7EF5-4737-91A9-92918CF2BBA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD383672-7EF5-4737-91A9-92918CF2BBA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A614B4B7-AB24-421D-808F-C35D4139F8E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A614B4B7-AB24-421D-808F-C35D4139F8E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A614B4B7-AB24-421D-808F-C35D4139F8E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A614B4B7-AB24-421D-808F-C35D4139F8E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

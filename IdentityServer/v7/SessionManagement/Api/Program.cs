@@ -13,6 +13,8 @@ Log.Logger = new LoggerConfiguration()
             .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 builder.Services.AddSerilog();
 
 builder.Services.AddControllers();
@@ -29,6 +31,8 @@ builder.Services.AddAuthentication("token")
     });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseRouting();
 app.UseAuthentication();

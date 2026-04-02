@@ -7,9 +7,15 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityModel" Version="7.1.0" />
+    <PackageReference Include="Duende.IdentityModel" Version="8.1.0" />
 
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.5" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Apire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\SessionManagement.ServiceDefaults\SessionManagement.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
