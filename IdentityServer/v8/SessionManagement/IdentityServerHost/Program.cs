@@ -5,29 +5,17 @@
 using Duende.IdentityServer;
 using IdentityServerHost;
 using Microsoft.AspNetCore.DataProtection;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
 Console.Title = "IdentityServer";
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSerilog();
+
+builder.AddServiceDefaults();
 
 builder.Services.AddRazorPages();
 
 var idsvrBuilder = builder.Services.AddIdentityServer(options =>
 {
-    options.Events.RaiseErrorEvents = true;
-    options.Events.RaiseInformationEvents = true;
-    options.Events.RaiseFailureEvents = true;
-    options.Events.RaiseSuccessEvents = true;
-
     // see https://docs.duendesoftware.com/identityserver/fundamentals/resources/
     options.EmitStaticAudienceClaim = true;
 
@@ -67,6 +55,8 @@ builder.Services.AddDataProtection()
     .SetApplicationName("IdentityServer");
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
