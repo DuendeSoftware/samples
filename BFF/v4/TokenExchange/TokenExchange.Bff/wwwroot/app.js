@@ -1,5 +1,5 @@
 ﻿const loginUrl = "/bff/login";
-const silentLoginUrl = "/bff/silent-login";
+const silentLoginUrl = "/bff/login?prompt=none";
 const userUrl = "/bff/user";
 const localApiUrl = "/local";
 const remoteApiUrl = "/api";
@@ -165,7 +165,7 @@ function silentLogin(iframeSelector) {
             // we can either just treat this like a "not logged in"
             resolve(false);
             // or we can trigger an error, so someone can look into the reason why
-            // reject(new Error("timed_out")); 
+            // reject(new Error("timed_out"));
         }, timeout);
 
         // send the iframe to the silent login endpoint to kick off the workflow
