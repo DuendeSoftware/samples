@@ -19,18 +19,23 @@ public class ConfigureJwtBearerOptions : IPostConfigureOptions<JwtBearerOptions>
     {
         if (_configScheme == name)
         {
-            if (options.EventsType != null && !typeof(DPoPJwtBearerEvents).IsAssignableFrom(options.EventsType))
+            var dpopEventsType  = typeof(DPoPJwtBearerEvents);
+            if (options.EventsType != null && !dpopEventsType.IsAssignableFrom(options.EventsType))
             {
                 throw new Exception("EventsType on JwtBearerOptions must derive from DPoPJwtBearerEvents to work with the DPoP support.");
             }
-            if (options.Events != null && !typeof(DPoPJwtBearerEvents).IsAssignableFrom(options.Events.GetType()))
-            {
-                throw new Exception("Events on JwtBearerOptions must derive from DPoPJwtBearerEvents to work with the DPoP support.");
-            }
 
-            if (options.Events == null && options.EventsType == null)
+            if (!dpopEventsType.IsInstanceOfType(options.Events))
             {
-                options.EventsType = typeof(DPoPJwtBearerEvents);
+                if (typeof(JwtBearerEvents) == options.Events.GetType())
+                {
+                    // Default scenario where the events type wasn't overridden?
+                    options.EventsType = dpopEventsType;
+                }
+                else
+                {
+                    throw new Exception("Events on JwtBearerOptions must derive from DPoPJwtBearerEvents to work with the DPoP support.");
+                }
             }
         }
     }
