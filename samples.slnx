@@ -299,7 +299,6 @@
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/" />
   <Folder Name="/IdentityServer/v7/UserInteraction/Ciba/">
-    <Project Path="IdentityServer/v7/UserInteraction/Ciba/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/Ciba/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/Ciba/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
@@ -503,7 +502,6 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/" />
   <Folder Name="/IdentityServer/v8/UserInteraction/Ciba/">
-    <Project Path="IdentityServer/v8/UserInteraction/Ciba/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/Ciba/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/Ciba/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
