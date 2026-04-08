@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Aspire.Hosting.AppHost" />
       <ProjectReference Include="..\..\..\Apis\SimpleApi\SimpleApi.csproj" />
       <ProjectReference Include="..\Client\Client.csproj" />
       <ProjectReference Include="..\IdentityServerHost\IdentityServerHost.csproj" />

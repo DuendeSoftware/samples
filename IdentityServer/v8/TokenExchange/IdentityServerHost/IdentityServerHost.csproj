@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer" Version="8.0.0-alpha.1" />
+    <PackageReference Include="Duende.IdentityServer" />
   </ItemGroup>
 
   <ItemGroup>

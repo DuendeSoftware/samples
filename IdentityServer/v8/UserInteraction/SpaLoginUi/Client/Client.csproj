@@ -7,8 +7,8 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.5" />
-    <PackageReference Include="Duende.IdentityModel" Version="7.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
+    <PackageReference Include="Duende.IdentityModel" />
   </ItemGroup>
 
 </Project>

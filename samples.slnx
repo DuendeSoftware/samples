@@ -328,6 +328,7 @@
     <Project Path="IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/">
+    <File Path="IdentityServer\v8\Directory.Packages.props" />
     <Project Path="IdentityServer/v8/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.csproj" />
   </Folder>

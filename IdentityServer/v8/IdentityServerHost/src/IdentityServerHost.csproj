@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer" Version="8.0.0-alpha.1" />
-    <PackageReference Include="Duende.IdentityServer.ConformanceReport" Version="0.1.0-alpha.0.3488" />
-    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Duende.IdentityServer" />
+    <PackageReference Include="Duende.IdentityServer.ConformanceReport" />
+    <PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
 
 </Project>

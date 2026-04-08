@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="8.0.0-alpha.1" />
+    <PackageReference Include="Duende.IdentityServer.AspNetIdentity" />
 
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.5" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.5" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
   </ItemGroup>
 
   <ItemGroup>

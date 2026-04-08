@@ -30,6 +30,14 @@ builder.Services.AddAuthentication("token")
         options.TokenValidationParameters.ValidTypes = ["at+jwt"];
     });
 
+// Register in-memory distributed cache
+// This is fine for demos, but in production, consider using Redis or another distributed cache
+builder.Services.AddDistributedMemoryCache();
+
+// Register keyed HybridCache
+builder.Services.AddKeyedHybridCache(ServiceProviderKeys.ProofTokenReplayHybridCache);
+
+
 // layers DPoP onto the "token" scheme above
 builder.Services.ConfigureDPoPTokensForScheme("token", opt =>
 {
