@@ -5,13 +5,13 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{559CD9B9-3756-41D8-BDC5-1EAC8AAFBF9A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{D2931C0F-E591-4CBA-B487-3EE5A350F218}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerHost", "IdentityServerHost\IdentityServerHost.csproj", "{2880B5FF-9B88-476B-9869-E8A76FE65CB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionManagement.AppHost", "SessionManagement.AppHost\SessionManagement.AppHost.csproj", "{BD383672-7EF5-4737-91A9-92918CF2BBA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{BE3015AC-8269-4D94-AB27-E835CBFC3AFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleApi", "..\Apis\SimpleApi\SimpleApi.csproj", "{3186E5A3-F3D3-45F4-9915-96E531AA1A62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,6 @@ Global
 		{559CD9B9-3756-41D8-BDC5-1EAC8AAFBF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559CD9B9-3756-41D8-BDC5-1EAC8AAFBF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559CD9B9-3756-41D8-BDC5-1EAC8AAFBF9A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D2931C0F-E591-4CBA-B487-3EE5A350F218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2931C0F-E591-4CBA-B487-3EE5A350F218}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2931C0F-E591-4CBA-B487-3EE5A350F218}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2931C0F-E591-4CBA-B487-3EE5A350F218}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2880B5FF-9B88-476B-9869-E8A76FE65CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2880B5FF-9B88-476B-9869-E8A76FE65CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2880B5FF-9B88-476B-9869-E8A76FE65CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{BE3015AC-8269-4D94-AB27-E835CBFC3AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE3015AC-8269-4D94-AB27-E835CBFC3AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE3015AC-8269-4D94-AB27-E835CBFC3AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3186E5A3-F3D3-45F4-9915-96E531AA1A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3186E5A3-F3D3-45F4-9915-96E531AA1A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3186E5A3-F3D3-45F4-9915-96E531AA1A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3186E5A3-F3D3-45F4-9915-96E531AA1A62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
