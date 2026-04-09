@@ -126,6 +126,7 @@
   </Folder>
   <Folder Name="/IdentityServer/" />
   <Folder Name="/IdentityServer/v7/">
+    <File Path="IdentityServer\v7\Directory.Packages.props" />
     <Project Path="IdentityServer/v7/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.csproj" />
   </Folder>
@@ -299,6 +300,7 @@
   <Folder Name="/IdentityServer/v7/UserInteraction/" />
   <Folder Name="/IdentityServer/v7/UserInteraction/Ciba/">
     <Project Path="IdentityServer/v7/UserInteraction/Ciba/Client/Client.csproj" />
+    <Project Path="IdentityServer/v7/UserInteraction/Ciba/IdentityServer.AppHost/IdentityServer.AppHost.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/Ciba/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/DynamicProviders/">
@@ -502,6 +504,7 @@
   <Folder Name="/IdentityServer/v8/UserInteraction/" />
   <Folder Name="/IdentityServer/v8/UserInteraction/Ciba/">
     <Project Path="IdentityServer/v8/UserInteraction/Ciba/Client/Client.csproj" />
+    <Project Path="IdentityServer/v8/UserInteraction/Ciba/IdentityServer.AppHost/IdentityServer.AppHost.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/Ciba/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/DynamicProviders/">

@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityModel" Version="8.0.1" />
+    <PackageReference Include="Duende.IdentityModel" />
   </ItemGroup>
 
 </Project>
