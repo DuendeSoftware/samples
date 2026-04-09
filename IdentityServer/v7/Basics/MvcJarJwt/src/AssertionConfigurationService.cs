@@ -1,6 +1,7 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Threading;
 using System.Threading.Tasks;
 using Duende.AccessTokenManagement;
 using Duende.IdentityModel;
@@ -8,21 +9,16 @@ using Duende.IdentityModel.Client;
 
 namespace Client;
 
-public class ClientAssertionService : IClientAssertionService
+public class ClientAssertionService(AssertionService assertionService) : IClientAssertionService
 {
-    private readonly AssertionService _assertionService;
-
-    public ClientAssertionService(AssertionService assertionService)
-    {
-        _assertionService = assertionService;
-    }
-
-    public Task<ClientAssertion> GetClientAssertionAsync(string clientName = null, TokenRequestParameters parameters = null)
+    public Task<ClientAssertion> GetClientAssertionAsync(ClientCredentialsClientName? clientName = null,
+        TokenRequestParameters parameters = null,
+        CancellationToken ct = new CancellationToken())
     {
         var assertion = new ClientAssertion
         {
             Type = OidcConstants.ClientAssertionTypes.JwtBearer,
-            Value = _assertionService.CreateClientToken()
+            Value = assertionService.CreateClientToken()
         };
 
         return Task.FromResult(assertion);

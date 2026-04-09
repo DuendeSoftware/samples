@@ -19,6 +19,13 @@ builder.Services.AddSerilog();
 builder.Services.AddControllers();
 builder.Services.AddCors();
 
+// Register in-memory distributed cache
+// This is fine for demos, but in production, consider using Redis or another distributed cache
+builder.Services.AddDistributedMemoryCache();
+
+// Register keyed HybridCache
+builder.Services.AddKeyedHybridCache(ServiceProviderKeys.ProofTokenReplayHybridCache);
+
 // this API will accept any access token from the authority
 builder.Services.AddAuthentication("token")
     .AddJwtBearer("token", options =>

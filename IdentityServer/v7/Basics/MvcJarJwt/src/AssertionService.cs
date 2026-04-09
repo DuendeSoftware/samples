@@ -12,22 +12,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Client;
 
-public class AssertionService
+public class AssertionService(IConfiguration configuration)
 {
-    private readonly IConfiguration _configuration;
-
-    public AssertionService(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
     public string CreateClientToken()
     {
-        var now = DateTime.UtcNow;
-        var clientId = _configuration.GetValue<string>("ClientId");
+        var now = DateTimeOffset.UtcNow;
+        var clientId = configuration.GetValue<string>("ClientId");
 
         // in production you should load that key from some secure location
-        var key = _configuration.GetValue<string>("Secrets:Key");
+        var key = configuration.GetValue<string>("Secrets:Key");
 
         var token = new JwtSecurityToken(
             clientId,
@@ -36,10 +29,10 @@ public class AssertionService
             {
                 new Claim(JwtClaimTypes.JwtId, Guid.NewGuid().ToString()),
                 new Claim(JwtClaimTypes.Subject, clientId),
-                new Claim(JwtClaimTypes.IssuedAt, now.ToEpochTime().ToString(), ClaimValueTypes.Integer64)
+                new Claim(JwtClaimTypes.IssuedAt, now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
             },
-            now,
-            now.AddMinutes(1),
+            now.UtcDateTime,
+            now.UtcDateTime.AddMinutes(1),
             new SigningCredentials(new JsonWebKey(key), "RS256")
         );
 
@@ -54,10 +47,10 @@ public class AssertionService
     public string SignAuthorizationRequest(OpenIdConnectMessage message)
     {
         var now = DateTime.UtcNow;
-        var clientId = _configuration.GetValue<string>("ClientId");
+        var clientId = configuration.GetValue<string>("ClientId");
 
         // in production you should load that key from some secure location
-        var key = _configuration.GetValue<string>("Secrets:Key");
+        var key = configuration.GetValue<string>("Secrets:Key");
 
         var claims = new List<Claim>();
         foreach (var parameter in message.Parameters)

@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.2.1">
+<Project Sdk="Aspire.AppHost.Sdk/13.2.2">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -8,7 +8,9 @@
         <UserSecretsId>289847f7-34b8-436c-af32-3bf4c68e266f</UserSecretsId>
     </PropertyGroup>
 
+
     <ItemGroup>
+      <PackageReference Include="Aspire.Hosting.AppHost" />
       <ProjectReference Include="..\..\..\Apis\SimpleApi\SimpleApi.csproj" />
       <ProjectReference Include="..\Client\Client.csproj" />
       <ProjectReference Include="..\IdentityServerHost\IdentityServerHost.csproj" />
