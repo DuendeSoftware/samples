@@ -5,15 +5,8 @@ using Duende.IdentityServer;
 using IdentityServerHost;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
 Console.Title = "IdentityServer";
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
 
 var seed = args.Contains("/seed");
 if (seed)
@@ -22,8 +15,7 @@ if (seed)
 }
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddSerilog();
+builder.AddServiceDefaults();
 
 builder.Services.AddRazorPages();
 
@@ -31,19 +23,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 if (seed)
 {
-    Log.Information("Seeding database...");
+    Console.WriteLine("Seeding database...");
     SeedData.EnsureSeedData(connectionString);
-    Log.Information("Done seeding database.");
+    Console.WriteLine("Done seeding database.");
     return;
 }
 
 builder.Services.AddIdentityServer(options =>
 {
-    options.Events.RaiseErrorEvents = true;
-    options.Events.RaiseInformationEvents = true;
-    options.Events.RaiseFailureEvents = true;
-    options.Events.RaiseSuccessEvents = true;
-
     // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
     options.EmitStaticAudienceClaim = true;
 
@@ -106,6 +93,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseIdentityServer();
 app.UseAuthorization();
+app.MapDefaultEndpoints();
 app.MapRazorPages();
 
 app.Run();
