@@ -5,10 +5,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Duende.AccessTokenManagement.OpenIdConnect" Version="3.2.0"/>
-		<PackageReference Include="Duende.IdentityModel" Version="7.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.5"/>
-		<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+		<PackageReference Include="Duende.AccessTokenManagement.OpenIdConnect"/>
+		<PackageReference Include="Duende.IdentityModel" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect"/>
+		<PackageReference Include="Serilog.AspNetCore" />
 	</ItemGroup>
 
 	<!-- Constants and helpers -->
