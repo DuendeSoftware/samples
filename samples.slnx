@@ -305,6 +305,7 @@
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/DynamicProviders/">
     <Project Path="IdentityServer/v7/UserInteraction/DynamicProviders/Client/Client.csproj" />
+    <Project Path="IdentityServer/v7/UserInteraction/DynamicProviders/IdentityServer.AppHost/IdentityServer.AppHost.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/DynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/ProfileService/">
@@ -509,6 +510,7 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/DynamicProviders/">
     <Project Path="IdentityServer/v8/UserInteraction/DynamicProviders/Client/Client.csproj" />
+    <Project Path="IdentityServer/v8/UserInteraction/DynamicProviders/IdentityServer.AppHost/IdentityServer.AppHost.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/DynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/ProfileService/">

@@ -6,7 +6,6 @@ using Duende.IdentityServer.EntityFramework.Mappers;
 using Duende.IdentityServer.EntityFramework.Storage;
 using Duende.IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace IdentityServerHost;
 
@@ -40,7 +39,7 @@ public class SeedData
     {
         if (!context.Clients.Any())
         {
-            Log.Debug("Clients being populated");
+            Console.WriteLine("Clients being populated");
             foreach (var client in Config.Clients.ToList())
             {
                 context.Clients.Add(client.ToEntity());
@@ -49,12 +48,12 @@ public class SeedData
         }
         else
         {
-            Log.Debug("Clients already populated");
+            Console.WriteLine("Clients already populated");
         }
 
         if (!context.IdentityResources.Any())
         {
-            Log.Debug("IdentityResources being populated");
+            Console.WriteLine("IdentityResources being populated");
             foreach (var resource in Config.IdentityResources.ToList())
             {
                 context.IdentityResources.Add(resource.ToEntity());
@@ -63,12 +62,12 @@ public class SeedData
         }
         else
         {
-            Log.Debug("IdentityResources already populated");
+            Console.WriteLine("IdentityResources already populated");
         }
 
         if (!context.ApiScopes.Any())
         {
-            Log.Debug("ApiScopes being populated");
+            Console.WriteLine("ApiScopes being populated");
             foreach (var apiScope in Config.ApiScopes.ToList())
             {
                 context.ApiScopes.Add(apiScope.ToEntity());
@@ -77,7 +76,7 @@ public class SeedData
         }
         else
         {
-            Log.Debug("ApiScopes already populated");
+            Console.WriteLine("ApiScopes already populated");
         }
 
         if (!context.IdentityProviders.Any())
