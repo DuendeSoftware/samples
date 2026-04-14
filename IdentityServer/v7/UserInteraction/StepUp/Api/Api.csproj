@@ -9,4 +9,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 </Project>
