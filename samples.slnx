@@ -322,6 +322,7 @@
     <Project Path="IdentityServer/v7/UserInteraction/StepUp/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/StepUp/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/StepUp/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/UserInteraction/StepUp/StepUp.AppHost/StepUp.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/WindowsAuthentication/">
     <Project Path="IdentityServer/v7/UserInteraction/WindowsAuthentication/Client/Client.csproj" />
@@ -528,6 +529,7 @@
     <Project Path="IdentityServer/v8/UserInteraction/StepUp/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/StepUp/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/StepUp/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/UserInteraction/StepUp/StepUp.AppHost/StepUp.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/WindowsAuthentication/">
     <Project Path="IdentityServer/v8/UserInteraction/WindowsAuthentication/Client/Client.csproj" />

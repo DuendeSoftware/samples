@@ -5,6 +5,8 @@ using Duende.AccessTokenManagement.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -82,6 +84,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
+app.MapDefaultEndpoints();
 app.UseAuthorization();
 
 app.MapRazorPages();

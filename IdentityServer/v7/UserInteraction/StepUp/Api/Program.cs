@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 builder.Services.AddAuthentication("jwt")
     .AddJwtBearer("jwt", opt =>
@@ -50,6 +52,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+app.MapDefaultEndpoints();
 app.UseAuthorization();
 
 app.MapControllers();
