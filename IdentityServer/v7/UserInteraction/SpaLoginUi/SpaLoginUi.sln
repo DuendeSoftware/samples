@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerHost", "Ident
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{14EBFBC1-BD4F-4DBA-A8E9-175622591E4E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaLoginUi.AppHost", "SpaLoginUi.AppHost\SpaLoginUi.AppHost.csproj", "{331462B0-08C0-49CC-8149-FC0A9AA28007}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{14EBFBC1-BD4F-4DBA-A8E9-175622591E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14EBFBC1-BD4F-4DBA-A8E9-175622591E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14EBFBC1-BD4F-4DBA-A8E9-175622591E4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{331462B0-08C0-49CC-8149-FC0A9AA28007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{331462B0-08C0-49CC-8149-FC0A9AA28007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{331462B0-08C0-49CC-8149-FC0A9AA28007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{331462B0-08C0-49CC-8149-FC0A9AA28007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

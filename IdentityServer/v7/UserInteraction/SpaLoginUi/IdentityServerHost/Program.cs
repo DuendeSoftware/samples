@@ -2,18 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using IdentityServerHost;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSerilog();
+builder.AddServiceDefaults();
 builder.Services.AddControllersWithViews();
 
 var idsvrBuilder = builder.Services.AddIdentityServer(options =>
@@ -22,11 +14,6 @@ var idsvrBuilder = builder.Services.AddIdentityServer(options =>
     options.UserInteraction.ConsentUrl = "/consent.html";
     options.UserInteraction.LogoutUrl = "/logout.html";
     options.UserInteraction.ErrorUrl = "/error.html";
-
-    options.Events.RaiseErrorEvents = true;
-    options.Events.RaiseInformationEvents = true;
-    options.Events.RaiseFailureEvents = true;
-    options.Events.RaiseSuccessEvents = true;
 
     // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
     options.EmitStaticAudienceClaim = true;
@@ -49,6 +36,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseIdentityServer();
+app.MapDefaultEndpoints();
 app.UseAuthorization();
 app.MapDefaultControllerRoute();
 

@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(options =>
@@ -55,6 +56,8 @@ app.UseDeveloperExceptionPage();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.MapDefaultEndpoints();
 
 app.UseAuthentication();
 app.UseAuthorization();

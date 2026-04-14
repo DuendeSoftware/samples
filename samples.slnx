@@ -309,13 +309,14 @@
     <Project Path="IdentityServer/v7/UserInteraction/DynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/ProfileService/">
-    <Project Path="IdentityServer/v7/UserInteraction/ProfileService/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/ProfileService/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/ProfileService/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/UserInteraction/ProfileService/ProfileService.AppHost/ProfileService.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/SpaLoginUi/">
     <Project Path="IdentityServer/v7/UserInteraction/SpaLoginUi/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/SpaLoginUi/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/UserInteraction/SpaLoginUi/SpaLoginUi.AppHost/SpaLoginUi.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/StepUp/">
     <Project Path="IdentityServer/v7/UserInteraction/StepUp/Api/Api.csproj" />
@@ -514,13 +515,14 @@
     <Project Path="IdentityServer/v8/UserInteraction/DynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/ProfileService/">
-    <Project Path="IdentityServer/v8/UserInteraction/ProfileService/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/ProfileService/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/ProfileService/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/UserInteraction/ProfileService/ProfileService.AppHost/ProfileService.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/SpaLoginUi/">
     <Project Path="IdentityServer/v8/UserInteraction/SpaLoginUi/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/SpaLoginUi/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/UserInteraction/SpaLoginUi/SpaLoginUi.AppHost/SpaLoginUi.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/StepUp/">
     <Project Path="IdentityServer/v8/UserInteraction/StepUp/Api/Api.csproj" />
