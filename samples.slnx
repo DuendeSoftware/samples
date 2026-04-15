@@ -327,6 +327,7 @@
   <Folder Name="/IdentityServer/v7/UserInteraction/WindowsAuthentication/">
     <Project Path="IdentityServer/v7/UserInteraction/WindowsAuthentication/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/WindowsAuthentication/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/UserInteraction/WindowsAuthentication/WindowsAuthentication.AppHost/WindowsAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/">
     <Project Path="IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/Client/Client.csproj" />
@@ -534,6 +535,7 @@
   <Folder Name="/IdentityServer/v8/UserInteraction/WindowsAuthentication/">
     <Project Path="IdentityServer/v8/UserInteraction/WindowsAuthentication/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/WindowsAuthentication/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/UserInteraction/WindowsAuthentication/WindowsAuthentication.AppHost/WindowsAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/">
     <Project Path="IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/Client/Client.csproj" />
