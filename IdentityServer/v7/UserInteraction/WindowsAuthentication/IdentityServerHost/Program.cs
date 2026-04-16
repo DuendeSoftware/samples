@@ -2,17 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using IdentityServerHost;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSerilog();
+
+builder.AddServiceDefaults();
 
 builder.Services.Configure<IISOptions>(iis =>
 {
@@ -29,6 +22,8 @@ idsvrBuilder.AddInMemoryApiScopes(Resources.ApiScopes);
 idsvrBuilder.AddInMemoryClients(Clients.List);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {

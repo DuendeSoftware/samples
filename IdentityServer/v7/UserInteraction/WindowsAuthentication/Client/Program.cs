@@ -8,6 +8,8 @@ Console.Title = "Client";
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 
@@ -57,7 +59,12 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-app.UseDeveloperExceptionPage();
+app.MapDefaultEndpoints();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 app.UseStaticFiles();
 
 app.UseRouting();
