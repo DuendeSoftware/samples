@@ -128,7 +128,10 @@
   <Folder Name="/IdentityServer/v7/">
     <File Path="IdentityServer\v7\Directory.Packages.props" />
     <Project Path="IdentityServer/v7/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/IdentityServer/v7/SessionMigration/">
     <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.csproj" />
+    <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.AppHost/SessionMigration.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Apis/">
     <Project Path="IdentityServer/v7/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />
@@ -337,7 +340,10 @@
   <Folder Name="/IdentityServer/v8/">
     <File Path="IdentityServer\v8\Directory.Packages.props" />
     <Project Path="IdentityServer/v8/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/IdentityServer/v8/SessionMigration/">
     <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.csproj" />
+    <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.AppHost/SessionMigration.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Apis/">
     <Project Path="IdentityServer/v8/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />
