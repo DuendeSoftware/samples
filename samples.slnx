@@ -332,6 +332,7 @@
   <Folder Name="/IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/">
     <Project Path="IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/UserInteraction/WsFederationDynamicProviders/WsFederationDynamicProviders.AppHost/WsFederationDynamicProviders.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/">
     <File Path="IdentityServer\v8\Directory.Packages.props" />
@@ -540,6 +541,7 @@
   <Folder Name="/IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/">
     <Project Path="IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/WsFederationDynamicProviders.AppHost/WsFederationDynamicProviders.AppHost.csproj" />
   </Folder>
   <Folder Name="/various/" />
   <Folder Name="/various/clients/" />

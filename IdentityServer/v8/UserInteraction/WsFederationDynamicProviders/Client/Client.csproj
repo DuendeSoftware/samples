@@ -11,6 +11,10 @@
     <PackageReference Include="Duende.IdentityModel" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+  </ItemGroup>
+
 
   <!-- Constants and helpers -->
 
