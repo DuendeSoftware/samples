@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "cimd-demo": {
+      "type": "http",
+      "url": "https://localhost:7241/"
+    }
+  }
+}
