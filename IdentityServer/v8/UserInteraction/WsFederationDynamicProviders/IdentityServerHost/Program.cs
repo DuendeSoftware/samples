@@ -5,26 +5,6 @@ using Duende.IdentityServer;
 using IdentityServerHost;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.SystemConsole.Themes;
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
-    .MinimumLevel.Override("System", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
-    .Enrich.FromLogContext()
-    // uncomment to write to Azure diagnostics stream
-    //.WriteTo.File(
-    //    @"D:\home\LogFiles\Application\identityserver.txt",
-    //    fileSizeLimitBytes: 1_000_000,
-    //    rollOnFileSizeLimit: true,
-    //    shared: true,
-    //    flushToDiskInterval: TimeSpan.FromSeconds(1))
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
 
 var seed = args.Contains("/seed");
 if (seed)
@@ -34,13 +14,13 @@ if (seed)
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 if (seed)
 {
-    Log.Information("Seeding database...");
     SeedData.EnsureSeedData(connectionString);
-    Log.Information("Done seeding database.");
     return;
 }
 
@@ -48,11 +28,6 @@ builder.Services.AddRazorPages();
 
 var idsvrBuilder = builder.Services.AddIdentityServer(options =>
 {
-    options.Events.RaiseErrorEvents = true;
-    options.Events.RaiseInformationEvents = true;
-    options.Events.RaiseFailureEvents = true;
-    options.Events.RaiseSuccessEvents = true;
-
     // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
     options.EmitStaticAudienceClaim = true;
 })
@@ -113,6 +88,8 @@ builder.Services.AddDataProtection()
     .SetApplicationName("IdentityServer");
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
