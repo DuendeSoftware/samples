@@ -8,7 +8,17 @@
 	<ItemGroup>
 		<PackageReference Include="Duende.IdentityServer" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" />
-		<PackageReference Include="Serilog.AspNetCore" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="SessionMigration.AppHost\**" />
+		<Content Remove="SessionMigration.AppHost\**" />
+		<EmbeddedResource Remove="SessionMigration.AppHost\**" />
+		<None Remove="SessionMigration.AppHost\**" />
 	</ItemGroup>
 
 

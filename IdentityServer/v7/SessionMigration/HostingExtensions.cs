@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microsoft.AspNetCore.DataProtection;
-using Serilog;
 
 namespace SessionMigration;
 
@@ -14,11 +13,6 @@ internal static class HostingExtensions
 
         var isBuilder = builder.Services.AddIdentityServer(options =>
             {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-
                 // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
                 options.EmitStaticAudienceClaim = true;
             })
@@ -66,7 +60,7 @@ internal static class HostingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        app.UseSerilogRequestLogging();
+        app.MapDefaultEndpoints();
 
         if (app.Environment.IsDevelopment())
         {
