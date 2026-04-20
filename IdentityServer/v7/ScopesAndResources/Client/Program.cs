@@ -10,6 +10,12 @@ class Program
 
     static async Task Main(string[] args)
     {
+        var builder = WebApplication.CreateBuilder(args);
+        builder.AddServiceDefaults();
+        var app = builder.Build();
+        app.MapDefaultEndpoints();
+        await app.StartAsync();
+
         Console.Title = "Console Resources and Scopes Client";
         Cache = new DiscoveryCache("https://localhost:5001");
 
@@ -136,6 +142,8 @@ class Program
                     break;
             }
         }
+
+        await app.StopAsync();
     }
 
     static async Task RequestToken(string scope, string resource = null)

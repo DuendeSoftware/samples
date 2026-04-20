@@ -289,6 +289,7 @@
   <Folder Name="/IdentityServer/v7/ScopesAndResources/">
     <Project Path="IdentityServer/v7/ScopesAndResources/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/ScopesAndResources/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/ScopesAndResources/ScopesAndResources.AppHost/ScopesAndResources.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/SessionManagement/">
     <Project Path="IdentityServer/v7/SessionManagement/Client/Client.csproj" />
@@ -501,6 +502,7 @@
   <Folder Name="/IdentityServer/v8/ScopesAndResources/">
     <Project Path="IdentityServer/v8/ScopesAndResources/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/ScopesAndResources/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/ScopesAndResources/ScopesAndResources.AppHost/ScopesAndResources.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/SessionManagement/">
     <Project Path="IdentityServer/v8/SessionManagement/Client/Client.csproj" />
