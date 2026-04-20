@@ -1,8 +1,9 @@
 // Copyright (c) Duende Software. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System.Buffers.Text;
 using System.Text.Json;
-using IdentityModel;
+using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
 
@@ -75,7 +76,7 @@ static class DPoPExtensions
     /// </summary>
     public static string CreateThumbprint(this JsonWebKey jwk)
     {
-        var jkt = Base64Url.Encode(jwk.ComputeJwkThumbprint());
+        var jkt = Base64Url.EncodeToString(jwk.ComputeJwkThumbprint());
         return jkt;
     }
 }

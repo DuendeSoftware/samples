@@ -91,7 +91,9 @@
     <Project Path="BFF/v3/Vue/Vue.Api/Vue.Api.csproj" />
     <Project Path="BFF/v3/Vue/Vue.Bff/Vue.Bff.csproj" />
   </Folder>
-  <Folder Name="/BFF/v4/" />
+  <Folder Name="/BFF/v4/">
+    <File Path="BFF\v4\Directory.Packages.props" />
+  </Folder>
   <Folder Name="/BFF/v4/Angular/">
     <Project Path="BFF/v4/Angular/Angular.Api/Angular.Api.csproj" />
     <Project Path="BFF/v4/Angular/Angular.Bff/Angular.Bff.csproj" />
@@ -110,6 +112,18 @@
     <Project Path="BFF/v4/BlazorWasm/BFF/BFF.csproj" />
     <Project Path="BFF/v4/BlazorWasm/BlazorWasm/BlazorWasm.csproj" />
   </Folder>
+  <Folder Name="/BFF/v4/DPoP/">
+    <Project Path="BFF/v4/DPoP/DPoP.Api/DPoP.Api.csproj" />
+    <Project Path="BFF/v4/DPoP/DPoP.Bff/DPoP.Bff.csproj" />
+  </Folder>
+  <Folder Name="/BFF/v4/JsBffSample/">
+    <Project Path="BFF/v4/JsBffSample/BackendApiHost/BackendApiHost.csproj" />
+    <Project Path="BFF/v4/JsBffSample/FrontendHost/FrontendHost.csproj" />
+  </Folder>
+  <Folder Name="/BFF/v4/JsBffYarpSample/">
+    <Project Path="BFF/v4/JsBffYarpSample/BackendApiHost/BackendApiHost.csproj" />
+    <Project Path="BFF/v4/JsBffYarpSample/FrontendHost/FrontendHost.csproj" />
+  </Folder>
   <Folder Name="/BFF/v4/MultiFrontendSSO/">
     <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj">
       <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
@@ -122,6 +136,47 @@
       <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
       <Configuration Solution="Release|x64" Project="Release|Any CPU" />
       <Configuration Solution="Release|x86" Project="Release|Any CPU" />
+    </Project>
+  </Folder>
+  <Folder Name="/BFF/v4/OpenApi/">
+    <Project Path="BFF/v4/OpenApi/OpenApi.Api1/OpenApi.Api1.csproj" />
+    <Project Path="BFF/v4/OpenApi/OpenApi.Api2/OpenApi.Api2.csproj" />
+    <Project Path="BFF/v4/OpenApi/OpenApi.Bff/OpenApi.Bff.csproj" />
+    <Project Path="BFF/v4/OpenApi/OpenApi.BffOpenApiDocumentParser/OpenApi.BffOpenApiDocumentParser.csproj" />
+    <Project Path="BFF/v4/OpenApi/OpenApi.DevServer.AppHost/OpenApi.DevServer.AppHost.csproj" />
+    <Project Path="BFF/v4/OpenApi/OpenApi.DevServer.ServiceDefaults/OpenApi.DevServer.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/BFF/v4/Quickstarts/" />
+  <Folder Name="/BFF/v4/Quickstarts/BlazorBffApp/">
+    <Project Path="BFF/v4/Quickstarts/BlazorBffApp/BlazorBffApp.Client/BlazorBffApp.Client.csproj" />
+    <Project Path="BFF/v4/Quickstarts/BlazorBffApp/BlazorBffApp/BlazorBffApp.csproj" />
+  </Folder>
+  <Folder Name="/BFF/v4/React/">
+    <Project Path="BFF/v4/React/React.Api/React.Api.csproj" />
+    <Project Path="BFF/v4/React/React.Bff/React.Bff.csproj" />
+    <Project Path="BFF/v4/React/react.client/react.client.esproj">
+      <BuildType Project="Debug" />
+      <Platform Project="AnyCPU" />
+      <Build />
+    </Project>
+  </Folder>
+  <Folder Name="/BFF/v4/SplitHosts/">
+    <Project Path="BFF/v4/SplitHosts/BackendApiHost/BackendApiHost.csproj" />
+    <Project Path="BFF/v4/SplitHosts/BackendHost/BackendHost.csproj" />
+    <Project Path="BFF/v4/SplitHosts/FrontendHost/FrontendHost.csproj" />
+  </Folder>
+  <Folder Name="/BFF/v4/TokenExchange/">
+    <Project Path="BFF/v4/TokenExchange/TokenExchange.Api/TokenExchange.Api.csproj" />
+    <Project Path="BFF/v4/TokenExchange/TokenExchange.Bff/TokenExchange.Bff.csproj" />
+    <Project Path="BFF/v4/TokenExchange/TokenExchange.IdentityServer/TokenExchange.IdentityServer.csproj" />
+  </Folder>
+  <Folder Name="/BFF/v4/Vue/">
+    <Project Path="BFF/v4/Vue/Vue.Api/Vue.Api.csproj" />
+    <Project Path="BFF/v4/Vue/Vue.Bff/Vue.Bff.csproj" />
+    <Project Path="BFF/v4/Vue/vue.client/vue.esproj">
+      <BuildType Project="Debug" />
+      <Platform Project="AnyCPU" />
+      <Build />
     </Project>
   </Folder>
   <Folder Name="/IdentityServer/" />
