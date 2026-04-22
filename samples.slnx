@@ -272,6 +272,7 @@
     <Project Path="IdentityServer/v7/MTLS/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/MTLS/ClientCredentials/ClientCredentials.csproj" />
     <Project Path="IdentityServer/v7/MTLS/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/MTLS/MTLS.AppHost/MTLS.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/PAT/">
     <Project Path="IdentityServer/v7/PAT/Api/Api.csproj" />
@@ -486,6 +487,7 @@
     <Project Path="IdentityServer/v8/MTLS/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/MTLS/ClientCredentials/ClientCredentials.csproj" />
     <Project Path="IdentityServer/v8/MTLS/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/MTLS/MTLS.AppHost/MTLS.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/PAT/">
     <Project Path="IdentityServer/v8/PAT/Api/Api.csproj" />

@@ -6,32 +6,19 @@ using System.Security.Cryptography.X509Certificates;
 using IdentityServerHost;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.SystemConsole.Themes;
 
 Console.Title = "IdentityServer";
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
-    .MinimumLevel.Override("System", LogEventLevel.Warning)
-    .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSerilog();
+builder.AddServiceDefaults();
 
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication()
     .AddCertificate(opt =>
     {
-        // Revocation check disabled for mkcert certificate. 
+        // Revocation check disabled for mkcert certificate.
         // In production, revocation should be checked.
         opt.RevocationMode = X509RevocationMode.NoCheck;
     });
@@ -43,11 +30,6 @@ builder.Services.AddDataProtection()
 
 var idsvrBuilder = builder.Services.AddIdentityServer(options =>
 {
-    options.Events.RaiseErrorEvents = true;
-    options.Events.RaiseInformationEvents = true;
-    options.Events.RaiseFailureEvents = true;
-    options.Events.RaiseSuccessEvents = true;
-
     // MTLS Configuration
     options.MutualTls.Enabled = true;
 });
@@ -74,6 +56,8 @@ builder.Services.Configure<KestrelServerOptions>(options =>
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {

@@ -3,20 +3,12 @@
 
 using Api;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
 Console.Title = "API";
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSerilog();
+builder.AddServiceDefaults();
 
 builder.Services.AddControllers();
 
@@ -44,6 +36,8 @@ builder.Services.Configure<KestrelServerOptions>(options =>
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseRouting();
 
