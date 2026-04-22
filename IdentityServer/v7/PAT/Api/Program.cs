@@ -2,18 +2,10 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Api;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
-
-Console.Title = "API";
-
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
-    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 builder.Services.AddControllers();
 
@@ -44,6 +36,8 @@ builder.Services.AddAuthentication("token")
     });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseRouting();
 app.UseAuthentication();

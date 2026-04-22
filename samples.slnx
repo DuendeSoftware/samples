@@ -277,6 +277,7 @@
     <Project Path="IdentityServer/v7/PAT/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/PAT/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/PAT/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v7/PAT/PAT.AppHost/PAT.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Quickstarts/" />
   <Folder Name="/IdentityServer/v7/Quickstarts/1_ClientCredentials/" />
@@ -490,6 +491,7 @@
     <Project Path="IdentityServer/v8/PAT/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/PAT/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/PAT/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/PAT/PAT.AppHost/PAT.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Quickstarts/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/1_ClientCredentials/" />
