@@ -9,7 +9,10 @@
         <PackageReference Include="Duende.AccessTokenManagement" />
         <PackageReference Include="Duende.AccessTokenManagement.OpenIdConnect" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
-        <PackageReference Include="Serilog.AspNetCore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
     </ItemGroup>
 
 </Project>

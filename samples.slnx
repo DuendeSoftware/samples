@@ -259,6 +259,7 @@
     <Project Path="IdentityServer/v7/DPoP/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/DPoP/ClientCredentials/ClientCredentials.csproj" />
     <Project Path="IdentityServer/v7/DPoP/WebClient/WebClient.csproj" />
+    <Project Path="IdentityServer/v7/DPoP/DPoP.AppHost/DPoP.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/IdentityServerHost/">
     <Project Path="IdentityServer/v7/IdentityServerHost/src/IdentityServerHost.csproj" />
@@ -475,6 +476,7 @@
     <Project Path="IdentityServer/v8/DPoP/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/DPoP/ClientCredentials/ClientCredentials.csproj" />
     <Project Path="IdentityServer/v8/DPoP/WebClient/WebClient.csproj" />
+    <Project Path="IdentityServer/v8/DPoP/DPoP.AppHost/DPoP.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/IdentityServerHost/">
     <Project Path="IdentityServer/v8/IdentityServerHost/src/IdentityServerHost.csproj" />

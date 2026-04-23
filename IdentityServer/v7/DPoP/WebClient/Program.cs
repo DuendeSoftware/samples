@@ -7,19 +7,12 @@ using Duende.AccessTokenManagement.DPoP;
 using Duende.AccessTokenManagement.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
 
 Console.Title = "WebClient";
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
-    .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSerilog();
+builder.AddServiceDefaults();
 builder.Services.AddControllersWithViews();
 
 // add cookie-based session management with OpenID Connect authentication
@@ -94,6 +87,7 @@ builder.Services.AddUserAccessTokenHttpClient("client", configureClient: client 
 
 var app = builder.Build();
 
+app.MapDefaultEndpoints();
 app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
