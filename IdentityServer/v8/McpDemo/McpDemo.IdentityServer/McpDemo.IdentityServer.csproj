@@ -9,7 +9,10 @@
     <ItemGroup>
         <PackageReference Include="Duende.IdentityServer" />
         <PackageReference Include="Duende.IdentityServer.Configuration" />
-        <PackageReference Include="Serilog.AspNetCore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
     </ItemGroup>
 
 

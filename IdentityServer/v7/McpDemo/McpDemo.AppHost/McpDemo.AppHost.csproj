@@ -1,0 +1,20 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.2.2">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\McpDemo.Client\McpDemo.Client.csproj" />
+    <ProjectReference Include="..\McpDemo.IdentityServer\McpDemo.IdentityServer.csproj" />
+    <ProjectReference Include="..\McpDemo.McpServer\McpDemo.McpServer.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -6,6 +6,8 @@ using ModelContextProtocol.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 var serverUrl = "https://localhost:7141";
 var inMemoryOAuthServerUrl = "https://localhost:5001/";
 
@@ -52,6 +54,8 @@ builder.Services.AddHttpClient("WeatherApi", client =>
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseAuthentication();
 app.UseAuthorization();

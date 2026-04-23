@@ -2,20 +2,14 @@ using System.Globalization;
 using System.Text;
 using Duende.IdentityServer.Licensing;
 using McpDemo.IdentityServer;
-using Serilog;
-
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
-    .CreateBootstrapLogger();
-
-Log.Information("Starting up");
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.AddServiceDefaults();
+
     var app = builder
-        .ConfigureLogging()
         .ConfigureServices()
         .ConfigurePipeline();
 
@@ -32,12 +26,7 @@ try
 }
 catch (Exception ex) when (ex is not HostAbortedException)
 {
-    Log.Fatal(ex, "Unhandled exception");
-}
-finally
-{
-    Log.Information("Shut down complete");
-    Log.CloseAndFlush();
+    throw;
 }
 
 static string Summary(LicenseUsageSummary usage)
