@@ -264,6 +264,7 @@
     <Project Path="IdentityServer/v7/IdentityServerHost/src/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/McpDemo/">
+    <Project Path="IdentityServer/v7/McpDemo/McpDemo.AppHost/McpDemo.AppHost.csproj" />
     <Project Path="IdentityServer/v7/McpDemo/McpDemo.Client/McpDemo.Client.csproj" />
     <Project Path="IdentityServer/v7/McpDemo/McpDemo.IdentityServer/McpDemo.IdentityServer.csproj" />
     <Project Path="IdentityServer/v7/McpDemo/McpDemo.McpServer/McpDemo.McpServer.csproj" />
@@ -479,6 +480,7 @@
     <Project Path="IdentityServer/v8/IdentityServerHost/src/IdentityServerHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/McpDemo/">
+    <Project Path="IdentityServer/v8/McpDemo/McpDemo.AppHost/McpDemo.AppHost.csproj" />
     <Project Path="IdentityServer/v8/McpDemo/McpDemo.Client/McpDemo.Client.csproj" />
     <Project Path="IdentityServer/v8/McpDemo/McpDemo.IdentityServer/McpDemo.IdentityServer.csproj" />
     <Project Path="IdentityServer/v8/McpDemo/McpDemo.McpServer/McpDemo.McpServer.csproj" />

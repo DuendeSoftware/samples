@@ -11,4 +11,7 @@
       <PackageReference Include="ModelContextProtocol.AspNetCore" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+    </ItemGroup>
 </Project>
