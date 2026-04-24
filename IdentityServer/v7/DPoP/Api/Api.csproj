@@ -9,7 +9,10 @@
   <ItemGroup>
     <PackageReference Include="Duende.IdentityModel" />
     <PackageReference Include="Duende.AspNetCore.Authentication.JwtBearer" />
-    <PackageReference Include="Serilog.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

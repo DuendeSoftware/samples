@@ -9,8 +9,6 @@ using Duende.AccessTokenManagement.DPoP;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
 namespace ClientCredentials;
 
@@ -20,18 +18,12 @@ public class Program
     {
         Console.Title = "Client";
 
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug()
-            .WriteTo.Console(theme: AnsiConsoleTheme.Code)
-            .CreateLogger();
-
         CreateHostBuilder(args).Build().Run();
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
         var host = Host.CreateDefaultBuilder(args)
-            .UseSerilog()
 
             .ConfigureServices((services) =>
             {

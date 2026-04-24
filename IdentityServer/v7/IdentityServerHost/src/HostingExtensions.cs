@@ -4,21 +4,16 @@
 using Duende.IdentityServer;
 using IdentityServerHost;
 using Microsoft.AspNetCore.DataProtection;
-using Serilog;
 
 internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        builder.AddServiceDefaults();
         builder.Services.AddRazorPages();
 
         var idsvrBuilder = builder.Services.AddIdentityServer(options =>
         {
-            options.Events.RaiseErrorEvents = true;
-            options.Events.RaiseInformationEvents = true;
-            options.Events.RaiseFailureEvents = true;
-            options.Events.RaiseSuccessEvents = true;
-
             // see https://docs.duendesoftware.com/identityserver/fundamentals/resources/api-scopes
             options.EmitStaticAudienceClaim = true;
             options.PushedAuthorization.AllowUnregisteredPushedRedirectUris = true;
@@ -64,7 +59,7 @@ internal static class HostingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        app.UseSerilogRequestLogging();
+        app.MapDefaultEndpoints();
 
         if (app.Environment.IsDevelopment())
         {
