@@ -231,6 +231,7 @@
   <Folder Name="/IdentityServer/v7/Configuration/Permissions/">
     <Project Path="IdentityServer/v7/Configuration/Permissions/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v7/Configuration/Permissions/ConsoleDcrClient/ConsoleDcrClient.csproj" />
+    <Project Path="IdentityServer/v7/Configuration/Permissions/Permissions.AppHost/Permissions.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/PipelineRegistration/">
     <Project Path="IdentityServer/v7/Configuration/PipelineRegistration/Configuration/Configuration.csproj" />
@@ -448,6 +449,7 @@
   <Folder Name="/IdentityServer/v8/Configuration/Permissions/">
     <Project Path="IdentityServer/v8/Configuration/Permissions/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v8/Configuration/Permissions/ConsoleDcrClient/ConsoleDcrClient.csproj" />
+    <Project Path="IdentityServer/v8/Configuration/Permissions/Permissions.AppHost/Permissions.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Configuration/PipelineRegistration/">
     <Project Path="IdentityServer/v8/Configuration/PipelineRegistration/Configuration/Configuration.csproj" />

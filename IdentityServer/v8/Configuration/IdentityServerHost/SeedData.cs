@@ -5,7 +5,6 @@ using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Mappers;
 using Duende.IdentityServer.Models;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace IdentityServer;
 
@@ -27,7 +26,7 @@ internal static class SeedData
     {
         if (!context.Clients.Any())
         {
-            Log.Debug("Clients being populated");
+            Console.WriteLine("Clients being populated");
             foreach (var client in Config.Clients.ToList())
             {
                 context.Clients.Add(client.ToEntity());
@@ -36,12 +35,12 @@ internal static class SeedData
         }
         else
         {
-            Log.Debug("Clients already populated");
+            Console.WriteLine("Clients already populated");
         }
 
         if (!context.IdentityResources.Any())
         {
-            Log.Debug("IdentityResources being populated");
+            Console.WriteLine("IdentityResources being populated");
             foreach (var resource in Config.IdentityResources.ToList())
             {
                 context.IdentityResources.Add(resource.ToEntity());
@@ -50,12 +49,12 @@ internal static class SeedData
         }
         else
         {
-            Log.Debug("IdentityResources already populated");
+            Console.WriteLine("IdentityResources already populated");
         }
 
         if (!context.ApiScopes.Any())
         {
-            Log.Debug("ApiScopes being populated");
+            Console.WriteLine("ApiScopes being populated");
             foreach (var apiScope in Config.ApiScopes.ToList())
             {
                 context.ApiScopes.Add(apiScope.ToEntity());
@@ -64,12 +63,12 @@ internal static class SeedData
         }
         else
         {
-            Log.Debug("ApiScopes already populated");
+            Console.WriteLine("ApiScopes already populated");
         }
 
         if (!context.ApiResources.Any())
         {
-            Log.Debug("ApiResources being populated");
+            Console.WriteLine("ApiResources being populated");
             foreach (var resource in Config.ApiResources.ToList())
             {
                 context.ApiResources.Add(resource.ToEntity());
@@ -78,12 +77,12 @@ internal static class SeedData
         }
         else
         {
-            Log.Debug("ApiResources already populated");
+            Console.WriteLine("ApiResources already populated");
         }
 
         if (!context.IdentityProviders.Any())
         {
-            Log.Debug("OIDC IdentityProviders being populated");
+            Console.WriteLine("OIDC IdentityProviders being populated");
             context.IdentityProviders.Add(new OidcProvider
             {
                 Scheme = "demoidsrv",
@@ -95,7 +94,7 @@ internal static class SeedData
         }
         else
         {
-            Log.Debug("OIDC IdentityProviders already populated");
+            Console.WriteLine("OIDC IdentityProviders already populated");
         }
     }
 }

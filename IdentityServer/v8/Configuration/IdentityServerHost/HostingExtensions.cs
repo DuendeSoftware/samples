@@ -8,7 +8,7 @@ using IdentityServer.Pages.Admin.IdentityScopes;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+using Microsoft.Extensions.Hosting;
 
 namespace IdentityServer;
 
@@ -23,11 +23,6 @@ internal static class HostingExtensions
         var isBuilder = builder.Services
             .AddIdentityServer(options =>
             {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-
                 // see https://docs.duendesoftware.com/identityserver/fundamentals/resources
                 options.EmitStaticAudienceClaim = true;
             })
@@ -105,12 +100,12 @@ internal static class HostingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        app.UseSerilogRequestLogging();
-
         if (app.Environment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
         }
+
+        app.MapDefaultEndpoints();
 
         app.UseStaticFiles();
         app.UseRouting();

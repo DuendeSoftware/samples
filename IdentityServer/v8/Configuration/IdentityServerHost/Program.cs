@@ -3,24 +3,15 @@
 
 using System.Globalization;
 using IdentityServer;
-using Serilog;
+using Microsoft.Extensions.Hosting;
 
 Console.Title = "IdentityServer Host";
-
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
-    .CreateBootstrapLogger();
-
-Log.Information("Starting up");
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Host.UseSerilog((ctx, lc) => lc
-        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", formatProvider: CultureInfo.InvariantCulture)
-        .Enrich.FromLogContext()
-        .ReadFrom.Configuration(ctx.Configuration));
+    builder.AddServiceDefaults();
 
     var app = builder
         .ConfigureServices()
@@ -30,9 +21,9 @@ try
     // in production you will likely want a different approach.
     if (args.Contains("/seed"))
     {
-        Log.Information("Seeding database...");
+        Console.WriteLine("Seeding database...");
         SeedData.EnsureSeedData(app);
-        Log.Information("Done seeding database. Exiting.");
+        Console.WriteLine("Done seeding database. Exiting.");
         return;
     }
 
@@ -46,10 +37,10 @@ catch (Exception ex) when (
                             && ex.GetType().Name is not "HostAbortedException"
                         )
 {
-    Log.Fatal(ex, "Unhandled exception");
+    Console.WriteLine("Unhandled exception");
+    Console.WriteLine(ex);
 }
 finally
 {
-    Log.Information("Shut down complete");
-    Log.CloseAndFlush();
+    Console.WriteLine("Shut down complete");
 }

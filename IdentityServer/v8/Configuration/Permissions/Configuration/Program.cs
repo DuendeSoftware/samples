@@ -8,10 +8,12 @@ using Duende.IdentityServer.Configuration.RequestProcessing;
 using Duende.IdentityServer.EntityFramework.DbContexts;
 using Duende.IdentityServer.EntityFramework.Storage;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 Console.Title = "Configuration API";
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 builder.Services.AddIdentityServerConfiguration(opt => { })
     .AddClientConfigurationStore();
 
@@ -43,6 +45,8 @@ builder.Services.AddAuthorization(opt =>
 builder.Services.AddTransient<IDynamicClientRegistrationRequestProcessor, PermissionsCheckingRequestProcessor>();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseAuthentication();
 app.UseAuthorization();
