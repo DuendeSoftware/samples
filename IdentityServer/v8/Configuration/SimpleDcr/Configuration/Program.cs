@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 Console.Title = "Configuration API";
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 builder.Services.AddIdentityServerConfiguration(opt => { })
     .AddClientConfigurationStore();
 
@@ -39,6 +40,9 @@ builder.Services.AddAuthorization(opt =>
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapDynamicClientRegistration().RequireAuthorization("DCR");
