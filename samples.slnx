@@ -241,6 +241,7 @@
   <Folder Name="/IdentityServer/v7/Configuration/SimpleDcr/">
     <Project Path="IdentityServer/v7/Configuration/SimpleDcr/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v7/Configuration/SimpleDcr/ConsoleDcrClient/ConsoleDcrClient.csproj" />
+    <Project Path="IdentityServer/v7/Configuration/SimpleDcr/SimpleDcr.AppHost/SimpleDcr.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/SoftwareStatement/">
     <Project Path="IdentityServer/v7/Configuration/SoftwareStatement/Configuration/Configuration.csproj" />
@@ -460,6 +461,7 @@
   <Folder Name="/IdentityServer/v8/Configuration/SimpleDcr/">
     <Project Path="IdentityServer/v8/Configuration/SimpleDcr/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v8/Configuration/SimpleDcr/ConsoleDcrClient/ConsoleDcrClient.csproj" />
+    <Project Path="IdentityServer/v8/Configuration/SimpleDcr/SimpleDcr.AppHost/SimpleDcr.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Configuration/SoftwareStatement/">
     <Project Path="IdentityServer/v8/Configuration/SoftwareStatement/Configuration/Configuration.csproj" />
