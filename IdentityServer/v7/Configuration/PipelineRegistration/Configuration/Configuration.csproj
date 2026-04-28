@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Duende.IdentityServer.Configuration" />
     <PackageReference Include="Duende.IdentityServer.Configuration.EntityFramework" />
     <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" />
