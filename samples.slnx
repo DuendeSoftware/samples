@@ -236,6 +236,7 @@
   <Folder Name="/IdentityServer/v7/Configuration/PipelineRegistration/">
     <Project Path="IdentityServer/v7/Configuration/PipelineRegistration/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v7/Configuration/PipelineRegistration/ConsoleDcrClient/ConsoleDcrClient.csproj" />
+    <Project Path="IdentityServer/v7/Configuration/PipelineRegistration/PipelineRegistration.AppHost/PipelineRegistration.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/SimpleDcr/">
     <Project Path="IdentityServer/v7/Configuration/SimpleDcr/Configuration/Configuration.csproj" />
@@ -454,6 +455,7 @@
   <Folder Name="/IdentityServer/v8/Configuration/PipelineRegistration/">
     <Project Path="IdentityServer/v8/Configuration/PipelineRegistration/Configuration/Configuration.csproj" />
     <Project Path="IdentityServer/v8/Configuration/PipelineRegistration/ConsoleDcrClient/ConsoleDcrClient.csproj" />
+    <Project Path="IdentityServer/v8/Configuration/PipelineRegistration/PipelineRegistration.AppHost/PipelineRegistration.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Configuration/SimpleDcr/">
     <Project Path="IdentityServer/v8/Configuration/SimpleDcr/Configuration/Configuration.csproj" />
