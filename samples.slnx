@@ -202,6 +202,7 @@
   <Folder Name="/IdentityServer/v7/Basics/" />
   <Folder Name="/IdentityServer/v7/Basics/ClientCredentials/">
     <Project Path="IdentityServer/v7/Basics/ClientCredentials/src/Client.csproj" />
+    <Project Path="IdentityServer/v7/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/Introspection/">
     <Project Path="IdentityServer/v7/Basics/Introspection/src/Client.csproj" />
@@ -423,6 +424,7 @@
   <Folder Name="/IdentityServer/v8/Basics/" />
   <Folder Name="/IdentityServer/v8/Basics/ClientCredentials/">
     <Project Path="IdentityServer/v8/Basics/ClientCredentials/src/Client.csproj" />
+    <Project Path="IdentityServer/v8/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/Introspection/">
     <Project Path="IdentityServer/v8/Basics/Introspection/src/Client.csproj" />
