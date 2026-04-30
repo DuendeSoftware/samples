@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleApi", "..\..\Apis\Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerHost", "..\..\IdentityServerHost\src\IdentityServerHost.csproj", "{EDD6C722-B3D3-4414-A05B-D8AFA624DB3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtBasedClientAuthentication.AppHost", "JwtBasedClientAuthentication.AppHost\JwtBasedClientAuthentication.AppHost.csproj", "{D257943F-BD65-4E2F-8ECE-266A76B56A63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,18 @@ Global
 		{EDD6C722-B3D3-4414-A05B-D8AFA624DB3C}.Release|x64.Build.0 = Release|Any CPU
 		{EDD6C722-B3D3-4414-A05B-D8AFA624DB3C}.Release|x86.ActiveCfg = Release|Any CPU
 		{EDD6C722-B3D3-4414-A05B-D8AFA624DB3C}.Release|x86.Build.0 = Release|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Debug|x64.Build.0 = Debug|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Debug|x86.Build.0 = Debug|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Release|x64.ActiveCfg = Release|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Release|x64.Build.0 = Release|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Release|x86.ActiveCfg = Release|Any CPU
+		{D257943F-BD65-4E2F-8ECE-266A76B56A63}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
