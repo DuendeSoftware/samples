@@ -9,6 +9,9 @@
     <PackageReference Include="Duende.IdentityModel" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+  </ItemGroup>
 
   <!-- Constants and helpers -->
   <ItemGroup>
