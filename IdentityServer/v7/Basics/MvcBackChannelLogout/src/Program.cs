@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
@@ -61,6 +64,8 @@ builder.Services.AddAuthentication(options =>
     });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseDeveloperExceptionPage();
 app.UseStaticFiles();
