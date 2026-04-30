@@ -214,6 +214,7 @@
     <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcBackChannelLogout/">
+    <Project Path="IdentityServer/v7/Basics/MvcBackChannelLogout/MvcBackChannelLogout.AppHost/MvcBackChannelLogout.AppHost.csproj" />
     <Project Path="IdentityServer/v7/Basics/MvcBackChannelLogout/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcBasic/">
@@ -439,6 +440,7 @@
     <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcBackChannelLogout/">
+    <Project Path="IdentityServer/v8/Basics/MvcBackChannelLogout/MvcBackChannelLogout.AppHost/MvcBackChannelLogout.AppHost.csproj" />
     <Project Path="IdentityServer/v8/Basics/MvcBackChannelLogout/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcBasic/">

@@ -9,19 +9,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
 
 Console.Title = "MvcPar";
 
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .Enrich.FromLogContext()
-    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
-    .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSerilog();
 builder.Services.AddTransient<ParOidcEvents>();
 builder.Services.AddSingleton<IDiscoveryCache>(_ => new DiscoveryCache(Urls.IdentityServer));
 
