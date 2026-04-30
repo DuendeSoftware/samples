@@ -205,10 +205,13 @@
     <Project Path="IdentityServer/v7/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/Introspection/">
+    <Project Path="IdentityServer/v7/Basics/Introspection/Introspection.AppHost/Introspection.AppHost.csproj" />
     <Project Path="IdentityServer/v7/Basics/Introspection/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/JwtBasedClientAuthentication/">
+    <File Path="IdentityServer\v7\Basics\JwtBasedClientAuthentication\JwtBasedClientAuthentication.slnx" />
     <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
+    <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcBackChannelLogout/">
     <Project Path="IdentityServer/v7/Basics/MvcBackChannelLogout/src/Client.csproj" />
@@ -427,10 +430,13 @@
     <Project Path="IdentityServer/v8/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/Introspection/">
+    <Project Path="IdentityServer/v8/Basics/Introspection/Introspection.AppHost/Introspection.AppHost.csproj" />
     <Project Path="IdentityServer/v8/Basics/Introspection/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/JwtBasedClientAuthentication/">
+    <File Path="IdentityServer\v8\Basics\JwtBasedClientAuthentication\JwtBasedClientAuthentication.slnx" />
     <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
+    <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcBackChannelLogout/">
     <Project Path="IdentityServer/v8/Basics/MvcBackChannelLogout/src/Client.csproj" />
