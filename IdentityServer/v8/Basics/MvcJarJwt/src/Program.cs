@@ -11,9 +11,12 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
@@ -96,6 +99,8 @@ builder.Services.AddUserAccessTokenHttpClient("client", configureClient: client 
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseDeveloperExceptionPage();
 app.UseStaticFiles();

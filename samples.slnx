@@ -222,6 +222,7 @@
     <Project Path="IdentityServer/v7/Basics/MvcBasic/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcJarJwt/">
+    <Project Path="IdentityServer/v7/Basics/MvcJarJwt/MvcJarJwt.AppHost/MvcJarJwt.AppHost.csproj" />
     <Project Path="IdentityServer/v7/Basics/MvcJarJwt/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcPar/">
@@ -449,6 +450,7 @@
     <Project Path="IdentityServer/v8/Basics/MvcBasic/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcJarJwt/">
+    <Project Path="IdentityServer/v8/Basics/MvcJarJwt/MvcJarJwt.AppHost/MvcJarJwt.AppHost.csproj" />
     <Project Path="IdentityServer/v8/Basics/MvcJarJwt/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcPar/">
