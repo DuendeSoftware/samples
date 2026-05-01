@@ -14,6 +14,8 @@ Console.Title = "MvcPar";
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddTransient<ParOidcEvents>();
 builder.Services.AddSingleton<IDiscoveryCache>(_ => new DiscoveryCache(Urls.IdentityServer));
 
@@ -82,6 +84,8 @@ builder.Services.AddUserAccessTokenHttpClient("client", configureClient: client 
 });
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
