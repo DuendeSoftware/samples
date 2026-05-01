@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleApi", "..\..\Apis\Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerHost", "..\..\IdentityServerHost\src\IdentityServerHost.csproj", "{7BCF45DF-B314-48E0-86A1-90886840804A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcJarJwt.AppHost", "MvcJarJwt.AppHost\MvcJarJwt.AppHost.csproj", "{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,18 @@ Global
 		{7BCF45DF-B314-48E0-86A1-90886840804A}.Release|x64.Build.0 = Release|Any CPU
 		{7BCF45DF-B314-48E0-86A1-90886840804A}.Release|x86.ActiveCfg = Release|Any CPU
 		{7BCF45DF-B314-48E0-86A1-90886840804A}.Release|x86.Build.0 = Release|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Debug|x86.Build.0 = Debug|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Release|x64.Build.0 = Release|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2B1C3D4-E5F6-4A7B-8C9D-E0F1A2B3C4D5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
