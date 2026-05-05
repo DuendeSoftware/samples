@@ -231,6 +231,7 @@
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcTokenManagement/">
     <Project Path="IdentityServer/v7/Basics/MvcTokenManagement/src/Client.csproj" />
+    <Project Path="IdentityServer/v7/Basics/MvcTokenManagement/MvcTokenManagement.AppHost/MvcTokenManagement.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/" />
   <Folder Name="/IdentityServer/v7/Configuration/IdentityServerHost/">
@@ -460,6 +461,7 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcTokenManagement/">
     <Project Path="IdentityServer/v8/Basics/MvcTokenManagement/src/Client.csproj" />
+    <Project Path="IdentityServer/v8/Basics/MvcTokenManagement/MvcTokenManagement.AppHost/MvcTokenManagement.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Configuration/" />
   <Folder Name="/IdentityServer/v8/Configuration/IdentityServerHost/">
