@@ -2,11 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Duende.IdentityServer.Models;
+using IdentityServerAspNetIdentity;
 using IdentityServerAspNetIdentity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(
@@ -36,12 +39,17 @@ builder.Services.AddIdentityServer()
     ])
     .AddAspNetIdentity<IdentityUser>();
 
-builder.Services.AddLogging(options =>
+
+if (args.Contains("/seed"))
 {
-    options.AddFilter("Duende", LogLevel.Debug);
-});
+    var seedApp = builder.Build();
+    SeedData.EnsureSeedData(seedApp);
+    return;
+}
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {

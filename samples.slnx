@@ -193,6 +193,7 @@
     <Project Path="IdentityServer/v7/Apis/SimpleApi/SimpleApi.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/AspNetIdentity/">
+    <Project Path="IdentityServer/v7/AspNetIdentity/AspNetIdentity.AppHost/AspNetIdentity.AppHost.csproj" />
     <Project Path="IdentityServer/v7/AspNetIdentity/Client/Client.csproj" />
     <Project Path="IdentityServer/v7/AspNetIdentity/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj" />
   </Folder>
@@ -423,6 +424,7 @@
     <Project Path="IdentityServer/v8/Apis/SimpleApi/SimpleApi.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/AspNetIdentity/">
+    <Project Path="IdentityServer/v8/AspNetIdentity/AspNetIdentity.AppHost/AspNetIdentity.AppHost.csproj" />
     <Project Path="IdentityServer/v8/AspNetIdentity/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/AspNetIdentity/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj" />
   </Folder>
