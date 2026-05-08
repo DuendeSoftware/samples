@@ -6,8 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Duende.IdentityServer.AspNetIdentity" />
-        <PackageReference Include="Serilog.AspNetCore" />
 
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
