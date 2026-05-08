@@ -5,20 +5,14 @@ using System.Globalization;
 using System.Text;
 using Duende.IdentityServer.Licensing;
 using IdentityServerAspNetIdentityPasskeys;
-using Serilog;
-
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
-    .CreateBootstrapLogger();
-
-Log.Information("Starting up");
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.AddServiceDefaults();
+
     var app = builder
-        .ConfigureLogging()
         .ConfigureServices()
         .ConfigurePipeline();
 
@@ -26,9 +20,7 @@ try
     // in production you will likely want a different approach.
     if (args.Contains("/seed"))
     {
-        Log.Information("Seeding database...");
         SeedData.EnsureSeedData(app);
-        Log.Information("Done seeding database. Exiting.");
         return;
     }
 
@@ -45,12 +37,10 @@ try
 }
 catch (Exception ex) when (ex is not HostAbortedException)
 {
-    Log.Fatal(ex, "Unhandled exception");
+    Console.WriteLine($"Unhandled exception: {ex.Message}");
 }
 finally
 {
-    Log.Information("Shut down complete");
-    Log.CloseAndFlush();
 }
 
 static string Summary(LicenseUsageSummary usage)

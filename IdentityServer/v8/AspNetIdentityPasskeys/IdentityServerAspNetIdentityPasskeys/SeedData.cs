@@ -7,7 +7,6 @@ using IdentityServerAspNetIdentityPasskeys.Data;
 using IdentityServerAspNetIdentityPasskeys.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace IdentityServerAspNetIdentityPasskeys;
 
@@ -47,12 +46,6 @@ public class SeedData
                 {
                     throw new Exception(result.Errors.First().Description);
                 }
-
-                Log.Debug("alice created");
-            }
-            else
-            {
-                Log.Debug("alice already exists");
             }
 
             var bob = userMgr.FindByNameAsync("bob").Result;
@@ -82,12 +75,6 @@ public class SeedData
                 {
                     throw new Exception(result.Errors.First().Description);
                 }
-
-                Log.Debug("bob created");
-            }
-            else
-            {
-                Log.Debug("bob already exists");
             }
         }
     }
