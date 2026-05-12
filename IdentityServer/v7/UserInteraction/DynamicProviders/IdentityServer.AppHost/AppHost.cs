@@ -8,7 +8,8 @@ idsvr.WithCommand(
     {
         var projectMetadata = idsvr.Resource.GetProjectMetadata();
         var projectPath = projectMetadata.ProjectPath;
-        var process = new System.Diagnostics.Process
+
+        using var process = new System.Diagnostics.Process
         {
             StartInfo = new System.Diagnostics.ProcessStartInfo
             {
@@ -22,7 +23,19 @@ idsvr.WithCommand(
         };
 
         process.Start();
-        await process.WaitForExitAsync(context.CancellationToken);
+
+        var outputTask = process.StandardOutput.ReadToEndAsync();
+        var errorTask = process.StandardError.ReadToEndAsync();
+
+        try
+        {
+            await process.WaitForExitAsync(context.CancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            process.Kill(entireProcessTree: true);
+            throw;
+        }
 
         if (process.ExitCode == 0)
         {
@@ -30,7 +43,12 @@ idsvr.WithCommand(
         }
         else
         {
-            var error = await process.StandardError.ReadToEndAsync();
+            var error = await errorTask;
+            if (string.IsNullOrWhiteSpace(error))
+            {
+                error = await outputTask;
+            }
+
             return CommandResults.Failure(error);
         }
     },
