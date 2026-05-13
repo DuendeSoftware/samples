@@ -182,6 +182,7 @@
   <Folder Name="/IdentityServer/" />
   <Folder Name="/IdentityServer/v7/">
     <File Path="IdentityServer\v7\Directory.Packages.props" />
+    <File Path="IdentityServer\v7\global.json" />
     <Project Path="IdentityServer/v7/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/SessionMigration/">
@@ -415,6 +416,7 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/">
     <File Path="IdentityServer\v8\Directory.Packages.props" />
+    <File Path="IdentityServer\v8\global.json" />
     <Project Path="IdentityServer/v8/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/SessionMigration/">
