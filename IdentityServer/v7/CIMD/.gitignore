@@ -1,0 +1,7 @@
+keys/
+*.pem
+*.pfx
+*.p12
+
+# Override the repo-root "tools/" ignore rule so that our Tools/ source directory is tracked
+!**/Tools/
