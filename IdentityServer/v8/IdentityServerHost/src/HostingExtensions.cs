@@ -21,7 +21,7 @@ internal static class HostingExtensions
                 options.EmitStaticAudienceClaim = true;
                 options.PushedAuthorization.AllowUnregisteredPushedRedirectUris = true;
 
-                options.Preview.StrictClientAssertionAudienceValidation = true;
+                options.StrictClientAssertionAudienceValidation = true;
             })
             .AddTestUsers(TestUsers.Users);
 

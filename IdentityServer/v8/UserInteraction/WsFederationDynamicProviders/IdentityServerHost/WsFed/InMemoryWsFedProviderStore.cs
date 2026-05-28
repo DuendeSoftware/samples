@@ -15,14 +15,14 @@ public class InMemoryWsFedProviderStore : IIdentityProviderStore
         _providers = providers;
     }
 
-    public Task<IEnumerable<IdentityProviderName>> GetAllSchemeNamesAsync(CancellationToken cancellationToken)
+    public Task<IReadOnlyCollection<IdentityProviderName>> GetAllSchemeNamesAsync(CancellationToken cancellationToken)
     {
-        return Task.FromResult(_providers.Select(x => new IdentityProviderName
+        return Task.FromResult<IReadOnlyCollection<IdentityProviderName>>(_providers.Select(x => new IdentityProviderName
         {
             DisplayName = x.DisplayName,
             Enabled = x.Enabled,
             Scheme = x.Scheme
-        }));
+        }).ToList());
     }
 
     public Task<IdentityProvider> GetBySchemeAsync(string scheme, CancellationToken cancellationToken)

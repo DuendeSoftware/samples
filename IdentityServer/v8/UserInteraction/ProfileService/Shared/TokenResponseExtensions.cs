@@ -1,4 +1,4 @@
-﻿using Duende.IdentityModel;
+using Duende.IdentityModel;
 using Duende.IdentityModel.Client;
 using System;
 using System.Diagnostics;

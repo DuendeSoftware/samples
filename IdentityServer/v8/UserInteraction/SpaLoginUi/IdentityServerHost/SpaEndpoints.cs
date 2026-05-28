@@ -128,7 +128,7 @@ public class SpaEndpoints : ControllerBase
 
                 if (model.Deny)
                 {
-                    await _interaction.DenyAuthorizationAsync(authzContext, AuthorizationError.AccessDenied, HttpContext.RequestAborted);
+                    await _interaction.DenyAuthorizationAsync(authzContext, InteractionError.AccessDenied, HttpContext.RequestAborted);
                 }
                 else
                 {

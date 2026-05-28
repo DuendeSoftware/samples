@@ -19,8 +19,8 @@ public class PermissionsCheckingRequestProcessor : DynamicClientRegistrationRequ
 {
     private readonly ILogger<PermissionsCheckingRequestProcessor> _logger;
 
-    public PermissionsCheckingRequestProcessor(IdentityServerConfigurationOptions options, IClientConfigurationStore store, ILogger<PermissionsCheckingRequestProcessor> logger)
-        : base(options, store)
+    public PermissionsCheckingRequestProcessor(IdentityServerConfigurationOptions options, IClientConfigurationStore store, TimeProvider timeProvider, ILogger<PermissionsCheckingRequestProcessor> logger)
+        : base(options, store, timeProvider)
     {
         _logger = logger;
     }

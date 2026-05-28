@@ -10,8 +10,8 @@ namespace IdentityServerHost;
 
 public class EfWsFedProviderStore : IdentityProviderStore
 {
-    public EfWsFedProviderStore(IConfigurationDbContext context, ILogger<IdentityProviderStore> logger)
-        : base(context, logger)
+    public EfWsFedProviderStore(IConfigurationDbContext context, ILogger<IdentityProviderStore> logger, IIdentityProviderFactory identityProviderFactory)
+        : base(context, logger, identityProviderFactory)
     {
     }
 
