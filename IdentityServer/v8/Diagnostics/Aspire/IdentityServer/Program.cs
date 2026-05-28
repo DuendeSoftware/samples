@@ -1,4 +1,4 @@
-﻿using IdentityServer;
+using IdentityServer;
 
 Console.WriteLine("Starting up");
 

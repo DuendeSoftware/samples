@@ -70,8 +70,8 @@ public class CustomProfileService : IProfileService
         }
 
         // OPTION 3: always emit claims based on client (regardless of the requested claims)
-        // context.Client holds the client making the request
-        if (context.Client.ClientId == "client1")
+        // context.Application holds the application making the request
+        if (context.Application.Identifier == "client1")
         {
             // sample adding a tenant claim based on the client obtaining the tokens
             context.IssuedClaims.Add(new Claim("tenant", "tenant1"));

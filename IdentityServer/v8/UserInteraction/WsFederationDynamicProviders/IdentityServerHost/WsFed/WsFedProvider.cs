@@ -5,7 +5,7 @@ using Duende.IdentityServer.Models;
 
 namespace IdentityServerHost;
 
-public class WsFedProvider : IdentityProvider
+public record WsFedProvider : IdentityProvider
 {
     public WsFedProvider() : base("wsfed")
     {
