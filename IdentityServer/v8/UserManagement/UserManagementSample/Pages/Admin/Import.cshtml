@@ -1,0 +1,60 @@
+@page
+@model ImportModel
+@{
+    ViewData["Title"] = "Import Users";
+}
+
+<h1>Import Users from ASP.NET Identity</h1>
+<p>This page imports users from the legacy ASP.NET Identity database into the Duende Platform user store.</p>
+<p class="text-muted"><em>Available in Development environment only.</em></p>
+
+<form method="post">
+    <button type="submit" class="btn btn-primary">Import from ASP.NET Identity</button>
+</form>
+
+@if (Model.Result is { } result)
+{
+    <hr />
+    <h2>Import Results</h2>
+    <table class="table table-sm w-auto">
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Created</td>
+                <td>@result.Created</td>
+            </tr>
+            <tr>
+                <td>Overwritten</td>
+                <td>@result.Overwritten</td>
+            </tr>
+            <tr>
+                <td>Failed</td>
+                <td>@result.Failed</td>
+            </tr>
+            <tr class="table-success fw-bold">
+                <td>Total Imported</td>
+                <td>@result.Imported</td>
+            </tr>
+        </tbody>
+    </table>
+
+    @if (result.Errors.Count > 0)
+    {
+        <h3>Errors</h3>
+        <ul class="text-danger">
+            @foreach (var error in result.Errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    }
+    else if (result.Failed == 0)
+    {
+        <p class="text-success">All users imported successfully.</p>
+    }
+}

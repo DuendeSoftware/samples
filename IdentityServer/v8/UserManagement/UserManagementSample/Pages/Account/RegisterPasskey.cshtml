@@ -1,0 +1,67 @@
+@page
+@model UserManagementSample.Pages.Account.RegisterPasskeyModel
+@{
+    ViewData["Title"] = "Register Passkey";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="form-container">
+            <h2 class="mb-2 brand-title text-center">Register a Passkey</h2>
+            <p class="text-muted text-center mb-4">
+                Secure your account by registering a passkey. You can use it to sign in quickly next time.
+            </p>
+
+            <div id="error-message" class="alert alert-danger d-none" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i><span id="error-text"></span>
+            </div>
+
+            <div id="success-message" class="alert alert-success d-none" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>Passkey registered successfully. Redirecting&hellip;
+            </div>
+
+            <div class="d-grid mb-3">
+                <button id="register-btn" type="button" class="btn btn-primary btn-lg">
+                    <i class="bi bi-key me-2"></i>Register Passkey
+                </button>
+            </div>
+
+            <div class="text-center">
+                <a href="@Model.ReturnUrl" class="text-decoration-none text-muted small">
+                    <i class="bi bi-skip-forward me-1"></i>Skip for now
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/passkeys/js"></script>
+    <script>
+        (function () {
+            const returnUrl = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ReturnUrl));
+
+            async function registerPasskey() {
+                const btn = document.getElementById('register-btn');
+                const errorBox = document.getElementById('error-message');
+                const errorText = document.getElementById('error-text');
+                const successBox = document.getElementById('success-message');
+
+                btn.disabled = true;
+                errorBox.classList.add('d-none');
+
+                try {
+                    await passkeys.register();
+                    successBox.classList.remove('d-none');
+                    window.location.href = returnUrl;
+                } catch (err) {
+                    errorText.textContent = err?.message ?? 'Passkey registration failed. Please try again.';
+                    errorBox.classList.remove('d-none');
+                    btn.disabled = false;
+                }
+            }
+
+            document.getElementById('register-btn').addEventListener('click', registerPasskey);
+        })();
+    </script>
+}

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "UserManagementSample": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://um-identity-server.dev.localhost:59254"
+    }
+  }
+}

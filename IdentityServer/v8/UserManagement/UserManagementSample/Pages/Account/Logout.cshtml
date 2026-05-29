@@ -1,0 +1,31 @@
+@page
+@model UserManagementSample.Pages.Account.LogoutModel
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Logged Out</h2>
+        <hr />
+        @if (!Model.LoggedOut)
+        {
+            <form asp-page="/Account/Logout" asp-route-logoutId="@Request.Query["logoutId"]" method="post">
+                <button type="submit" class="btn btn-primary">Click here to Logout</button>
+            </form>
+        }
+        else
+        {
+            <p>You have successfully logged out.</p>
+
+            @if (Model.PostLogoutRedirectUri != null)
+            {
+                <div>
+                    Click <a href="@Model.PostLogoutRedirectUri">here</a> to return to the application.
+                </div>
+            }
+
+            @if (Model.SignOutIframeUrl != null)
+            {
+                <iframe width="0" height="0" style="display:none" class="signout" src="@Model.SignOutIframeUrl"></iframe>
+            }
+        }
+    </div>
+</div>

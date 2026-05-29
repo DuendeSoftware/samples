@@ -1,0 +1,51 @@
+@page
+@model UserManagementSample.Pages.Account.LoginWith2FAModel
+@{
+    ViewData["Title"] = "Two-Factor Authentication";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="form-container">
+            <h2 class="mb-4 brand-title text-center">Two-Factor Authentication</h2>
+
+            <div class="alert alert-info" role="alert">
+                <i class="bi bi-info-circle me-2"></i>
+                Enter the 6-digit code from your authenticator app.
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>@Model.ErrorMessage
+                </div>
+            }
+
+            <form method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="mb-4">
+                    <label asp-for="Code" class="form-label fw-semibold">Authenticator Code</label>
+                    <input asp-for="Code" type="text" class="form-control form-control-lg text-center"
+                           placeholder="000000" maxlength="7" pattern="[0-9 \-]*" inputmode="numeric"
+                           autocomplete="one-time-code" autofocus />
+                    <span asp-validation-for="Code" class="text-danger small"></span>
+                    <div class="form-text">Enter the code from your authenticator app.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-shield-check me-2"></i>Verify &amp; Sign In
+                    </button>
+                    <a asp-page="/Account/LoginWithPassword" asp-route-returnUrl="@Model.ReturnUrl"
+                       class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Sign In
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

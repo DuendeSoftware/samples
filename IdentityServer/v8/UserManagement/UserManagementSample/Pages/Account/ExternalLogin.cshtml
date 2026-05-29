@@ -1,0 +1,7 @@
+@page
+@model UserManagementSample.Pages.Account.ExternalLoginModel
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}

@@ -1,0 +1,110 @@
+@page
+@model UserManagementSample.Pages.Manage.ManagePasskeysModel
+@{
+    ViewData["Title"] = "Manage Passkeys";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+        <div class="form-container">
+            <h2 class="mb-4 brand-title text-center">Manage Passkeys</h2>
+
+            @if (Model.ErrorMessages.Count > 0)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @foreach (var error in Model.ErrorMessages)
+                    {
+                        <div><i class="bi bi-exclamation-triangle-fill me-2"></i>@error</div>
+                    }
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="alert alert-success" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>@Model.SuccessMessage
+                </div>
+            }
+
+            <div id="passkey-status" class="alert d-none" role="alert"></div>
+
+            @if (Model.Passkeys.Any())
+            {
+                <div class="table-responsive mb-4">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Created</th>
+                                <th class="text-end"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var passkey in Model.Passkeys)
+                            {
+                                <tr>
+                                    <td>
+                                        <i class="bi bi-fingerprint me-2 text-primary"></i>@passkey.Name
+                                    </td>
+                                    <td>@passkey.CreatedAt.ToString("u")</td>
+                                    <td class="text-end">
+                                        <form method="post" asp-page-handler="RemovePasskey" class="d-inline">
+                                            <input type="hidden" name="credentialId" value="@passkey.CredentialId.ToBase64String()" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('Are you sure you want to remove this passkey?');">
+                                                <i class="bi bi-trash"></i> Remove
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted mb-4">You have no registered passkeys. Add one below to sign in securely without a password.</p>
+            }
+
+            <div class="d-grid gap-2">
+                <button type="button" id="add-passkey-btn" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>Add Passkey
+                </button>
+                <a asp-page="/Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-2"></i>Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/passkeys/js"></script>
+    <script>
+        (function () {
+            const statusBox = document.getElementById('passkey-status');
+
+            function showStatus(message, isError) {
+                statusBox.textContent = message;
+                statusBox.className = 'alert ' + (isError ? 'alert-danger' : 'alert-success');
+                statusBox.classList.remove('d-none');
+            }
+
+            document.getElementById('add-passkey-btn').addEventListener('click', async function () {
+                const btn = this;
+                btn.disabled = true;
+                statusBox.classList.add('d-none');
+
+                try {
+                    await passkeys.register();
+                    showStatus('Passkey registered successfully.', false);
+                    window.location.reload();
+                } catch (err) {
+                    showStatus(err?.message ?? 'Passkey registration failed. Please try again.', true);
+                    btn.disabled = false;
+                }
+            });
+        })();
+    </script>
+}

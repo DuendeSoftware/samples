@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="UserManagementSample.AppHost/UserManagementSample.AppHost.csproj" />
+  <Project Path="UserManagementSample.AspNetIdentitySource/UserManagementSample.AspNetIdentitySource.csproj" />
+  <Project Path="UserManagementSample.Client/UserManagementSample.Client.csproj" />
+  <Project Path="UserManagementSample.ServiceDefaults/UserManagementSample.ServiceDefaults.csproj" />
+  <Project Path="UserManagementSample/UserManagementSample.csproj" />
+</Solution>

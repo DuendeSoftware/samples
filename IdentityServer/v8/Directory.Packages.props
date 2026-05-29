@@ -18,6 +18,8 @@
     <PackageVersion Include="Duende.IdentityServer.Configuration.EntityFramework" Version="8.0.0" />
     <PackageVersion Include="Duende.IdentityServer.ConformanceReport" Version="8.0.0" />
     <PackageVersion Include="Duende.IdentityServer.EntityFramework" Version="8.0.0" />
+    <PackageVersion Include="Duende.Storage.Sqlite" Version="1.0.0" />
+    <PackageVersion Include="Duende.UserManagement.IdentityServer8" Version="1.0.0" />
     <PackageVersion Include="Google.Apis.Auth.AspNetCore3" Version="1.73.0" />
     <PackageVersion Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="6.2.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.Certificate" Version="10.0.8" />
@@ -31,6 +33,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.8" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8" />
