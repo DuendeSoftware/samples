@@ -114,7 +114,6 @@ internal static class SeedData
         var record = new UserImportRecord
         {
             SubjectId = UserSubjectId.New(),
-            UserName = AliceEmail,
             ProfileAttributes = attributes.Validate(),
             Authenticators = new AuthenticatorImport
             {

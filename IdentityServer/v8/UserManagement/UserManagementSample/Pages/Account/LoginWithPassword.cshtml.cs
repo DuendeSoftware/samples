@@ -8,6 +8,7 @@ using Duende.IdentityServer;
 using Duende.UserManagement;
 using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.Passwords;
+using Duende.UserManagement.Profiles;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,7 +22,7 @@ public sealed class LoginWithPasswordModel(
 {
     [BindProperty]
     [Required]
-    public string UserName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     [BindProperty]
     [Required]
@@ -43,11 +44,11 @@ public sealed class LoginWithPasswordModel(
             return Page();
         }
 
-        var userName = Duende.UserManagement.UserName.Create(UserName);
         var password = NonValidatedPassword.Create(Password);
 
         if (await passwordAuth.TryAuthenticateAsync(
-                userName,
+                OidcStandardAttributes.Email,
+                Email,
                 password,
                 HttpContext.RequestAborted) is not PasswordAuthenticationResult.Success { UserSubjectId: var subjectId })
         {

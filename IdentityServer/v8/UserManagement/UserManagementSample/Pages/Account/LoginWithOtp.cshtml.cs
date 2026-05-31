@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UserManagementSample.Pages.Account;
 
 public sealed class LoginWithOtpModel(
-    IOtpAuthenticator otpAuthenticator,
+    IOtpSender otpSender,
     OtpCookie otpCookie) : PageModel
 {
     [BindProperty]
@@ -34,7 +34,7 @@ public sealed class LoginWithOtpModel(
         }
 
         var address = new OtpAddress(OtpChannel.Email, EmailAddress.Create(Email));
-        var result = await otpAuthenticator.TrySendOtpAsync(address, HttpContext.RequestAborted);
+        var result = await otpSender.TrySendOtpAsync(address, HttpContext.RequestAborted);
 
         if (result is null)
         {

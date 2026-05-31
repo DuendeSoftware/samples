@@ -51,7 +51,7 @@ public sealed class ChangePasswordModel(
             return RedirectToPage("/Account/Login");
         }
 
-        var creationResult = await authenticatorsSelfService.TryCreatePasswordAsync(
+        var creationResult = await authenticatorsSelfService.TryValidatePasswordAsync(
             userId, NewPassword, HttpContext.RequestAborted);
 
         if (creationResult is PasswordCreationResult.Failed { Errors: var errors })

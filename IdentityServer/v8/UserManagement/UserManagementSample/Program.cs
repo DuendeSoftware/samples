@@ -3,11 +3,10 @@
 
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
-using Duende.Storage;
+using Duende.Storage.Schema;
 using Duende.Storage.Sqlite;
 using Duende.UserManagement;
 using Duende.UserManagement.Authentication;
-using Duende.UserManagement.Authentication.Passkeys;
 using Duende.UserManagement.Authentication.Passwords;
 using Duende.UserManagement.Import;
 using Duende.UserManagement.Profiles;
@@ -43,7 +42,7 @@ builder.Services
 
             authentication.EnablePasskeyForSecondFactor<SecondFactorResolver>();
 
-            authentication.UseSmtpOtpSender(smtp =>
+            authentication.UseSmtpOtpDispatcher(smtp =>
             {
                 var connectionString = builder.Configuration.GetConnectionString("mailpit");
                 if (!string.IsNullOrWhiteSpace(connectionString) &&

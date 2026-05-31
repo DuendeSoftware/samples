@@ -73,7 +73,7 @@ public sealed class OtpCookie(IDataProtectionProvider dataProtectionProvider, IH
             return false;
         }
 
-        token = OtpToken.Parse(values.Token);
+        token = OtpToken.Create(values.Token);
         emailAddress = EmailAddress.Create(values.Email);
         return true;
     }
