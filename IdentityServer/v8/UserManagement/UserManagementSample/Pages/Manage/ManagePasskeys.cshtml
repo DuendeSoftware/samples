@@ -97,7 +97,7 @@
                 statusBox.classList.add('d-none');
 
                 try {
-                    await passkeys.register();
+                    await registerPasskey('@Model.UserName', '@Model.DisplayName');
                     showStatus('Passkey registered successfully.', false);
                     window.location.reload();
                 } catch (err) {

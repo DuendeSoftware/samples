@@ -41,7 +41,7 @@
         (function () {
             const returnUrl = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ReturnUrl));
 
-            async function registerPasskey() {
+            async function onRegisterPassKey() {
                 const btn = document.getElementById('register-btn');
                 const errorBox = document.getElementById('error-message');
                 const errorText = document.getElementById('error-text');
@@ -51,7 +51,7 @@
                 errorBox.classList.add('d-none');
 
                 try {
-                    await passkeys.register();
+                    await registerPasskey('@Model.UserName', '@Model.DisplayName');
                     successBox.classList.remove('d-none');
                     window.location.href = returnUrl;
                 } catch (err) {
@@ -61,7 +61,7 @@
                 }
             }
 
-            document.getElementById('register-btn').addEventListener('click', registerPasskey);
+        document.getElementById('register-btn').addEventListener('click', onRegisterPassKey);
         })();
     </script>
 }

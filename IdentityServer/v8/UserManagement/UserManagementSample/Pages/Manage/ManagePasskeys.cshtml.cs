@@ -17,6 +17,9 @@ public sealed class ManagePasskeysModel(
 {
     public IReadOnlyCollection<UserPasskey> Passkeys { get; private set; } = [];
 
+    public string UserName { get; private set; } = string.Empty;
+    public string DisplayName { get; private set; } = string.Empty;
+
     [TempData]
     public string? SuccessMessage { get; set; }
 
@@ -24,6 +27,12 @@ public sealed class ManagePasskeysModel(
 
     public async Task<IActionResult> OnGetAsync()
     {
+        UserName = User.FindFirst(JwtClaimTypes.Name)?.Value
+            ?? User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value
+            ?? User.Identity?.Name
+            ?? User.FindFirst(JwtClaimTypes.Subject)?.Value
+            ?? string.Empty;
+        DisplayName = UserName;
         await LoadPasskeysAsync();
         return Page();
     }

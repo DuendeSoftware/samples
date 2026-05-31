@@ -7,6 +7,7 @@ using Duende.Storage;
 using Duende.Storage.Sqlite;
 using Duende.UserManagement;
 using Duende.UserManagement.Authentication;
+using Duende.UserManagement.Authentication.Passkeys;
 using Duende.UserManagement.Authentication.Passwords;
 using Duende.UserManagement.Import;
 using Duende.UserManagement.Profiles;
@@ -100,18 +101,13 @@ builder.Services.AddScoped<ILocalUserImporter>(sp =>
 });
 
 builder.Services.AddAuthentication()
-    .AddOpenIdConnect("Google", "Sign-in with Google", options =>
+    .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
     {
         options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-        options.ForwardSignOut = IdentityServerConstants.DefaultCookieAuthenticationScheme;
-
-        options.Authority = "https://accounts.google.com/";
-        options.ClientId = "708778530804-rhu8gc4kged3he14tbmonhmhe7a43hlp.apps.googleusercontent.com";
-
-        options.CallbackPath = "/signin-google";
-        options.Scope.Add("email");
-        options.DisableTelemetry = true;
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "not-configured";
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "not-configured";
     });
+
 //.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
 //{
 //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
