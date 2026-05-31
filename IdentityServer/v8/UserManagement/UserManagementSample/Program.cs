@@ -65,7 +65,7 @@ builder.Services
         });
 
         users.AddSqliteStore(opt =>
-            opt.ConnectionString = "Data Source=usermanagement.db");
+            opt.ConnectionString = "Data Source=../db/usermanagement.db");
     })
     .AddInMemoryClients([
         new Client
@@ -93,20 +93,31 @@ builder.Services.AddSingleton<IPasswordHashAlgorithm, AspNetIdentityPasswordHash
 builder.Services.AddScoped<IUserImportConflictResolver, OverwriteConflictResolver>();
 builder.Services.AddScoped<ILocalUserImporter>(sp =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("aspnetidentitysource")
-        ?? "Data Source=aspnetidentitysource.db";
+    var connectionString = builder.Configuration.GetConnectionString("AspnetIdentitySource") ?? throw new InvalidOperationException("No connection string for AspnetIdentitySource configured");
     var platformImporter = sp.GetRequiredService<IUserImporter>();
     var profileAdmin = sp.GetRequiredService<IUserProfileAdmin>();
     return new AspNetIdentityImporter(platformImporter, profileAdmin, connectionString);
 });
 
 builder.Services.AddAuthentication()
-    .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+    .AddOpenIdConnect("Google", "Sign-in with Google", options =>
     {
         options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "not-configured";
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "not-configured";
+        options.ForwardSignOut = IdentityServerConstants.DefaultCookieAuthenticationScheme;
+
+        options.Authority = "https://accounts.google.com/";
+        options.ClientId = "708778530804-rhu8gc4kged3he14tbmonhmhe7a43hlp.apps.googleusercontent.com";
+
+        options.CallbackPath = "/signin-google";
+        options.Scope.Add("email");
+        options.DisableTelemetry = true;
     });
+//.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+//{
+//    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+//    options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "not-configured";
+//    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "not-configured";
+//});
 
 var app = builder.Build();
 

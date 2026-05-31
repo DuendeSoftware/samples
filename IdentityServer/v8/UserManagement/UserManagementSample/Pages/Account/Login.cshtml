@@ -11,8 +11,46 @@
         <a asp-page="/Account/LoginWithPassword" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-secondary mt-2">
             Sign in with Password
         </a>
-        <a href="/Account/ExternalLogin?provider=Google&returnUrl=@Uri.EscapeDataString(Model.ReturnUrl ?? string.Empty)" class="btn btn-danger mt-2">
-            Sign in with Google
-        </a>
+        @if (Model.GoogleConfigured)
+        {
+            <a href="/Account/ExternalLogin?provider=Google&returnUrl=@Uri.EscapeDataString(Model.ReturnUrl ?? string.Empty)" class="btn btn-danger mt-2">
+                Sign in with Google
+            </a>
+        }
+        else
+        {
+
+            <div>google authentication is disabled. Configure the key Authentication:Google:ClientId in appsettings.json to enable it</div>
+        }
     </div>
 </div>
+
+@if (Model.ShowTestCredentials)
+{
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">Test Credentials</div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        <thead><tr><th>User</th><th>Email</th><th>Password</th><th>Auth Method</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td>Alice</td>
+                                <td><code>alice@duendesoftware.com</code></td>
+                                <td><code>BadPassword123!#</code></td>
+                                <td>Password</td>
+                            </tr>
+                            <tr>
+                                <td>Bob</td>
+                                <td><code>bob@duendesoftware.com</code></td>
+                                <td><em>n/a</em></td>
+                                <td>OTP only</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

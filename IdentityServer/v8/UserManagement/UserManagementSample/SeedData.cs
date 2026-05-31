@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Duende.Storage.EntityAttributeValue;
+using Duende.Storage.Querying;
 using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.Otp;
 using Duende.UserManagement.Authentication.Passwords;
@@ -37,6 +38,8 @@ internal static class SeedData
 
     private static async Task SeedAsync(IServiceProvider services)
     {
+
+
         var profileAdmin = services.GetRequiredService<IUserProfileAdmin>();
         var schemaAdmin = services.GetRequiredService<IUserProfileSchemaAdmin>();
         var authenticatorsAdmin = services.GetRequiredService<IUserAuthenticatorsAdmin>();
@@ -47,7 +50,10 @@ internal static class SeedData
         var passwordHashAlgorithm = services.GetServices<IPasswordHashAlgorithm>().First();
 
         // Ensure required attribute definitions exist in the schema
-        await EnsureAttributeAsync(schemaAdmin, OidcStandardAttributes.Email);
+        await EnsureAttributeAsync(schemaAdmin, OidcStandardAttributes.Email with
+        {
+            IsUnique = true
+        });
         await EnsureAttributeAsync(schemaAdmin, OidcStandardAttributes.Name);
         await EnsureAttributeAsync(schemaAdmin, OidcStandardAttributes.Website);
         await EnsureAttributeAsync(schemaAdmin, LocationAttribute);
@@ -89,6 +95,7 @@ internal static class SeedData
         IUserImporter importer,
         IPasswordHashAlgorithm passwordHashAlgorithm)
     {
+
         // Idempotency check — skip if Alice already exists
         var existing = await profileAdmin.TryGetAsync(EmailCode, AliceEmail, default);
         if (existing is not null)
@@ -107,6 +114,7 @@ internal static class SeedData
         var record = new UserImportRecord
         {
             SubjectId = UserSubjectId.New(),
+            UserName = AliceEmail,
             ProfileAttributes = attributes.Validate(),
             Authenticators = new AuthenticatorImport
             {

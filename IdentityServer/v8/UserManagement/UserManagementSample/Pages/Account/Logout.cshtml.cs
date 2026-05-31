@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UserManagementSample.Pages.Account;
 
 [AllowAnonymous]
+[IgnoreAntiforgeryToken]
 public sealed class LogoutModel : PageModel
 {
     private readonly IIdentityServerInteractionService _interactionService;
