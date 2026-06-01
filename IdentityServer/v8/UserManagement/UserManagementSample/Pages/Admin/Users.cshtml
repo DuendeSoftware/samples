@@ -1,0 +1,53 @@
+@page
+@model UserManagementSample.Pages.Admin.UsersModel
+
+<h2>User Search</h2>
+
+<form method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" class="form-control" name="Filter" value="@Model.Filter"
+               placeholder="e.g. email eq &quot;alice@duendesoftware.com&quot;" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+    <small class="form-text text-muted">
+        Uses SCIM filter syntax (RFC 7644). Examples: <code>email eq "alice&#64;duendesoftware.com"</code>, <code>name co "Smith"</code>
+    </small>
+</form>
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (Model.Results.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Subject ID</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Results)
+            {
+                <tr>
+                    <td><code>@user.SubjectId</code></td>
+                    <td>@user.Email</td>
+                    <td>@user.Name</td>
+                    <td>
+                        <a asp-page="/Admin/UserDetails" asp-route-subjectId="@user.SubjectId" class="btn btn-sm btn-outline-secondary">
+                            Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.ErrorMessage is null)
+{
+    <p class="text-muted">No users found.</p>
+}

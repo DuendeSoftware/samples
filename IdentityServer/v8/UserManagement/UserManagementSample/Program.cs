@@ -3,6 +3,8 @@
 
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Services;
+using Duende.IdentityServer.UserManagement;
 using Duende.Storage.Schema;
 using Duende.Storage.Sqlite;
 using Duende.UserManagement;
@@ -67,6 +69,7 @@ builder.Services
         users.AddSqliteStore(opt =>
             opt.ConnectionString = "Data Source=../db/usermanagement.db");
     })
+    .AddProfileService<MyProfileService>()
     .AddInMemoryClients([
         new Client
         {

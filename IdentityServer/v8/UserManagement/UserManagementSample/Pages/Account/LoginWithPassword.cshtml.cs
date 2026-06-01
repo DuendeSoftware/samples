@@ -18,8 +18,11 @@ namespace UserManagementSample.Pages.Account;
 public sealed class LoginWithPasswordModel(
     IPasswordAuth passwordAuth,
     IUserAuthenticatorsSelfService authenticatorsSelfService,
-    TotpStateCookie totpStateCookie) : PageModel
+    TotpStateCookie totpStateCookie,
+    IWebHostEnvironment environment) : PageModel
 {
+    public bool ShowTestCredentials => environment.IsDevelopment();
+
     [BindProperty]
     [Required]
     public string Email { get; set; } = string.Empty;

@@ -5,8 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using Duende.IdentityModel;
 using Duende.IdentityServer;
+using Duende.Storage.EntityAttributeValue;
 using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.Otp;
+using Duende.UserManagement.Profiles;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,6 +18,7 @@ namespace UserManagementSample.Pages.Account;
 public sealed class VerifyOtpModel(
     IOtpAuthenticator otpAuthenticator,
     IUserAuthenticatorsSelfService authenticatorsSelfService,
+    IUserProfileAdmin userProfileAdmin,
     OtpCookie otpCookie) : PageModel
 {
     public string? Email { get; set; }
@@ -68,6 +71,16 @@ public sealed class VerifyOtpModel(
         otpCookie.Clear();
 
         var subjectId = authResult.UserSubjectId;
+
+        // Ensure a user profile exists (OTP auto-registers authenticators but not profiles)
+        var existingProfile = await userProfileAdmin.TryGetAsync(subjectId, HttpContext.RequestAborted);
+        if (existingProfile is null)
+        {
+            var schema = await userProfileAdmin.GetSchemaAsync(HttpContext.RequestAborted);
+            var attributes = new AttributeValueCollection(schema);
+            attributes.Set(OidcStandardAttributes.Email.Code, emailAddress.ToString());
+            await userProfileAdmin.TryAddAsync(subjectId, attributes.Validate(), HttpContext.RequestAborted);
+        }
 
         var identityServerUser = new IdentityServerUser(subjectId.ToString())
         {

@@ -100,122 +100,68 @@ internal sealed class AspNetIdentityImporter(
         IReadOnlyList<IdentityClaim> claims,
         IReadOnlyAttributeSchema schema)
     {
-        // Build profile attributes from claims
+        // Build profile attributes using the simple scalar schema defined by this app:
+        // email (string, unique), name (string), website (string), location (string)
         var attrs = new AttributeValueCollection(schema);
 
-        foreach (var claim in claims)
+        // Set email from the Identity user record
+        var emailCode = OidcStandardAttributes.Email.Code;
+        if (!string.IsNullOrEmpty(user.Email) && schema.AttributeDefinitions.ContainsKey(emailCode))
         {
-            var attrName = MapClaimToAttribute(claim.ClaimType);
-            if (attrName is not null)
+            attrs.Set(emailCode, user.Email);
+        }
+
+        // Build display name from given_name + family_name claims, or fall back to "name" claim
+        var nameCode = OidcStandardAttributes.Name.Code;
+        if (schema.AttributeDefinitions.ContainsKey(nameCode))
+        {
+            var givenName = claims.FirstOrDefault(c => c.ClaimType == "given_name")?.ClaimValue;
+            var familyName = claims.FirstOrDefault(c => c.ClaimType == "family_name")?.ClaimValue;
+            var nameClaim = claims.FirstOrDefault(c => c.ClaimType == "name")?.ClaimValue;
+
+            var displayName = (givenName, familyName) switch
             {
-                var name = AttributeCode.Create(attrName);
-                if (schema.AttributeDefinitions.ContainsKey(name))
-                {
-                    attrs.Set(name, claim.ClaimValue);
-                }
+                (not null, not null) => $"{givenName} {familyName}",
+                (not null, null) => givenName,
+                (null, not null) => familyName,
+                _ => nameClaim
+            };
+
+            if (displayName is not null)
+            {
+                attrs.Set(nameCode, displayName);
             }
         }
 
-        // Build name complex attribute from claims
-        var nameProps = new Dictionary<string, object>();
-        foreach (var claim in claims)
+        // Set website from claims
+        var websiteCode = OidcStandardAttributes.Website.Code;
+        if (schema.AttributeDefinitions.ContainsKey(websiteCode))
         {
-            switch (claim.ClaimType)
+            var websiteClaim = claims.FirstOrDefault(c => c.ClaimType == "website")?.ClaimValue;
+            if (websiteClaim is not null)
             {
-                case "given_name":
-                    nameProps["givenName"] = claim.ClaimValue;
-                    break;
-                case "family_name":
-                    nameProps["familyName"] = claim.ClaimValue;
-                    break;
-                case "middle_name":
-                    nameProps["middleName"] = claim.ClaimValue;
-                    break;
+                attrs.Set(websiteCode, websiteClaim);
             }
         }
 
-        var nameCode = AttributeCode.Create("name");
-        if (nameProps.Count > 0 && schema.AttributeDefinitions.ContainsKey(nameCode))
+        // Set location from claims (map from "locale" or "address" related claims)
+        var locationCode = AttributeCode.Create("location");
+        if (schema.AttributeDefinitions.ContainsKey(locationCode))
         {
-            attrs.Set(nameCode, (IReadOnlyDictionary<string, object>)nameProps);
-        }
-
-        // Set email attribute (list of complex)
-        var emailsCode = AttributeCode.Create("emails");
-        if (!string.IsNullOrEmpty(user.Email) && schema.AttributeDefinitions.ContainsKey(emailsCode))
-        {
-            IReadOnlyList<object> emailList =
-            [
-                (IReadOnlyDictionary<string, object>)new Dictionary<string, object>
-                {
-                    ["value"] = user.Email,
-                    ["type"] = "work",
-                    ["primary"] = true
-                }
-            ];
-            attrs.Set(emailsCode, emailList);
-        }
-
-        // Build phone number from claims (list of complex)
-        var phoneClaim = claims.FirstOrDefault(c => c.ClaimType == "phone_number");
-        var phoneNumbersCode = AttributeCode.Create("phoneNumbers");
-        if (phoneClaim is not null && schema.AttributeDefinitions.ContainsKey(phoneNumbersCode))
-        {
-            var phoneDict = new Dictionary<string, object> { ["value"] = phoneClaim.ClaimValue, ["primary"] = false };
-            var phoneTypeClaim = claims.FirstOrDefault(c => c.ClaimType == "phone_number_type");
-            if (phoneTypeClaim is not null)
+            var locality = claims.FirstOrDefault(c => c.ClaimType == "locality")?.ClaimValue;
+            var region = claims.FirstOrDefault(c => c.ClaimType == "region")?.ClaimValue;
+            var location = (locality, region) switch
             {
-                phoneDict["type"] = phoneTypeClaim.ClaimValue;
-            }
+                (not null, not null) => $"{locality}, {region}",
+                (not null, null) => locality,
+                (null, not null) => region,
+                _ => null
+            };
 
-            IReadOnlyList<object> phoneList = [(IReadOnlyDictionary<string, object>)phoneDict];
-            attrs.Set(phoneNumbersCode, phoneList);
-        }
-
-        // Build address from claims (list of complex)
-        var addressProps = new Dictionary<string, object>();
-        foreach (var claim in claims)
-        {
-            switch (claim.ClaimType)
+            if (location is not null)
             {
-                case "street_address":
-                    addressProps["streetAddress"] = claim.ClaimValue;
-                    break;
-                case "locality":
-                    addressProps["locality"] = claim.ClaimValue;
-                    break;
-                case "region":
-                    addressProps["region"] = claim.ClaimValue;
-                    break;
-                case "postal_code":
-                    addressProps["postalCode"] = claim.ClaimValue;
-                    break;
-                case "country":
-                    addressProps["country"] = claim.ClaimValue;
-                    break;
+                attrs.Set(locationCode, location);
             }
-        }
-
-        var addressesCode = AttributeCode.Create("addresses");
-        if (addressProps.Count > 0 && schema.AttributeDefinitions.ContainsKey(addressesCode))
-        {
-            _ = addressProps.TryAdd("primary", false);
-            IReadOnlyList<object> addressList = [(IReadOnlyDictionary<string, object>)addressProps];
-            attrs.Set(addressesCode, addressList);
-        }
-
-        // Set username
-        var userNameCode = AttributeCode.Create("userName");
-        if (!string.IsNullOrEmpty(user.UserName) && schema.AttributeDefinitions.ContainsKey(userNameCode))
-        {
-            attrs.Set(userNameCode, user.UserName);
-        }
-
-        // Set active
-        var activeCode = AttributeCode.Create("active");
-        if (schema.AttributeDefinitions.ContainsKey(activeCode))
-        {
-            attrs.Set(activeCode, true);
         }
 
         // Build OTP addresses
@@ -243,18 +189,6 @@ internal sealed class AspNetIdentityImporter(
             }
         };
     }
-
-    private static string? MapClaimToAttribute(string claimType) => claimType switch
-    {
-        "display_name" => "displayName",
-        "title" => "title",
-        "user_type" => "userType",
-        "preferred_language" => "preferredLanguage",
-        "locale" => "locale",
-        "timezone" => "timezone",
-        // name, phone_number, and address claims are handled separately as complex types
-        _ => null
-    };
 
     private static PasswordImport? ConvertPassword(string aspNetPasswordHash)
     {

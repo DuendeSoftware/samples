@@ -60,6 +60,11 @@ internal static class SeedData
 
         await SeedBobAsync(profileAdmin, authenticatorsAdmin);
         await SeedAliceAsync(profileAdmin, importer, passwordHashAlgorithm);
+
+        var allProfiles = await profileAdmin.QueryAsync(QueryRequest.Empty, default);
+        var allAuthenticators = await authenticatorsAdmin.QueryAsync(QueryRequest.Empty, default);
+        Console.WriteLine($"Seeded {allProfiles.Items.Count} user profiles and {allAuthenticators.Items.Count} authenticators.");
+
     }
 
     private static async Task SeedBobAsync(
