@@ -3,6 +3,7 @@
 
 using System.Reflection;
 using Duende.IdentityServer;
+using Duende.IdentityServer.Licensing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -11,7 +12,7 @@ namespace IdentityServerAspNetIdentity.Pages.Home;
 [AllowAnonymous]
 public class Index : PageModel
 {
-    public Index(IdentityServerLicense? license = null)
+    public Index(LicenseInformation? license = null)
     {
         License = license;
     }
@@ -23,5 +24,5 @@ public class Index : PageModel
             ?.InformationalVersion.Split('+').First()
             ?? "unavailable";
     }
-    public IdentityServerLicense? License { get; }
+    public LicenseInformation? License { get; }
 }
