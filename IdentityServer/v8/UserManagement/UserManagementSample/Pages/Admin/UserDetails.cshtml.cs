@@ -54,8 +54,8 @@ public sealed class UserDetailsModel(
                     .ToList(),
                 PasskeyCount = authenticators.Passkeys.Count,
                 HasPassword = authenticators.HasPassword,
-                TotpCount = authenticators.TotpAuthenticatorNames.Count,
-                ExternalProviders = authenticators.ExternalAuthenticators
+                TotpCount = authenticators.TotpDeviceNames.Count,
+                ExternalProviders = authenticators.ExternalAuthenticatorAddresses
                     .Select(e => e.Name.ToString())
                     .ToList()
             };

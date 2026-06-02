@@ -15,8 +15,8 @@ public sealed class LoginModel : PageModel
     [BindProperty(SupportsGet = true)]
     public string? ReturnUrl { get; set; }
 
-    public bool GoogleConfigured =>
-        _configuration["Authentication:Google:ClientId"] is not (null or "not-configured");
+    public bool GoogleConfigured => true;
+        //_configuration["Authentication:Google:ClientId"] is not (null or "not-configured");
 
     public void OnGet()
     {

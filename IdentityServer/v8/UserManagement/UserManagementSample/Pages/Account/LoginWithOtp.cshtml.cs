@@ -36,19 +36,19 @@ public sealed class LoginWithOtpModel(
         var address = new OtpAddress(OtpChannel.Email, EmailAddress.Create(Email));
         var result = await otpSender.TrySendOtpAsync(address, HttpContext.RequestAborted);
 
-        if (result is null)
+        if (result is SendOtpResult.Blocked blocked)
+        {
+            ErrorMessage = $"Too many attempts. Please try again in {Math.Ceiling(blocked.SendingBlockedFor.TotalSeconds)} second(s).";
+            return Page();
+        }
+
+        if (result is not SendOtpResult.Sent sent)
         {
             ErrorMessage = "Could not send a verification code to that email address.";
             return Page();
         }
 
-        if (!result.Sent)
-        {
-            ErrorMessage = $"Too many attempts. Please try again in {Math.Ceiling(result.SendingBlockedFor.TotalSeconds)} second(s).";
-            return Page();
-        }
-
-        otpCookie.Write(result.Token.Value, (EmailAddress)address.SubjectId, result.ExpiresAtUtc!.Value);
+        otpCookie.Write(sent.Token.Value, (EmailAddress)address.SubjectId, sent.ExpiresAtUtc);
 
         return RedirectToPage("/Account/VerifyOtp", new { ReturnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : Url.Content("~/") });
     }

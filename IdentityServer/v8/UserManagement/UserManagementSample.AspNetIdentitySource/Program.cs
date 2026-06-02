@@ -8,8 +8,8 @@ using UserManagementSample.AspNetIdentitySource.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                       throw new InvalidOperationException("No connection string configured");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? $"Data Source={Path.Combine(builder.Environment.ContentRootPath, "..", "db", "aspnetidentity.db")}";
 
 builder.Services
     .AddDbContext<ApplicationDbContext>(options =>

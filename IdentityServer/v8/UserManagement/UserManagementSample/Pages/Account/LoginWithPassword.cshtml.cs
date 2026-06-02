@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using Duende.IdentityModel;
 using Duende.IdentityServer;
-using Duende.UserManagement;
 using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.Passwords;
 using Duende.UserManagement.Profiles;
@@ -16,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UserManagementSample.Pages.Account;
 
 public sealed class LoginWithPasswordModel(
-    IPasswordAuth passwordAuth,
+    IPasswordAuthenticator passwordAuthenticator,
     IUserAuthenticatorsSelfService authenticatorsSelfService,
     TotpStateCookie totpStateCookie,
     IWebHostEnvironment environment) : PageModel
@@ -49,7 +48,7 @@ public sealed class LoginWithPasswordModel(
 
         var password = NonValidatedPassword.Create(Password);
 
-        if (await passwordAuth.TryAuthenticateAsync(
+        if (await passwordAuthenticator.TryAuthenticateAsync(
                 OidcStandardAttributes.Email,
                 Email,
                 password,
@@ -61,7 +60,7 @@ public sealed class LoginWithPasswordModel(
 
         var authenticators = await authenticatorsSelfService.TryGetAsync(subjectId, HttpContext.RequestAborted);
 
-        if (authenticators?.TotpAuthenticatorNames.Count > 0)
+        if (authenticators?.TotpDeviceNames.Count > 0)
         {
             // Store interim subject ID and redirect to 2FA
             totpStateCookie.Write(subjectId);

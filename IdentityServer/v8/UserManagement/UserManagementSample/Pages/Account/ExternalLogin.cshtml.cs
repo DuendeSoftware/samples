@@ -6,7 +6,6 @@ using Duende.IdentityModel;
 using Duende.IdentityServer;
 using Duende.Storage.EntityAttributeValue;
 using Duende.UserManagement;
-using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.External;
 using Duende.UserManagement.Profiles;
 using Microsoft.AspNetCore.Authentication;
@@ -16,8 +15,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UserManagementSample.Pages.Account;
 
 public sealed class ExternalLoginModel(
-    IUserAuthenticatorsSelfService authenticatorsSelfService,
-    IUserProfileSelfService profileSelfService) : PageModel
+    IExternalAuthenticator externalAuthenticator,
+    IUserProfileAdmin profileAdmin) : PageModel
 {
     public string? ErrorMessage { get; private set; }
 
@@ -60,45 +59,40 @@ public sealed class ExternalLoginModel(
             return Page();
         }
 
-        var authenticatorName = ExternalAuthenticatorName.Create(providerName);
-        var subjectId = OpaqueSubjectId.Create(externalSub);
-        var authenticator = new ExternalAuthenticator(authenticatorName, subjectId);
+        var address = new ExternalAuthenticatorAddress(
+            ExternalAuthenticatorName.Create(providerName),
+            OpaqueSubjectId.Create(externalSub));
 
-        var authenticators = await authenticatorsSelfService.TryGetAsync(authenticator, ct);
+        var authResult = await externalAuthenticator.TryAuthenticateAsync(address, ct);
 
-        UserSubjectId userId;
-
-        if (authenticators is not null)
+        if (authResult is not ExternalAuthenticationResult.Success success)
         {
-            userId = authenticators.SubjectId;
+            ErrorMessage = "Could not authenticate with external provider.";
+            return Page();
         }
-        else
+
+        var userId = success.UserSubjectId;
+
+        // Ensure a profile exists for this user
+        var existingProfile = await profileAdmin.TryGetAsync(userId, ct);
+        if (existingProfile is null)
         {
-            var newUserId = UserSubjectId.New();
-
-            authenticators = await authenticatorsSelfService.TryRegisterAsync(newUserId, authenticator, ct);
-            if (authenticators is null)
-            {
-                ErrorMessage = "Could not register user.";
-                return Page();
-            }
-
-            userId = authenticators.SubjectId;
-
             var name = principal.FindFirst(JwtClaimTypes.Name)?.Value
                 ?? principal.FindFirst(ClaimTypes.Name)?.Value
                 ?? string.Empty;
 
-            var schema = await profileSelfService.GetSchemaAsync(ct);
+            var email = principal.FindFirst(JwtClaimTypes.Email)?.Value
+                ?? principal.FindFirst(ClaimTypes.Email)?.Value;
+
+            var schema = await profileAdmin.GetSchemaAsync(ct);
             var attributes = new AttributeValueCollection(schema);
             attributes.Set(OidcStandardAttributes.Name.Code, name);
-
-            var profile = await profileSelfService.TryRegisterAsync(userId, attributes.Validate(), ct);
-            if (profile is null)
+            if (email is not null)
             {
-                ErrorMessage = "Could not create user profile.";
-                return Page();
+                attributes.Set(OidcStandardAttributes.Email.Code, email);
             }
+
+            await profileAdmin.TryAddAsync(userId, attributes.Validate(), ct);
         }
 
         await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);

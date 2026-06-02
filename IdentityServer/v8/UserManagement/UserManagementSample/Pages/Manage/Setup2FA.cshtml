@@ -9,6 +9,13 @@
         <div class="form-container">
             <h2 class="mb-4 brand-title text-center">Set Up Authenticator App</h2>
 
+            @if (TempData["StatusMessage"] is string statusMessage)
+            {
+                <div class="alert alert-success" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>@statusMessage
+                </div>
+            }
+
             <div class="alert alert-info" role="alert">
                 <i class="bi bi-info-circle me-2"></i>
                 To use an authenticator app, follow these steps:

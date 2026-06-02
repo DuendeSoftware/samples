@@ -3,7 +3,6 @@
 
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
-using Duende.IdentityServer.Services;
 using Duende.IdentityServer.UserManagement;
 using Duende.Storage.Schema;
 using Duende.Storage.Sqlite;
@@ -12,7 +11,6 @@ using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.Passwords;
 using Duende.UserManagement.Import;
 using Duende.UserManagement.Profiles;
-using Microsoft.AspNetCore.Authentication.Google;
 using UserManagementSample;
 using UserManagementSample.Import;
 using UserManagementSample.Services;
@@ -103,13 +101,18 @@ builder.Services.AddScoped<ILocalUserImporter>(sp =>
 });
 
 builder.Services.AddAuthentication()
-    .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+    .AddOpenIdConnect("Google", "Sign-in with Google", options =>
     {
         options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "not-configured";
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "not-configured";
-    });
+        options.ForwardSignOut = IdentityServerConstants.DefaultCookieAuthenticationScheme;
 
+        options.Authority = "https://accounts.google.com/";
+        options.ClientId = "708778530804-rhu8gc4kged3he14tbmonhmhe7a43hlp.apps.googleusercontent.com";
+
+        options.CallbackPath = "/signin-google";
+        options.Scope.Add("email");
+        options.DisableTelemetry = true;
+    });
 //.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
 //{
 //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;

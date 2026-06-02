@@ -77,11 +77,11 @@ public sealed class Setup2FAModel(
             return Page();
         }
 
-        var added = await authenticatorsSelfService.TryAddTotpAuthenticatorAsync(
+        var added = await authenticatorsSelfService.TryAddTotpDeviceAsync(
             userId,
-            TotpAuthenticatorName.Default,
+            TotpDeviceName.Default,
             key,
-            totp.Value,
+            totp,
             HttpContext.RequestAborted);
 
         if (!added)
@@ -93,12 +93,14 @@ public sealed class Setup2FAModel(
         }
 
         var recoveryCodes = await authenticatorsSelfService.TryCreateRecoveryCodesAsync(userId, HttpContext.RequestAborted);
-        if (recoveryCodes is not null)
+        if (recoveryCodes is { Count: > 0 })
         {
             TempData["RecoveryCodes"] = recoveryCodes.Select(FormatRecoveryCode).ToArray();
+            return RedirectToPage("/Manage/ShowRecoveryCodes");
         }
 
-        return RedirectToPage("/Manage/ShowRecoveryCodes");
+        TempData["StatusMessage"] = "Two-factor authentication has been enabled.";
+        return RedirectToPage("/Manage/Setup2FA");
     }
 
     private void LoadSharedKeyAndQrCodeUri(PlainBytesTotpKey key)

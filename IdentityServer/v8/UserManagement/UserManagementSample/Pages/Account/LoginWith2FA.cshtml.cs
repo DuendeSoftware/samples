@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UserManagementSample.Pages.Account;
 
 public sealed class LoginWith2FAModel(
-    ITotpAuth totpAuth,
+    ITotpAuthenticator totpAuthenticator,
     TotpStateCookie totpStateCookie) : PageModel
 {
     [BindProperty]
@@ -59,8 +59,8 @@ public sealed class LoginWith2FAModel(
             return Page();
         }
 
-        var isValid = await totpAuth.TryAuthenticateAsync(
-            subjectId, TotpAuthenticatorName.Default, totp.Value, HttpContext.RequestAborted);
+        var isValid = await totpAuthenticator.TryAuthenticateAsync(
+            subjectId, TotpDeviceName.Default, totp, HttpContext.RequestAborted);
 
         if (!isValid)
         {

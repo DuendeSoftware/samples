@@ -68,9 +68,12 @@
             }
 
             <div class="d-grid gap-2">
-                <button type="button" id="add-passkey-btn" class="btn btn-primary">
-                    <i class="bi bi-plus-circle me-2"></i>Add Passkey
-                </button>
+                <div class="input-group mb-2">
+                    <input type="text" id="passkey-name" class="form-control" placeholder="Passkey name (e.g. Work Laptop)" />
+                    <button type="button" id="add-passkey-btn" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-2"></i>Add Passkey
+                    </button>
+                </div>
                 <a asp-page="/Index" class="btn btn-outline-secondary">
                     <i class="bi bi-arrow-left me-2"></i>Back
                 </a>
@@ -93,14 +96,18 @@
 
             document.getElementById('add-passkey-btn').addEventListener('click', async function () {
                 const btn = this;
+                const nameInput = document.getElementById('passkey-name');
+                const displayName = nameInput.value.trim() || '@Model.DisplayName';
                 btn.disabled = true;
                 statusBox.classList.add('d-none');
 
                 try {
-                    await registerPasskey('@Model.UserName', '@Model.DisplayName');
-                    showStatus('Passkey registered successfully.', false);
-                    window.location.reload();
+                    const result = await registerPasskey(displayName, displayName);
+                    console.log('Passkey registration result:', result);
+                    showStatus('Passkey registered successfully!', false);
+                    setTimeout(() => window.location.reload(), 1000);
                 } catch (err) {
+                    console.error('Passkey registration error:', err);
                     showStatus(err?.message ?? 'Passkey registration failed. Please try again.', true);
                     btn.disabled = false;
                 }
