@@ -648,6 +648,12 @@
     <Project Path="IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/IdentityServerHost/IdentityServerHost.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/WsFederationDynamicProviders/WsFederationDynamicProviders.AppHost/WsFederationDynamicProviders.AppHost.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v8/SAML/" />
+  <Folder Name="/IdentityServer/v8/SAML/Basic/">
+    <Project Path="IdentityServer/v8/SAML/Basic/Basic.AppHost/Basic.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/SAML/Basic/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/SAML/Basic/ServiceProvider/ServiceProvider.csproj" />
+  </Folder>
   <Folder Name="/various/" />
   <Folder Name="/various/clients/" />
   <Folder Name="/various/clients/Maui/" />
