@@ -654,6 +654,11 @@
     <Project Path="IdentityServer/v8/SAML/Basic/IdentityServerHost/IdentityServerHost.csproj" />
     <Project Path="IdentityServer/v8/SAML/Basic/ServiceProvider/ServiceProvider.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v8/SAML/IdPInitiated/">
+    <Project Path="IdentityServer/v8/SAML/IdPInitiated/IdPInitiated.AppHost/IdPInitiated.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/SAML/IdPInitiated/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/SAML/IdPInitiated/ServiceProvider/ServiceProvider.csproj" />
+  </Folder>
   <Folder Name="/various/" />
   <Folder Name="/various/clients/" />
   <Folder Name="/various/clients/Maui/" />
