@@ -11,14 +11,15 @@ namespace UserManagementSample;
 
 /// <summary>
 /// Stores the interim authenticated subject ID between the password step and the
-/// TOTP step in a two-factor authentication flow.
+/// second factor step in a two-factor authentication flow.
+/// This can either be for TOTP or passkey second factors.
 /// </summary>
-public sealed class TotpStateCookie(IDataProtectionProvider dataProtectionProvider, IHttpContextAccessor httpContextAccessor)
+public sealed class SecondFactorStateCookie(IDataProtectionProvider dataProtectionProvider, IHttpContextAccessor httpContextAccessor)
 {
-    private const string CookieName = "__Host-TotpState";
+    private const string CookieName = "__Host-SecondFactorState";
     private const int CookieLifetimeMinutes = 5;
 
-    private readonly IDataProtector _protector = dataProtectionProvider.CreateProtector("TotpState.v1");
+    private readonly IDataProtector _protector = dataProtectionProvider.CreateProtector("SecondFactorState.v1");
 
     private HttpContext HttpContext =>
         httpContextAccessor.HttpContext ?? throw new InvalidOperationException("No active HttpContext is available.");

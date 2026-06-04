@@ -14,7 +14,7 @@ namespace UserManagementSample.Pages.Account;
 
 public sealed class LoginWith2FAModel(
     ITotpAuthenticator totpAuthenticator,
-    TotpStateCookie totpStateCookie) : PageModel
+    SecondFactorStateCookie secondFactorStateCookie) : PageModel
 {
     [BindProperty]
     [Required]
@@ -30,7 +30,7 @@ public sealed class LoginWith2FAModel(
     {
         ReturnUrl = Url.IsLocalUrl(returnUrl) ? returnUrl : null;
 
-        if (!totpStateCookie.TryRead(out _))
+        if (!secondFactorStateCookie.TryRead(out _))
         {
             return RedirectToPage("/Account/LoginWithPassword", new { ReturnUrl });
         }
@@ -40,7 +40,7 @@ public sealed class LoginWith2FAModel(
 
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!totpStateCookie.TryRead(out var subjectId))
+        if (!secondFactorStateCookie.TryRead(out var subjectId))
         {
             return RedirectToPage("/Account/LoginWithPassword", new { ReturnUrl });
         }
@@ -68,7 +68,7 @@ public sealed class LoginWith2FAModel(
             return Page();
         }
 
-        totpStateCookie.Clear();
+        secondFactorStateCookie.Clear();
 
         var identityServerUser = new IdentityServerUser(subjectId.ToString())
         {

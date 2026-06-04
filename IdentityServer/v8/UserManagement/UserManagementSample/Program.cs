@@ -22,23 +22,29 @@ builder.AddServiceDefaults();
 builder.Services.AddRazorPages();
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton<UserManagementSample.OtpCookie>();
-builder.Services.AddSingleton<UserManagementSample.TotpStateCookie>();
+builder.Services.AddSingleton<OtpCookie>();
+builder.Services.AddSingleton<SecondFactorStateCookie>();
 
 builder.Services
+    // Add Identity server
     .AddIdentityServer()
-    .AddUserManagement(users =>
+
+    // Add and configure user management
+    .AddUserManagement(um =>
     {
-        users.Authentication(authentication =>
+        // Configure authentication options. 
+        um.Authentication(authentication =>
         {
             authentication.Configure(opt =>
             {
                 opt.Passwords.MinLength = 8;
 
+                // In order for the passkeys to be accepted, you'll need to configure the server domain and allowed origins. 
                 opt.Passkeys.ServerDomain = "dev.localhost";
                 opt.Passkeys.AllowedOrigins = ["https://um-identity-server.dev.localhost:59254"];
                 opt.Passkeys.RelyingPartyName = "UserManagement Sample";
             });
+
 
             authentication.EnablePasskeyForSecondFactor<SecondFactorResolver>();
 
@@ -64,7 +70,7 @@ builder.Services
             });
         });
 
-        users.AddSqliteStore(opt =>
+        um.AddSqliteStore(opt =>
             opt.ConnectionString = "Data Source=../db/usermanagement.db");
     })
     .AddProfileService<MyProfileService>()

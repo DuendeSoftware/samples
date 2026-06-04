@@ -17,7 +17,7 @@ namespace UserManagementSample.Pages.Account;
 public sealed class LoginWithPasswordModel(
     IPasswordAuthenticator passwordAuthenticator,
     IUserAuthenticatorsSelfService authenticatorsSelfService,
-    TotpStateCookie totpStateCookie,
+    SecondFactorStateCookie secondFactorStateCookie,
     IWebHostEnvironment environment) : PageModel
 {
     public bool ShowTestCredentials => environment.IsDevelopment();
@@ -63,7 +63,7 @@ public sealed class LoginWithPasswordModel(
         if (authenticators?.TotpDeviceNames.Count > 0)
         {
             // Store interim subject ID and redirect to 2FA
-            totpStateCookie.Write(subjectId);
+            secondFactorStateCookie.Write(subjectId);
             return RedirectToPage("/Account/LoginWith2FA", new
             {
                 ReturnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : Url.Content("~/")

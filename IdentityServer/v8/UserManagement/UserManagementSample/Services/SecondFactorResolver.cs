@@ -10,12 +10,12 @@ namespace UserManagementSample.Services;
 /// Resolves the user for passkey second-factor authentication by reading the
 /// interim subject ID stored after a successful first-factor (password) login.
 /// </summary>
-internal sealed class SecondFactorResolver(TotpStateCookie totpStateCookie)
+internal sealed class SecondFactorResolver(SecondFactorStateCookie secondFactorStateCookie)
     : ISecondFactorPasskeyAuthenticationResolver
 {
     public Task<UserSubjectId?> ResolveAsync(CancellationToken ct)
     {
-        UserSubjectId? subjectId = totpStateCookie.TryRead(out var id) ? id : null;
+        UserSubjectId? subjectId = secondFactorStateCookie.TryRead(out var id) ? id : null;
         return Task.FromResult(subjectId);
     }
 }
