@@ -13,28 +13,13 @@ using PlatformImporter = Duende.UserManagement.Import.IUserImporter;
 namespace UserManagementSample.Import;
 
 /// <summary>
-/// Summary of a user import operation.
-/// </summary>
-/// <param name="Created">Number of users newly created.</param>
-/// <param name="Overwritten">Number of existing users overwritten.</param>
-/// <param name="Failed">Number of users that failed to import.</param>
-/// <param name="Errors">List of error messages for failed imports.</param>
-public sealed record ImportResult(int Created, int Overwritten, int Failed, IReadOnlyList<string> Errors)
-{
-    /// <summary>Total number of users successfully imported (created + overwritten).</summary>
-    public int Imported => Created + Overwritten;
-
-    public static ImportResult Empty => new(0, 0, 0, []);
-}
-
-/// <summary>
 /// Imports users from an ASP.NET Identity SQLite database into the Duende Platform user store
 /// using the <see cref="PlatformImporter"/> bulk import API.
 /// </summary>
-internal sealed class AspNetIdentityImporter(
+public sealed class AspNetIdentityImporter(
     PlatformImporter platformImporter,
     IUserProfileAdmin profileAdmin,
-    string connectionString) : ILocalUserImporter
+    string connectionString)
 {
     // Namespace UUID for generating deterministic subject IDs from source user IDs
     private static readonly Guid NamespaceId = Guid.Parse("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
@@ -295,15 +280,4 @@ internal sealed class AspNetIdentityImporter(
         public required string ClaimType { get; init; }
         public required string ClaimValue { get; init; }
     }
-}
-
-/// <summary>
-/// Imports users from an ASP.NET Identity database into the Duende Platform user store.
-/// </summary>
-public interface ILocalUserImporter
-{
-    /// <summary>
-    /// Imports all users from the ASP.NET Identity SQLite database.
-    /// </summary>
-    Task<ImportResult> ImportFromIdentityDbAsync(CancellationToken ct);
 }

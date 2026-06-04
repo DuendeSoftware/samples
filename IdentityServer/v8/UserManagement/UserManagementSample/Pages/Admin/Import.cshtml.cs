@@ -6,22 +6,13 @@ using UserManagementSample.Import;
 namespace UserManagementSample.Pages.Admin;
 
 [Authorize]
-public sealed class ImportModel : PageModel
+public sealed class ImportModel(AspNetIdentityImporter importer, IWebHostEnvironment env) : PageModel
 {
-    private readonly ILocalUserImporter _importer;
-    private readonly IWebHostEnvironment _env;
-
-    public ImportModel(ILocalUserImporter importer, IWebHostEnvironment env)
-    {
-        _importer = importer;
-        _env = env;
-    }
-
     public ImportResult? Result { get; private set; }
 
     public IActionResult OnGet()
     {
-        if (!_env.IsDevelopment())
+        if (!env.IsDevelopment())
             return NotFound();
 
         return Page();
@@ -29,10 +20,10 @@ public sealed class ImportModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(CancellationToken ct)
     {
-        if (!_env.IsDevelopment())
+        if (!env.IsDevelopment())
             return NotFound();
 
-        Result = await _importer.ImportFromIdentityDbAsync(ct);
+        Result = await importer.ImportFromIdentityDbAsync(ct);
         return Page();
     }
 }

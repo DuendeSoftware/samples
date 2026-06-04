@@ -11,24 +11,16 @@ namespace UserManagementSample.Pages.Account;
 
 [AllowAnonymous]
 [IgnoreAntiforgeryToken]
-public sealed class LogoutModel : PageModel
+public sealed class LogoutModel(IIdentityServerInteractionService interactionService, ILogger<LogoutModel> logger)
+    : PageModel
 {
-    private readonly IIdentityServerInteractionService _interactionService;
-    private readonly ILogger<LogoutModel> _logger;
-
-    public LogoutModel(IIdentityServerInteractionService interactionService, ILogger<LogoutModel> logger)
-    {
-        _interactionService = interactionService;
-        _logger = logger;
-    }
-
     public bool LoggedOut { get; set; }
     public string? PostLogoutRedirectUri { get; set; }
     public string? SignOutIframeUrl { get; set; }
 
     public async Task<IActionResult> OnGet(string logoutId)
     {
-        var request = await _interactionService.GetLogoutContextAsync(logoutId, HttpContext.RequestAborted);
+        var request = await interactionService.GetLogoutContextAsync(logoutId, HttpContext.RequestAborted);
         if (request?.ShowSignoutPrompt == false || User.Identity?.IsAuthenticated != true)
         {
             return await OnPost(logoutId);
@@ -42,14 +34,12 @@ public sealed class LogoutModel : PageModel
         LoggedOut = true;
 
         await HttpContext.SignOutAsync();
-        _logger.LogInformation("User logged out.");
+        logger.LogInformation("User logged out.");
 
-        var request = await _interactionService.GetLogoutContextAsync(logoutId, HttpContext.RequestAborted);
-        if (request != null)
-        {
-            PostLogoutRedirectUri = request.PostLogoutRedirectUri;
-            SignOutIframeUrl = request.SignOutIFrameUrl;
-        }
+        var request = await interactionService.GetLogoutContextAsync(logoutId, HttpContext.RequestAborted);
+
+        PostLogoutRedirectUri = request.PostLogoutRedirectUri;
+        SignOutIframeUrl = request.SignOutIFrameUrl;
 
         return Page();
     }

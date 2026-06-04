@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Duende.IdentityModel;
 using Duende.IdentityServer;
 using Duende.Storage.EntityAttributeValue;
+using Duende.UserManagement;
 using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.Otp;
 using Duende.UserManagement.Profiles;
@@ -17,8 +18,7 @@ namespace UserManagementSample.Pages.Account;
 
 public sealed class VerifyOtpModel(
     IOtpAuthenticator otpAuthenticator,
-    IUserAuthenticatorsSelfService authenticatorsSelfService,
-    IUserProfileAdmin userProfileAdmin,
+    IUserSelfService userSelfService,
     OtpCookie otpCookie) : PageModel
 {
     public string? Email { get; set; }
@@ -73,13 +73,13 @@ public sealed class VerifyOtpModel(
         var subjectId = authResult.UserSubjectId;
 
         // Ensure a user profile exists (OTP auto-registers authenticators but not profiles)
-        var existingProfile = await userProfileAdmin.TryGetAsync(subjectId, HttpContext.RequestAborted);
+        var existingProfile = await userSelfService.Profiles.TryGetAsync(subjectId, HttpContext.RequestAborted);
         if (existingProfile is null)
         {
-            var schema = await userProfileAdmin.GetSchemaAsync(HttpContext.RequestAborted);
+            var schema = await userSelfService.Profiles.GetSchemaAsync(HttpContext.RequestAborted);
             var attributes = new AttributeValueCollection(schema);
             attributes.Set(OidcStandardAttributes.Email.Code, emailAddress.ToString());
-            await userProfileAdmin.TryAddAsync(subjectId, attributes.Validate(), HttpContext.RequestAborted);
+            await userSelfService.Profiles.TryCreateAsync(subjectId, attributes.Validate(), HttpContext.RequestAborted);
         }
 
         var identityServerUser = new IdentityServerUser(subjectId.ToString())
@@ -102,7 +102,7 @@ public sealed class VerifyOtpModel(
         await HttpContext.SignInAsync(identityServerUser, authProperties);
 
         // Check whether the user has a passkey registered; if not, prompt registration
-        var authenticators = await authenticatorsSelfService.TryGetAsync(subjectId, HttpContext.RequestAborted);
+        var authenticators = await userSelfService.Authenticators.TryGetAsync(subjectId, HttpContext.RequestAborted);
         var hasPasskey = authenticators?.Passkeys.Count > 0;
 
         var safeReturnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl! : Url.Content("~/");

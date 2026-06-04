@@ -7,10 +7,5 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UserManagementSample.AspNetIdentitySource.Data;
 
-internal sealed class ApplicationDbContext : IdentityDbContext<IdentityUser>
-{
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
-}
+internal sealed class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<IdentityUser>(options);

@@ -16,7 +16,7 @@ namespace UserManagementSample.Pages.Account;
 
 public sealed class ExternalLoginModel(
     IExternalAuthenticator externalAuthenticator,
-    IUserProfileAdmin profileAdmin) : PageModel
+    IUserProfileSelfService profileSelfService) : PageModel
 {
     public string? ErrorMessage { get; private set; }
 
@@ -74,7 +74,7 @@ public sealed class ExternalLoginModel(
         var userId = success.UserSubjectId;
 
         // Ensure a profile exists for this user
-        var existingProfile = await profileAdmin.TryGetAsync(userId, ct);
+        var existingProfile = await profileSelfService.TryGetAsync(userId, ct);
         if (existingProfile is null)
         {
             var name = principal.FindFirst(JwtClaimTypes.Name)?.Value
@@ -84,15 +84,21 @@ public sealed class ExternalLoginModel(
             var email = principal.FindFirst(JwtClaimTypes.Email)?.Value
                 ?? principal.FindFirst(ClaimTypes.Email)?.Value;
 
-            var schema = await profileAdmin.GetSchemaAsync(ct);
+            var schema = await profileSelfService.GetSchemaAsync(ct);
             var attributes = new AttributeValueCollection(schema);
             attributes.Set(OidcStandardAttributes.Name.Code, name);
             if (email is not null)
             {
                 attributes.Set(OidcStandardAttributes.Email.Code, email);
             }
+            
+            var saved = await profileSelfService.TryCreateAsync(userId, attributes.Validate(), ct);
 
-            await profileAdmin.TryAddAsync(userId, attributes.Validate(), ct);
+            if (saved == null)
+            {
+                ErrorMessage = "Could not create user profile.";
+                return Page();
+            }
         }
 
         await HttpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);

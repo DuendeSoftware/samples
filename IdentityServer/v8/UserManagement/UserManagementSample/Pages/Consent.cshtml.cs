@@ -14,27 +14,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UserManagementSample.Pages;
 
 [Authorize]
-public sealed class ConsentModel : PageModel
+public sealed class ConsentModel(
+    IIdentityServerInteractionService interaction,
+    IEventService events,
+    ILogger<ConsentModel> logger)
+    : PageModel
 {
     private static readonly bool EnableOfflineAccess = true;
     private static readonly string OfflineAccessDisplayName = "Offline Access";
     private static readonly string OfflineAccessDescription = "Access to your applications and resources, even when you are offline";
     private static readonly string MustChooseOneErrorMessage = "You must pick at least one permission";
     private static readonly string InvalidSelectionErrorMessage = "Invalid selection";
-
-    private readonly IIdentityServerInteractionService _interaction;
-    private readonly IEventService _events;
-    private readonly ILogger<ConsentModel> _logger;
-
-    public ConsentModel(
-        IIdentityServerInteractionService interaction,
-        IEventService events,
-        ILogger<ConsentModel> logger)
-    {
-        _interaction = interaction;
-        _events = events;
-        _logger = logger;
-    }
 
     public ConsentViewModel View { get; set; } = default!;
 
@@ -58,7 +48,7 @@ public sealed class ConsentModel : PageModel
 
     public async Task<IActionResult> OnPost()
     {
-        var request = await _interaction.GetAuthorizationContextAsync(Input.ReturnUrl, HttpContext.RequestAborted);
+        var request = await interaction.GetAuthorizationContextAsync(Input.ReturnUrl, HttpContext.RequestAborted);
         if (request == null)
         {
             return RedirectToPage("/Index");
@@ -69,7 +59,7 @@ public sealed class ConsentModel : PageModel
         if (Input.Button == "no")
         {
             grantedConsent = new ConsentResponse { Error = InteractionError.AccessDenied };
-            await _events.RaiseAsync(new ConsentDeniedEvent(User.GetSubjectId(), request.Client.ClientId, request.ValidatedResources.RawScopeValues), HttpContext.RequestAborted);
+            await events.RaiseAsync(new ConsentDeniedEvent(User.GetSubjectId(), request.Client.ClientId, request.ValidatedResources.RawScopeValues), HttpContext.RequestAborted);
         }
         else if (Input.Button == "yes")
         {
@@ -88,7 +78,7 @@ public sealed class ConsentModel : PageModel
                     Description = Input.Description
                 };
 
-                await _events.RaiseAsync(new ConsentGrantedEvent(User.GetSubjectId(), request.Client.ClientId, request.ValidatedResources.RawScopeValues, grantedConsent.ScopesValuesConsented, grantedConsent.RememberConsent), HttpContext.RequestAborted);
+                await events.RaiseAsync(new ConsentGrantedEvent(User.GetSubjectId(), request.Client.ClientId, request.ValidatedResources.RawScopeValues, grantedConsent.ScopesValuesConsented, grantedConsent.RememberConsent), HttpContext.RequestAborted);
             }
             else
             {
@@ -104,7 +94,7 @@ public sealed class ConsentModel : PageModel
         {
             ArgumentNullException.ThrowIfNull(Input.ReturnUrl, nameof(Input.ReturnUrl));
 
-            await _interaction.GrantConsentAsync(request, grantedConsent, HttpContext.RequestAborted);
+            await interaction.GrantConsentAsync(request, grantedConsent, HttpContext.RequestAborted);
 
             return Redirect(Input.ReturnUrl);
         }
@@ -124,14 +114,14 @@ public sealed class ConsentModel : PageModel
             return false;
         }
 
-        var request = await _interaction.GetAuthorizationContextAsync(returnUrl, HttpContext.RequestAborted);
+        var request = await interaction.GetAuthorizationContextAsync(returnUrl, HttpContext.RequestAborted);
         if (request != null)
         {
             View = CreateConsentViewModel(request);
             return true;
         }
 
-        _logger.LogWarning("No consent request matching request: {ReturnUrl}", returnUrl);
+        logger.LogWarning("No consent request matching request: {ReturnUrl}", returnUrl);
         return false;
     }
 

@@ -45,9 +45,13 @@ builder.Services
                 opt.Passkeys.RelyingPartyName = "UserManagement Sample";
             });
 
-
+            // After signing in with the password, we set a cookie with the subject ID of the user.
+            // This is then read by the second-factor resolver to link the second-factor attempt to the user that is signing in.
+            // see https://docs.duendesoftware.com/identityserver/usermanagement/authentication/passkeys/#second-factor-passkey-authentication
             authentication.EnablePasskeyForSecondFactor<SecondFactorResolver>();
 
+            // Adds configuration for sending OTP's. In this sample, we're sending OTP's via email,
+            // but you could also implement a custom delivery mechanism, e.g. for sending OTP's via SMS.
             authentication.UseSmtpOtpDispatcher(smtp =>
             {
                 var connectionString = builder.Configuration.GetConnectionString("mailpit");
@@ -70,10 +74,10 @@ builder.Services
             });
         });
 
+        // Store user management data in sql lite
         um.AddSqliteStore(opt =>
             opt.ConnectionString = "Data Source=../db/usermanagement.db");
     })
-    .AddProfileService<MyProfileService>()
     .AddInMemoryClients([
         new Client
         {
@@ -96,15 +100,23 @@ builder.Services
         new IdentityResources.Profile(),
     ]);
 
+// Users from aspnet identity are imported with the passwords hashed via the ASP.NET Identity v3 format.
+// After import, the passwords are re-hashed with the default hashing algorithm of Duende User Management, which is currently PBKDF2. 
 builder.Services.AddSingleton<IPasswordHashAlgorithm, AspNetIdentityPasswordHashAlgorithm>();
+
+// During import, by default, users with collisions (IE: duplicate subject id's or email addresses) will be skipped.
+// By adding a custom collision resolver, you can change this behavior, e.g. to overwrite existing users instead of skipping them.
 builder.Services.AddScoped<IUserImportConflictResolver, OverwriteConflictResolver>();
-builder.Services.AddScoped<ILocalUserImporter>(sp =>
+
+// Add the class that will import data from aspnet identity. 
+builder.Services.AddScoped<AspNetIdentityImporter>(sp =>
 {
     var connectionString = builder.Configuration.GetConnectionString("AspnetIdentitySource") ?? throw new InvalidOperationException("No connection string for AspnetIdentitySource configured");
     var platformImporter = sp.GetRequiredService<IUserImporter>();
     var profileAdmin = sp.GetRequiredService<IUserProfileAdmin>();
     return new AspNetIdentityImporter(platformImporter, profileAdmin, connectionString);
 });
+
 
 builder.Services.AddAuthentication()
     .AddOpenIdConnect("Google", "Sign-in with Google", options =>
@@ -119,12 +131,6 @@ builder.Services.AddAuthentication()
         options.Scope.Add("email");
         options.DisableTelemetry = true;
     });
-//.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
-//{
-//    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-//    options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "not-configured";
-//    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "not-configured";
-//});
 
 var app = builder.Build();
 

@@ -36,6 +36,10 @@
                     <button type="submit" class="btn btn-primary btn-lg">
                         <i class="bi bi-shield-check me-2"></i>Verify &amp; Sign In
                     </button>
+                    <a asp-page="/Account/LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl"
+                       class="btn btn-outline-warning">
+                        <i class="bi bi-key me-2"></i>Use a Recovery Code
+                    </a>
                     <a asp-page="/Account/LoginWithPassword" asp-route-returnUrl="@Model.ReturnUrl"
                        class="btn btn-outline-secondary">
                         <i class="bi bi-arrow-left me-2"></i>Back to Sign In

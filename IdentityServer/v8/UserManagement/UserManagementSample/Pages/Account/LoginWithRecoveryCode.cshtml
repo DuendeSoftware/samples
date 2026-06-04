@@ -1,0 +1,49 @@
+@page
+@model UserManagementSample.Pages.Account.LoginWithRecoveryCodeModel
+@{
+    ViewData["Title"] = "Recovery Code";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="form-container">
+            <h2 class="mb-4 brand-title text-center">Recovery Code</h2>
+
+            <div class="alert alert-warning" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                Enter one of your recovery codes. Each code can only be used once.
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>@Model.ErrorMessage
+                </div>
+            }
+
+            <form method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="mb-4">
+                    <label asp-for="RecoveryCode" class="form-label fw-semibold">Recovery Code</label>
+                    <input asp-for="RecoveryCode" type="text" class="form-control form-control-lg text-center"
+                           placeholder="xxxx-xxxx-xxxx" autocomplete="off" autofocus />
+                    <span asp-validation-for="RecoveryCode" class="text-danger small"></span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-key me-2"></i>Verify &amp; Sign In
+                    </button>
+                    <a asp-page="/Account/LoginWith2FA" asp-route-returnUrl="@Model.ReturnUrl"
+                       class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Two-Factor
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

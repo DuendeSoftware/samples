@@ -12,27 +12,19 @@ namespace UserManagementSample.Pages;
 [AllowAnonymous]
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 [IgnoreAntiforgeryToken]
-public sealed class ErrorModel : PageModel
+public sealed class ErrorModel(IIdentityServerInteractionService interaction, IWebHostEnvironment environment)
+    : PageModel
 {
-    private readonly IIdentityServerInteractionService _interaction;
-    private readonly IWebHostEnvironment _environment;
-
     public ErrorMessage? Error { get; set; }
-
-    public ErrorModel(IIdentityServerInteractionService interaction, IWebHostEnvironment environment)
-    {
-        _interaction = interaction;
-        _environment = environment;
-    }
 
     public async Task OnGetAsync(string? errorId)
     {
-        var message = await _interaction.GetErrorContextAsync(errorId, HttpContext.RequestAborted);
+        var message = await interaction.GetErrorContextAsync(errorId, HttpContext.RequestAborted);
         if (message != null)
         {
             Error = message;
 
-            if (!_environment.IsDevelopment())
+            if (!environment.IsDevelopment())
             {
                 // only show error description in development
                 message.ErrorDescription = null;
