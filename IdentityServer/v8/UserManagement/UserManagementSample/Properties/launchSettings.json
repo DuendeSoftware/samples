@@ -6,7 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://um-identity-server.dev.localhost:59254"
+      "applicationUrl": "https://localhost:5001"
     }
   }
 }

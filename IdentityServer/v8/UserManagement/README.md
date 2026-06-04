@@ -49,7 +49,7 @@ This launches:
 
 | Service | URL |
 |---------|-----|
-| IdentityServer | `https://um-identity-server.dev.localhost:59254` |
+| IdentityServer | `https://localhost:5001` |
 | Client App | (assigned by Aspire) |
 | Mailpit UI | `http://localhost:8025` |
 | Mailpit SMTP | `localhost:1025` |
@@ -68,8 +68,8 @@ In Development mode, a test credentials card appears on the login page:
 
 Passkeys require matching domain/origin configuration. The sample is configured for:
 
-- **Server domain**: `dev.localhost`
-- **Allowed origin**: `https://um-identity-server.dev.localhost:59254`
+- **Server domain**: `localhost`
+- **Allowed origin**: `https://localhost:5001`
 
 If you change the hosting URL, update these values in `Program.cs`.
 
@@ -112,7 +112,7 @@ builder.Services
             auth.Configure(opt =>
             {
                 opt.Passwords.MinLength = 8;
-                opt.Passkeys.ServerDomain = "dev.localhost";
+                opt.Passkeys.ServerDomain = "localhost";
                 opt.Passkeys.AllowedOrigins = ["https://..."];
             });
 

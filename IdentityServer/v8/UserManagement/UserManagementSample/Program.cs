@@ -40,8 +40,8 @@ builder.Services
                 opt.Passwords.MinLength = 8;
 
                 // In order for the passkeys to be accepted, you'll need to configure the server domain and allowed origins. 
-                opt.Passkeys.ServerDomain = "dev.localhost";
-                opt.Passkeys.AllowedOrigins = ["https://um-identity-server.dev.localhost:59254"];
+                opt.Passkeys.ServerDomain = "localhost";
+                opt.Passkeys.AllowedOrigins = ["https://localhost:5001"];
                 opt.Passkeys.RelyingPartyName = "UserManagement Sample";
             });
 
@@ -85,9 +85,9 @@ builder.Services
             ClientSecrets = { new Secret("secret".Sha256()) },
             AllowedGrantTypes = GrantTypes.Code,
             RequirePkce = true,
-            RedirectUris = { "https://um-client.dev.localhost:5002/signin-oidc" },
-            PostLogoutRedirectUris = { "https://um-client.dev.localhost:5002/signout-callback-oidc" },
-            FrontChannelLogoutUri = "https://um-client.dev.localhost:5002/signout-oidc",
+            RedirectUris = { "https://localhost:5002/signin-oidc" },
+            PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
+            FrontChannelLogoutUri = "https://localhost:5002/signout-oidc",
             AllowedScopes =
             {
                 IdentityServerConstants.StandardScopes.OpenId,
