@@ -1,0 +1,26 @@
+@page
+@model IdentityServerHost.Pages.MyApps.IndexModel
+@{
+    ViewData["Title"] = "My Apps";
+}
+
+<h1>My Apps</h1>
+<p>Click an application tile to launch it via IdP-initiated SAML SSO.</p>
+
+<div class="row">
+    @foreach (var app in Model.Apps)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">@app.DisplayName</h5>
+                    <p class="card-text text-muted small">@app.EntityId</p>
+                    <form method="post" asp-page-handler="Launch">
+                        <input type="hidden" name="spEntityId" value="@app.EntityId" />
+                        <button type="submit" class="btn btn-primary">Launch</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

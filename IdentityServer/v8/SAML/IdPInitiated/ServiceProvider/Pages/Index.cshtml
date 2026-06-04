@@ -1,0 +1,15 @@
+@page
+@model IndexModel
+@inject AppSettings AppSettings
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h1>@AppSettings.AppName</h1>
+<p>
+    This application supports both SP-initiated and IdP-initiated SAML 2.0 single sign-on.
+</p>
+<p>
+    Navigate to the <a href="/Secure">Secure</a> page to trigger SP-initiated login,
+    or launch this app from the IdP's <strong>My Apps</strong> dashboard for IdP-initiated SSO.
+</p>
