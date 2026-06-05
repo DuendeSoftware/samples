@@ -196,4 +196,3 @@ await userImporter.ImportAsync(records, ct);
 |---------|---------|
 | `Duende.IdentityServer` | 8.0.0 |
 | `Duende.UserManagement.IdentityServer8` | 1.0.0 |
-| `Duende.Storage.Sqlite` | 1.0.0 |
