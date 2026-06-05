@@ -1,0 +1,36 @@
+@page
+@model UserManagementSample.Pages.Manage.ShowRecoveryCodesModel
+@{
+    ViewData["Title"] = "Recovery Codes";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+        <div class="form-container">
+            <h2 class="mb-4 brand-title text-center">Recovery Codes</h2>
+
+            <div class="alert alert-warning" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <strong>Save these codes now.</strong> They will not be shown again.
+                Each code can only be used once. Store them in a secure location.
+            </div>
+
+            <div class="p-3 mb-4 bg-light border rounded">
+                <div class="row row-cols-2 g-2">
+                    @foreach (var code in Model.RecoveryCodes ?? [])
+                    {
+                        <div class="col">
+                            <code class="d-block text-center p-1">@code</code>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <a asp-page="/Index" class="btn btn-primary">
+                    <i class="bi bi-house me-2"></i>Continue to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+@page
+@model UserManagementSample.Pages.Manage.ManageProfileModel
+@{
+    ViewData["Title"] = "Manage Profile";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="form-container">
+            <h2 class="mb-4 brand-title text-center">Manage Profile</h2>
+
+            @if (Model.ErrorMessages.Count > 0)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @foreach (var error in Model.ErrorMessages)
+                    {
+                        <div><i class="bi bi-exclamation-triangle-fill me-2"></i>@error</div>
+                    }
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="alert alert-success" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>@Model.SuccessMessage
+                </div>
+            }
+
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Full Name</label>
+                    <input asp-for="Name" class="form-control" autocomplete="name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control" type="email" autocomplete="email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Website" class="form-label">Website</label>
+                    <input asp-for="Website" class="form-control" type="url" autocomplete="url" />
+                    <span asp-validation-for="Website" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-person-check me-2"></i>Save Changes
+                    </button>
+                    <a asp-page="/Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Back
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

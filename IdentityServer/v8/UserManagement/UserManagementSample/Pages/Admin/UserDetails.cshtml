@@ -1,0 +1,82 @@
+@page
+@model UserManagementSample.Pages.Admin.UserDetailsModel
+
+<h2>User Details</h2>
+
+<a asp-page="/Admin/Users" class="btn btn-sm btn-outline-secondary mb-3">&larr; Back to Search</a>
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+else
+{
+    <h4>Profile</h4>
+    <table class="table table-sm">
+        <thead><tr><th>Attribute</th><th>Value</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Subject ID</strong></td><td><code>@Model.SubjectId</code></td></tr>
+            @foreach (var (key, value) in Model.Attributes)
+            {
+                <tr><td>@key</td><td>@value</td></tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.Authenticators is not null)
+    {
+        <h4 class="mt-4">Authenticators</h4>
+        <table class="table table-sm">
+            <tbody>
+                <tr>
+                    <td><strong>Password</strong></td>
+                    <td>@(Model.Authenticators.HasPassword ? "Yes" : "No")</td>
+                </tr>
+                <tr>
+                    <td><strong>Passkeys</strong></td>
+                    <td>@Model.Authenticators.PasskeyCount registered</td>
+                </tr>
+                <tr>
+                    <td><strong>TOTP Authenticators</strong></td>
+                    <td>@Model.Authenticators.TotpCount registered</td>
+                </tr>
+                <tr>
+                    <td><strong>OTP Addresses</strong></td>
+                    <td>
+                        @if (Model.Authenticators.OtpAddresses.Count > 0)
+                        {
+                            <ul class="mb-0">
+                                @foreach (var addr in Model.Authenticators.OtpAddresses)
+                                {
+                                    <li>@addr</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">None</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>External Providers</strong></td>
+                    <td>
+                        @if (Model.Authenticators.ExternalProviders.Count > 0)
+                        {
+                            <ul class="mb-0">
+                                @foreach (var provider in Model.Authenticators.ExternalProviders)
+                                {
+                                    <li>@provider</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">None</span>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}

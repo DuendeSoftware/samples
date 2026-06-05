@@ -1,0 +1,33 @@
+@page
+@model UserManagementSample.Client.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <h2>Claims</h2>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr><th>Type</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var claim in User.Claims)
+            {
+                <tr><td>@claim.Type</td><td>@claim.Value</td></tr>
+            }
+        </tbody>
+    </table>
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+}
+else
+{
+    <a class="btn btn-primary" asp-page="/Index" asp-route-handler="Login">Login</a>
+}

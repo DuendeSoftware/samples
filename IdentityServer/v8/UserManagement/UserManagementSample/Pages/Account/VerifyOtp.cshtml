@@ -1,0 +1,55 @@
+@page
+@model UserManagementSample.Pages.Account.VerifyOtpModel
+@{
+    ViewData["Title"] = "Verify Code";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="form-container">
+            <h2 class="mb-2 brand-title text-center">Check your email</h2>
+            @if (Model.Email is not null)
+            {
+                <p class="text-muted text-center mb-4">
+                    We sent a one-time code to <strong>@Model.Email</strong>.
+                </p>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>@Model.ErrorMessage
+                </div>
+            }
+
+            <div class="alert alert-info small mb-3" role="alert">
+                <i class="bi bi-info-circle me-1"></i>
+                View sent emails in <a target="_blank" rel="noopener noreferrer" href="http://localhost:8025">Mailpit</a>.
+            </div>
+
+            <form method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="mb-4">
+                    <label asp-for="Code" class="form-label fw-semibold">Verification Code</label>
+                    <input asp-for="Code" class="form-control form-control-lg text-center"
+                           autocomplete="one-time-code" maxlength="9" autofocus />
+                    <span asp-validation-for="Code" class="text-danger small"></span>
+                </div>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-check-circle me-2"></i>Verify and Sign In
+                    </button>
+                </div>
+                <div class="text-center">
+                    <a asp-page="/Account/LoginWithOtp" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

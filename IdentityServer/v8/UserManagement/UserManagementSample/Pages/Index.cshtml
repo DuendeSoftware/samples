@@ -1,0 +1,18 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero">
+    <h1>User Management Sample</h1>
+    <p>This sample demonstrates user management with IdentityServer and ASP.NET Core Identity.</p>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <p>Welcome back, <strong>@User.Identity.Name</strong>!</p>
+    }
+    else
+    {
+        <p><a asp-page="/Account/Login" class="btn">Sign in</a> to manage your account.</p>
+    }
+</div>

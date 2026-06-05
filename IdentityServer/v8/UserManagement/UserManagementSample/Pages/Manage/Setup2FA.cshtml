@@ -1,0 +1,73 @@
+@page
+@model UserManagementSample.Pages.Manage.Setup2FAModel
+@{
+    ViewData["Title"] = "Set Up Authenticator App";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+        <div class="form-container">
+            <h2 class="mb-4 brand-title text-center">Set Up Authenticator App</h2>
+
+            @if (TempData["StatusMessage"] is string statusMessage)
+            {
+                <div class="alert alert-success" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>@statusMessage
+                </div>
+            }
+
+            <div class="alert alert-info" role="alert">
+                <i class="bi bi-info-circle me-2"></i>
+                To use an authenticator app, follow these steps:
+                <ol class="mt-2 mb-0">
+                    <li>Download an authenticator app such as Google Authenticator or Microsoft Authenticator.</li>
+                    <li>Scan the QR code below or enter the setup key manually.</li>
+                    <li>Enter the 6-digit code shown in the app to verify.</li>
+                </ol>
+            </div>
+
+            <div class="text-center mb-4">
+                <img src="https://quickchart.io/qr?text=@Uri.EscapeDataString(Model.AuthenticatorUri)&size=200"
+                     alt="QR Code for authenticator app"
+                     width="200" height="200"
+                     class="border rounded" />
+            </div>
+
+            <div class="mb-4">
+                <p class="fw-semibold">Manual entry key:</p>
+                <code class="d-block p-2 bg-light rounded text-center fs-6">@Model.SharedKey</code>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>@Model.ErrorMessage
+                </div>
+            }
+
+            <form method="post">
+                <div class="mb-4">
+                    <label asp-for="Code" class="form-label fw-semibold">Verification Code</label>
+                    <input asp-for="Code" type="text" class="form-control form-control-lg text-center"
+                           placeholder="000000" maxlength="7" pattern="[0-9 \-]*" inputmode="numeric"
+                           autocomplete="one-time-code" autofocus />
+                    <span asp-validation-for="Code" class="text-danger small"></span>
+                    <div class="form-text">Enter the 6-digit code from your authenticator app.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-shield-check me-2"></i>Verify &amp; Enable
+                    </button>
+                    <a asp-page="/Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
