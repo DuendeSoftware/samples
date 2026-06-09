@@ -13,4 +13,7 @@ builder.AddProject<Projects.UserManagementSample_Client>("client")
 
 builder.AddProject<Projects.UserManagementSample_AspNetIdentitySource>("aspnetidentitysource");
 
+builder.AddProject<Projects.UserManagementSample>("sample");
+builder.AddProject<Projects.UserManagementSample_GettingStarted>("gettingstarted");
+
 builder.Build().Run();
