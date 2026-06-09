@@ -663,6 +663,7 @@
     <Project Path="IdentityServer/v8/UserManagement/UserManagementSample.AppHost/UserManagementSample.AppHost.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/UserManagementSample.AspNetIdentitySource/UserManagementSample.AspNetIdentitySource.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/UserManagementSample.Client/UserManagementSample.Client.csproj" />
+    <Project Path="IdentityServer/v8/UserManagement/UserManagementSample.GettingStarted/UserManagementSample.GettingStarted.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/UserManagementSample.ServiceDefaults/UserManagementSample.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/UserManagementSample/UserManagementSample.csproj" />
   </Folder>

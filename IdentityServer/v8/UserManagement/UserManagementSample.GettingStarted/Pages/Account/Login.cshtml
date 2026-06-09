@@ -1,0 +1,18 @@
+@page
+@model UserManagementSample.GettingStarted.Pages.Account.LoginModel
+@{
+  ViewData["Title"] = "Log in";
+}
+
+<h2>Log in</h2>
+
+<div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+
+<form method="post">
+  <div>
+    <label asp-for="Input.Email">Email address</label>
+    <input asp-for="Input.Email" type="email" required autofocus autocomplete="email" />
+    <span asp-validation-for="Input.Email"></span>
+  </div>
+  <button type="submit">Send one-time password</button>
+</form>

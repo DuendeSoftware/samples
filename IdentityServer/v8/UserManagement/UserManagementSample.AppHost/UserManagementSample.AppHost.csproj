@@ -9,6 +9,7 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UserManagementSample.GettingStarted\UserManagementSample.GettingStarted.csproj" />
     <ProjectReference Include="..\UserManagementSample\UserManagementSample.csproj" />
     <ProjectReference Include="..\UserManagementSample.Client\UserManagementSample.Client.csproj" />
     <ProjectReference Include="..\UserManagementSample.AspNetIdentitySource\UserManagementSample.AspNetIdentitySource.csproj" />
