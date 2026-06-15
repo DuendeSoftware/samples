@@ -1,145 +1,19 @@
 :root {
-    --duende-purple: #512bd4;
-    --duende-purple-lighter: #e8e0ff;
-    --duende-header-bg: #5E2D91;
+  --font-family-sans-serif: "Funnel Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-html {
-  font-size: 14px;
-  position: relative;
-  min-height: 100%;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-a.navbar-brand .icon-banner {
-  margin-top: -4px;
-  height: 2.5rem;
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  object-position: 0 50%;
-}
-
-.site-header {
-  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
-}
-
-.duende-header {
-  background-color: var(--duende-header-bg) !important;
-  padding: 0.5rem 1rem;
-}
-
-.duende-header .navbar-brand {
-  color: white;
-  font-size: 1rem;
-}
-
-.duende-header .navbar-brand .badge {
-  font-size: 0.7rem;
-  padding: 0.25rem 0.5rem;
-}
-
-.duende-header .nav-link {
-  color: rgba(255, 255, 255, 0.85);
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
-}
-
-.duende-header .nav-link:hover {
-  color: white;
-}
-
-.duende-header .nav-link.fw-bold {
-  color: white;
-}
-
-.body-container {
-  margin-top: 60px;
-  padding-bottom: 40px;
-}
-
-.footer {
-    background-color: #fff;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    line-height: 60px;
-    text-align: center;
-    border-top: 1px solid #dee2e6;
-}
-
-.form-container {
-    background-color: white;
-    padding: 2.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
-    border: 1px solid #dee2e6;
-}
-
-.brand-title {
-    color: var(--duende-purple);
-    font-weight: 500;
-}
-
-.platform-hero {
-    padding: 2rem 0;
-    margin-bottom: 1rem;
-}
-
-.platform-hero h1 {
-    font-weight: 400;
-    color: #333;
-    margin-bottom: 1rem;
-}
-
-.platform-hero .lead {
-    color: #666;
-    font-size: 1.15rem;
-}
-
-/* List group styles matching Duende */
+/* List group */
 .list-group-item {
   color: #444;
   background-color: #fff;
 }
 
-.list-group-item.disabled,
-.list-group-item:disabled {
+.list-group-item.disabled, .list-group-item:disabled {
   color: #5c507c;
   background-color: #fff;
 }
 
-.list-group-item.active,
-.list-group-item:hover,
-.list-group-item:focus {
+.list-group-item.active, .list-group-item:hover, .list-group-item:focus {
   z-index: 2;
   color: #444;
   background-color: #eee;
@@ -158,16 +32,134 @@ a.navbar-brand .icon-banner {
   color: #5c507c;
 }
 
-/* Card styling */
-.card {
-    border-radius: 0.5rem;
+/* Accordion styles */
+.collapsible-link::before {
+  content: "";
+  width: 14px;
+  height: 2px;
+  background: #333;
+  position: absolute;
+  top: calc(50% - 1px);
+  right: 1rem;
+  display: block;
+  transition: all 0.3s;
 }
 
-/* Table improvements */
-.table {
-    background-color: #fff;
+.collapsible-link::after {
+  content: "";
+  width: 2px;
+  height: 14px;
+  background: #333;
+  position: absolute;
+  top: calc(50% - 7px);
+  right: calc(1rem + 6px);
+  display: block;
+  transition: all 0.3s;
 }
 
-code {
-    color: #593d88;
+.collapsible-link[aria-expanded=true]::after {
+  transform: rotate(90deg) translateX(-1px);
+}
+
+.collapsible-link[aria-expanded=true]::before {
+  transform: rotate(180deg);
+}
+
+a.navbar-brand span {
+  margin-left: 10px;
+}
+a.navbar-brand .icon-banner {
+  margin-top: -4px;
+  height: 1.5rem;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: 0 50%;
+}
+
+.body-container {
+  margin-top: 60px;
+  padding-bottom: 40px;
+}
+
+.logged-out-page iframe {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.grants-page .card {
+  margin-top: 20px;
+  border-bottom: 1px solid lightgray;
+}
+.grants-page .card .card-title {
+  font-size: 120%;
+  font-weight: bold;
+}
+.grants-page .card .card-title img {
+  width: 100px;
+  height: 100px;
+}
+.grants-page .card label {
+  font-weight: bold;
+}
+
+.jwt-decoder-container .row {
+  height: 40vh;
+}
+.jwt-decoder-container .jwt-decoded {
+  text-wrap: auto;
+}
+.jwt-decoder-container .jwt-decoded.jwt-header {
+  border: 4px solid #c586c0;
+}
+.jwt-decoder-container .jwt-decoded.jwt-payload {
+  border: 4px solid #d0872f;
+}
+.jwt-decoder-container .jwt-decoded.jwt-signature {
+  border: 4px solid #86c0c5;
+  color: #dcdcaa !important;
+  overflow-wrap: anywhere;
+}
+.jwt-decoder-container .jwt-input-editable {
+  word-wrap: anywhere;
+  max-width: 100vw;
+}
+.jwt-decoder-container .jwt-input-editable .text-danger {
+  color: #c586c0 !important;
+}
+.jwt-decoder-container .jwt-input-editable .text-success {
+  color: #d0872f !important;
+}
+.jwt-decoder-container .jwt-input-editable .text-warning {
+  color: #86c0c5 !important;
+}
+.jwt-decoder-container .jwt-input-editable .skipped {
+  text-decoration: line-through;
+}
+.jwt-decoder-container .json-content, .jwt-decoder-container .jwt-input-editable {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1em;
+}
+.jwt-decoder-container .json-content {
+  color: #dcdcaa !important;
+}
+.jwt-decoder-container .json-content .json-key {
+  color: #9cdcfe !important;
+}
+.jwt-decoder-container .json-content .json-boolean, .jwt-decoder-container .json-content .json-number {
+  color: #b5cea8 !important;
+}
+.jwt-decoder-container .json-content .json-string {
+  color: #ce9178 !important;
+}
+.jwt-decoder-container .json-content .json-explanation {
+  color: #6a9955 !important;
+  font-style: italic;
+}
+.jwt-decoder-container .json-content .json-structure {
+  color: #dcdcaa !important;
+}
+.jwt-decoder-container .jwt-signature {
+  font-size: 1em;
 }
