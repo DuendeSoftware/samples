@@ -1,3 +1,6 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var mailpit = builder.AddContainer("mailpit", "axllent/mailpit")
@@ -13,7 +16,7 @@ builder.AddProject<Projects.UserManagementSample_Client>("client")
 
 builder.AddProject<Projects.UserManagementSample_AspNetIdentitySource>("aspnetidentitysource");
 
-builder.AddProject<Projects.UserManagementSample>("sample");
+//builder.AddProject<Projects.UserManagementSample>("sample");
 builder.AddProject<Projects.UserManagementSample_GettingStarted>("gettingstarted");
 
 builder.Build().Run();

@@ -6,7 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:61692;http://localhost:61693"
+      "applicationUrl": "https://aspnet-identity-source.dev.localhost:5003"
     }
   }
 }
