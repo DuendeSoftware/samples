@@ -79,7 +79,7 @@ public class SetPasswordModel(
 
         var safeReturnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : null;
         return safeReturnUrl is null
-            ? LocalRedirect("/Login")
+            ? RedirectToPage("/Login")
             : RedirectToPage("/Login", new { returnUrl = safeReturnUrl });
     }
 }

@@ -77,7 +77,6 @@ public class ResetPasswordModel(
         await HttpContext.SignOutAsync();
 
         var safeReturnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : null;
-        //return LocalRedirect(Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : Url.Content("~/"));
         return safeReturnUrl is null
             ? RedirectToPage("/Login")
             : RedirectToPage("/Login", new { returnUrl = safeReturnUrl });
