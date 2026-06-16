@@ -70,7 +70,7 @@ public class SetPasswordModel(
         //Store the password to the user's account
         if (!await authenticatorsSelfService.TrySetPasswordAsync(userSubjectId, successPassword.Password, HttpContext.RequestAborted))
         {
-            ErrorMessages.Add($"Error setting password for user subhect id {userSubjectId}");
+            ErrorMessages.Add($"Error setting password for user subject id {userSubjectId}");
             return Page();
         }
 
