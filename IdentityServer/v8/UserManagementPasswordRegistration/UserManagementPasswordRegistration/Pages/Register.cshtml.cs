@@ -50,7 +50,7 @@ public class RegisterModel(IOtpSender otpSender, OtpCookie otpCookie) : PageMode
                 var blockedFor = blockedResult.SendingBlockedUntilUtc - DateTimeOffset.UtcNow;
                 ErrorMessages.Add($"Failed to send OTP. Try again in {Math.Ceiling(blockedFor.TotalSeconds)} second(s).");
                 return Page();
-            case SendOtpResult.SaveFailed failed:
+            case SendOtpResult.SaveFailed:
             default:
                 ErrorMessages.Add($"Failed to send OTP.");
                 return Page();
