@@ -667,6 +667,10 @@
     <Project Path="IdentityServer/v8/UserManagement/UserManagementSample.ServiceDefaults/UserManagementSample.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/UserManagementSample/UserManagementSample.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v8/UserManagementPasswordRegistration/">
+    <Project Path="IdentityServer/v8/UserManagementPasswordRegistration/UserManagementPasswordRegistration.AppHost/UserManagementPasswordRegistration.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/UserManagementPasswordRegistration/UserManagementPasswordRegistration/UserManagementPasswordRegistration.csproj" />
+  </Folder>
   <Folder Name="/various/" />
   <Folder Name="/various/clients/" />
   <Folder Name="/various/clients/Maui/" />
