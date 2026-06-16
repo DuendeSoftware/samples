@@ -9,6 +9,7 @@ using Duende.UserManagement.Authentication;
 using Duende.UserManagement.Authentication.Passwords;
 
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -74,12 +75,11 @@ public class SetPasswordModel(
         }
 
         //Password has been set, sign out to the user so they must sign in again with the new password
-        await HttpContext.SignOutAsync();
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         var safeReturnUrl = Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : null;
-        //return LocalRedirect(Url.IsLocalUrl(ReturnUrl) ? ReturnUrl : Url.Content("~/"));
         return safeReturnUrl is null
-            ? RedirectToPage("/Login")
+            ? LocalRedirect("/Login")
             : RedirectToPage("/Login", new { returnUrl = safeReturnUrl });
     }
 }
