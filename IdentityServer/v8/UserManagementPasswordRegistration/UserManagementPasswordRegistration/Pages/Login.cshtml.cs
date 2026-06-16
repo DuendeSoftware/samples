@@ -8,6 +8,8 @@ using Duende.IdentityModel;
 using Duende.IdentityServer;
 using Duende.UserManagement;
 using Duende.UserManagement.Authentication.Passwords;
+using Duende.UserManagement.Profiles;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
