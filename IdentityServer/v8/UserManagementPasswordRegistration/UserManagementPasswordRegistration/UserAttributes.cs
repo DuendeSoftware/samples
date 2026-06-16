@@ -27,7 +27,7 @@ internal static class UserAttributes
         IsUnique = true,
         Code = AttributeCode.Create("email"),
         AttributeType = new ScalarAttributeType(ScalarDataType.String),
-        Description = AttributeDescription.Create("End-User rpimary e-mail address.")
+        Description = AttributeDescription.Create("End-User primary e-mail address.")
     };
 
     internal static async Task BootstrapAsync(this IUserProfileSchemaAdmin admin, CancellationToken ct)
