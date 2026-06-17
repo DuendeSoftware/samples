@@ -52,26 +52,6 @@ builder.Services
             // Adds configuration for sending OTP's. In this sample, we're sending OTP's via email,
             // but you could also implement a custom delivery mechanism, e.g. for sending OTP's via SMS.
             _ = authentication.UseSmtpOtpDispatcher(options => builder.Configuration.GetSection("Smtp").Bind(options));
-            //authentication.UseSmtpOtpDispatcher(smtp =>
-            //{
-            //    var connectionString = builder.Configuration.GetConnectionString("mailpit");
-            //    if (!string.IsNullOrWhiteSpace(connectionString) &&
-            //        Uri.TryCreate(connectionString, UriKind.Absolute, out var uri))
-            //    {
-            //        smtp.Host = uri.Host;
-            //        smtp.Port = uri.Port;
-            //        smtp.EnableSsl = false;
-            //    }
-            //    else
-            //    {
-            //        smtp.Host = "localhost";
-            //        smtp.Port = 1025;
-            //        smtp.EnableSsl = false;
-            //    }
-
-            //    smtp.FromEmail = "no-reply@localhost";
-            //    smtp.FromName = "UserManagement Sample";
-            //});
         });
 
         // Store user management data in sql lite
