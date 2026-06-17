@@ -1,6 +1,6 @@
 # Duende User Management Sample
 
-This sample demonstrates a complete IdentityServer v8 implementation using **Duende User Management** — a user store and authentication platform that ships as a NuGet package and replaces ASP.NET Identity for IdentityServer scenarios.
+This sample demonstrates a complete IdentityServer v8 implementation using **Duende User Management** to store users and authenticate them with te below authentication methods.
 
 ## What This Sample Shows
 
@@ -16,11 +16,11 @@ This sample demonstrates a complete IdentityServer v8 implementation using **Due
 
 ### User Profile Management
 
-User Management uses a **schema-driven attribute model** rather than a fixed user table. Attributes like `email`, `name`, `website`, and custom ones like `location` are defined as `AttributeDefinition` entries. Profiles are collections of `AttributeValue` instances tied to a `UserSubjectId`.
+User Management uses a schema-driven attribute model rather than a fixed user table. Attributes like `email`, `name`, `website`, and custom ones like `location` are defined as `AttributeDefinition` entries. Profiles are collections of `AttributeValue` instances tied to a `UserSubjectId`.
 
 ### Migration from ASP.NET Identity
 
-The Admin → Import page demonstrates bulk-importing users from an existing ASP.NET Identity SQLite database, including:
+The IdentityServer `/Admin/Import` page demonstrates bulk-importing users from an existing ASP.NET Identity SQLite database, including:
 
 - Password hash compatibility (imports hashes as-is using a custom `IPasswordHashAlgorithm`)
 - Claims-to-attributes mapping (e.g., `given_name` + `family_name` → `name`)
@@ -49,12 +49,12 @@ This launches:
 
 | Service | URL |
 |---------|-----|
-| IdentityServer | `https://identityserver.dev.localhost:5001` |
+| IdentityServer | `https://identityserver.dev.localhost:5001;https://localhost:5001` |
 | Client App | `https://client.dev.localhost:5002` |
 | ASP.NET Identity Source | `https://aspnet-identity-source.dev.localhost:5003` |
-| Mailpit UI | `http://mailpit-aspire.localhost:8025` |
-| Mailpit SMTP | `localhost:1025` |
 | Aspire Dashboard | `https://aspire.dev.localhost:17300` |
+| Mailpit UI | `http://mailpit-aspire.localhost:8025` |
+| Mailpit SMTP | `tcp://localhost:1025` |
 
 ### Test Credentials
 
@@ -77,27 +77,6 @@ If you change the hosting URL, update these values in `Program.cs`.
 ### Google External Login
 
 Google authentication is configured but hidden when credentials are not present. To enable it, add your Google OAuth client ID and secret to the app configuration.
-
-## Project Structure
-
-```
-UserManagement/
-├── UserManagementSample/              # IdentityServer application
-│   ├── Program.cs                     # Service registration and configuration
-│   ├── SeedData.cs                    # Creates test users on startup
-│   ├── SecondFactorStateCookie.cs     # Encrypted cookie for 2FA interim state
-│   ├── OtpCookie.cs                   # Encrypted cookie for OTP flow state
-│   ├── Pages/
-│   │   ├── Account/                   # Login, OTP, password, passkey, external
-│   │   ├── Manage/                    # Profile, 2FA setup, passkey management
-│   │   └── Admin/                     # User search, details, import
-│   ├── Import/                        # ASP.NET Identity migration logic
-│   └── Services/                      # SecondFactorResolver for passkey 2FA
-├── UserManagementSample.AppHost/      # Aspire orchestrator (Mailpit + services)
-├── UserManagementSample.Client/       # OIDC client app (Authorization Code + PKCE)
-├── UserManagementSample.AspNetIdentitySource/  # Legacy identity DB for import demo
-└── UserManagementSample.ServiceDefaults/       # Shared Aspire configuration
-```
 
 ## Key APIs Demonstrated
 
