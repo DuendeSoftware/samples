@@ -46,7 +46,7 @@ public class LoginModel(IPasswordAuthenticator passwordAuth) : PageModel
             return Page();
         }
 
-        var authResult = await passwordAuth.TryAuthenticateAsync(OidcStandardAttributes.Email, email, passwordResult, HttpContext.RequestAborted);
+        var authResult = await passwordAuth.TryAuthenticateAsync(UserAttributes.Email, email, passwordResult, HttpContext.RequestAborted);
         if (authResult is not PasswordAuthenticationResult.Success authSuccess)
         {
             ErrorMessages.Add("Failed to sign in with your username/password combo");

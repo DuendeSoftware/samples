@@ -86,6 +86,7 @@ public class AccountModel(IUserProfileSelfService profileSelfService) : PageMode
         }
         else
         {
+            //Load all atrributes for the user profile, and then modify
             var updatedAttributes = new AttributeValueCollection(schema, profile.Attributes.Values);
             updatedAttributes.Set(UserAttributes.Name, Name);
             updatedAttributes.Set(UserAttributes.FavoriteDinosaur, FavoriteDinosaur);

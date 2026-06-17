@@ -8,6 +8,19 @@ namespace UserManagementPasswordRegistration;
 
 internal static class UserAttributes
 {
+    /// <summary>
+    /// The attribute to track a unique email for a user
+    /// Only one entry of the email is allowed in the system
+    /// This also allow ties the sign-in to the email, to allow email/password sign-in
+    /// </summary>
+    internal static readonly AttributeDefinition Email = new()
+    {
+        IsUnique = true,
+        Code = AttributeCode.Create("email"),
+        AttributeType = new ScalarAttributeType(ScalarDataType.String),
+        Description = AttributeDescription.Create("End-User primary e-mail address.")
+    };
+
     internal static readonly AttributeDefinition Name = new()
     {
         Code = "name",
@@ -20,14 +33,6 @@ internal static class UserAttributes
         Code = "favorite_dinosaur",
         AttributeType = new ScalarAttributeType(ScalarDataType.String),
         Description = "Your favorite dinosaur. This is used for fun and personalization purposes."
-    };
-
-    public static readonly AttributeDefinition Email = new()
-    {
-        IsUnique = true,
-        Code = AttributeCode.Create("email"),
-        AttributeType = new ScalarAttributeType(ScalarDataType.String),
-        Description = AttributeDescription.Create("End-User primary e-mail address.")
     };
 
     internal static async Task BootstrapAsync(this IUserProfileSchemaAdmin admin, CancellationToken ct)
