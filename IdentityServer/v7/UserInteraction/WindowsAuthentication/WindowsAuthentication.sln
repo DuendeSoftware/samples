@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerHost", "Ident
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsAuthentication.AppHost", "WindowsAuthentication.AppHost\WindowsAuthentication.AppHost.csproj", "{F40E0908-3007-4FF3-80E0-5015D9E98C38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{BA4B6408-F9CC-4565-975D-2B189342D851}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{F40E0908-3007-4FF3-80E0-5015D9E98C38}.Release|x64.Build.0 = Release|Any CPU
 		{F40E0908-3007-4FF3-80E0-5015D9E98C38}.Release|x86.ActiveCfg = Release|Any CPU
 		{F40E0908-3007-4FF3-80E0-5015D9E98C38}.Release|x86.Build.0 = Release|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Debug|x64.Build.0 = Debug|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Debug|x86.Build.0 = Debug|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Release|x64.ActiveCfg = Release|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Release|x64.Build.0 = Release|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Release|x86.ActiveCfg = Release|Any CPU
+		{BA4B6408-F9CC-4565-975D-2B189342D851}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

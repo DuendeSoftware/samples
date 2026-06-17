@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerHost", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtBasedClientAuthentication.AppHost", "JwtBasedClientAuthentication.AppHost\JwtBasedClientAuthentication.AppHost.csproj", "{D257943F-BD65-4E2F-8ECE-266A76B56A64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{227D5368-2D82-4DE2-A051-DEF434053A18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,9 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{231602F3-72FC-4D10-9BB8-90FCCF662DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,7 +71,20 @@ Global
 		{D257943F-BD65-4E2F-8ECE-266A76B56A64}.Release|x64.Build.0 = Release|Any CPU
 		{D257943F-BD65-4E2F-8ECE-266A76B56A64}.Release|x86.ActiveCfg = Release|Any CPU
 		{D257943F-BD65-4E2F-8ECE-266A76B56A64}.Release|x86.Build.0 = Release|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Debug|x64.Build.0 = Debug|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Debug|x86.Build.0 = Debug|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Release|x64.ActiveCfg = Release|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Release|x64.Build.0 = Release|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Release|x86.ActiveCfg = Release|Any CPU
+		{227D5368-2D82-4DE2-A051-DEF434053A18}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
