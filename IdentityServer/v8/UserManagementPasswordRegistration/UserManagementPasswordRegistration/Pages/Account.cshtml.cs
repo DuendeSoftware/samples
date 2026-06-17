@@ -86,9 +86,9 @@ public class AccountModel(IUserProfileSelfService profileSelfService) : PageMode
         }
         else
         {
-            var updatedAttributes = new AttributeValueCollection(schema);
-            updatedAttributes.Set(UserAttributes.Name.Code, Name);
-            updatedAttributes.Set(UserAttributes.FavoriteDinosaur.Code, FavoriteDinosaur);
+            var updatedAttributes = new AttributeValueCollection(schema, profile.Attributes.Values);
+            updatedAttributes.Set(UserAttributes.Name, Name);
+            updatedAttributes.Set(UserAttributes.FavoriteDinosaur, FavoriteDinosaur);
 
             if (!updatedAttributes.TryValidate(out var validatedUpdatedAttributes, out var errors))
             {
