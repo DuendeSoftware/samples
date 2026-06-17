@@ -3,7 +3,6 @@
 
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
-using Duende.IdentityServer.UserManagement;
 using Duende.Storage.Schema;
 using Duende.Storage.Sqlite;
 using Duende.UserManagement;
@@ -40,8 +39,8 @@ builder.Services
                 opt.Passwords.MinLength = 8;
 
                 // In order for the passkeys to be accepted, you'll need to configure the server domain and allowed origins. 
-                opt.Passkeys.ServerDomain = "localhost";
-                opt.Passkeys.AllowedOrigins = ["https://localhost:5001"];
+                opt.Passkeys.ServerDomain = "identityserver.dev.localhost";
+                opt.Passkeys.AllowedOrigins = ["https://identityserver.dev.localhost:5001"];
                 opt.Passkeys.RelyingPartyName = "UserManagement Sample";
             });
 
@@ -52,26 +51,27 @@ builder.Services
 
             // Adds configuration for sending OTP's. In this sample, we're sending OTP's via email,
             // but you could also implement a custom delivery mechanism, e.g. for sending OTP's via SMS.
-            authentication.UseSmtpOtpDispatcher(smtp =>
-            {
-                var connectionString = builder.Configuration.GetConnectionString("mailpit");
-                if (!string.IsNullOrWhiteSpace(connectionString) &&
-                    Uri.TryCreate(connectionString, UriKind.Absolute, out var uri))
-                {
-                    smtp.Host = uri.Host;
-                    smtp.Port = uri.Port;
-                    smtp.EnableSsl = false;
-                }
-                else
-                {
-                    smtp.Host = "localhost";
-                    smtp.Port = 1025;
-                    smtp.EnableSsl = false;
-                }
+            _ = authentication.UseSmtpOtpDispatcher(options => builder.Configuration.GetSection("Smtp").Bind(options));
+            //authentication.UseSmtpOtpDispatcher(smtp =>
+            //{
+            //    var connectionString = builder.Configuration.GetConnectionString("mailpit");
+            //    if (!string.IsNullOrWhiteSpace(connectionString) &&
+            //        Uri.TryCreate(connectionString, UriKind.Absolute, out var uri))
+            //    {
+            //        smtp.Host = uri.Host;
+            //        smtp.Port = uri.Port;
+            //        smtp.EnableSsl = false;
+            //    }
+            //    else
+            //    {
+            //        smtp.Host = "localhost";
+            //        smtp.Port = 1025;
+            //        smtp.EnableSsl = false;
+            //    }
 
-                smtp.FromEmail = "no-reply@localhost";
-                smtp.FromName = "UserManagement Sample";
-            });
+            //    smtp.FromEmail = "no-reply@localhost";
+            //    smtp.FromName = "UserManagement Sample";
+            //});
         });
 
         // Store user management data in sql lite
@@ -85,9 +85,9 @@ builder.Services
             ClientSecrets = { new Secret("secret".Sha256()) },
             AllowedGrantTypes = GrantTypes.Code,
             RequirePkce = true,
-            RedirectUris = { "https://localhost:5002/signin-oidc" },
-            PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
-            FrontChannelLogoutUri = "https://localhost:5002/signout-oidc",
+            RedirectUris = { "https://client.dev.localhost:5002/signin-oidc" },
+            PostLogoutRedirectUris = { "https://client.dev.localhost:5002/signout-callback-oidc" },
+            FrontChannelLogoutUri = "https://client.dev.localhost:5002/signout-oidc",
             AllowedScopes =
             {
                 IdentityServerConstants.StandardScopes.OpenId,

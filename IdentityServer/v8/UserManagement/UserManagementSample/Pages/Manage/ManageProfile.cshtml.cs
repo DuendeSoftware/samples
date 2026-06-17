@@ -2,10 +2,13 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.ComponentModel.DataAnnotations;
+
 using Duende.IdentityModel;
 using Duende.Storage.EntityAttributeValue;
+using Duende.Storage.Internal.Outbox;
 using Duende.UserManagement;
 using Duende.UserManagement.Profiles;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -46,19 +49,22 @@ public sealed class ManageProfileModel(
             return Page();
         }
 
-        if (profile.Attributes.TryGetValue(OidcStandardAttributes.Name.Code, out var name))
+        if (profile.Attributes.TryGetValue(OidcStandardAttributes.Name.Code, out var nameAttribute)
+            && nameAttribute.TryGetValue<string>(out var name))
         {
-            Name = name.ToString() ?? string.Empty;
+            Name = name ?? string.Empty;
         }
 
-        if (profile.Attributes.TryGetValue(OidcStandardAttributes.Email.Code, out var email))
+        if (profile.Attributes.TryGetValue(OidcStandardAttributes.Email.Code, out var emailAttribute)
+            && emailAttribute.TryGetValue<string>(out var email))
         {
-            Email = email.ToString() ?? string.Empty;
+            Email = email ?? string.Empty;
         }
 
-        if (profile.Attributes.TryGetValue(OidcStandardAttributes.Website.Code, out var website))
+        if (profile.Attributes.TryGetValue(OidcStandardAttributes.Website.Code, out var websiteAttribute)
+            && websiteAttribute.TryGetValue<string>(out var website))
         {
-            Website = website.ToString();
+            Website = website;
         }
 
         return Page();

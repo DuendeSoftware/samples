@@ -15,7 +15,7 @@ builder.Services.AddAuthentication(options =>
     .AddCookie("cookies")
     .AddOpenIdConnect("oidc", options =>
     {
-        options.Authority = builder.Configuration["Oidc:Authority"] ?? "https://localhost:5001";
+        options.Authority = builder.Configuration["Oidc:Authority"] ?? "https://identityserver.dev.localhost:5001";
         options.ClientId = "client";
         options.ClientSecret = "secret";
         options.ResponseType = "code";
