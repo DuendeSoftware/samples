@@ -49,7 +49,7 @@ This launches:
 
 | Service | URL |
 |---------|-----|
-| IdentityServer | `https://identityserver.dev.localhost:5001;https://localhost:5001` |
+| IdentityServer | `https://localhost:5001` |
 | Client App | `https://client.dev.localhost:5002` |
 | ASP.NET Identity Source | `https://aspnet-identity-source.dev.localhost:5003` |
 | Aspire Dashboard | `https://aspire.dev.localhost:17300` |
@@ -69,8 +69,8 @@ In Development mode, a test credentials card appears on the login page:
 
 Passkeys require matching domain/origin configuration. The sample is configured for:
 
-- **Server domain**: `identityserver.dev.localhost`
-- **Allowed origin**: `https://identityserver.dev.localhost:5001`
+- **Server domain**: `localhost`
+- **Allowed origin**: `https://localhost:5001`
 
 If you change the hosting URL, update these values in `Program.cs`.
 

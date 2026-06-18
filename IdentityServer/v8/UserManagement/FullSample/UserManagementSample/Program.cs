@@ -39,8 +39,8 @@ builder.Services
                 opt.Passwords.MinLength = 8;
 
                 // In order for the passkeys to be accepted, you'll need to configure the server domain and allowed origins. 
-                opt.Passkeys.ServerDomain = "identityserver.dev.localhost";
-                opt.Passkeys.AllowedOrigins = ["https://identityserver.dev.localhost:5001"];
+                opt.Passkeys.ServerDomain = "localhost";
+                opt.Passkeys.AllowedOrigins = ["https://localhost:5001"];
                 opt.Passkeys.RelyingPartyName = "UserManagement Sample";
             });
 
