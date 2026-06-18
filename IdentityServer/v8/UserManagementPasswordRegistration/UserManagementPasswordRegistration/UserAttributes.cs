@@ -10,8 +10,8 @@ internal static class UserAttributes
 {
     /// <summary>
     /// The attribute to track a unique email for a user
-    /// Only one entry of the email is allowed in the system
-    /// This also allow ties the sign-in to the email, to allow email/password sign-in
+    /// Only one entry of the email is allowed in the system (IsUnique = true)
+    /// This also allows tying the sign-in to the email, to allow email/password sign-in
     /// </summary>
     internal static readonly AttributeDefinition Email = new()
     {
