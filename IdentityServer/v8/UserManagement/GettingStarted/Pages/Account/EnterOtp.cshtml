@@ -1,0 +1,26 @@
+@page
+@model GettingStarted.Pages.Account.EnterOtpModel
+
+<h2>Enter one-time password</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+  <ul>
+    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    {
+      <li>@error.ErrorMessage</li>
+    }
+  </ul>
+}
+
+<div class="alert alert-info small mb-3" role="alert">
+    <i class="bi bi-info-circle me-1"></i>
+    <p>The OTP was output to console by `ConsoleOtpDispatcher.cs`</p>
+</div>
+
+<form method="post">
+  <input type="hidden" asp-for="Input.Token" />
+  <label asp-for="Input.Code">One-time password</label>
+  <input asp-for="Input.Code" type="text" autocomplete="one-time-code" autofocus />
+  <button type="submit">Sign in</button>
+</form>

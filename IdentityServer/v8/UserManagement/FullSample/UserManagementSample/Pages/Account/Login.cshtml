@@ -1,0 +1,50 @@
+@page
+@model UserManagementSample.Pages.Account.LoginModel
+
+<div class="row">
+      <h2>Sign In</h2>
+      <hr />
+      <button id="passkey-btn" type="button" class="btn btn-success mb-2">
+          Sign in with Passkey
+      </button>
+      <a asp-page="/Account/LoginWithOtp" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary mb-2">
+          Sign in with OTP
+      </a>
+      <a asp-page="/Account/LoginWithPassword" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-secondary mb-2">
+          Sign in with Password
+      </a>
+      @if (Model.GoogleConfigured)
+      {
+          <a href="/Account/ExternalLogin?provider=Google&returnUrl=@Uri.EscapeDataString(Model.ReturnUrl ?? string.Empty)" class="btn btn-danger mb-2">
+              Sign in with Google
+          </a>
+      }
+      else
+      {
+
+          <div>google authentication is disabled. Configure the key Authentication:Google:ClientId in appsettings.json to enable it</div>
+      }
+</div>
+
+@section Scripts {
+    <script src="/passkeys/js"></script>
+    <script>
+        (function () {
+            const returnUrl = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ReturnUrl ?? "/"));
+
+            console.log(returnUrl);
+
+            document.getElementById('passkey-btn').addEventListener('click', async function () {
+                const btn = this;
+                btn.disabled = true;
+                try {
+                    await authenticateWithDiscoverablePasskey();
+                    window.location.href = returnUrl;
+                } catch (err) {
+                    alert(err?.message ?? 'Passkey authentication failed.');
+                    btn.disabled = false;
+                }
+            });
+        })();
+    </script>
+}
