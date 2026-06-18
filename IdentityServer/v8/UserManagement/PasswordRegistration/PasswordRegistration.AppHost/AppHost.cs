@@ -9,7 +9,7 @@ var mailpit = builder.AddContainer("mailpit", "axllent/mailpit")
     .WithEndpoint(8026, 8025, "http", name: "mailpit-http", isProxied: false);
 var smtpEndpoint = mailpit.GetEndpoint("mailpit-smtp");
 
-_ = builder.AddProject<Projects.UserManagementPasswordRegistration>("password-registration")
+_ = builder.AddProject<Projects.PasswordRegistration>("password-registration")
     .WaitForStart(mailpit)
     .WithSmtp(smtpEndpoint);
 

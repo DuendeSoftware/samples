@@ -4,7 +4,7 @@
 using Duende.UserManagement;
 using Duende.UserManagement.Authentication.Passwords;
 
-namespace UserManagementPasswordRegistration.PasswordValidators;
+namespace PasswordRegistration.PasswordValidators;
 
 /// <summary>
 /// A sample <see cref="IPasswordValidator"/> that rejects "commonly used" passwords from a hard coded list.

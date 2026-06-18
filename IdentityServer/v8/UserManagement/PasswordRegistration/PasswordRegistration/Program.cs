@@ -10,8 +10,8 @@ using Duende.UserManagement.Profiles;
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-using UserManagementPasswordRegistration;
-using UserManagementPasswordRegistration.PasswordValidators;
+using PasswordRegistration;
+using PasswordRegistration.PasswordValidators;
 
 var builder = WebApplication.CreateBuilder(args);
 

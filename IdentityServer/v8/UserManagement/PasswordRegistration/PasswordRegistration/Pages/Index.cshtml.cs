@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using System.Security.Claims;
 
-namespace UserManagementPasswordRegistration.Pages;
+namespace PasswordRegistration.Pages;
 
 public class IndexModel(IUserProfileSelfService profileSelfService) : PageModel
 {

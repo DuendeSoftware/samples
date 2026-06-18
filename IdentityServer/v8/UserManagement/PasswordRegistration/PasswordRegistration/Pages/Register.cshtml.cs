@@ -9,7 +9,7 @@ using Duende.UserManagement.Authentication.Otp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace UserManagementPasswordRegistration.Pages;
+namespace PasswordRegistration.Pages;
 
 public class RegisterModel(IOtpSender otpSender, OtpCookie otpCookie) : PageModel
 {

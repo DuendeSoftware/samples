@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using System.Security.Claims;
 
-namespace UserManagementPasswordRegistration.Pages;
+namespace PasswordRegistration.Pages;
 
 [Authorize]
 public class AccountModel(IUserProfileSelfService profileSelfService) : PageModel

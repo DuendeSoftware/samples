@@ -4,7 +4,7 @@
 using Duende.Storage.EntityAttributeValue;
 using Duende.UserManagement.Profiles;
 
-namespace UserManagementPasswordRegistration;
+namespace PasswordRegistration;
 
 internal static class UserAttributes
 {

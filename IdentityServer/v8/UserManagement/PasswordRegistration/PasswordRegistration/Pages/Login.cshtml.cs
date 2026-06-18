@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace UserManagementPasswordRegistration.Pages;
+namespace PasswordRegistration.Pages;
 
 public class LoginModel(IPasswordAuthenticator passwordAuth) : PageModel
 {

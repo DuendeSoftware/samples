@@ -10,7 +10,7 @@ using Duende.UserManagement.Authentication.Otp;
 
 using Microsoft.AspNetCore.DataProtection;
 
-namespace UserManagementPasswordRegistration;
+namespace PasswordRegistration;
 
 public sealed class OtpCookie(IDataProtectionProvider dataProtectionProvider, IHttpContextAccessor httpContextAccessor)
 {
