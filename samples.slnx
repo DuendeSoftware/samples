@@ -206,35 +206,43 @@
   <Folder Name="/IdentityServer/v7/Basics/" />
   <Folder Name="/IdentityServer/v7/Basics/ClientCredentials/">
     <Project Path="IdentityServer/v7/Basics/ClientCredentials/src/Client.csproj" />
+    <File Path="IdentityServer\v7\Basics\ClientCredentials\README.md" />
     <Project Path="IdentityServer/v7/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/Introspection/">
+    <File Path="IdentityServer\v7\Basics\Introspection\README.md" />
     <Project Path="IdentityServer/v7/Basics/Introspection/Introspection.AppHost/Introspection.AppHost.csproj" />
     <Project Path="IdentityServer/v7/Basics/Introspection/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/JwtBasedClientAuthentication/">
     <File Path="IdentityServer\v7\Basics\JwtBasedClientAuthentication\JwtBasedClientAuthentication.slnx" />
     <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
+    <File Path="IdentityServer\v7\Basics\JwtBasedClientAuthentication\README.md" />
     <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcBackChannelLogout/">
+    <File Path="IdentityServer\v7\Basics\MvcBackChannelLogout\README.md" />
     <Project Path="IdentityServer/v7/Basics/MvcBackChannelLogout/MvcBackChannelLogout.AppHost/MvcBackChannelLogout.AppHost.csproj" />
     <Project Path="IdentityServer/v7/Basics/MvcBackChannelLogout/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcBasic/">
+    <File Path="IdentityServer\v7\Basics\MvcBasic\README.md" />
     <Project Path="IdentityServer/v7/Basics/MvcBasic/MvcBasic.AppHost/MvcBasic.AppHost.csproj" />
     <Project Path="IdentityServer/v7/Basics/MvcBasic/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcJarJwt/">
+    <File Path="IdentityServer\v7\Basics\MvcJarJwt\README.md" />
     <Project Path="IdentityServer/v7/Basics/MvcJarJwt/MvcJarJwt.AppHost/MvcJarJwt.AppHost.csproj" />
     <Project Path="IdentityServer/v7/Basics/MvcJarJwt/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcPar/">
     <Project Path="IdentityServer/v7/Basics/MvcPar/src/Client.csproj" />
+    <File Path="IdentityServer\v7\Basics\MvcPar\README.md" />
     <Project Path="IdentityServer/v7/Basics/MvcPar/MvcPar.AppHost/MvcPar.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcTokenManagement/">
     <Project Path="IdentityServer/v7/Basics/MvcTokenManagement/src/Client.csproj" />
+    <File Path="IdentityServer\v7\Basics\MvcTokenManagement\README.md" />
     <Project Path="IdentityServer/v7/Basics/MvcTokenManagement/MvcTokenManagement.AppHost/MvcTokenManagement.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/" />
@@ -440,35 +448,43 @@
   <Folder Name="/IdentityServer/v8/Basics/" />
   <Folder Name="/IdentityServer/v8/Basics/ClientCredentials/">
     <Project Path="IdentityServer/v8/Basics/ClientCredentials/src/Client.csproj" />
+    <File Path="IdentityServer\v8\Basics\ClientCredentials\README.md" />
     <Project Path="IdentityServer/v8/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/Introspection/">
+    <File Path="IdentityServer\v8\Basics\Introspection\README.md" />
     <Project Path="IdentityServer/v8/Basics/Introspection/Introspection.AppHost/Introspection.AppHost.csproj" />
     <Project Path="IdentityServer/v8/Basics/Introspection/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/JwtBasedClientAuthentication/">
     <File Path="IdentityServer\v8\Basics\JwtBasedClientAuthentication\JwtBasedClientAuthentication.slnx" />
     <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
+    <File Path="IdentityServer\v8\Basics\JwtBasedClientAuthentication\README.md" />
     <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcBackChannelLogout/">
+    <File Path="IdentityServer\v8\Basics\MvcBackChannelLogout\README.md" />
     <Project Path="IdentityServer/v8/Basics/MvcBackChannelLogout/MvcBackChannelLogout.AppHost/MvcBackChannelLogout.AppHost.csproj" />
     <Project Path="IdentityServer/v8/Basics/MvcBackChannelLogout/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcBasic/">
+    <File Path="IdentityServer\v8\Basics\MvcBasic\README.md" />
     <Project Path="IdentityServer/v8/Basics/MvcBasic/MvcBasic.AppHost/MvcBasic.AppHost.csproj" />
     <Project Path="IdentityServer/v8/Basics/MvcBasic/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcJarJwt/">
+    <File Path="IdentityServer\v8\Basics\MvcJarJwt\README.md" />
     <Project Path="IdentityServer/v8/Basics/MvcJarJwt/MvcJarJwt.AppHost/MvcJarJwt.AppHost.csproj" />
     <Project Path="IdentityServer/v8/Basics/MvcJarJwt/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcPar/">
     <Project Path="IdentityServer/v8/Basics/MvcPar/src/Client.csproj" />
+    <File Path="IdentityServer\v8\Basics\MvcPar\README.md" />
     <Project Path="IdentityServer/v8/Basics/MvcPar/MvcPar.AppHost/MvcPar.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcTokenManagement/">
     <Project Path="IdentityServer/v8/Basics/MvcTokenManagement/src/Client.csproj" />
+    <File Path="IdentityServer\v8\Basics\MvcTokenManagement\README.md" />
     <Project Path="IdentityServer/v8/Basics/MvcTokenManagement/MvcTokenManagement.AppHost/MvcTokenManagement.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Configuration/" />
