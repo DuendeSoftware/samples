@@ -1,0 +1,6 @@
+@Websocket.Bff_HostAddress = http://localhost:5197
+
+GET {{Websocket.Bff_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
