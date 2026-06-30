@@ -28,7 +28,8 @@ public class RegisterModel(IOtpSender otpSender, OtpCookie otpCookie) : PageMode
             return Page();
         }
 
-        if (!EmailAddress.TryCreate(Email, out var email))
+        var normalizedEmail = Email.NormalizeEmail();
+        if (!EmailAddress.TryCreate(normalizedEmail, out var email))
         {
             ModelState.AddModelError(nameof(Email), "Invalid email format");
             return Page();
