@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpDemo.McpServer", "McpDemo.McpServer\McpDemo.McpServer.csproj", "{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}"
 EndProject
@@ -7,6 +7,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpDemo.Client", "McpDemo.Client\McpDemo.Client.csproj", "{8D81440F-4979-4964-B851-2AE6BF348D01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpDemo.AppHost", "McpDemo.AppHost\McpDemo.AppHost.csproj", "{394E83BB-3BA9-4DCA-A61A-99990D168A56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x64.Build.0 = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x86.Build.0 = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x64.ActiveCfg = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x64.Build.0 = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x86.ActiveCfg = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x86.Build.0 = Release|Any CPU
 		{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7364D55-7AA4-4B41-B9C1-F849AF17CADE}.Debug|x64.ActiveCfg = Debug|Any CPU

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcTokenManagement.AppHost"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,18 @@ Global
 		{7A6C0E4E-6722-48C9-9178-AC0822FE1534}.Release|x64.Build.0 = Release|Any CPU
 		{7A6C0E4E-6722-48C9-9178-AC0822FE1534}.Release|x86.ActiveCfg = Release|Any CPU
 		{7A6C0E4E-6722-48C9-9178-AC0822FE1534}.Release|x86.Build.0 = Release|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Debug|x64.Build.0 = Debug|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Debug|x86.Build.0 = Debug|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Release|x64.ActiveCfg = Release|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Release|x64.Build.0 = Release|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Release|x86.ActiveCfg = Release|Any CPU
+		{91B38286-A9A8-4EDA-B18C-0A24A4C4DD33}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

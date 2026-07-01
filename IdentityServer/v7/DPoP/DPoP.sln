@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerHost", "..\Id
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPoP.AppHost", "DPoP.AppHost\DPoP.AppHost.csproj", "{4215C502-1889-4B92-B3BC-C6DB63FF4CF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{8EA51636-0821-48B2-A788-5EFCE67A0821}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{4215C502-1889-4B92-B3BC-C6DB63FF4CF0}.Release|x64.Build.0 = Release|Any CPU
 		{4215C502-1889-4B92-B3BC-C6DB63FF4CF0}.Release|x86.ActiveCfg = Release|Any CPU
 		{4215C502-1889-4B92-B3BC-C6DB63FF4CF0}.Release|x86.Build.0 = Release|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Debug|x64.Build.0 = Debug|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Debug|x86.Build.0 = Debug|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Release|x64.ActiveCfg = Release|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Release|x64.Build.0 = Release|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Release|x86.ActiveCfg = Release|Any CPU
+		{8EA51636-0821-48B2-A788-5EFCE67A0821}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
