@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScopesAndResources.AppHost", "ScopesAndResources.AppHost\ScopesAndResources.AppHost.csproj", "{5B5C7533-60AD-4819-911E-D332819F0526}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{5B5C7533-60AD-4819-911E-D332819F0526}.Release|x64.Build.0 = Release|Any CPU
 		{5B5C7533-60AD-4819-911E-D332819F0526}.Release|x86.ActiveCfg = Release|Any CPU
 		{5B5C7533-60AD-4819-911E-D332819F0526}.Release|x86.Build.0 = Release|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Debug|x86.Build.0 = Debug|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Release|x64.Build.0 = Release|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Release|x86.ActiveCfg = Release|Any CPU
+		{FFEFFE54-C84B-41CF-BCDB-8C9E22E5128C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

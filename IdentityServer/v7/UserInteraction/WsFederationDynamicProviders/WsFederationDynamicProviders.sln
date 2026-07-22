@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WsFederationDynamicProviders.AppHost", "WsFederationDynamicProviders.AppHost\WsFederationDynamicProviders.AppHost.csproj", "{20A711FE-CDA6-41C0-91FE-E20398FB9D6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{A2A9C505-32B0-449A-846A-0C0405705450}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{20A711FE-CDA6-41C0-91FE-E20398FB9D6F}.Release|x64.Build.0 = Release|Any CPU
 		{20A711FE-CDA6-41C0-91FE-E20398FB9D6F}.Release|x86.ActiveCfg = Release|Any CPU
 		{20A711FE-CDA6-41C0-91FE-E20398FB9D6F}.Release|x86.Build.0 = Release|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Debug|x86.Build.0 = Debug|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Release|x64.Build.0 = Release|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2A9C505-32B0-449A-846A-0C0405705450}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

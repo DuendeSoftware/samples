@@ -1,4 +1,4 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 15.0.26124.0
@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleApi", "..\..\Apis\Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer.AppHost", "IdentityServer.AppHost\IdentityServer.AppHost.csproj", "{6B3F90E4-4884-46FE-A31A-1CA6F9F8AC3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{9F81F4DE-4D15-4280-9D8A-1FE8D4D6578D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,10 @@ Global
 		{6B3F90E4-4884-46FE-A31A-1CA6F9F8AC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B3F90E4-4884-46FE-A31A-1CA6F9F8AC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B3F90E4-4884-46FE-A31A-1CA6F9F8AC3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F81F4DE-4D15-4280-9D8A-1FE8D4D6578D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F81F4DE-4D15-4280-9D8A-1FE8D4D6578D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F81F4DE-4D15-4280-9D8A-1FE8D4D6578D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F81F4DE-4D15-4280-9D8A-1FE8D4D6578D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

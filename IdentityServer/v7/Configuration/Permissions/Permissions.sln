@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleApi", "..\..\Apis\Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Permissions.AppHost", "Permissions.AppHost\Permissions.AppHost.csproj", "{134DF05E-813E-472D-B8AC-5246E21394C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{03D5F200-D6B7-45AB-9D89-13B8255D6611}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{134DF05E-813E-472D-B8AC-5246E21394C6}.Release|x64.Build.0 = Release|Any CPU
 		{134DF05E-813E-472D-B8AC-5246E21394C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{134DF05E-813E-472D-B8AC-5246E21394C6}.Release|x86.Build.0 = Release|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Debug|x64.Build.0 = Debug|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Debug|x86.Build.0 = Debug|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Release|x64.ActiveCfg = Release|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Release|x64.Build.0 = Release|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Release|x86.ActiveCfg = Release|Any CPU
+		{03D5F200-D6B7-45AB-9D89-13B8255D6611}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

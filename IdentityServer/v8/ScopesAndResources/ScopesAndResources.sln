@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
@@ -8,6 +8,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{93B5DD40-6D86-4E99-AA89-CBB41F70E40F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScopesAndResources.AppHost", "ScopesAndResources.AppHost\ScopesAndResources.AppHost.csproj", "{E63F54A0-697D-43BF-ACDB-58A142C3C8FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,18 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x64.Build.0 = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Debug|x86.Build.0 = Debug|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x64.ActiveCfg = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x64.Build.0 = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x86.ActiveCfg = Release|Any CPU
+		{19FDEF8E-DC85-44B4-AF5E-F8D79A5D3053}.Release|x86.Build.0 = Release|Any CPU
 		{391FDE19-D829-4868-9221-B64358475C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{391FDE19-D829-4868-9221-B64358475C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{391FDE19-D829-4868-9221-B64358475C48}.Debug|x64.ActiveCfg = Debug|Any CPU

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleApi", "..\..\Apis\Sim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareStatement.AppHost", "SoftwareStatement.AppHost\SoftwareStatement.AppHost.csproj", "{38129495-2E96-431B-BEEA-705A3F75FD15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{38129495-2E96-431B-BEEA-705A3F75FD15}.Release|x64.Build.0 = Release|Any CPU
 		{38129495-2E96-431B-BEEA-705A3F75FD15}.Release|x86.ActiveCfg = Release|Any CPU
 		{38129495-2E96-431B-BEEA-705A3F75FD15}.Release|x86.Build.0 = Release|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Debug|x64.Build.0 = Debug|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Debug|x86.Build.0 = Debug|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Release|x64.ActiveCfg = Release|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Release|x64.Build.0 = Release|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Release|x86.ActiveCfg = Release|Any CPU
+		{F86C66C6-64AE-4D8D-AAD4-36F913E0F0EE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
