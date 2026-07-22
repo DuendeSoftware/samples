@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/aspire/">
+    <Project Path="aspire/AppHost/AppHost.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/MultiSpace/MultiSpace.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MultiSpace.PlaywrightTests/MultiSpace.PlaywrightTests.csproj" />
+  </Folder>
+</Solution>

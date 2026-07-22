@@ -1,0 +1,16 @@
+@page
+@model MultiSpace.Pages.Account.LogoutModel
+@{
+    ViewData["Title"] = "Sign out";
+}
+
+<div class="card logout-card">
+    <h2>Sign out</h2>
+    <p>Are you sure you want to sign out?</p>
+
+    <form method="post" class="logout-actions">
+        <input type="hidden" asp-for="ReturnUrl" />
+        <button type="submit" class="btn">Yes, sign out</button>
+        <a href="@(Model.ReturnUrl ?? Url.Page("/Index"))" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

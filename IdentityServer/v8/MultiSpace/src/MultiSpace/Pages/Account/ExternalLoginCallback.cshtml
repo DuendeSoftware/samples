@@ -1,0 +1,14 @@
+@page
+@model MultiSpace.Pages.Account.ExternalLoginCallbackModel
+@{
+    ViewData["Title"] = "External Login";
+}
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="card">
+        <h2>External Login Failed</h2>
+        <p class="login-error" role="alert">@Model.ErrorMessage</p>
+        <a class="btn" asp-page="/Account/Login">Back to login</a>
+    </div>
+}

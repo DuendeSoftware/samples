@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add Playwright Tests to MultiSpace Sample</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --color-bg: #ffffff;
+      --color-surface: #f8f9fa;
+      --color-border: #dee2e6;
+      --color-border-strong: #adb5bd;
+      --color-text: #212529;
+      --color-text-muted: #6c757d;
+      --color-link: #0060a0;
+      --color-link-visited: #551a8b;
+      --color-focus: #0060a0;
+      --color-focus-bg: #e8f0fe;
+      --color-heading: #1a1a2e;
+      --color-code-bg: #f1f3f5;
+      --color-sticky-bg: #f8f9fa;
+      --radius: 4px;
+      --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, "Cascadia Code", "Fira Code", "Consolas", monospace;
+      --font-size-base: 1rem;
+      --line-height: 1.6;
+      --sidebar-width: 240px;
+      --content-max: 860px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height);
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      z-index: 1000;
+      padding: 8px 16px;
+      background: var(--color-focus);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 0 0 var(--radius) 0;
+    }
+    .skip-link:focus { top: 0; }
+
+    .layout {
+      display: flex;
+      align-items: flex-start;
+      max-width: calc(var(--sidebar-width) + var(--content-max) + 64px);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .toc-sidebar {
+      position: sticky;
+      top: 16px;
+      width: var(--sidebar-width);
+      flex-shrink: 0;
+      padding: 16px;
+      margin-right: 32px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      font-size: 0.875rem;
+    }
+    .toc-sidebar h2 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      margin: 0 0 8px;
+    }
+    .toc-sidebar ol, .toc-sidebar ul { margin: 0; padding: 0 0 0 16px; }
+    .toc-sidebar li { margin: 4px 0; }
+    .toc-sidebar a { color: var(--color-text-muted); text-decoration: none; }
+    .toc-sidebar a:hover, .toc-sidebar a:focus { color: var(--color-link); text-decoration: underline; }
+
+    .main-content {
+      flex: 1;
+      min-width: 0;
+      padding: 32px 0;
+      max-width: var(--content-max);
+    }
+
+    .doc-header {
+      border-bottom: 2px solid var(--color-border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+    .doc-header h1 {
+      margin: 0 0 16px;
+      font-size: 1.875rem;
+      color: var(--color-heading);
+      line-height: 1.25;
+    }
+    .doc-meta {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 6px 16px;
+      margin: 0;
+      font-size: 0.875rem;
+    }
+    .doc-meta dt { font-weight: 600; color: var(--color-text-muted); }
+    .doc-meta dd { margin: 0; }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-heading);
+      line-height: 1.3;
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+    }
+    h2 { font-size: 1.5rem; border-bottom: 1px solid var(--color-border); padding-bottom: 6px; }
+    h3 { font-size: 1.2rem; }
+    h4 { font-size: 1rem; }
+
+    a { color: var(--color-link); }
+    a:visited { color: var(--color-link-visited); }
+
+    :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; border-radius: 2px; }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+      background: var(--color-code-bg);
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+    pre {
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+      background: var(--color-code-bg);
+      padding: 16px;
+      border-radius: var(--radius);
+      overflow-x: auto;
+      line-height: 1.5;
+      border: 1px solid var(--color-border);
+    }
+    pre code { background: none; padding: 0; }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      margin: 1em 0;
+    }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9em; }
+    caption {
+      caption-side: top;
+      text-align: left;
+      font-weight: 600;
+      padding: 8px 12px;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+    thead th { background: var(--color-sticky-bg); position: sticky; top: 0; z-index: 1; }
+    th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+    th { font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #f0f4ff; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.78em;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .badge--verified { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+    .badge--decision { background: #cce5ff; color: #004085; border-color: #b8daff; }
+    .badge--open { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+    .badge--draft { background: #e2e3e5; color: #495057; border-color: #d6d8db; }
+
+    .callout {
+      padding: 12px 16px;
+      border-left: 4px solid #aaa;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 1.25em 0;
+    }
+    .callout--note { background: #f0f7ff; border-color: #4a9eff; }
+    .callout--warning { background: #fffbea; border-color: #f0b400; }
+    .callout--risk { background: #fff0f0; border-color: #cc0000; }
+    .callout--decision { background: #f0fff4; border-color: #28a745; }
+
+    details { margin: 1em 0; border: 1px solid var(--color-border); border-radius: var(--radius); }
+    summary {
+      cursor: pointer;
+      padding: 10px 14px;
+      font-weight: 600;
+      list-style: none;
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before { content: "+"; font-weight: 700; color: var(--color-text-muted); flex-shrink: 0; width: 16px; }
+    details[open] summary::before { content: "-"; }
+    summary:hover { background: #e9ecef; }
+    .details-content { padding: 12px 14px; border-top: 1px solid var(--color-border); }
+
+    .print-only { display: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .layout { flex-direction: column; padding: 0 12px; }
+      .toc-sidebar {
+        position: static;
+        width: 100%;
+        margin: 0 0 24px;
+        padding: 12px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius);
+        max-height: none;
+        background: var(--color-surface);
+      }
+      .main-content { padding: 16px 0; }
+      .doc-meta { grid-template-columns: 1fr; }
+      .doc-meta dt { margin-top: 8px; }
+    }
+
+    @media print {
+      :root { --color-text: #000; --color-bg: #fff; --color-surface: #fff; }
+      html { font-size: 10pt; }
+      body { color: #000; background: #fff; }
+      .skip-link, .toc-sidebar { display: none !important; }
+      .layout { display: block; max-width: 100%; padding: 0; }
+      .main-content { max-width: 100%; padding: 0; }
+      .print-only { display: block; }
+      h2 { page-break-before: always; }
+      main > section:first-of-type h2 { page-break-before: avoid; }
+      h1 + *, h2 + * { page-break-before: avoid; }
+      h1, h2, h3, h4, h5, h6 { page-break-after: avoid; color: #000; }
+      details, details[open] { border: none; }
+      details > summary { display: none; }
+      details > .details-content, details > *:not(summary) { display: block; padding: 0; border: none; }
+      table { page-break-inside: avoid; }
+      thead { display: table-header-group; }
+      thead th { position: static; }
+      .table-wrapper { overflow: visible; border: 1px solid #000; }
+      a { color: #000; text-decoration: underline; }
+      a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #444; }
+      a[href^="#"]::after { content: ""; }
+      .callout { border: 1px solid #000; border-left-width: 4px; }
+      .badge { border: 1px solid #000; background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="layout">
+    <div class="main-content">
+      <header class="doc-header">
+        <h1>Add Playwright Tests to MultiSpace Sample</h1>
+        <dl class="doc-meta">
+          <dt>Purpose</dt>
+          <dd>Implementation plan for end-to-end Playwright tests verifying the MultiSpace IdentityServer sample is functional.</dd>
+
+          <dt>Audience</dt>
+          <dd>Engineers implementing and reviewing this work.</dd>
+
+          <dt>Status</dt>
+          <dd><span class="badge badge--draft">Draft</span></dd>
+
+          <dt>Date</dt>
+          <dd><time datetime="2025-07-23">2025-07-23</time></dd>
+
+          <dt>Thesis</dt>
+          <dd>Use Aspire to host the MultiSpace app and Playwright with <code>data-testid</code> selectors to verify login (local and external) and client credentials flows across all space types.</dd>
+
+          <dt>Answer</dt>
+          <dd>We create an Aspire AppHost pinned to port 5000, a Playwright test project with xunit v3, and tests that navigate the UI from the home page. Tests cover default-space login, hostname-based space login (space1), external IDP redirect (space3), invalid credentials, and client credentials token requests per space.</dd>
+        </dl>
+      </header>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <nav class="toc-sidebar" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#conventions">Testing Conventions</a></li>
+        <li><a href="#data-testid">data-testid Attributes</a></li>
+        <li><a href="#files-create">Files to Create</a></li>
+        <li><a href="#files-modify">Files to Modify</a></li>
+        <li><a href="#test-scenarios">Test Scenarios</a></li>
+        <li><a href="#execution">Execution Order</a></li>
+        <li><a href="#decisions">Decisions</a></li>
+        <li><a href="#risks">Risks and Open Questions</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+
+    <main id="main-content" class="main-content">
+
+      <!-- Overview -->
+      <section id="overview" aria-labelledby="h-overview">
+        <h2 id="h-overview">Overview</h2>
+        <p>Add end-to-end Playwright tests using Aspire to host the MultiSpace IdentityServer sample. Tests verify login flows across spaces (hostname-based and path-based) and client credentials token requests.</p>
+        <p>The MultiSpace sample runs on <code>https://localhost:5000</code> with spaces resolved by hostname (<code>space1.dev.localhost:5000</code>, <code>space2.dev.localhost:5000</code>) and path (<code>/space3</code>). It uses SQLite in-memory, so no external infrastructure is needed.</p>
+      </section>
+
+      <!-- Conventions -->
+      <section id="conventions" aria-labelledby="h-conventions">
+        <h2 id="h-conventions">Testing Conventions</h2>
+        <ul>
+          <li>All element interactions and assertions use <code>data-testid</code> attributes for deterministic selection.</li>
+          <li>Tests use <code>page.GetByTestId("...")</code> (Playwright's built-in <code>data-testid</code> support).</li>
+          <li>Tests navigate via UI links from the home page. No hardcoded URLs for internal pages.</li>
+          <li>Playwright traces (screenshots, snapshots, sources) are saved to <code>artifacts/playwright-traces/</code> for CI debugging.</li>
+          <li>Browser runs headless when the <code>CI</code> environment variable is set.</li>
+        </ul>
+      </section>
+
+      <!-- data-testid -->
+      <section id="data-testid" aria-labelledby="h-data-testid">
+        <h2 id="h-data-testid"><code>data-testid</code> Attributes</h2>
+        <p>These attributes must be added to the source Razor pages to support deterministic test selection.</p>
+
+        <div class="table-wrapper" role="region" aria-label="data-testid attribute mapping" tabindex="0">
+          <table>
+            <caption>data-testid attributes to add to source pages</caption>
+            <thead>
+              <tr>
+                <th scope="col">Page</th>
+                <th scope="col">Element</th>
+                <th scope="col"><code>data-testid</code></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>Each space link <code>&lt;a&gt;</code></td>
+                <td><code>space-link-{name}</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>"Sign in" link</td>
+                <td><code>sign-in-link</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>"Sign out" link</td>
+                <td><code>sign-out-link</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>Signed-in user name</td>
+                <td><code>signed-in-user</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>Space client radio</td>
+                <td><code>client-radio-space</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>Example client radio</td>
+                <td><code>client-radio-example</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>"Request Token" button</td>
+                <td><code>request-token-button</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>Token output container</td>
+                <td><code>token-output</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Index.cshtml</code></th>
+                <td>Token error container</td>
+                <td><code>token-error</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Login.cshtml</code></th>
+                <td>Username input</td>
+                <td><code>login-username</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Login.cshtml</code></th>
+                <td>Password input</td>
+                <td><code>login-password</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Login.cshtml</code></th>
+                <td>Submit button</td>
+                <td><code>login-submit</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Login.cshtml</code></th>
+                <td>Error message</td>
+                <td><code>login-error</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Login.cshtml</code></th>
+                <td>External IDP button</td>
+                <td><code>external-login-{scheme}</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Files to Create -->
+      <section id="files-create" aria-labelledby="h-files-create">
+        <h2 id="h-files-create">Files to Create</h2>
+
+        <h3>1. <code>aspire/AppHost/AppHost.csproj</code></h3>
+        <p>Aspire AppHost SDK project. References <code>src/MultiSpace/MultiSpace.csproj</code>.</p>
+        <pre><code>&lt;Project Sdk="Aspire.AppHost.Sdk/13.2.4"&gt;
+  &lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;RootNamespace&gt;AppHost&lt;/RootNamespace&gt;
+  &lt;/PropertyGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;PackageReference Include="Aspire.Hosting.AppHost" /&gt;
+  &lt;/ItemGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;ProjectReference Include="..\..\src\MultiSpace\MultiSpace.csproj" /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;</code></pre>
+
+        <h3>2. <code>aspire/AppHost/Program.cs</code></h3>
+        <p>Registers MultiSpace as a project resource pinned to <code>https://localhost:5000</code>.</p>
+
+        <h3>3. <code>tests/MultiSpace.PlaywrightTests/MultiSpace.PlaywrightTests.csproj</code></h3>
+        <p>Test project with Playwright + xunit v3. References AppHost for <code>Projects.MultiSpace</code>.</p>
+        <pre><code>&lt;Project Sdk="Microsoft.NET.Sdk"&gt;
+  &lt;PropertyGroup&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;IsPackable&gt;false&lt;/IsPackable&gt;
+    &lt;IsTestProject&gt;true&lt;/IsTestProject&gt;
+    &lt;RootNamespace&gt;MultiSpace.PlaywrightTests&lt;/RootNamespace&gt;
+  &lt;/PropertyGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;PackageReference Include="Aspire.Hosting.Testing" /&gt;
+    &lt;PackageReference Include="Microsoft.Playwright" /&gt;
+    &lt;PackageReference Include="xunit.v3.mtp-v2" /&gt;
+  &lt;/ItemGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;ProjectReference Include="..\..\aspire\AppHost\AppHost.csproj" /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;</code></pre>
+
+        <h3>4. <code>tests/MultiSpace.PlaywrightTests/AssemblyInfo.cs</code></h3>
+        <p>Registers <code>MultiSpaceFixture</code> as an assembly-level fixture so the app starts once per test run.</p>
+
+        <h3>5. <code>tests/MultiSpace.PlaywrightTests/Infrastructure/MultiSpaceFixture.cs</code></h3>
+        <ul>
+          <li>Uses <code>DistributedApplicationTestingBuilder.CreateAsync&lt;Projects.AppHost&gt;()</code></li>
+          <li>Starts the app, waits for the MultiSpace resource to be healthy</li>
+          <li>Exposes <code>BaseUrl</code> (<code>https://localhost:5000</code>)</li>
+        </ul>
+
+        <h3>6. <code>tests/MultiSpace.PlaywrightTests/Infrastructure/BrowserContextFactory.cs</code></h3>
+        <ul>
+          <li>Launches Chromium (headless when <code>CI</code> env var is set)</li>
+          <li><code>IgnoreHTTPSErrors = true</code></li>
+          <li>Starts tracing with screenshots, snapshots, and sources</li>
+          <li>Returns a <code>PlaywrightSession</code></li>
+        </ul>
+
+        <h3>7. <code>tests/MultiSpace.PlaywrightTests/Infrastructure/PlaywrightSession.cs</code></h3>
+        <ul>
+          <li><code>IAsyncDisposable</code> that stops tracing and saves to <code>artifacts/playwright-traces/{name}.zip</code></li>
+          <li>Disposes browser context, browser, and Playwright instance</li>
+        </ul>
+
+        <h3>8. <code>tests/MultiSpace.PlaywrightTests/Tests/LoginTests.cs</code></h3>
+        <p>See <a href="#test-login">Login Test Scenarios</a> below.</p>
+
+        <h3>9. <code>tests/MultiSpace.PlaywrightTests/Tests/ClientCredentialsTests.cs</code></h3>
+        <p>See <a href="#test-token">Client Credentials Test Scenarios</a> below.</p>
+      </section>
+
+      <!-- Files to Modify -->
+      <section id="files-modify" aria-labelledby="h-files-modify">
+        <h2 id="h-files-modify">Files to Modify</h2>
+
+        <h3>10. <code>src/MultiSpace/Pages/Index.cshtml</code></h3>
+        <p>Add <code>data-testid</code> attributes to interactive and assertable elements (see <a href="#data-testid">table above</a>).</p>
+
+        <h3>11. <code>src/MultiSpace/Pages/Account/Login.cshtml</code></h3>
+        <p>Add <code>data-testid</code> attributes to form inputs, submit button, error message, and external login buttons.</p>
+
+        <h3>12. <code>Directory.Packages.props</code></h3>
+        <p>Add package versions:</p>
+        <pre><code>&lt;PackageVersion Include="Aspire.Hosting.AppHost" Version="13.2.4" /&gt;
+&lt;PackageVersion Include="Aspire.Hosting.Testing" Version="13.2.4" /&gt;
+&lt;PackageVersion Include="Microsoft.Playwright" Version="1.59.0" /&gt;
+&lt;PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.2" /&gt;</code></pre>
+
+        <h3>13. <code>MultiSpace.slnx</code></h3>
+        <p>Add both new projects:</p>
+        <pre><code>&lt;Solution&gt;
+  &lt;Project Path="src/MultiSpace/MultiSpace.csproj" /&gt;
+  &lt;Project Path="aspire/AppHost/AppHost.csproj" /&gt;
+  &lt;Project Path="tests/MultiSpace.PlaywrightTests/MultiSpace.PlaywrightTests.csproj" /&gt;
+&lt;/Solution&gt;</code></pre>
+      </section>
+
+      <!-- Test Scenarios -->
+      <section id="test-scenarios" aria-labelledby="h-test-scenarios">
+        <h2 id="h-test-scenarios">Test Scenarios</h2>
+        <p>All tests start at the app's base URL and navigate via UI links. No internal paths are hardcoded.</p>
+
+        <h3 id="test-login">Login Tests</h3>
+        <div class="table-wrapper" role="region" aria-label="Login test scenarios" tabindex="0">
+          <table>
+            <caption>LoginTests.cs</caption>
+            <thead>
+              <tr>
+                <th scope="col">Test</th>
+                <th scope="col">Steps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><code>Can_sign_in_to_default_space</code></th>
+                <td>Home page &#x2192; click <code>[data-testid=sign-in-link]</code> &#x2192; fill <code>[data-testid=login-username]</code> with <code>default-user</code> and <code>[data-testid=login-password]</code> with <code>Pa$$Word123</code> &#x2192; click <code>[data-testid=login-submit]</code> &#x2192; assert <code>[data-testid=signed-in-user]</code> shows <code>default-user</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Can_sign_in_to_space1</code></th>
+                <td>Home page &#x2192; click <code>[data-testid=space-link-space1]</code> &#x2192; click <code>[data-testid=sign-in-link]</code> &#x2192; fill credentials (<code>space1-user</code>) &#x2192; submit &#x2192; assert <code>[data-testid=signed-in-user]</code> shows <code>space1-user</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Can_initiate_external_login_for_space3</code></th>
+                <td>Home page &#x2192; click <code>[data-testid=space-link-space3]</code> &#x2192; click <code>[data-testid=sign-in-link]</code> &#x2192; click <code>[data-testid=external-login-oidc]</code> &#x2192; assert URL contains <code>demo.duendesoftware.com</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Invalid_credentials_shows_error</code></th>
+                <td>Home page &#x2192; click <code>[data-testid=sign-in-link]</code> &#x2192; fill wrong credentials &#x2192; submit &#x2192; assert <code>[data-testid=login-error]</code> is visible</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="test-token">Client Credentials Tests</h3>
+        <p>Uses Playwright to interact with the "Client Credentials Token Request" form on the index page.</p>
+        <div class="table-wrapper" role="region" aria-label="Client credentials test scenarios" tabindex="0">
+          <table>
+            <caption>ClientCredentialsTests.cs</caption>
+            <thead>
+              <tr>
+                <th scope="col">Test</th>
+                <th scope="col">Steps</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><code>Can_request_token_in_default_space</code></th>
+                <td>Home page &#x2192; check <code>[data-testid=client-radio-space]</code> &#x2192; click <code>[data-testid=request-token-button]</code> &#x2192; assert <code>[data-testid=token-output]</code> is visible</td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Can_request_token_in_space1</code></th>
+                <td>Home page &#x2192; click <code>[data-testid=space-link-space1]</code> &#x2192; check space client radio &#x2192; click request token &#x2192; assert token output visible</td>
+              </tr>
+              <tr>
+                <th scope="row"><code>Can_request_token_in_space3</code></th>
+                <td>Home page &#x2192; click <code>[data-testid=space-link-space3]</code> &#x2192; check space client radio &#x2192; click request token &#x2192; assert token output visible</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Execution Order -->
+      <section id="execution" aria-labelledby="h-execution">
+        <h2 id="h-execution">Execution Order</h2>
+        <ol>
+          <li>Update <code>Directory.Packages.props</code> (add package versions)</li>
+          <li>Create <code>aspire/AppHost/</code> (AppHost.csproj + Program.cs)</li>
+          <li>Add <code>data-testid</code> attributes to <code>Index.cshtml</code> and <code>Login.cshtml</code></li>
+          <li>Create <code>tests/MultiSpace.PlaywrightTests/</code> (all infrastructure + test files)</li>
+          <li>Update <code>MultiSpace.slnx</code></li>
+          <li>Run <code>dotnet build</code> to verify compilation</li>
+          <li>Run <code>dotnet test</code> to verify tests pass (requires <code>*.dev.localhost</code> DNS resolution)</li>
+        </ol>
+      </section>
+
+      <!-- Decisions -->
+      <section id="decisions" aria-labelledby="h-decisions">
+        <h2 id="h-decisions">Decisions</h2>
+
+        <aside class="callout callout--decision" aria-label="Decision record">
+          <strong><span class="badge badge--decision">Decision</span> 2025-07-23:</strong>
+          Use Aspire to host the application with port pinned to 5000. Tests navigate via UI links and use <code>data-testid</code> selectors exclusively.
+        </aside>
+
+        <ul>
+          <li><strong>Aspire hosting</strong>: Even though MultiSpace has no external dependencies, Aspire provides consistent app lifecycle management and health checks.</li>
+          <li><strong>Port pinning</strong>: Fixed at 5000 to match the seeded space match patterns (which include the port in their origin).</li>
+          <li><strong>UI navigation</strong>: Tests follow links from the home page rather than hardcoding internal URLs, mirroring real user behavior.</li>
+          <li><strong><code>data-testid</code> selectors</strong>: Decouples tests from CSS classes and markup structure. Playwright's <code>GetByTestId</code> is the primary locator strategy.</li>
+          <li><strong>Space3 test scope</strong>: Only verifies redirect to the external IDP (<code>demo.duendesoftware.com</code>), not full external sign-in completion.</li>
+        </ul>
+      </section>
+
+      <!-- Risks -->
+      <section id="risks" aria-labelledby="h-risks">
+        <h2 id="h-risks">Risks and Open Questions</h2>
+
+        <aside class="callout callout--warning" aria-label="Risks">
+          <strong>Risks to monitor during implementation.</strong>
+        </aside>
+
+        <ul>
+          <li>
+            <strong><code>*.dev.localhost</code> DNS resolution</strong>: Most modern OSes resolve <code>*.localhost</code> to <code>127.0.0.1</code>, but <code>*.dev.localhost</code> may need a hosts file entry or DNS configuration in CI.
+          </li>
+          <li>
+            <strong>Port conflict</strong>: Port 5000 is pinned. Tests will fail if another process occupies that port.
+          </li>
+          <li>
+            <strong>External IDP availability</strong>: The space3 test depends on <code>demo.duendesoftware.com</code> being reachable for the redirect assertion. If the external service is down, the test will fail.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Sources -->
+      <section id="sources" aria-labelledby="h-sources">
+        <h2 id="h-sources">Sources</h2>
+        <ol>
+          <li id="src-1">
+            <cite>BackOffice Playwright Tests (reference implementation)</cite>.
+            <code>C:\source\fenix\backoffice\tests\BackOffice.PlaywrightTests\</code>.
+          </li>
+          <li id="src-2">
+            <cite>BackOffice AspireFixture</cite>.
+            <code>C:\source\fenix\backoffice\tests\BackOffice.Tests\AspireFixture.cs</code>.
+          </li>
+          <li id="src-3">
+            <cite>BackOffice Aspire AppHost</cite>.
+            <code>C:\source\fenix\backoffice\aspire\AppHost\</code>.
+          </li>
+          <li id="src-4">
+            <cite>MultiSpace source</cite>.
+            <code>C:\source\samples\IdentityServer\v8\MultiSpace\src\MultiSpace\</code>.
+          </li>
+          <li id="src-5">
+            <cite>MultiSpace SeedData</cite>.
+            <code>C:\source\samples\IdentityServer\v8\MultiSpace\src\MultiSpace\Seed\SeedData.cs</code>.
+          </li>
+        </ol>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Print-only URL appendix -->
+  <div class="layout">
+    <div style="width: var(--sidebar-width); flex-shrink: 0; margin-right: 32px;"></div>
+    <div class="main-content">
+      <section class="print-only" aria-labelledby="h-print-urls">
+        <h3 id="h-print-urls">Full Paths (Print Reference)</h3>
+        <ol>
+          <li>BackOffice PlaywrightTests: C:\source\fenix\backoffice\tests\BackOffice.PlaywrightTests\</li>
+          <li>BackOffice AspireFixture: C:\source\fenix\backoffice\tests\BackOffice.Tests\AspireFixture.cs</li>
+          <li>BackOffice AppHost: C:\source\fenix\backoffice\aspire\AppHost\</li>
+          <li>MultiSpace source: C:\source\samples\IdentityServer\v8\MultiSpace\src\MultiSpace\</li>
+          <li>MultiSpace SeedData: C:\source\samples\IdentityServer\v8\MultiSpace\src\MultiSpace\Seed\SeedData.cs</li>
+        </ol>
+      </section>
+
+      <footer style="margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--color-border); font-size: 0.8em; color: var(--color-text-muted);">
+        <p>Generated <time datetime="2025-07-23">2025-07-23</time>. Status: <span class="badge badge--draft">Draft</span>.</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    if (typeof window !== 'undefined' && window.addEventListener) {
+      window.addEventListener('beforeprint', function () {
+        document.querySelectorAll('details').forEach(function (d) { d.open = true; });
+      });
+    }
+  </script>
+
+</body>
+</html>
