@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerHost", "src\IdentityServerHost.csproj", "{1B59E4D7-5945-4957-8022-BF752534E32C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{DF413272-4B20-4F2D-AAB3-75985D9814E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,9 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1B59E4D7-5945-4957-8022-BF752534E32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +29,20 @@ Global
 		{1B59E4D7-5945-4957-8022-BF752534E32C}.Release|x64.Build.0 = Release|Any CPU
 		{1B59E4D7-5945-4957-8022-BF752534E32C}.Release|x86.ActiveCfg = Release|Any CPU
 		{1B59E4D7-5945-4957-8022-BF752534E32C}.Release|x86.Build.0 = Release|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Debug|x64.Build.0 = Debug|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Debug|x86.Build.0 = Debug|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Release|x64.ActiveCfg = Release|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Release|x64.Build.0 = Release|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Release|x86.ActiveCfg = Release|Any CPU
+		{DF413272-4B20-4F2D-AAB3-75985D9814E0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
