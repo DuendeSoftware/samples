@@ -14,7 +14,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.1.0",
-    "@angular/common": "^18.1.0",
+    "@angular/common": "^19.2.16",
     "@angular/compiler": "^18.1.0",
     "@angular/core": "^18.1.0",
     "@angular/forms": "^18.1.0",
@@ -22,12 +22,12 @@
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
     "bootstrap": "^5.3.2",
+    "jest-editor-support": "*",
     "popper.js": "^1.16.1",
+    "run-script-os": "*",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.7",
-    "jest-editor-support": "*",
-    "run-script-os": "*"
+    "zone.js": "~0.14.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.1.0",
