@@ -9,11 +9,11 @@ namespace SessionMigration;
 
 public class SessionMigrationPostConfigureOptions : IPostConfigureOptions<CookieAuthenticationOptions>
 {
-    private readonly IHttpContextAccessor httpContextAccessor;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public SessionMigrationPostConfigureOptions(IHttpContextAccessor httpContextAccessor)
     {
-        this.httpContextAccessor = httpContextAccessor;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public void PostConfigure(string name, CookieAuthenticationOptions options)
@@ -31,6 +31,6 @@ public class SessionMigrationPostConfigureOptions : IPostConfigureOptions<Cookie
 
         // TicketDataFormat is not injected through DI so we have to supply it with an http context accessor
         // to be able to resolve request services at runtime.
-        options.TicketDataFormat = new MigratingTicketDataFormat(httpContextAccessor, options, name);
+        options.TicketDataFormat = new MigratingTicketDataFormat(_httpContextAccessor, options, name);
     }
 }
