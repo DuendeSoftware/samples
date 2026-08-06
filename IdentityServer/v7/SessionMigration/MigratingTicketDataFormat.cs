@@ -49,30 +49,61 @@ public class MigratingTicketDataFormat : ISecureDataFormat<AuthenticationTicket>
         var context = _httpContextAccessor.HttpContext;
         var sessionStore = context.RequestServices.GetRequiredService<IServerSideTicketStore>();
 
-        // Unprotect isn't async so we'll have block the thread and wait using .Result when calling an
-        // async methods. This is bad for performance, but this only happens once per logged in user
-        // session so it should be acceptable. Thanks to Asp.Net Core not having any synchronization
-        // context there is no risk for dead locks.
-        var sessionId = sessionStore.StoreAsync(ticket).Result;
+        // Unprotect isn't async so we have to block synchronously. ISecureDataFormat<T> is a
+        // synchronous interface defined by ASP.NET Core and cannot be changed. Thanks to ASP.NET
+        // Core not having a synchronization context there is no risk for deadlocks.
+        //
+        // NOTE: In a real implementation with many concurrent users migrating at once (e.g. after
+        // a deployment), blocking here could still cause thread pool starvation. Consider whether your
+        // scale warrants an alternative approach, such as splitting the migration into two phases:
+        //   1. Detect the old cookie-based session in Unprotect and flag the request (e.g. via
+        //      HttpContext.Items) without doing any I/O.
+        //   2. In async middleware further up the pipeline, check the flag, perform the actual
+        //      store write, and rewrite the cookie — all fully async.
+        // This avoids sync-over-async entirely at the cost of more architectural complexity.
+        var sessionId = sessionStore.StoreAsync(ticket).GetAwaiter().GetResult();
 
-        // There's a potential race condition where two requests could migrate the same session. Check
-        // if there's another entry with the same SID and if it is rollback the one we created and
-        // don't alter the cookie.
+        // There's a potential race condition where two requests could migrate the same session.
+        // Check if there's another entry with the same SID and if so, rollback the one we
+        // created and don't alter the cookie.
+        //
+        // NOTE: This check has a TOCTOU (time-of-check-time-of-use) issue. Two concurrent
+        // requests could both store a session, both detect the duplicate, and both roll back,
+        // leaving no migrated session. This is self-healing (the next request will retry), but
+        // in a real implementation you may want to use a distributed lock or compare creation
+        // timestamps to decide which duplicate to keep.
         if (HasDuplicate(sessionStore, ticket))
         {
-            sessionStore.RemoveAsync(sessionId).Wait();
+            sessionStore.RemoveAsync(sessionId).GetAwaiter().GetResult();
         }
         else
         {
+            // Carry over relevant properties from the original ticket so the reference ticket
+            // (and the cookie) accurately reflects the original session state. Without this,
+            // persistent sessions would be downgraded to session cookies, and any downstream
+            // code inspecting properties on this request would see empty defaults.
+            var properties = new AuthenticationProperties
+            {
+                IsPersistent = ticket.Properties.IsPersistent,
+                IssuedUtc = ticket.Properties.IssuedUtc,
+                ExpiresUtc = ticket.Properties.ExpiresUtc,
+                AllowRefresh = ticket.Properties.AllowRefresh,
+                // NOTE: If your application stores custom data in Properties.Items or
+                // Properties.Parameters, you may want to copy those over as well.
+            };
+
             var principal = new ClaimsPrincipal(
                 new ClaimsIdentity(
                     new[] { new Claim(SessionIdClaim, sessionId, ClaimValueTypes.String, _options.ClaimsIssuer) },
                     _options.ClaimsIssuer));
 
-            ticket = new AuthenticationTicket(principal, null, scheme);
+            ticket = new AuthenticationTicket(principal, properties, _scheme);
 
             var cookieValue = _inner.Protect(ticket, purpose);
 
+            // NOTE: AppendResponseCookie will throw if the response has already started
+            // (e.g. if headers have been sent). In a real implementation, guard against this
+            // or ensure migration runs early enough in the pipeline.
             var cookieOptions = CreateCookieOptions(ticket, context);
 
             _options.CookieManager.AppendResponseCookie(
@@ -93,23 +124,8 @@ public class MigratingTicketDataFormat : ISecureDataFormat<AuthenticationTicket>
 
         if (ticket.Properties.IsPersistent)
         {
-            DateTimeOffset issuedUtc;
-            if (ticket.Properties.IssuedUtc.HasValue)
-            {
-                issuedUtc = ticket.Properties.IssuedUtc.Value;
-            }
-            else
-            {
-                issuedUtc = DateTime.UtcNow;
-                ticket.Properties.IssuedUtc = issuedUtc;
-            }
-
-            if (!ticket.Properties.ExpiresUtc.HasValue)
-            {
-                ticket.Properties.ExpiresUtc = issuedUtc.Add(options.ExpireTimeSpan);
-            }
-
-            var expiresUtc = ticket.Properties.ExpiresUtc ?? issuedUtc.Add(options.ExpireTimeSpan);
+            var issuedUtc = ticket.Properties.IssuedUtc ?? DateTimeOffset.UtcNow;
+            var expiresUtc = ticket.Properties.ExpiresUtc ?? issuedUtc.Add(_options.ExpireTimeSpan);
             cookieOptions.Expires = expiresUtc.ToUniversalTime();
         }
 
@@ -125,7 +141,9 @@ public class MigratingTicketDataFormat : ISecureDataFormat<AuthenticationTicket>
             SessionId = sid
         };
 
-        var sessions = sessionStore.QuerySessionsAsync(filter).Result;
+        var sessions = sessionStore.QuerySessionsAsync(filter,
+            _httpContextAccessor.HttpContext?.RequestAborted ?? CancellationToken.None)
+            .GetAwaiter().GetResult();
 
         // There should be only one entry, the one we just created.
         return sessions.Results.Count > 1;
