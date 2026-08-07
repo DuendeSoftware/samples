@@ -78,34 +78,21 @@ public class MigratingTicketDataFormat : ISecureDataFormat<AuthenticationTicket>
         }
         else
         {
-            // Carry over relevant properties from the original ticket so the reference ticket
-            // (and the cookie) accurately reflects the original session state. Without this,
-            // persistent sessions would be downgraded to session cookies, and any downstream
-            // code inspecting properties on this request would see empty defaults.
-            var properties = new AuthenticationProperties
-            {
-                IsPersistent = ticket.Properties.IsPersistent,
-                IssuedUtc = ticket.Properties.IssuedUtc,
-                ExpiresUtc = ticket.Properties.ExpiresUtc,
-                AllowRefresh = ticket.Properties.AllowRefresh,
-                // NOTE: If your application stores custom data in Properties.Items or
-                // Properties.Parameters, you may want to copy those over as well.
-            };
-
+            // Generate a new AuthenticationTicket to return the new session cookie in the HTTP response
             var principal = new ClaimsPrincipal(
                 new ClaimsIdentity(
                     new[] { new Claim(SessionIdClaim, sessionId, ClaimValueTypes.String, _options.ClaimsIssuer) },
                     _options.ClaimsIssuer));
 
-            ticket = new AuthenticationTicket(principal, properties, _scheme);
+            var newTicket = new AuthenticationTicket(principal, null, _scheme);
+            var cookieValue = _inner.Protect(newTicket, purpose);
 
-            var cookieValue = _inner.Protect(ticket, purpose);
+            // Reuse the properties from the original ticket to get the right cookie options (IsPersistent).
+            var cookieOptions = CreateCookieOptions(ticket, context);
 
             // NOTE: AppendResponseCookie will throw if the response has already started
             // (e.g. if headers have been sent). In a real implementation, guard against this
             // or ensure migration runs early enough in the pipeline.
-            var cookieOptions = CreateCookieOptions(ticket, context);
-
             _options.CookieManager.AppendResponseCookie(
                 context,
                 _options.Cookie.Name!,
@@ -141,8 +128,7 @@ public class MigratingTicketDataFormat : ISecureDataFormat<AuthenticationTicket>
             SessionId = sid
         };
 
-        var sessions = sessionStore.QuerySessionsAsync(filter,
-            _httpContextAccessor.HttpContext?.RequestAborted ?? CancellationToken.None)
+        var sessions = sessionStore.QuerySessionsAsync(filter, CancellationToken.None)
             .GetAwaiter().GetResult();
 
         // There should be only one entry, the one we just created.
