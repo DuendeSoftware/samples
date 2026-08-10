@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-var serverUrl = "https://localhost:7141";
-var inMemoryOAuthServerUrl = "https://localhost:5001/";
+var mcpServerUrl = "https://localhost:7141";
+var inMemoryOAuthServerUrl = "https://localhost:5001";
 
 builder.Services.AddAuthentication(options =>
     {
@@ -23,7 +23,7 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            ValidAudience = serverUrl,
+            ValidAudience = mcpServerUrl,
             ValidIssuer = inMemoryOAuthServerUrl,
             NameClaimType = "name",
             RoleClaimType = "role"
@@ -33,7 +33,7 @@ builder.Services.AddAuthentication(options =>
     {
         options.ResourceMetadata = new()
         {
-            Resource = serverUrl,
+            Resource = mcpServerUrl,
             ResourceDocumentation = "https://docs.example/api/weather",
             AuthorizationServers = { inMemoryOAuthServerUrl },
             ScopesSupported = ["mcp:tools"]

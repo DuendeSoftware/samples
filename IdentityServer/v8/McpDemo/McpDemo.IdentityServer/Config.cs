@@ -12,7 +12,7 @@ public static class Config
 
     public static IEnumerable<ApiResource> ApiResources =>
     [
-        new("https://localhost:7141/", "MCP Server")
+        new("https://localhost:7141", "MCP Server")
         {
             Scopes = { "mcp:tools" }
         }
