@@ -1,21 +1,24 @@
 using System.Net.Http.Headers;
+
 using McpDemo.McpServer.McpTools;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+
 using ModelContextProtocol.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-var serverUrl = "https://localhost:7141";
-var inMemoryOAuthServerUrl = "https://localhost:5001/";
+var mcpServerUrl = "https://localhost:7141";
+var inMemoryOAuthServerUrl = "https://localhost:5001";
 
 builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultChallengeScheme = McpAuthenticationDefaults.AuthenticationScheme;
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
+{
+    options.DefaultChallengeScheme = McpAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+})
     .AddJwtBearer(options =>
     {
         options.Authority = inMemoryOAuthServerUrl;
@@ -23,7 +26,7 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            ValidAudience = serverUrl,
+            ValidAudience = mcpServerUrl,
             ValidIssuer = inMemoryOAuthServerUrl,
             NameClaimType = "name",
             RoleClaimType = "role"
@@ -33,9 +36,9 @@ builder.Services.AddAuthentication(options =>
     {
         options.ResourceMetadata = new()
         {
-            Resource = serverUrl,
+            Resource = mcpServerUrl,
             ResourceDocumentation = "https://docs.example/api/weather",
-            AuthorizationServers = [inMemoryOAuthServerUrl],
+            AuthorizationServers = { inMemoryOAuthServerUrl },
             ScopesSupported = ["mcp:tools"]
         };
     });

@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Web;
-using Microsoft.Extensions.Logging;
+
 using ModelContextProtocol.Authentication;
 using ModelContextProtocol.Client;
 using ModelContextProtocol.Protocol;
@@ -13,38 +13,25 @@ Console.WriteLine("Protected MCP Client");
 Console.WriteLine($"Connecting to server at {mcpServerUrl}...");
 Console.WriteLine();
 
-// We can customize a shared HttpClient with a custom handler if desired
-var sharedHandler = new SocketsHttpHandler
-{
-    PooledConnectionLifetime = TimeSpan.FromMinutes(2),
-    PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1)
-};
-var httpClient = new HttpClient(sharedHandler);
-
-var consoleLoggerFactory = LoggerFactory.Create(builder =>
-{
-    builder.AddConsole();
-});
+var httpClient = new HttpClient();
 
 var transport = new HttpClientTransport(new HttpClientTransportOptions
 {
-    Endpoint = new  Uri(mcpServerUrl),
+    Endpoint = new Uri(mcpServerUrl),
     Name = "Weather MCP Client",
     OAuth = new ClientOAuthOptions
     {
         RedirectUri = new Uri("http://localhost:1179/callback"),
-        AuthorizationRedirectDelegate = HandleAuthorizationUrlAsync,
+        AuthorizationCallbackHandler = HandleAuthorizationUrlAsync,
         DynamicClientRegistration = new DynamicClientRegistrationOptions
         {
             ClientName = "ProtectedMcpClient"
         },
-        // Odd that this config is required. I would expect the client to read the supported scopes from the MCP server's
-        // protected resource metadata and use the scopes listed there in its dynamic client registration request.
-        Scopes = ["mcp:tools"]
+        Scopes = ["mcp:tools"],
     },
-}, httpClient, consoleLoggerFactory);
+}, httpClient);
 
-var client = await McpClient.CreateAsync(transport, loggerFactory: consoleLoggerFactory);
+var client = await McpClient.CreateAsync(transport);
 
 var tools = await client.ListToolsAsync();
 if (tools.Count == 0)
@@ -74,12 +61,13 @@ if (tools.Any(t => t.Name == "get_alerts"))
 /// <param name="redirectUri">The redirect URI where the authorization code will be sent.</param>
 /// <param name="cancellationToken">The cancellation token.</param>
 /// <returns>The authorization code extracted from the callback, or null if the operation failed.</returns>
-static async Task<string?> HandleAuthorizationUrlAsync(Uri authorizationUrl, Uri redirectUri, CancellationToken cancellationToken)
+// static async Task<string?> HandleAuthorizationUrlAsync(Uri authorizationUrl, Uri redirectUri, CancellationToken cancellationToken)
+static async Task<AuthorizationResult?> HandleAuthorizationUrlAsync(AuthorizationCallbackContext authContext, CancellationToken cancellationToken)
 {
     Console.WriteLine("Starting OAuth authorization flow...");
-    Console.WriteLine($"Opening browser to: {authorizationUrl}");
+    Console.WriteLine($"Opening browser to: {authContext.AuthorizationUri}");
 
-    var listenerPrefix = redirectUri.GetLeftPart(UriPartial.Authority);
+    var listenerPrefix = authContext.RedirectUri.GetLeftPart(UriPartial.Authority);
     if (!listenerPrefix.EndsWith("/")) listenerPrefix += "/";
 
     using var listener = new HttpListener();
@@ -90,11 +78,13 @@ static async Task<string?> HandleAuthorizationUrlAsync(Uri authorizationUrl, Uri
         listener.Start();
         Console.WriteLine($"Listening for OAuth callback on: {listenerPrefix}");
 
-        OpenBrowser(authorizationUrl);
+        OpenBrowser(authContext.AuthorizationUri);
 
         var context = await listener.GetContextAsync();
         var query = HttpUtility.ParseQueryString(context.Request.Url?.Query ?? string.Empty);
         var code = query["code"];
+        var state = query["state"];
+        var iss = query["iss"];
         var error = query["error"];
 
         string responseHtml = "<html><body><h1>Authentication complete</h1><p>You can close this window now.</p></body></html>";
@@ -117,7 +107,12 @@ static async Task<string?> HandleAuthorizationUrlAsync(Uri authorizationUrl, Uri
         }
 
         Console.WriteLine("Authorization code received successfully.");
-        return code;
+        return new AuthorizationResult
+        {
+            Code = code,
+            State = state,
+            Iss = iss
+        };
     }
     catch (Exception ex)
     {

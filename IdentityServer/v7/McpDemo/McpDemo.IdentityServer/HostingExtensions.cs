@@ -1,10 +1,7 @@
-using System.Globalization;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Configuration;
-using Duende.IdentityServer.Configuration.Validation.DynamicClientRegistration;
-using Duende.IdentityServer.Stores;
+
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 
 namespace McpDemo.IdentityServer;
@@ -17,10 +14,10 @@ internal static class HostingExtensions
         builder.Services.AddRazorPages();
 
         var isBuilder = builder.Services.AddIdentityServer(options =>
-            {
-                // this will add the default dynamic client registration endpoint to the discovery/metadatada documents
-                options.Discovery.DynamicClientRegistration.RegistrationEndpointMode = RegistrationEndpointMode.Inferred;
-            })
+        {
+            // this will add the default dynamic client registration endpoint to the discovery/metadatada documents
+            options.Discovery.DynamicClientRegistration.RegistrationEndpointMode = RegistrationEndpointMode.Inferred;
+        })
             .AddTestUsers(TestUsers.Users)
             .AddLicenseSummary();
 

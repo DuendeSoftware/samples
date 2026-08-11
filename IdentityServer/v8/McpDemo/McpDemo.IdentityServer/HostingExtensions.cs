@@ -1,10 +1,6 @@
-using System.Globalization;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Configuration;
-using Duende.IdentityServer.Configuration.Validation.DynamicClientRegistration;
-using Duende.IdentityServer.Stores;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 
 namespace McpDemo.IdentityServer;
