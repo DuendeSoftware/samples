@@ -45,7 +45,7 @@ idsvrBuilder.AddMutualTlsSecretValidators();
 // for local testing, we will use kestrel's mTLS
 builder.Services.Configure<KestrelServerOptions>(options =>
 {
-    options.ListenLocalhost(5001, config =>
+    options.ListenLocalhost(5005, config =>
     {
         config.UseHttps(https =>
         {

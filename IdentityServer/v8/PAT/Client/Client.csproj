@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Duende.IdentityModel" />
+    <PackageReference Include="System.CommandLine" />
   </ItemGroup>
 
 </Project>

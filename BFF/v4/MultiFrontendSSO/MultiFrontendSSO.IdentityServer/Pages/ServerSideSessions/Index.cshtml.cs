@@ -4,6 +4,7 @@
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -48,7 +49,7 @@ public class IndexModel : PageModel
                     DisplayName = DisplayNameFilter,
                     SessionId = SessionIdFilter,
                     SubjectId = SubjectIdFilter
-                });
+                }, HttpContext.RequestAborted);
         }
     }
 
@@ -60,7 +61,7 @@ public class IndexModel : PageModel
             new RemoveSessionsContext
             {
                 SessionId = SessionId
-            });
+            }, HttpContext.RequestAborted);
 
         return RedirectToPage(
             "/ServerSideSessions/Index",

@@ -2,11 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Text;
-using IdentityModel;
+
+using Duende.IdentityModel;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
-using static IdentityModel.OidcConstants;
 
 namespace DPoP.Api;
 
@@ -138,14 +139,14 @@ public class DPoPJwtBearerEvents : JwtBearerEvents
         if (context.HttpContext.Items.ContainsKey("DPoP-Nonce"))
         {
             var nonce = context.HttpContext.Items["DPoP-Nonce"] as string;
-            context.Response.Headers[HttpHeaders.DPoPNonce] = nonce;
+            context.Response.Headers[OidcConstants.HttpHeaders.DPoPNonce] = nonce;
         }
         else
         {
             var nonce = context.Properties.GetDPoPNonce();
             if (nonce != null)
             {
-                context.Response.Headers[HttpHeaders.DPoPNonce] = nonce;
+                context.Response.Headers[OidcConstants.HttpHeaders.DPoPNonce] = nonce;
             }
         }
 

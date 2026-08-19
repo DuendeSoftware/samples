@@ -3,6 +3,7 @@
 
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -26,7 +27,7 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnGet(string id)
     {
-        LoginRequest = await _backchannelAuthenticationInteraction.GetLoginRequestByInternalIdAsync(id);
+        LoginRequest = await _backchannelAuthenticationInteraction.GetLoginRequestByInternalIdAsync(id, HttpContext.RequestAborted);
         if (LoginRequest == null)
         {
             _logger.LogWarning("Invalid backchannel login id {id}", id);

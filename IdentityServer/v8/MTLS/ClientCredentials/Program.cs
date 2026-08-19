@@ -3,7 +3,9 @@
 
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
+
 using Duende.IdentityModel.Client;
+
 using Shared;
 
 namespace ClientCredentials;
@@ -73,8 +75,10 @@ public class Program
         // When running from Visual Studio the current directory gets set to the assembly
         // location, but when running from command prompt with dotnet run the current
         // directory is likely the project directory. This works for both.
-        var assemblyDir = typeof(Program).Assembly.Location;
-        var certPath = Path.GetFullPath(Path.Combine(assemblyDir, "../../../../../localhost-client.p12"));
+        var assemblyLocation = typeof(Program).Assembly.Location;
+        var assemblyDir = Path.GetDirectoryName(assemblyLocation);
+        var relativePath = Path.Combine(assemblyDir, "../../../../../localhost-client.p12");
+        var certPath = Path.GetFullPath(relativePath);
 
         var cert = X509CertificateLoader.LoadPkcs12FromFile(certPath, "changeit");
         handler.SslOptions.ClientCertificates = new X509CertificateCollection { cert };

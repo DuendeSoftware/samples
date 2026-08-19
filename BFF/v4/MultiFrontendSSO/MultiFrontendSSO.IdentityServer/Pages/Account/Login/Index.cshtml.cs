@@ -7,6 +7,7 @@ using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using Duende.IdentityServer.Test;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,7 @@ public class Index : PageModel
     public async Task<IActionResult> OnPost()
     {
         // check if we are in the context of an authorization request
-        var context = await _interaction.GetAuthorizationContextAsync(Input.ReturnUrl);
+        var context = await _interaction.GetAuthorizationContextAsync(Input.ReturnUrl, HttpContext.RequestAborted);
 
         // the user clicked the "cancel" button
         if (Input.Button != "login")
@@ -75,7 +76,7 @@ public class Index : PageModel
                 // if the user cancels, send a result back into IdentityServer as if they 
                 // denied the consent (even if this client does not require consent).
                 // this will send back an access denied OIDC error response to the client.
-                await _interaction.DenyAuthorizationAsync(context, AuthorizationError.AccessDenied);
+                await _interaction.DenyAuthorizationAsync(context, InteractionError.AccessDenied, HttpContext.RequestAborted);
 
                 // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
                 if (context.IsNativeClient())
@@ -105,7 +106,7 @@ public class Index : PageModel
                         user.Username,
                         user.SubjectId,
                         user.Username,
-                        clientId: context?.Client.ClientId));
+                        clientId: context?.Client.ClientId), HttpContext.RequestAborted);
 
                 Telemetry.Metrics.UserLogin(context?.Client.ClientId, IdentityServerConstants.LocalIdentityProvider);
 
@@ -162,7 +163,7 @@ public class Index : PageModel
 
             const string error = "invalid credentials";
             await _events.RaiseAsync(
-                new UserLoginFailureEvent(Input.Username, error, clientId: context?.Client.ClientId));
+                new UserLoginFailureEvent(Input.Username, error, clientId: context?.Client.ClientId), HttpContext.RequestAborted);
 
             Telemetry.Metrics.UserLoginFailure(
                 context?.Client.ClientId,
@@ -184,7 +185,7 @@ public class Index : PageModel
             ReturnUrl = returnUrl
         };
 
-        var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+        var context = await _interaction.GetAuthorizationContextAsync(returnUrl, HttpContext.RequestAborted);
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {
             var local = context.IdP == IdentityServerConstants.LocalIdentityProvider;
@@ -215,7 +216,7 @@ public class Index : PageModel
                     x.DisplayName ?? x.Name))
             .ToList();
 
-        var dynamicSchemes = (await _identityProviderStore.GetAllSchemeNamesAsync())
+        var dynamicSchemes = (await _identityProviderStore.GetAllSchemeNamesAsync(HttpContext.RequestAborted))
             .Where(x => x.Enabled)
             .Select(
                 x => new ViewModel.ExternalProvider(

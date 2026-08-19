@@ -11,6 +11,6 @@ public class AllowAnyRedirectUriValidator : IRedirectUriValidator
     public Task<bool> IsRedirectUriValidAsync(string requestedUri, Client client) =>
         Task.FromResult(true);
 
-    public Task<bool> IsPostLogoutRedirectUriValidAsync(string requestedUri, Client client) =>
+    public Task<bool> IsPostLogoutRedirectUriValidAsync(string requestedUri, Client client, CancellationToken ct) =>
         Task.FromResult(true);
 }

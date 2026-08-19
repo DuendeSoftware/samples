@@ -7,19 +7,12 @@ using Duende.IdentityServer.Validation;
 
 namespace TokenExchange.IdentityServer;
 
-public class TokenExchangeGrantValidator : IExtensionGrantValidator
+public class TokenExchangeGrantValidator(ITokenValidator validator) : IExtensionGrantValidator
 {
-    private readonly ITokenValidator _validator;
-
-    public TokenExchangeGrantValidator(ITokenValidator validator)
-    {
-        _validator = validator;
-    }
-
     // register for urn:ietf:params:oauth:grant-type:token-exchange
     public string GrantType => OidcConstants.GrantTypes.TokenExchange;
 
-    public async Task ValidateAsync(ExtensionGrantValidationContext context)
+    public async Task ValidateAsync(ExtensionGrantValidationContext context, CancellationToken ct)
     {
         // default response is error
         context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest);
@@ -49,7 +42,7 @@ public class TokenExchangeGrantValidator : IExtensionGrantValidator
         }
 
         // validate the incoming access token with the built-in token validator
-        var validationResult = await _validator.ValidateAccessTokenAsync(subjectToken);
+        var validationResult = await validator.ValidateAccessTokenAsync(token: subjectToken, expectedScope: null, ct);
         if (validationResult.IsError)
         {
             return;

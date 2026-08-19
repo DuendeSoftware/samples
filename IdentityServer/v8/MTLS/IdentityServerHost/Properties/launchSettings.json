@@ -1,4 +1,4 @@
-﻿{
+{
   "profiles": {
     "SelfHost": {
       "commandName": "Project",
@@ -6,6 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      //Not Used, ListenLocalhost() is used to bind to other port
       "applicationUrl": "https://localhost:5001"
     }
   }
