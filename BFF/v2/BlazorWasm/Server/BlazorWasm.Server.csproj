@@ -18,5 +18,4 @@
     <ProjectReference Include="..\Shared\BlazorWasm.Shared.csproj" />
   </ItemGroup>
 
-
 </Project>
