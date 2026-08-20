@@ -13,26 +13,18 @@ public partial class CustomProfileData : Migration
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
     {
-        migrationBuilder.AlterColumn<string>(
+        migrationBuilder.AddColumn<string>(
             name: "FavoriteColor",
             table: "AspNetUsers",
             type: "TEXT",
-            nullable: true,
-            oldClrType: typeof(string),
-            oldType: "TEXT");
+            nullable: true);
     }
 
     /// <inheritdoc />
     protected override void Down(MigrationBuilder migrationBuilder)
     {
-        migrationBuilder.AlterColumn<string>(
+        migrationBuilder.DropColumn(
             name: "FavoriteColor",
-            table: "AspNetUsers",
-            type: "TEXT",
-            nullable: false,
-            defaultValue: "",
-            oldClrType: typeof(string),
-            oldType: "TEXT",
-            oldNullable: true);
+            table: "AspNetUsers");
     }
 }

@@ -4,7 +4,9 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using Client;
+
 using Duende.IdentityModel.Client;
 
 Console.Title = "Console Client Credentials Flow";

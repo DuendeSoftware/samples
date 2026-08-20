@@ -33,12 +33,12 @@ class Program
 
     private static string ParseToken(string[] args)
     {
-        Option<string> patOption = new("--pat")
+        var patOption = new Option<string>("--pat")
         {
             Description = "User generated PAT from https://localhost:5001/pat"
         };
 
-        RootCommand rootCommand = new("Sample app for System.CommandLine");
+        var rootCommand = new RootCommand();
         rootCommand.Options.Add(patOption);
 
         var parseResult = rootCommand.Parse(args);
