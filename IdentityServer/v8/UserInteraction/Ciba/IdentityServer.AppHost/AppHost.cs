@@ -6,6 +6,7 @@ var api = builder.AddProject<Projects.SimpleApi>("simpleapi");
 
 builder.AddProject<Projects.Client>("client")
     .WaitFor(idsvr)
-    .WaitFor(api);
+    .WaitFor(api)
+    .WithEnvironment("IS_IN_ASPIRE", true.ToString());
 
 builder.Build().Run();

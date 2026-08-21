@@ -10,7 +10,12 @@ using Duende.IdentityModel.Client;
 var response = await RequestTokenAsync();
 response.Show();
 
-Console.ReadLine();
+//When not run with Aspire, wait for user to initiate this client so services are started
+if (!string.Equals(Environment.GetEnvironmentVariable("IS_IN_ASPIRE"), true.ToString()))
+{
+    Console.ReadLine();
+}
+
 await CallServiceAsync(response.AccessToken);
 
 static async Task<TokenResponse> RequestTokenAsync()

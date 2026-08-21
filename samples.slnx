@@ -125,18 +125,8 @@
     <Project Path="BFF/v4/JsBffYarpSample/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/MultiFrontendSSO/">
-    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj">
-      <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
-      <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
-      <Configuration Solution="Release|x64" Project="Release|Any CPU" />
-      <Configuration Solution="Release|x86" Project="Release|Any CPU" />
-    </Project>
-    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.IdentityServer\MultiFrontendSSO.IdentityServer.csproj">
-      <Configuration Solution="Debug|x64" Project="Debug|Any CPU" />
-      <Configuration Solution="Debug|x86" Project="Debug|Any CPU" />
-      <Configuration Solution="Release|x64" Project="Release|Any CPU" />
-      <Configuration Solution="Release|x86" Project="Release|Any CPU" />
-    </Project>
+    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.Client\MultiFrontendSSO.Client.csproj" />
+    <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.IdentityServer\MultiFrontendSSO.IdentityServer.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/OpenApi/">
     <Project Path="BFF/v4/OpenApi/OpenApi.Api1/OpenApi.Api1.csproj" />
@@ -185,8 +175,8 @@
     <Project Path="IdentityServer/v7/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/SessionMigration/">
-    <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.csproj" />
     <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.AppHost/SessionMigration.AppHost.csproj" />
+    <Project Path="IdentityServer/v7/SessionMigration/SessionMigration.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Apis/">
     <Project Path="IdentityServer/v7/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />
@@ -204,9 +194,9 @@
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/" />
   <Folder Name="/IdentityServer/v7/Basics/ClientCredentials/">
-    <Project Path="IdentityServer/v7/Basics/ClientCredentials/src/Client.csproj" />
     <File Path="IdentityServer\v7\Basics\ClientCredentials\README.md" />
     <Project Path="IdentityServer/v7/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
+    <Project Path="IdentityServer/v7/Basics/ClientCredentials/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/Introspection/">
     <File Path="IdentityServer\v7\Basics\Introspection\README.md" />
@@ -215,9 +205,9 @@
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/JwtBasedClientAuthentication/">
     <File Path="IdentityServer\v7\Basics\JwtBasedClientAuthentication\JwtBasedClientAuthentication.slnx" />
-    <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
     <File Path="IdentityServer\v7\Basics\JwtBasedClientAuthentication\README.md" />
     <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
+    <Project Path="IdentityServer/v7/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcBackChannelLogout/">
     <File Path="IdentityServer\v7\Basics\MvcBackChannelLogout\README.md" />
@@ -235,14 +225,14 @@
     <Project Path="IdentityServer/v7/Basics/MvcJarJwt/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcPar/">
-    <Project Path="IdentityServer/v7/Basics/MvcPar/src/Client.csproj" />
     <File Path="IdentityServer\v7\Basics\MvcPar\README.md" />
     <Project Path="IdentityServer/v7/Basics/MvcPar/MvcPar.AppHost/MvcPar.AppHost.csproj" />
+    <Project Path="IdentityServer/v7/Basics/MvcPar/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Basics/MvcTokenManagement/">
-    <Project Path="IdentityServer/v7/Basics/MvcTokenManagement/src/Client.csproj" />
     <File Path="IdentityServer\v7\Basics\MvcTokenManagement\README.md" />
     <Project Path="IdentityServer/v7/Basics/MvcTokenManagement/MvcTokenManagement.AppHost/MvcTokenManagement.AppHost.csproj" />
+    <Project Path="IdentityServer/v7/Basics/MvcTokenManagement/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/Configuration/" />
   <Folder Name="/IdentityServer/v7/Configuration/IdentityServerHost/">
@@ -282,8 +272,8 @@
   <Folder Name="/IdentityServer/v7/DPoP/">
     <Project Path="IdentityServer/v7/DPoP/Api/Api.csproj" />
     <Project Path="IdentityServer/v7/DPoP/ClientCredentials/ClientCredentials.csproj" />
-    <Project Path="IdentityServer/v7/DPoP/WebClient/WebClient.csproj" />
     <Project Path="IdentityServer/v7/DPoP/DPoP.AppHost/DPoP.AppHost.csproj" />
+    <Project Path="IdentityServer/v7/DPoP/WebClient/WebClient.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v7/IdentityServerHost/">
     <Project Path="IdentityServer/v7/IdentityServerHost/src/IdentityServerHost.csproj" />
@@ -426,8 +416,8 @@
     <Project Path="IdentityServer/v8/Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/SessionMigration/">
-    <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.csproj" />
     <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.AppHost/SessionMigration.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/SessionMigration/SessionMigration.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Apis/">
     <Project Path="IdentityServer/v8/Apis/ResourceBasedApi/ResourceBasedApi.csproj" />
@@ -445,9 +435,9 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/" />
   <Folder Name="/IdentityServer/v8/Basics/ClientCredentials/">
-    <Project Path="IdentityServer/v8/Basics/ClientCredentials/src/Client.csproj" />
     <File Path="IdentityServer\v8\Basics\ClientCredentials\README.md" />
     <Project Path="IdentityServer/v8/Basics/ClientCredentials/ClientCredentials.AppHost/ClientCredentials.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/Basics/ClientCredentials/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/Introspection/">
     <File Path="IdentityServer\v8\Basics\Introspection\README.md" />
@@ -456,9 +446,9 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/JwtBasedClientAuthentication/">
     <File Path="IdentityServer\v8\Basics\JwtBasedClientAuthentication\JwtBasedClientAuthentication.slnx" />
-    <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
     <File Path="IdentityServer\v8\Basics\JwtBasedClientAuthentication\README.md" />
     <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/JwtBasedClientAuthentication.AppHost/JwtBasedClientAuthentication.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/Basics/JwtBasedClientAuthentication/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcBackChannelLogout/">
     <File Path="IdentityServer\v8\Basics\MvcBackChannelLogout\README.md" />
@@ -476,14 +466,14 @@
     <Project Path="IdentityServer/v8/Basics/MvcJarJwt/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcPar/">
-    <Project Path="IdentityServer/v8/Basics/MvcPar/src/Client.csproj" />
     <File Path="IdentityServer\v8\Basics\MvcPar\README.md" />
     <Project Path="IdentityServer/v8/Basics/MvcPar/MvcPar.AppHost/MvcPar.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/Basics/MvcPar/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Basics/MvcTokenManagement/">
-    <Project Path="IdentityServer/v8/Basics/MvcTokenManagement/src/Client.csproj" />
     <File Path="IdentityServer\v8\Basics\MvcTokenManagement\README.md" />
     <Project Path="IdentityServer/v8/Basics/MvcTokenManagement/MvcTokenManagement.AppHost/MvcTokenManagement.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/Basics/MvcTokenManagement/src/Client.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Configuration/" />
   <Folder Name="/IdentityServer/v8/Configuration/IdentityServerHost/">
@@ -523,8 +513,8 @@
   <Folder Name="/IdentityServer/v8/DPoP/">
     <Project Path="IdentityServer/v8/DPoP/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/DPoP/ClientCredentials/ClientCredentials.csproj" />
-    <Project Path="IdentityServer/v8/DPoP/WebClient/WebClient.csproj" />
     <Project Path="IdentityServer/v8/DPoP/DPoP.AppHost/DPoP.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/DPoP/WebClient/WebClient.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/IdentityServerHost/">
     <Project Path="IdentityServer/v8/IdentityServerHost/src/IdentityServerHost.csproj" />
@@ -542,6 +532,7 @@
     <Project Path="IdentityServer/v8/MTLS/MTLS.AppHost/MTLS.AppHost.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/PAT/">
+    <File Path="IdentityServer/v8/PAT/README.md" />
     <Project Path="IdentityServer/v8/PAT/Api/Api.csproj" />
     <Project Path="IdentityServer/v8/PAT/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/PAT/IdentityServerHost/IdentityServerHost.csproj" />
@@ -551,12 +542,14 @@
   <Folder Name="/IdentityServer/v8/Quickstarts/1_ClientCredentials/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/1_ClientCredentials/src/">
     <Project Path="IdentityServer/v8/Quickstarts/1_ClientCredentials/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/1_ClientCredentials/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/1_ClientCredentials/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/1_ClientCredentials/src/IdentityServer/IdentityServer.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/Quickstarts/2_InteractiveAspNetCore/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/2_InteractiveAspNetCore/src/">
     <Project Path="IdentityServer/v8/Quickstarts/2_InteractiveAspNetCore/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/2_InteractiveAspNetCore/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/2_InteractiveAspNetCore/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/2_InteractiveAspNetCore/src/IdentityServer/IdentityServer.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/2_InteractiveAspNetCore/src/WebClient/WebClient.csproj" />
@@ -564,6 +557,7 @@
   <Folder Name="/IdentityServer/v8/Quickstarts/3a_TokenManagement/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/3a_TokenManagement/src/">
     <Project Path="IdentityServer/v8/Quickstarts/3a_TokenManagement/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/3a_TokenManagement/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/3a_TokenManagement/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/3a_TokenManagement/src/IdentityServer/IdentityServer.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/3a_TokenManagement/src/WebClient/WebClient.csproj" />
@@ -571,6 +565,7 @@
   <Folder Name="/IdentityServer/v8/Quickstarts/3_AspNetCoreAndApis/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/3_AspNetCoreAndApis/src/">
     <Project Path="IdentityServer/v8/Quickstarts/3_AspNetCoreAndApis/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/3_AspNetCoreAndApis/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/3_AspNetCoreAndApis/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/3_AspNetCoreAndApis/src/IdentityServer/IdentityServer.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/3_AspNetCoreAndApis/src/WebClient/WebClient.csproj" />
@@ -578,6 +573,7 @@
   <Folder Name="/IdentityServer/v8/Quickstarts/4_EntityFramework/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/4_EntityFramework/src/">
     <Project Path="IdentityServer/v8/Quickstarts/4_EntityFramework/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/4_EntityFramework/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/4_EntityFramework/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/4_EntityFramework/src/IdentityServer/IdentityServer.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/4_EntityFramework/src/WebClient/WebClient.csproj" />
@@ -585,6 +581,7 @@
   <Folder Name="/IdentityServer/v8/Quickstarts/5_AspNetIdentity/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/5_AspNetIdentity/src/">
     <Project Path="IdentityServer/v8/Quickstarts/5_AspNetIdentity/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/5_AspNetIdentity/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/5_AspNetIdentity/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/5_AspNetIdentity/src/IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/5_AspNetIdentity/src/WebClient/WebClient.csproj" />
@@ -592,6 +589,7 @@
   <Folder Name="/IdentityServer/v8/Quickstarts/6_JS_without_backend/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/6_JS_without_backend/src/">
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_without_backend/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/6_JS_without_backend/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_without_backend/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_without_backend/src/IdentityServer/IdentityServer.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_without_backend/src/JavaScriptClient/JavaScriptClient.csproj" />
@@ -600,6 +598,7 @@
   <Folder Name="/IdentityServer/v8/Quickstarts/6_JS_with_backend/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/6_JS_with_backend/src/">
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_with_backend/src/Api/Api.csproj" />
+    <Project Path="IdentityServer/v8/Quickstarts/6_JS_with_backend/src/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_with_backend/src/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_with_backend/src/IdentityServer/IdentityServer.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/6_JS_with_backend/src/JavaScriptClient/JavaScriptClient.csproj" />
@@ -607,10 +606,12 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/Quickstarts/7_Blazor/" />
   <Folder Name="/IdentityServer/v8/Quickstarts/7_Blazor/src/">
+    <Project Path="IdentityServer/v8/Quickstarts/7_Blazor/AppHost/AppHost.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/7_Blazor/BFF/BFF.csproj" />
     <Project Path="IdentityServer/v8/Quickstarts/7_Blazor/BlazorWasm/BlazorWasm.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/ScopesAndResources/">
+    <File Path="IdentityServer\v8\ScopesAndResources\README.md" />
     <Project Path="IdentityServer/v8/ScopesAndResources/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/ScopesAndResources/IdentityServerHost/IdentityServerHost.csproj" />
     <Project Path="IdentityServer/v8/ScopesAndResources/ScopesAndResources.AppHost/ScopesAndResources.AppHost.csproj" />
@@ -627,6 +628,7 @@
   </Folder>
   <Folder Name="/IdentityServer/v8/UserInteraction/" />
   <Folder Name="/IdentityServer/v8/UserInteraction/Ciba/">
+    <File Path="IdentityServer/v8/UserInteraction/Ciba/README.md" />
     <Project Path="IdentityServer/v8/UserInteraction/Ciba/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/Ciba/IdentityServer.AppHost/IdentityServer.AppHost.csproj" />
     <Project Path="IdentityServer/v8/UserInteraction/Ciba/IdentityServerHost/IdentityServerHost.csproj" />
@@ -669,8 +671,8 @@
     <Project Path="IdentityServer/v8/SAML/Basic/ServiceProvider/ServiceProvider.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/SAML/IdPInitiated/">
-    <Project Path="IdentityServer/v8/SAML/IdPInitiated/IdPInitiated.AppHost/IdPInitiated.AppHost.csproj" />
     <Project Path="IdentityServer/v8/SAML/IdPInitiated/IdentityServerHost/IdentityServerHost.csproj" />
+    <Project Path="IdentityServer/v8/SAML/IdPInitiated/IdPInitiated.AppHost/IdPInitiated.AppHost.csproj" />
     <Project Path="IdentityServer/v8/SAML/IdPInitiated/ServiceProvider/ServiceProvider.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserManagement/" />
@@ -691,8 +693,15 @@
   <Folder Name="/various/" />
   <Folder Name="/various/clients/" />
   <Folder Name="/various/clients/Maui/" />
-  <Folder Name="/various/clients/Maui/MauiApp1/">
-    <Project Path="various/clients/Maui/MauiApp1/MauiApp1/MauiApp1.csproj" />
+  <Folder Name="/various/clients/Maui/net10/">
+    <Project Path="various/clients/Maui/net10/MauiApp1/MauiApp1.csproj">
+      <Deploy />
+    </Project>
+  </Folder>
+  <Folder Name="/various/clients/Maui/net9/">
+    <Project Path="various/clients/Maui/net9/MauiApp1/MauiApp1.csproj">
+      <Deploy />
+    </Project>
   </Folder>
   <Folder Name="/various/clients/Owin/">
     <Project Path="various/clients/Owin/IdentityServerHost/IdentityServerHost.csproj" />

@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Duende.IdentityServer.Configuration" />
     <PackageReference Include="Duende.IdentityServer.Configuration.EntityFramework" />
-    <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" />
+    <PackageReference Include="Duende.AspNetCore.Authentication.OAuth2Introspection" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
   </ItemGroup>

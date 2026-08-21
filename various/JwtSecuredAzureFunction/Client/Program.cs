@@ -4,7 +4,8 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using IdentityModel.Client;
+
+using Duende.IdentityModel.Client;
 
 namespace Client;
 

@@ -1,14 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
 using Client;
-using IdentityModel.Client;
+
+using Duende.IdentityModel.Client;
+
 using Microsoft.Owin.Security;
 
 namespace Mvc.Controllers
@@ -25,15 +26,9 @@ namespace Mvc.Controllers
         }
 
         [Authorize(Roles = "deliberately_absent")]
-        public async Task<ActionResult> AlwaysUnauthorized()
-        {
-            return View();
-        }
+        public async Task<ActionResult> AlwaysUnauthorized() => View();
 
-        public async Task<ActionResult> Forbidden()
-        {
-            return View();
-        }
+        public async Task<ActionResult> Forbidden() => View();
 
         [Authorize]
         public async Task<ActionResult> CallApi()

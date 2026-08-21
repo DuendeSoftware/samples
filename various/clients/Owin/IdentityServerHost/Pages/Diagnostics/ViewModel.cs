@@ -2,10 +2,11 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
-using IdentityModel;
+
 using Microsoft.AspNetCore.Authentication;
 
 namespace IdentityServerHost.Pages.Diagnostics;
@@ -19,7 +20,7 @@ public class ViewModel
         if (result.Properties.Items.ContainsKey("client_list"))
         {
             var encoded = result.Properties.Items["client_list"];
-            var bytes = Base64Url.Decode(encoded);
+            var bytes = Base64Url.DecodeFromChars(encoded);
             var value = Encoding.UTF8.GetString(bytes);
 
             Clients = JsonSerializer.Deserialize<string[]>(value);

@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Duende.IdentityServer.Services;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -15,15 +16,12 @@ public class LoggedOut : PageModel
 
     public LoggedOutViewModel View { get; set; }
 
-    public LoggedOut(IIdentityServerInteractionService interactionService)
-    {
-        _interactionService = interactionService;
-    }
+    public LoggedOut(IIdentityServerInteractionService interactionService) => _interactionService = interactionService;
 
     public async Task OnGet(string logoutId)
     {
         // get context information (client name, post logout redirect URI and iframe for federated signout)
-        var logout = await _interactionService.GetLogoutContextAsync(logoutId);
+        var logout = await _interactionService.GetLogoutContextAsync(logoutId, HttpContext.RequestAborted);
 
         View = new LoggedOutViewModel
         {

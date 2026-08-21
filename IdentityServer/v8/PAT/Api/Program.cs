@@ -3,6 +3,8 @@
 
 using Api;
 
+using Duende.AspNetCore.Authentication.OAuth2Introspection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();

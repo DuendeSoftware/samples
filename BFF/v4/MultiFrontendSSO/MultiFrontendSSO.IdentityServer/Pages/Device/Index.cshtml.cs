@@ -7,7 +7,9 @@ using Duende.IdentityServer.Extensions;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Validation;
+
 using IdentityServer.Pages.Consent;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -65,7 +67,7 @@ public class Index : PageModel
     public async Task<IActionResult> OnPost()
     {
         var request = await _interaction.GetAuthorizationContextAsync(
-            Input.UserCode ?? throw new ArgumentNullException(nameof(Input.UserCode)));
+            Input.UserCode ?? throw new ArgumentNullException(nameof(Input.UserCode)), HttpContext.RequestAborted);
 
         if (request == null)
         {
@@ -79,7 +81,7 @@ public class Index : PageModel
         {
             grantedConsent = new ConsentResponse
             {
-                Error = AuthorizationError.AccessDenied
+                Error = InteractionError.AccessDenied
             };
 
             // emit event
@@ -87,7 +89,7 @@ public class Index : PageModel
                 new ConsentDeniedEvent(
                     User.GetSubjectId(),
                     request.Client.ClientId,
-                    request.ValidatedResources.RawScopeValues));
+                    request.ValidatedResources.RawScopeValues), HttpContext.RequestAborted);
 
             Telemetry.Metrics.ConsentDenied(
                 request.Client.ClientId,
@@ -120,7 +122,7 @@ public class Index : PageModel
                         request.Client.ClientId,
                         request.ValidatedResources.RawScopeValues,
                         grantedConsent.ScopesValuesConsented,
-                        grantedConsent.RememberConsent));
+                        grantedConsent.RememberConsent), HttpContext.RequestAborted);
 
                 Telemetry.Metrics.ConsentGranted(
                     request.Client.ClientId,
@@ -145,7 +147,7 @@ public class Index : PageModel
         if (grantedConsent != null)
         {
             // communicate outcome of consent back to identityserver
-            await _interaction.HandleRequestAsync(Input.UserCode, grantedConsent);
+            await _interaction.HandleRequestAsync(Input.UserCode, grantedConsent, HttpContext.RequestAborted);
 
             // indicate that's it ok to redirect back to authorization endpoint
             return RedirectToPage("/Device/Success");
@@ -162,7 +164,7 @@ public class Index : PageModel
 
     private async Task<bool> SetViewModelAsync(string userCode)
     {
-        var request = await _interaction.GetAuthorizationContextAsync(userCode);
+        var request = await _interaction.GetAuthorizationContextAsync(userCode, HttpContext.RequestAborted);
         if (request != null)
         {
             View = CreateConsentViewModel(request);

@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web.Http;
+
 using Client;
-using IdentityModel.Client;
+
+using Duende.IdentityModel.Client;
+
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
+
 using Owin;
 
 namespace SimpleApi
@@ -31,7 +34,7 @@ namespace SimpleApi
                 },
             });
 
-            HttpConfiguration config = new HttpConfiguration();
+            var config = new HttpConfiguration();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "{controller}/{id}",

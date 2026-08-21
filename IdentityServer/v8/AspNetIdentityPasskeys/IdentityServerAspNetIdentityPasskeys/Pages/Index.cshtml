@@ -36,14 +36,14 @@
         </li>
     </ul>
 
-    @if (Model.License != null)
+    @if (Model.License?.IsConfigured is true)
     {
         <h2>License</h2>
         <dl>
             <dt>Serial Number</dt>
-            <dd>@Model.License.SerialNumber</dd>
+            <dd>@(Model.License.SerialNumber.HasValue ? Model.License.SerialNumber : "???")</dd>
             <dt>Expiration</dt>
-            <dd>@Model.License.Expiration!.Value.ToString("F") </dd>
+            <dd>@((Model.License.Expiration.HasValue) ? Model.License.Expiration.Value.ToString("F") : "???")</dd>
         </dl>
     }
 </div>

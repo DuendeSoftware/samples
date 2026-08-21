@@ -19,6 +19,4 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" />
   </ItemGroup>
 
-
-
 </Project>

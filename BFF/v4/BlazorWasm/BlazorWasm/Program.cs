@@ -1,6 +1,11 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
 using BlazorWasm;
+
 using Duende.Bff.Blazor.Client;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

@@ -33,7 +33,7 @@
     </li>
   </ul>
 
-  @if (Model.License != null && Model.License.IsConfigured)
+    @if (Model.License?.IsConfigured is true)
   {
     <h2>License</h2>
     <dl>

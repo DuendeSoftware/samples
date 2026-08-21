@@ -1,21 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+
 using Client;
-using IdentityModel.Client;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+
+using Duende.IdentityModel.Client;
+
 using Microsoft.Owin.Security;
 
 namespace WebForms
 {
-    public partial class CallApi : System.Web.UI.Page
+    public partial class CallApi : Page
     {
         protected string Payload;
 
@@ -48,10 +47,7 @@ namespace WebForms
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            RegisterAsyncTask(new PageAsyncTask(ApiRequest));
-        }
+        protected void Page_Load(object sender, EventArgs e) => RegisterAsyncTask(new PageAsyncTask(ApiRequest));
 
         private bool TokenIsExpired(AuthenticationProperties props)
         {

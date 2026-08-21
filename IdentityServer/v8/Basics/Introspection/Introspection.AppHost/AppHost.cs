@@ -6,6 +6,7 @@ builder.AddProject<Projects.ResourceBasedApi>("resource-based-api")
     .WaitFor(idp);
 
 builder.AddProject<Projects.Client>("client")
-    .WaitFor(idp);
+    .WaitFor(idp)
+    .WithEnvironment("IS_IN_ASPIRE", true.ToString());
 
 builder.Build().Run();

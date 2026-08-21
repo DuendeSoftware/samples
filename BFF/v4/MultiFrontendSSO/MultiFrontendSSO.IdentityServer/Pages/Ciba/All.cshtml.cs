@@ -3,6 +3,7 @@
 
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -19,5 +20,5 @@ public class AllModel : PageModel
 
     public IEnumerable<BackchannelUserLoginRequest> Logins { get; set; } = default!;
 
-    public async Task OnGet() => Logins = await _backchannelAuthenticationInteraction.GetPendingLoginRequestsForCurrentUserAsync();
+    public async Task OnGet() => Logins = await _backchannelAuthenticationInteraction.GetPendingLoginRequestsForCurrentUserAsync(HttpContext.RequestAborted);
 }

@@ -28,7 +28,7 @@ public static class Clients
     // way. We are doing this because we don't know the thumbprint or subject of
     // the certificate that mkcert will generate.
     private static X509Certificate2 ClientCert() =>
-        X509CertificateLoader.LoadPkcs12FromFile("../localhost-client.p12", "changeit");
+        X509CertificateLoader.LoadPkcs12FromFile("../../localhost-client.p12", "changeit");
     private static string ClientCertificateThumbprint() => ClientCert().Thumbprint;
     private static string ClientCertificateSubject() => ClientCert().Subject;
 
