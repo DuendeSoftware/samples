@@ -1,11 +1,18 @@
-# PAT sample
+# Client Credentials sample
 
-This sample shows how to create a Personal Access Token (PAT) for a signed in user.
+This sample shows how to use the client_credentials grant type. This is typically used for machine to machine communication.
 
-## Instructions to Use
+Key takeaways:
 
-1. Generate the token at https://localhost:5001/pat
-2. Copy/paste the token into the `generated-pat` Aspire parameter
-3. The `client` application will run automatically. You can restart it to run again, or change the parameter to experiment with it and then manually run the client console application again.
+- how to request a token using client credentials
+- how to use a shared secret
+- how to use an access token
 
 Please take a look [here](https://docs.duendesoftware.com/identityserver/samples) to learn about the structure of our samples and how to run them.
+
+## How to Run
+
+1. Run the Aspire project
+1. Notice the `client` application is not running. It has already run and completed.
+1. View the console output of the `client` application. Run it again if you would like.
+
