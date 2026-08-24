@@ -7,9 +7,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 using Client;
+
 using Duende.IdentityModel;
 using Duende.IdentityModel.Client;
+
 using Microsoft.IdentityModel.Tokens;
 
 // would normally load from a secure data store
@@ -45,7 +48,10 @@ static async Task<TokenResponse> RequestTokenAsync(SigningCredentials signingCre
     var client = new HttpClient();
 
     var disco = await client.GetDiscoveryDocumentAsync(Urls.IdentityServer);
-    if (disco.IsError) throw new Exception(disco.Error);
+    if (disco.IsError)
+    {
+        throw new Exception(disco.Error);
+    }
 
     var clientToken = CreateClientToken(signingCredentials, "jwt.client.credentials.sample", disco.Issuer);
     var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
@@ -61,7 +67,11 @@ static async Task<TokenResponse> RequestTokenAsync(SigningCredentials signingCre
         Scope = "scope1"
     });
 
-    if (response.IsError) throw new Exception(response.Error);
+    if (response.IsError)
+    {
+        throw new Exception(response.Error);
+    }
+
     return response;
 }
 

@@ -9,3 +9,9 @@ This sample shows how to use the client_credentials grant type with JWT-based cl
 - configure IdentityServer to accept a JWT as a client secret
 
  Please take a look [here](https://docs.duendesoftware.com/identityserver/samples) to learn about the structure of our samples and how to run them.
+  
+## How to Run
+
+1. Run the Aspire project
+1. Notice the `client` application is not running. It has already run and completed.
+1. View the console output of the `client` application. Run it again if you would like.

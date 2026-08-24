@@ -14,11 +14,7 @@ Console.Title = "Console Client Credentials Flow";
 var response = await RequestTokenAsync();
 response.Show();
 
-//When not run with Aspire, wait for user to initiate this client so services are started
-if (!string.Equals(Environment.GetEnvironmentVariable("IS_IN_ASPIRE"), true.ToString()))
-{
-    Console.ReadLine();
-}
+WaitToBegin();
 
 await CallServiceAsync(response.AccessToken);
 
@@ -62,4 +58,13 @@ static async Task CallServiceAsync(string token)
 
     "\n\nService claims:".ConsoleGreen();
     Console.WriteLine(response.PrettyPrintJson());
+}
+
+static void WaitToBegin()
+{
+    //When not run with Aspire, wait for user to initiate this client so services are started
+    if (!string.Equals(Environment.GetEnvironmentVariable("IS_IN_ASPIRE"), true.ToString()))
+    {
+        Console.ReadLine();
+    }
 }
