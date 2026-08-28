@@ -3,8 +3,11 @@
 
 using System.Security.Cryptography;
 using System.Text.Json;
+
 using ConsoleDcrClient;
+
 using Duende.IdentityModel.Client;
+
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
@@ -13,20 +16,18 @@ Console.Title = "DCR Client";
 "Obtaining initial access token".ConsoleYellow();
 var tokenResponse = await RequestTokenAsync();
 tokenResponse.Show();
-Console.ReadLine();
 
 "\n\nRegistering dynamic client".ConsoleYellow();
 var dcrResponse = await RegisterClient(tokenResponse.AccessToken);
-Console.ReadLine();
 
 "\n\nObtaining access token for dynamic client".ConsoleYellow();
 var dynamicClientToken = await RequestTokenAsync(dcrResponse.ClientId, dcrResponse.ClientSecret);
 dynamicClientToken.Show();
-Console.ReadLine();
 
 "\n\nCalling API".ConsoleYellow();
 await CallServiceAsync(dynamicClientToken.AccessToken);
-Console.ReadLine();
+
+await OutputEndMessageAsync();
 
 static async Task<DynamicClientRegistrationResponse> RegisterClient(string accessToken)
 {
@@ -90,7 +91,10 @@ static async Task<TokenResponse> RequestTokenAsync(string clientId = "client", s
     var client = new HttpClient();
 
     var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
-    if (disco.IsError) throw new Exception(disco.Error);
+    if (disco.IsError)
+    {
+        throw new Exception(disco.Error);
+    }
 
     var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
     {
@@ -100,7 +104,11 @@ static async Task<TokenResponse> RequestTokenAsync(string clientId = "client", s
         ClientSecret = clientSecret,
     });
 
-    if (response.IsError) throw new Exception(response.Error);
+    if (response.IsError)
+    {
+        throw new Exception(response.Error);
+    }
+
     return response;
 }
 
@@ -118,4 +126,12 @@ static async Task CallServiceAsync(string token)
 
     "\n\nService claims:".ConsoleGreen();
     Console.WriteLine(response.PrettyPrintJson());
+}
+
+async Task OutputEndMessageAsync()
+{
+    //Sometimes the app closes before the Aspire console receives all output
+    //  Delay to ensure output makes it to the console
+    await Task.Delay(100);
+    Console.WriteLine("Complete");
 }

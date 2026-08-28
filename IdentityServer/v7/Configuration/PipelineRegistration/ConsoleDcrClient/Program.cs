@@ -2,12 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Text.Json;
+
 using ConsoleDcrClient;
+
 using Duende.IdentityModel.Client;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 
 Console.Title = "DCR Client using PAT";
 
@@ -18,7 +20,7 @@ var pat = config.GetValue<string>("IdentityServer.Configuration:PAT");
 while (string.IsNullOrEmpty(pat))
 {
     "No Personal Access Token (PAT) configured. You can create a PAT by going to https://localhost:5001/PAT. Then enter your PAT here, or add it to configuration using user-secrets, environment variables, etc".ConsoleYellow();
-    pat = Console.ReadLine();
+    return;
 }
 
 "\n\nRegistering dynamic client".ConsoleYellow();
@@ -38,17 +40,14 @@ else
     "and use it to call a sample API".ConsoleGreen();
 }
 
-Console.ReadLine();
-
 "\n\nObtaining access token for dynamic client".ConsoleYellow();
 var dynamicClientToken = await RequestTokenAsync(dcrResponse.ClientId, dcrResponse.ClientSecret);
 dynamicClientToken.Show();
-Console.ReadLine();
 
 "\n\nCalling API".ConsoleYellow();
 await CallServiceAsync(dynamicClientToken.AccessToken);
-Console.ReadLine();
 
+await OutputEndMessageAsync();
 static async Task<DynamicClientRegistrationResponse> RegisterClient(string accessToken)
 {
     var client = new HttpClient();
@@ -82,7 +81,10 @@ static async Task<TokenResponse> RequestTokenAsync(string clientId, string clien
     var client = new HttpClient();
 
     var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
-    if (disco.IsError) throw new Exception(disco.Error);
+    if (disco.IsError)
+    {
+        throw new Exception(disco.Error);
+    }
 
     var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
     {
@@ -92,7 +94,11 @@ static async Task<TokenResponse> RequestTokenAsync(string clientId, string clien
         ClientSecret = clientSecret,
     });
 
-    if (response.IsError) throw new Exception(response.Error);
+    if (response.IsError)
+    {
+        throw new Exception(response.Error);
+    }
+
     return response;
 }
 
@@ -110,4 +116,11 @@ static async Task CallServiceAsync(string token)
 
     "\n\nService claims:".ConsoleGreen();
     Console.WriteLine(response.PrettyPrintJson());
+}
+async Task OutputEndMessageAsync()
+{
+    //Sometimes the app closes before the Aspire console receives all output
+    //  Delay to ensure output makes it to the console
+    await Task.Delay(100);
+    Console.WriteLine("Complete");
 }

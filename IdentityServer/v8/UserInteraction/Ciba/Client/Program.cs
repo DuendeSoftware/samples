@@ -21,7 +21,6 @@ public class Program
         var tokenResponse = await RequestTokenAsync(loginResponse);
         tokenResponse.Show();
 
-        Console.ReadLine();
         await CallServiceAsync(tokenResponse.AccessToken);
     }
 
@@ -65,12 +64,7 @@ public class Program
         Console.WriteLine($"Interval                    : {response.Interval}");
         Console.WriteLine();
 
-        //When not run with Aspire, wait for user to initiate this client so services are started
-        if (!string.Equals(Environment.GetEnvironmentVariable("IS_IN_ASPIRE"), true.ToString()))
-        {
-            Console.WriteLine($"\nPress enter to start polling the token endpoint.");
-            Console.ReadLine();
-        }
+        WaitToStart();
 
         return response;
     }
@@ -128,5 +122,15 @@ public class Program
 
         "\n\nService claims:".ConsoleGreen();
         Console.WriteLine(response.PrettyPrintJson());
+    }
+
+    static void WaitToStart()
+    {
+        //When not run with Aspire, wait for user to initiate this client so services are started
+        if (!string.Equals(Environment.GetEnvironmentVariable("IS_IN_ASPIRE"), true.ToString()))
+        {
+            Console.WriteLine($"\nPress enter to start polling the token endpoint.");
+            Console.ReadLine();
+        }
     }
 }

@@ -2,26 +2,24 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Text.Json;
-using ConsoleDcrClient;
-using Duende.IdentityModel.Client;
 
+using ConsoleDcrClient;
+
+using Duende.IdentityModel.Client;
 
 Console.Title = "DCR Client";
 
 "Obtaining initial access token (which does not allow setting client secrets)".ConsoleYellow();
 var badTokenResponse = await RequestTokenAsync(scope: "IdentityServer.Configuration");
 badTokenResponse.Show();
-Console.ReadLine();
 
 "\n\nAttempting to register a dynamic client with a specific client secret, but without needed scope".ConsoleYellow();
 var badDcrResponse = await RegisterClient(badTokenResponse.AccessToken);
 "This succeeded, but ignored our attempt to set a client secret.".ConsoleYellow();
-Console.ReadLine();
 
 $"\n\nObtaining access token for dynamic client using clientId: {badDcrResponse.ClientId} and secret {badDcrResponse.ClientSecret}".ConsoleYellow();
 var badDynamicClientToken = await RequestTokenAsync(badDcrResponse.ClientId, badDcrResponse.ClientSecret);
 badDynamicClientToken.Show();
-Console.ReadLine();
 
 "Obtaining a new access token (which does allow setting client secret)".ConsoleYellow();
 var goodTokenResponse = await RequestTokenAsync(scope: "IdentityServer.Configuration IdentityServer.Configuration:SetClientSecret");
@@ -31,16 +29,15 @@ Console.ReadLine();
 "\n\nReattempting to register a dynamic client with a specific client secret".ConsoleYellow();
 var goodDcrResponse = await RegisterClient(goodTokenResponse.AccessToken);
 "This succeeded, and respected our attempt to set a client secret.".ConsoleYellow();
-Console.ReadLine();
 
 $"\n\nObtaining access token for dynamic client using clientId: {goodDcrResponse.ClientId} and secret {goodDcrResponse.ClientSecret}".ConsoleYellow();
 var dynamicClientToken = await RequestTokenAsync(goodDcrResponse.ClientId, goodDcrResponse.ClientSecret);
 dynamicClientToken.Show();
-Console.ReadLine();
 
 "\n\nCalling API".ConsoleYellow();
 await CallServiceAsync(dynamicClientToken.AccessToken);
-Console.ReadLine();
+
+await OutputEndMessageAsync();
 
 static async Task<DynamicClientRegistrationResponse> RegisterClient(string accessToken)
 {
@@ -78,7 +75,10 @@ static async Task<TokenResponse> RequestTokenAsync(string clientId = "client", s
     var client = new HttpClient();
 
     var disco = await client.GetDiscoveryDocumentAsync(Constants.Authority);
-    if (disco.IsError) throw new Exception(disco.Error);
+    if (disco.IsError)
+    {
+        throw new Exception(disco.Error);
+    }
 
     var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
     {
@@ -89,7 +89,11 @@ static async Task<TokenResponse> RequestTokenAsync(string clientId = "client", s
         Scope = scope
     });
 
-    if (response.IsError) throw new Exception(response.Error);
+    if (response.IsError)
+    {
+        throw new Exception(response.Error);
+    }
+
     return response;
 }
 
@@ -110,3 +114,11 @@ static async Task CallServiceAsync(string token)
 }
 
 static JsonElement AsJsonElement(string s) => JsonDocument.Parse($"\"{s}\"").RootElement;
+
+async Task OutputEndMessageAsync()
+{
+    //Sometimes the app closes before the Aspire console receives all output
+    //  Delay to ensure output makes it to the console
+    await Task.Delay(100);
+    Console.WriteLine("Complete");
+}
