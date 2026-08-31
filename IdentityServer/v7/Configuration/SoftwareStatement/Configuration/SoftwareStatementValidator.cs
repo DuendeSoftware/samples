@@ -2,10 +2,12 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using System.Security.Cryptography;
+
 using Duende.IdentityServer.Configuration.Models;
 using Duende.IdentityServer.Configuration.Models.DynamicClientRegistration;
 using Duende.IdentityServer.Configuration.Validation.DynamicClientRegistration;
 using Duende.IdentityModel;
+
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
@@ -17,12 +19,12 @@ public class SoftwareStatementValidator : DynamicClientRegistrationValidator
     {
     }
 
-    protected override Task<IStepResult> ValidateSoftwareStatementAsync(DynamicClientRegistrationContext context)
+    protected override async Task<IStepResult> ValidateSoftwareStatementAsync(DynamicClientRegistrationContext context)
     {
         var rawSoftwareStatement = context.Request.SoftwareStatement;
         if (string.IsNullOrEmpty(rawSoftwareStatement))
         {
-            return StepResult.Success();
+            return await StepResult.Success();
         }
 
         var handler = new JsonWebTokenHandler();
@@ -49,7 +51,7 @@ public class SoftwareStatementValidator : DynamicClientRegistrationValidator
             ValidateLifetime = false
         };
 
-        var validateResult = handler.ValidateToken(rawSoftwareStatement, parms);
+        var validateResult = await handler.ValidateTokenAsync(rawSoftwareStatement, parms);
         if (validateResult.IsValid)
         {
             // Here, you should set client metadata values based on claims in
@@ -68,13 +70,11 @@ public class SoftwareStatementValidator : DynamicClientRegistrationValidator
                 context.Request.ClientName = validateResult.Claims[OidcConstants.ClientMetadata.ClientName].ToString();
             }
 
-            return StepResult.Success();
+            return await StepResult.Success();
         }
         else
         {
-            return StepResult.Failure("Invalid software statement", "invalid_software_statement");
+            return await StepResult.Failure("Invalid software statement", "invalid_software_statement");
         }
-
-
     }
 }

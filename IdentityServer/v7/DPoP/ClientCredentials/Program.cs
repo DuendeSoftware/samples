@@ -4,8 +4,10 @@
 using System;
 using System.Security.Cryptography;
 using System.Text.Json;
+
 using Duende.AccessTokenManagement;
 using Duende.AccessTokenManagement.DPoP;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -60,5 +62,4 @@ public class Program
         var jwkJson = JsonSerializer.Serialize(jwk);
         return jwkJson;
     }
-
 }

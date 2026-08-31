@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Clients;
+
 using Duende.IdentityModel;
 using Duende.IdentityModel.Client;
 
@@ -20,14 +21,16 @@ public class Program
         var tokenResponse = await RequestTokenAsync(loginResponse);
         tokenResponse.Show();
 
-        Console.ReadLine();
         await CallServiceAsync(tokenResponse.AccessToken);
     }
 
     static async Task<BackchannelAuthenticationResponse> RequestBackchannelLoginAsync()
     {
         var disco = await _cache.GetAsync();
-        if (disco.IsError) throw new Exception(disco.Error);
+        if (disco.IsError)
+        {
+            throw new Exception(disco.Error);
+        }
 
         var cibaEp = disco.BackchannelAuthenticationEndpoint;
 
@@ -49,7 +52,10 @@ public class Program
         var client = new HttpClient();
         var response = await client.RequestBackchannelAuthenticationAsync(req);
 
-        if (response.IsError) throw new Exception(response.Error);
+        if (response.IsError)
+        {
+            throw new Exception(response.Error);
+        }
 
         Console.WriteLine($"Login Hint                  : {username}");
         Console.WriteLine($"Binding Message             : {bindingMessage}");
@@ -58,8 +64,7 @@ public class Program
         Console.WriteLine($"Interval                    : {response.Interval}");
         Console.WriteLine();
 
-        Console.WriteLine($"\nPress enter to start polling the token endpoint.");
-        Console.ReadLine();
+        WaitToStart();
 
         return response;
     }
@@ -67,7 +72,10 @@ public class Program
     private static async Task<TokenResponse> RequestTokenAsync(BackchannelAuthenticationResponse authorizeResponse)
     {
         var disco = await _cache.GetAsync();
-        if (disco.IsError) throw new Exception(disco.Error);
+        if (disco.IsError)
+        {
+            throw new Exception(disco.Error);
+        }
 
         var client = new HttpClient();
 
@@ -114,5 +122,15 @@ public class Program
 
         "\n\nService claims:".ConsoleGreen();
         Console.WriteLine(response.PrettyPrintJson());
+    }
+
+    static void WaitToStart()
+    {
+        //When not run with Aspire, wait for user to initiate this client so services are started
+        if (!string.Equals(Environment.GetEnvironmentVariable("IS_IN_ASPIRE"), true.ToString()))
+        {
+            Console.WriteLine($"\nPress enter to start polling the token endpoint.");
+            Console.ReadLine();
+        }
     }
 }
