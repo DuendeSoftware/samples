@@ -97,8 +97,8 @@ static async Task CallServiceAsync(string token)
 
 async Task OutputEndMessageAsync()
 {
-    //Sometimes the app closes before the Aspire console receives all output
-    //  Delay to ensure output makes it to the console
+    // Sometimes the app closes before the Aspire console receives all output
+    // Delay to ensure output makes it to the console
     await Task.Delay(100);
     Console.WriteLine("Complete");
 }
