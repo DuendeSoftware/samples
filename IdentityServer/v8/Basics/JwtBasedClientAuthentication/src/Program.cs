@@ -47,6 +47,8 @@ static async Task<TokenResponse> RequestTokenAsync(SigningCredentials signingCre
     var disco = await client.GetDiscoveryDocumentAsync(Urls.IdentityServer);
     if (disco.IsError) throw new Exception(disco.Error);
 
+    // Audience is the authorization server's issuer identifier (not the token
+    // endpoint), as recommended by RFC 7523bis for client authentication JWTs.
     var clientToken = CreateClientToken(signingCredentials, "jwt.client.credentials.sample", disco.Issuer);
     var response = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
     {
