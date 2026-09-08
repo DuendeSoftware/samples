@@ -1,0 +1,10 @@
+<Project>
+  <!-- Sample-wide defaults shared by all projects in Spaces. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- NU1902: transitive MessagePack 2.5.192 (via Aspire/StreamJsonRpc) has a known moderate severity advisory (GHSA-wfr3-xj75-pfwh). -->
+    <NoWarn>$(NoWarn);NU1902</NoWarn>
+  </PropertyGroup>
+</Project>

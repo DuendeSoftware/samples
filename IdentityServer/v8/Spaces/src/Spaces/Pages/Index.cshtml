@@ -1,0 +1,172 @@
+@page
+@model Spaces.Pages.IndexModel
+@{
+    ViewData["Title"] = Model.SpaceName != null ? $"Space: {Model.SpaceName}" : "Home";
+}
+
+<div class="space-home">
+
+    <section class="card space-info">
+        <h1>
+            Spaces Demo
+            @if (Model.SpaceName != null)
+            {
+                <span class="badge">@Model.SpaceName</span>
+            }
+        </h1>
+
+        @if (Model.SpaceId != null)
+        {
+            <p class="space-id">Space ID: <code>@Model.SpaceId</code></p>
+        }
+
+    </section>
+
+    <section class="card space-nav">
+        <h2>All Spaces</h2>
+        <ul class="space-links">
+            @foreach (var link in Model.SpaceLinks)
+            {
+                var isCurrent = link.Name == Model.SpaceName;
+                <li class="@(isCurrent ? "current-space" : "")">
+                    @if (isCurrent)
+                    {
+                        <strong>@link.Name</strong>
+                        <span class="current-label">(you are here)</span>
+                    }
+                    else
+                    {
+                        <a href="@link.Url">@link.Name <code>@link.Url</code></a>
+                    }
+                </li>
+                if (link.Name == "Default")
+                {
+                  <p>
+                    The Default Space is the catch all for any unmatched routes.
+                  </p>
+                }
+            }
+        </ul>
+    </section>
+
+    <section class="card auth-area">
+        <h2>Authentication</h2>
+        @if (Model.IsSignedIn)
+        {
+            <p>Signed in as <strong>@Model.SignedInUser</strong></p>
+            <a class="btn" asp-page="/Account/Logout">Sign out</a>
+
+            @if (Model.UserClaims.Count > 0)
+            {
+                <h3>Your Claims</h3>
+                <table class="claims-table">
+                    <thead>
+                        <tr><th>Type</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var (type, value) in Model.UserClaims)
+                        {
+                            <tr><td><code>@type</code></td><td>@value</td></tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        else
+        {
+            <p>You are not signed in.</p>
+            <a class="btn" asp-page="/Account/Login">Sign in</a>
+        }
+    </section>
+
+    <section class="card token-request">
+        <h2>Client Credentials Token Request</h2>
+        <p>
+            Requests a <code>client_credentials</code> access token entirely server-side.
+            The browser never sends or receives the client secret.
+        </p>
+
+        <form method="post" asp-page-handler="RequestToken">
+            @Html.AntiForgeryToken()
+
+            <fieldset class="client-selector">
+                <legend>Select client</legend>
+                <label>
+                    <input type="radio" name="SelectedClient" value="space" checked="@(Model.SelectedClient == "space")" />
+                    Space client — <code>@Model.SpaceClientId</code>
+                </label>
+                <label>
+                    <input type="radio" name="SelectedClient" value="example" checked="@(Model.SelectedClient == "example")" />
+                    Example client — <code>@IndexModel.ExampleClientId</code> <span class="note">(shared across all spaces)</span>
+                </label>
+            </fieldset>
+
+            <button type="submit" class="btn">Request Token</button>
+        </form>
+
+        @if (Model.TokenError != null)
+        {
+            <div class="token-error">
+                <strong>Error:</strong> @Model.TokenError
+                @if (Model.TokenRawResponse != null)
+                {
+                    <pre class="token-raw">@Model.TokenRawResponse</pre>
+                }
+            </div>
+        }
+
+        @if (Model.TokenDisplay != null)
+        {
+            var td = Model.TokenDisplay;
+            <div class="token-output">
+                <h3>Token Output</h3>
+                @if (Model.TokenClientId != null)
+                {
+                    <p class="token-meta">Client ID: <code>@Model.TokenClientId</code></p>
+                }
+
+                @* Raw token *@
+                <h4>Raw Access Token</h4>
+                <div class="token-raw-wrap">
+                    <code class="token-raw-value">@td.RawToken</code>
+                </div>
+
+                @if (td.IsOpaqueToken)
+                {
+                    <div class="token-opaque-note">
+                        <strong>Note:</strong> This is an opaque/reference token and cannot be decoded
+                        as a JWT. Use the IdentityServer introspection endpoint to inspect its claims.
+                    </div>
+                }
+                else
+                {
+                    @* JWT header *@
+                    <h4>JWT Header</h4>
+                    <pre class="token-json">@td.HeaderJson</pre>
+
+                    @* JWT payload *@
+                    <h4>JWT Payload</h4>
+                    <pre class="token-json">@td.PayloadJson</pre>
+
+                    @* Claims table *@
+                    @if (td.Claims is { Count: > 0 })
+                    {
+                        <h4>Claims</h4>
+                        <table class="claims-table">
+                            <thead>
+                                <tr><th>Claim Type</th><th>Value</th></tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var claim in td.Claims)
+                                {
+                                    <tr><td><code>@claim.Type</code></td><td>@claim.Value</td></tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                }
+            </div>
+        }
+    </section>
+
+</div>

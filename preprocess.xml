@@ -1,6 +1,6 @@
 <!--
 ============================================================================================================================================
-D:\weave\samples\IdentityServer\v8\MultiSpace\MultiSpace\MultiSpace.csproj
+D:\weave\samples\IdentityServer\v8\Spaces\Spaces\Spaces.csproj
 ============================================================================================================================================
 -->
 <Project DefaultTargets="Build">
@@ -141,10 +141,10 @@ Copyright (C) Microsoft Corporation. All rights reserved.
 ============================================================================================================================================
   <Import Project="$(DirectoryBuildPropsPath)" Condition="'$(ImportDirectoryBuildProps)' == 'true' and exists('$(DirectoryBuildPropsPath)')">
 
-D:\weave\samples\IdentityServer\v8\MultiSpace\Directory.Build.props
+D:\weave\samples\IdentityServer\v8\Spaces\Directory.Build.props
 ============================================================================================================================================
 -->
-  <!-- Sample-wide defaults shared by all projects in MultiSpace. -->
+  <!-- Sample-wide defaults shared by all projects in Spaces. -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
@@ -236,7 +236,7 @@ C:\Program Files\dotnet\sdk\10.0.302\Current\Microsoft.Common.props
 ============================================================================================================================================
   <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props" Condition="'$(ImportProjectExtensionProps)' == 'true' and exists('$(MSBuildProjectExtensionsPath)')">
 
-D:\weave\samples\IdentityServer\v8\MultiSpace\MultiSpace\obj\MultiSpace.csproj.nuget.g.props
+D:\weave\samples\IdentityServer\v8\Spaces\Spaces\obj\Spaces.csproj.nuget.g.props
 ============================================================================================================================================
 -->
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' " xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -339,7 +339,7 @@ Copyright (c) .NET Foundation. All rights reserved.
 ============================================================================================================================================
   <Import Project="$(DirectoryPackagesPropsPath)" Condition="'$(ImportDirectoryPackagesProps)' == 'true' and '$(DirectoryPackagesPropsPath)' != '' and Exists('$(DirectoryPackagesPropsPath)')">
 
-D:\weave\samples\IdentityServer\v8\MultiSpace\Directory.Packages.props
+D:\weave\samples\IdentityServer\v8\Spaces\Directory.Packages.props
 ============================================================================================================================================
 -->
   <PropertyGroup>
@@ -2141,7 +2141,7 @@ C:\Program Files\dotnet\sdk\10.0.302\Sdks\Microsoft.NET.Sdk.Web\Sdk\Sdk.props
 ============================================================================================================================================
   </Import>
 
-D:\weave\samples\IdentityServer\v8\MultiSpace\MultiSpace\MultiSpace.csproj
+D:\weave\samples\IdentityServer\v8\Spaces\Spaces\Spaces.csproj
 ============================================================================================================================================
 -->
   <PropertyGroup>
@@ -2149,7 +2149,7 @@ D:\weave\samples\IdentityServer\v8\MultiSpace\MultiSpace\MultiSpace.csproj
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Duende.IdentityServer" />
-    <PackageReference Include="Duende.MultiSpace" />
+    <PackageReference Include="Duende.Spaces" />
     <PackageReference Include="Duende.Storage.Sqlite" />
     <PackageReference Include="Duende.UserManagement.IdentityServer8" />
   </ItemGroup>
@@ -11154,7 +11154,7 @@ C:\Program Files\dotnet\sdk\10.0.302\Microsoft.Common.targets
 ============================================================================================================================================
   <Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets" Condition="'$(ImportProjectExtensionTargets)' == 'true' and exists('$(MSBuildProjectExtensionsPath)')">
 
-D:\weave\samples\IdentityServer\v8\MultiSpace\MultiSpace\obj\MultiSpace.csproj.nuget.g.targets
+D:\weave\samples\IdentityServer\v8\Spaces\Spaces\obj\Spaces.csproj.nuget.g.targets
 ============================================================================================================================================
 -->
   <!--
@@ -22711,7 +22711,7 @@ C:\Program Files\dotnet\sdk\10.0.302\Sdks\Microsoft.NET.Sdk.Web\Sdk\Sdk.targets
 ============================================================================================================================================
   </Import>
 
-D:\weave\samples\IdentityServer\v8\MultiSpace\MultiSpace\MultiSpace.csproj
+D:\weave\samples\IdentityServer\v8\Spaces\Spaces\Spaces.csproj
 ============================================================================================================================================
 -->
 </Project>

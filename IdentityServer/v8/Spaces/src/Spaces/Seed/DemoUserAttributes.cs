@@ -1,0 +1,98 @@
+// Copyright (c) Duende Software. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
+using Duende.IdentityServer.Models;
+using Duende.IdentityServer.Stores.Storage;
+using Duende.Storage.EntityAttributeValue;
+
+namespace Spaces.Seed;
+
+/// <summary>
+/// Set of example attributes that are used during authentication
+/// </summary>
+public class DemoUserAttributes
+{
+    public static readonly AttributeDefinition UserName = new()
+    {
+        Code = AttributeCode.Create("UserName"),
+        AttributeType = new ScalarAttributeType(ScalarDataType.String),
+        Description = AttributeDescription.Create("The Username to be used in username / password auth. "),
+        // Note, username has to be a unique property to be able to use it
+        // for username / password authentication. 
+        IsUnique = true
+    };
+
+    public static readonly AttributeDefinition Email = new()
+    {
+        Code = AttributeCode.Create("Email"),
+        AttributeType = new ScalarAttributeType(ScalarDataType.String),
+        Description = AttributeDescription.Create("The Email of the user")
+    };
+}
+
+internal static class OidcProviderSchema
+{
+    /// <summary>The base address of the OIDC provider (e.g. <c>https://idp.example.com</c>).</summary>
+    public static readonly TypedAttributeDefinition<string> Authority =
+        new(AttributeCode.Create("Authority"), new ScalarAttributeType(ScalarDataType.String));
+
+    /// <summary>The client ID used to authenticate with the external OIDC provider.</summary>
+    public static readonly TypedAttributeDefinition<string> ClientId =
+        new(AttributeCode.Create("ClientId"), new ScalarAttributeType(ScalarDataType.String));
+
+    /// <summary>The client secret used to authenticate with the external OIDC provider.</summary>
+    public static readonly TypedAttributeDefinition<string> ClientSecret =
+        new(AttributeCode.Create("ClientSecret"), new ScalarAttributeType(ScalarDataType.String));
+
+    /// <summary>The response type (e.g. <c>id_token</c>). Defaults to <c>id_token</c> if not set.</summary>
+    public static readonly TypedAttributeDefinition<string> ResponseType =
+        new(AttributeCode.Create("ResponseType"), new ScalarAttributeType(ScalarDataType.String));
+
+    /// <summary>Space-separated scope values (e.g. <c>openid profile</c>). Defaults to <c>openid</c> if not set.</summary>
+    public static readonly TypedAttributeDefinition<string> Scope =
+        new(AttributeCode.Create("Scope"), new ScalarAttributeType(ScalarDataType.String));
+
+    /// <summary>
+    /// Whether to contact the userinfo endpoint. Stored as <c>"true"</c> or <c>"false"</c>.
+    /// Defaults to <c>true</c> if not set.
+    /// </summary>
+    /// <remarks>
+    /// Defined as <c>string</c> (not <c>bool</c>) because <see cref="OidcProvider"/> reads these
+    /// values from the Properties dictionary via string comparison, and
+    /// <see cref="EavPropertyMapper.ExtractStringProperties"/> must round-trip them as strings.
+    /// </remarks>
+    public static readonly TypedAttributeDefinition<string> GetClaimsFromUserInfoEndpoint =
+        new(AttributeCode.Create("GetClaimsFromUserInfoEndpoint"), new ScalarAttributeType(ScalarDataType.String));
+
+    /// <summary>
+    /// Whether PKCE should be used. Stored as <c>"true"</c> or <c>"false"</c>.
+    /// Defaults to <c>true</c> if not set.
+    /// </summary>
+    /// <remarks>
+    /// Defined as <c>string</c> (not <c>bool</c>) because <see cref="OidcProvider"/> reads these
+    /// values from the Properties dictionary via string comparison, and
+    /// <see cref="EavPropertyMapper.ExtractStringProperties"/> must round-trip them as strings.
+    /// </remarks>
+    public static readonly TypedAttributeDefinition<string> UsePkce =
+        new(AttributeCode.Create("UsePkce"), new ScalarAttributeType(ScalarDataType.String));
+
+    /// <summary>
+    /// The built-in schema for OIDC identity providers, registered with schema ID <c>idp:oidc</c>.
+    /// </summary>
+    public static readonly SchemaConfiguration Schema = new()
+    {
+        SchemaId = SchemaId.IdentityProvider("oidc"),
+        DisplayName = "OIDC Identity Provider",
+        Description = "Built-in schema for OpenID Connect identity providers.",
+        AttributeDefinitions =
+        [
+            Authority,
+            ClientId,
+            ClientSecret,
+            ResponseType,
+            Scope,
+            GetClaimsFromUserInfoEndpoint,
+            UsePkce
+        ]
+    };
+}

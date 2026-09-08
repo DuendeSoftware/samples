@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <!-- Enable central package management, https://learn.microsoft.com/en-us/nuget/consume-packages/Central-Package-Management -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Duende.IdentityServer" Version="8.1.0-preview.3" />
+    <PackageVersion Include="Duende.Spaces" Version="1.0.0-preview.2" />
+    <PackageVersion Include="Duende.Storage" Version="2.0.0-preview.2" />
+    <PackageVersion Include="Duende.Storage.Sqlite" Version="2.0.0-preview.2" />
+    <PackageVersion Include="Duende.UserManagement.IdentityServer8" Version="2.0.0-preview.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.5.3" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="13.5.3" />
+    <PackageVersion Include="IdentityModel" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Playwright" Version="1.62.0" />
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="4.0.0" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <GlobalPackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" PrivateAssets="all" />
+  </ItemGroup>
+</Project>
