@@ -1,0 +1,213 @@
+@page
+@model Storage.Pages.Account.LoginModel
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in | Duende IdentityServer</title>
+    <style>
+        :root {
+            --charcoal: #2a2929;
+            --blue-focus: rgba(116, 172, 251, .4);
+            --beige: #f3f2e9;
+            --error: #c5122c;
+
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--charcoal);
+            background: var(--beige);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: grid;
+            min-height: 100vh;
+            margin: 0;
+            place-items: center;
+            padding: 2rem 1rem;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        main {
+            width: min(430px, 100%);
+        }
+
+        .login-card {
+            width: 100%;
+            padding: 2.5rem;
+            border: 1px solid #d9d9d9;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 12px 32px rgba(42, 41, 41, .08);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.25rem;
+            line-height: 1.15;
+            letter-spacing: -.03em;
+        }
+
+        .intro {
+            margin: .75rem 0 1.75rem;
+            color: #5c5c5c;
+            line-height: 1.6;
+        }
+
+        .credentials {
+            margin-bottom: 1.5rem;
+            padding: .8rem 1rem;
+            border-radius: 8px;
+            background: #d5ffe2;
+            color: #114f24;
+            font-size: .85rem;
+        }
+
+        .credentials code {
+            font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+            font-weight: 700;
+        }
+
+        .field {
+            margin-bottom: 1.1rem;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: .4rem;
+            font-size: .85rem;
+            font-weight: 600;
+        }
+
+        .field input {
+            width: 100%;
+            padding: .75rem .85rem;
+            border: 1px solid #bcbcbc;
+            border-radius: 6px;
+            color: var(--charcoal);
+            background: #fff;
+        }
+
+        .field input:focus-visible {
+            border-color: var(--charcoal);
+            outline: 2px solid var(--charcoal);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 5px var(--blue-focus);
+        }
+
+        .field input.input-validation-error {
+            border-color: var(--error);
+        }
+
+        .field-validation-error {
+            display: block;
+            margin-top: .35rem;
+            color: var(--error);
+            font-size: .8rem;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+
+        .validation-summary-errors {
+            margin-bottom: 1rem;
+            padding: .75rem 1rem;
+            border-left: 3px solid var(--error);
+            background: #fff4f5;
+            color: var(--error);
+            font-size: .85rem;
+        }
+
+        .validation-summary-errors ul {
+            margin: 0;
+            padding-left: 1rem;
+        }
+
+        .submit {
+            width: 100%;
+            margin-top: .4rem;
+            padding: .8rem 1rem;
+            border: 1px solid var(--charcoal);
+            border-radius: 6px;
+            color: #fff;
+            background: var(--charcoal);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .submit:focus-visible,
+        .back-link:focus-visible {
+            outline: 3px solid var(--charcoal);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 6px var(--blue-focus);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            color: var(--charcoal);
+            font-size: .85rem;
+            font-weight: 500;
+            text-underline-offset: 3px;
+        }
+
+        @@media (max-width: 480px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="login-card" aria-labelledby="login-title">
+            <h1 id="login-title">Sign in</h1>
+            @if (string.IsNullOrWhiteSpace(Model.Input.ReturnUrl))
+            {
+                <p class="intro">Start sign-in from one of the scenarios on the sample home page.</p>
+            }
+            else
+            {
+                <p class="intro">Continue the authorization flow and create a storage-backed session.</p>
+
+                <div class="credentials">
+                    Sample credentials: <code>alice</code> / <code>alice</code>
+                </div>
+
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="Input.ReturnUrl">
+
+                    <div class="field">
+                        <label asp-for="Input.Username"></label>
+                        <input asp-for="Input.Username" autocomplete="username" placeholder="alice" autofocus>
+                        <span asp-validation-for="Input.Username"></span>
+                    </div>
+
+                    <div class="field">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" autocomplete="current-password">
+                        <span asp-validation-for="Input.Password"></span>
+                    </div>
+
+                    <button class="submit" type="submit">Sign in</button>
+                </form>
+            }
+
+            <a class="back-link" href="/">Back to sample</a>
+        </section>
+    </main>
+</body>
+</html>
