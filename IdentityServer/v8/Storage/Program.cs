@@ -214,9 +214,13 @@ static Uri GetPublicBaseUri(string value)
 {
     if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
         uri.Scheme != Uri.UriSchemeHttps ||
-        !uri.IsLoopback)
+        !uri.IsLoopback ||
+        uri.AbsolutePath != "/" ||
+        !string.IsNullOrEmpty(uri.Query) ||
+        !string.IsNullOrEmpty(uri.Fragment))
     {
-        throw new InvalidOperationException("SampleBaseUrl must be an absolute HTTPS loopback URL.");
+        throw new InvalidOperationException(
+            "SampleBaseUrl must be an HTTPS loopback origin without a path, query, or fragment.");
     }
 
     return uri;
