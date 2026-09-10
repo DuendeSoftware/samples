@@ -1,0 +1,521 @@
+/* Spaces Demo — site.css
+   Minimal, dependency-free stylesheet. No client-side frameworks required. */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #334155;
+    background: #f1f5f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────── */
+
+.site-header {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 0.75rem 1.5rem;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.site-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+}
+
+.site-main {
+    flex: 1;
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.site-footer {
+    background: #1e293b;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+}
+
+/* ── Cards ──────────────────────────────────────────────────────────── */
+
+.space-home {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+}
+
+.card h3 {
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem;
+    color: #374151;
+}
+
+.card h4 {
+    font-size: 0.9rem;
+    margin: 1rem 0 0.3rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ── Space identity ─────────────────────────────────────────────────── */
+
+.space-info h1 {
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: #4f46e5;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2em 0.6em;
+    border-radius: 999px;
+    vertical-align: middle;
+}
+
+.space-id {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.explainer {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.explainer ul {
+    margin-top: 0.4rem;
+    padding-left: 1.25rem;
+}
+
+.explainer li {
+    margin-bottom: 0.2rem;
+}
+
+/* ── Cross-space links ──────────────────────────────────────────────── */
+
+.space-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.space-links li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.space-links li.current-space {
+    background: #eff6ff;
+    border-left: 3px solid #4f46e5;
+}
+
+.current-label {
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.link-url {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* ── Demo credentials ───────────────────────────────────────────────── */
+
+.demo-warning {
+    font-size: 0.875rem;
+    color: #92400e;
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
+.demo-credentials {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.demo-credentials-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.75rem;
+}
+
+.demo-credentials-hint {
+    margin-top: 0.75rem;
+    color: #64748b;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.demo-credentials table {
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    width: 100%;
+}
+
+.demo-credentials th {
+    text-align: left;
+    padding: 0.5rem 1rem 0.5rem 0;
+    color: #64748b;
+    font-weight: 500;
+    white-space: nowrap;
+    width: 100px;
+}
+
+.demo-credentials td {
+    padding: 0.5rem 0;
+}
+
+.demo-credentials code {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+/* ── Auth area ──────────────────────────────────────────────────────── */
+
+.auth-area p {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+/* ── Login form ─────────────────────────────────────────────────────── */
+
+.login-card {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.form-field {
+    margin-bottom: 1.25rem;
+}
+
+.form-field label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #334155;
+    margin-bottom: 0.5rem;
+}
+
+.form-field input[type="text"],
+.form-field input[type="password"] {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+    color: #1e293b;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-field input[type="text"]:focus,
+.form-field input[type="password"]:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.login-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.25rem;
+    color: #991b1b;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.external-login-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.external-login-section form {
+    margin-bottom: 0.75rem;
+}
+
+.external-login-section form:last-child {
+    margin-bottom: 0;
+}
+
+.btn-external {
+    background: #64748b;
+}
+
+.btn-external:hover {
+    background: #475569;
+}
+
+/* ── Button ─────────────────────────────────────────────────────────── */
+
+.btn {
+    display: block;
+    width: 100%;
+    background: #6366f1;
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.15s ease;
+}
+
+.btn:hover {
+    background: #4f46e5;
+}
+
+.btn-secondary {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.btn-secondary:hover {
+    background: #cbd5e1;
+    text-decoration: none;
+}
+
+/* ── Logout actions ─────────────────────────────────────────────────── */
+
+.logout-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.logout-actions .btn {
+    display: inline-block;
+    width: auto;
+    flex: 1 1 auto;
+    min-width: 140px;
+}
+
+/* ── Claims table ───────────────────────────────────────────────────── */
+
+.claims-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.claims-table th,
+.claims-table td {
+    text-align: left;
+    padding: 0.35rem 0.6rem;
+    border-bottom: 1px solid #f1f5f9;
+    word-break: break-all;
+}
+
+.claims-table thead th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.claims-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ── Token output ───────────────────────────────────────────────────── */
+
+.token-request form {
+    margin: 1rem 0;
+}
+
+/* ── Client selector ────────────────────────────────────────────────── */
+
+.client-selector {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    background: #f8fafc;
+}
+
+.client-selector legend {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 0.5rem;
+}
+
+.client-selector label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0.25rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.1s ease;
+}
+
+.client-selector label:hover {
+    background: #e2e8f0;
+}
+
+.client-selector label:last-child {
+    margin-bottom: 0;
+}
+
+.client-selector input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #6366f1;
+    flex-shrink: 0;
+}
+
+.client-selector .note {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+.token-error {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    color: #991b1b;
+    font-size: 0.9rem;
+}
+
+.token-output {
+    margin-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+}
+
+.token-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.token-raw-wrap {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 0.75rem;
+    overflow-x: auto;
+    word-break: break-all;
+}
+
+.token-raw-value {
+    font-size: 0.75rem;
+    color: #374151;
+    font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+}
+
+.token-json {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+    font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+    overflow-x: auto;
+    white-space: pre;
+    color: #1e3a5f;
+}
+
+.token-raw {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.token-opaque-note {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    color: #92400e;
+}
+
+code {
+    font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+    font-size: 0.9em;
+    background: #f1f5f9;
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+}
+
+a {
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Playwright" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
+    <PackageReference Include="Aspire.Hosting.Testing" />
+    <PackageReference Include="IdentityModel" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../aspire/AppHost/AppHost.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Update="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="SQLitePCLRaw.bundle_e_sqlite3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

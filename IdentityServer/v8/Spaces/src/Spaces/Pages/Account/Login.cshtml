@@ -1,0 +1,72 @@
+@page
+@model Spaces.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<div class="card login-card">
+    <h2>Sign in - @Model.SpaceName</h2>
+
+    <p class="demo-warning">
+        &#x26A0; <strong>Demo only.</strong> Username/password authentication is shown here for
+        simplicity. It is <em>not</em> the recommended authentication method for production use.
+    </p>
+
+    <div class="demo-credentials">
+        <p class="demo-credentials-title">Demo credentials for this space:</p>
+        <table>
+            <thead><tr><th>User</th><th>Username</th><th>Password</th></tr></thead>
+            <tbody>
+                @if (Model.DemoUsername != null)
+                {
+                    <tr>
+                        <td>Space user</td>
+                        <td><code>@Model.DemoUsername</code></td>
+                        <td><code>@Model.DemoPassword</code></td>
+                    </tr>
+                }
+                <tr>
+                    <td>Example user <span class="note">(shared across all spaces)</span></td>
+                    <td><code>example-user</code></td>
+                    <td><code>@Model.DemoPassword</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    @if (Model.ErrorMessage != null)
+    {
+        <div class="login-error" role="alert">@Model.ErrorMessage</div>
+    }
+
+    <form method="post">
+      <input type="hidden" asp-for="ReturnUrl" />
+
+      <div class="form-field">
+        <label asp-for="Username">Username (email)</label>
+        <input asp-for="Username" type="text" required autofocus autocomplete="username" />
+        <span asp-validation-for="Username"></span>
+      </div>
+
+      <div class="form-field">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" required autocomplete="current-password" />
+        <span asp-validation-for="Password"></span>
+      </div>
+
+      <button type="submit" class="btn">Sign in</button>
+    </form>
+
+	@if (Model.Schemes.Any())
+	{
+		<div class="external-login-section">
+			@foreach(var scheme in Model.Schemes)
+			{
+				<form method="post" asp-page-handler="ExternalLogin">
+					<input type="hidden" name="provider" value="@scheme" />
+					<button type="submit" class="btn btn-external">@scheme</button>
+				</form>
+			}
+		</div>
+	}
+</div>

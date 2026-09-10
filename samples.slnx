@@ -646,6 +646,18 @@
     <Project Path="IdentityServer/v8/SessionManagement/IdentityServerHost/IdentityServerHost.csproj" />
     <Project Path="IdentityServer/v8/SessionManagement/SessionManagement.AppHost/SessionManagement.AppHost.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v8/Spaces/">
+    <File Path="IdentityServer\v8\Spaces\README.md" />
+  </Folder>
+  <Folder Name="/IdentityServer/v8/Spaces/aspire/">
+    <Project Path="IdentityServer/v8/Spaces/aspire/AppHost/AppHost.csproj" />
+  </Folder>
+  <Folder Name="/IdentityServer/v8/Spaces/src/">
+    <Project Path="IdentityServer/v8/Spaces/src/Spaces/Spaces.csproj" />
+  </Folder>
+  <Folder Name="/IdentityServer/v8/Spaces/tests/">
+    <Project Path="IdentityServer/v8/Spaces/tests/Spaces.PlaywrightTests/Spaces.PlaywrightTests.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v8/TokenExchange/">
     <Project Path="IdentityServer/v8/TokenExchange/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/TokenExchange/IdentityServerHost/IdentityServerHost.csproj" />
