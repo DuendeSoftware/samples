@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Storage Sample": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "",
+      "applicationUrl": "https://localhost:5006",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SampleBaseUrl": "https://localhost:5006"
+      }
+    }
+  }
+}

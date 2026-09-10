@@ -658,6 +658,10 @@
   <Folder Name="/IdentityServer/v8/Spaces/tests/">
     <Project Path="IdentityServer/v8/Spaces/tests/Spaces.PlaywrightTests/Spaces.PlaywrightTests.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v8/Storage/">
+    <File Path="IdentityServer/v8/Storage/README.md" />
+    <Project Path="IdentityServer/v8/Storage/Storage.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v8/TokenExchange/">
     <Project Path="IdentityServer/v8/TokenExchange/Client/Client.csproj" />
     <Project Path="IdentityServer/v8/TokenExchange/IdentityServerHost/IdentityServerHost.csproj" />
