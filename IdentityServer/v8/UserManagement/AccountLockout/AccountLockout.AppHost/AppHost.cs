@@ -25,7 +25,7 @@ internal static class AspireExtensions
         project
             .WithEnvironment("Smtp__Host", smtpEndpoint.Property(EndpointProperty.Host))
             .WithEnvironment("Smtp__Port", smtpEndpoint.Property(EndpointProperty.Port))
-            .WithEnvironment("Smtp__FromEmail", "account-lockout-sample@duendesoftware.com")
+            .WithEnvironment("Smtp__FromEmail", "account-lockout-sample@example.com")
             .WithEnvironment("Smtp__FromName", "Account Lockout Sample")
             .WithEnvironment("Smtp__EnableSsl", "false");
 }

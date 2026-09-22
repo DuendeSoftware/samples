@@ -64,8 +64,8 @@ The web project uses the repository's Aspire service defaults, so its structured
 
 | User | Email | Notes |
 |------|-------|-------|
-| Sample Administrator | `admin@duendesoftware.com` | Can access `/Admin/Users` |
-| Alice Sample User | `alice@duendesoftware.com` | Standard user for lock/unlock demos |
+| Sample Administrator | `admin@example.com` | Can access `/Admin/Users` |
+| Alice Sample User | `alice@example.com` | Standard user for lock/unlock demos |
 
 Both start with email OTP enabled. Sign in once with OTP, retrieve the code from Mailpit, and then register a passkey for future passwordless sign-in.
 
@@ -73,9 +73,9 @@ The OTP flow also supports just-in-time registration. Entering a new email addre
 
 ## Admin workflow
 
-1. Sign in as `admin@duendesoftware.com` using OTP.
+1. Sign in as `admin@example.com` using OTP.
 2. Open **Users**.
-3. Lock `alice@duendesoftware.com` with a preset, a custom UTC expiry, or an indefinite lock.
+3. Lock `alice@example.com` with a preset, a custom UTC expiry, or an indefinite lock.
 4. Sign in as Alice with OTP or a passkey.
 5. Authentication succeeds, but the application blocks session issuance and shows the lock result.
 6. Unlock Alice and sign in again successfully.
