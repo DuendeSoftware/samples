@@ -1,0 +1,48 @@
+﻿@page
+@model AccountLockout.Pages.Account.VerifyOtpModel
+@{
+    ViewData["Title"] = "Verify OTP";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h3 mb-3">Verify your code</h1>
+                <p class="text-muted">Enter the code sent to <strong>@Model.Email</strong>.</p>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.LockoutMessage))
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h2 class="h5">Account locked</h2>
+                        <p>Your authentication step succeeded, but the application policy blocked the full account session.</p>
+                        <p class="mb-0">@Model.LockoutMessage</p>
+                    </div>
+                    <p class="text-muted">This detail is shown only because the OTP authentication succeeded.</p>
+                    <a asp-page="/Account/Login" class="btn btn-primary">Back to sign in</a>
+                }
+                else
+                {
+                    <form method="post">
+                        <input asp-for="ReturnUrl" type="hidden" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div class="mb-3">
+                            <label asp-for="Code" class="form-label"></label>
+                            <input asp-for="Code" class="form-control" autocomplete="one-time-code" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Verify code</button>
+                            <a asp-page="/Account/LoginWithOtp" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">Start over</a>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

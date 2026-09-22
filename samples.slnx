@@ -724,6 +724,10 @@
     <Project Path="IdentityServer/v8/UserManagement/FullSample/UserManagementSample.ServiceDefaults/UserManagementSample.ServiceDefaults.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/FullSample/UserManagementSample/UserManagementSample.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v8/UserManagement/AccountLockout/">
+    <Project Path="IdentityServer/v8/UserManagement/AccountLockout/AccountLockout.AppHost/AccountLockout.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/UserManagement/AccountLockout/AccountLockout/AccountLockout.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v8/UserManagement/GettingStarted/">
     <Project Path="IdentityServer/v8/UserManagement/GettingStarted/GettingStarted.csproj" />
   </Folder>

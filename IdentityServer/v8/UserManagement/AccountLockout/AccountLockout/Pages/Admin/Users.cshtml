@@ -1,0 +1,113 @@
+@page
+@model AccountLockout.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-1">User list</h1>
+        <p class="text-muted mb-0">Lockout is stored in profile attributes owned by the application, not in canonical authenticator state.</p>
+        <p class="text-muted mb-0">These manual controls stand in for a business-policy decision that could come from a SIAM or risk-detection system.</p>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="alert alert-success" role="alert">@Model.SuccessMessage</div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+}
+
+<div class="card border-0 shadow-sm overflow-hidden">
+    <div class="table-responsive">
+        <table class="users-table table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Subject</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Lock state</th>
+                <th>Lock expiry (UTC)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users.OrderBy(u => u.SubjectId))
+            {
+                <tr>
+                    <td>
+                        <code>@user.SubjectId</code>
+                        @if (user.IsCurrentAdmin)
+                        {
+                            <div><span class="badge text-bg-secondary">Current admin</span></div>
+                        }
+                    </td>
+                    <td>@user.Email</td>
+                    <td>@user.Name</td>
+                    <td><span class="badge rounded-pill @user.LockStateCssClass">@user.LockState</span></td>
+                    <td>@(user.LockedUntilUtc?.ToString("yyyy-MM-dd HH:mm:ss 'UTC'") ?? "—")</td>
+                    <td class="user-actions">
+                        @if (user.IsCurrentAdmin)
+                        {
+                            <span class="text-muted">No actions available for the current administrator.</span>
+                        }
+                        else
+                        {
+                            <div class="d-flex gap-2 flex-wrap">
+                                <form method="post" asp-page-handler="Lock15Minutes">
+                                    <input type="hidden" name="subjectId" value="@user.SubjectId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-warning">15 min</button>
+                                </form>
+                                <form method="post" asp-page-handler="Lock1Hour">
+                                    <input type="hidden" name="subjectId" value="@user.SubjectId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-warning">1 hour</button>
+                                </form>
+                                <form method="post" asp-page-handler="LockIndefinitely">
+                                    <input type="hidden" name="subjectId" value="@user.SubjectId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Indefinite</button>
+                                </form>
+                                <form method="post" asp-page-handler="Unlock">
+                                    <input type="hidden" name="subjectId" value="@user.SubjectId" />
+                                    <button type="submit" class="btn btn-sm btn-outline-success">Unlock</button>
+                                </form>
+                            </div>
+
+                            <hr class="my-2" />
+
+                            <form method="post" asp-page-handler="LockCustom" class="custom-lock-form">
+                                <input type="hidden" name="subjectId" value="@user.SubjectId" />
+                                <input type="hidden" name="customLockedUntilUtc" />
+                                <div class="input-group input-group-sm custom-lock-input-group">
+                                    <label class="visually-hidden" for="custom-lock-@user.SubjectId">Custom lock expiry</label>
+                                    <input id="custom-lock-@user.SubjectId" type="datetime-local" class="custom-lock-local form-control" step="60" aria-describedby="custom-lock-help-@user.SubjectId" required />
+                                    <button type="submit" class="btn btn-outline-primary">Lock until</button>
+                                </div>
+                                <div id="custom-lock-help-@user.SubjectId" class="form-text">Select the expiry in your local time.</div>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.custom-lock-form').forEach(function (form) {
+            form.addEventListener('submit', function () {
+                const localInput = form.querySelector('.custom-lock-local');
+                const utcInput = form.querySelector('input[name="customLockedUntilUtc"]');
+
+                // datetime-local has no offset. Convert the browser's local value to an
+                // unambiguous UTC instant before sending it to the server.
+                utcInput.value = new Date(localInput.value).toISOString();
+            });
+        });
+    </script>
+}

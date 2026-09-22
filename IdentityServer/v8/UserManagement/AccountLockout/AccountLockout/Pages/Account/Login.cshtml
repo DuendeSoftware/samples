@@ -1,0 +1,82 @@
+﻿@page
+@model AccountLockout.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h1 class="h3 mb-3">Sign in</h1>
+                <p class="text-muted">OTP and passkeys are alternative authenticators in this sample. Lockout is enforced only after a factor succeeds.</p>
+
+                <div id="passkey-error" class="alert alert-danger d-none" role="alert"></div>
+
+                <div class="d-grid gap-2">
+                    <button id="passkey-btn" type="button" class="btn btn-success btn-lg">Sign in with a passkey</button>
+                    <a asp-page="/Account/LoginWithOtp" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary btn-lg">Sign in with email OTP</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h5">Seeded identities</h2>
+                <p class="text-muted small">Both users authenticate with OTP. Register a passkey after the first successful OTP sign-in.</p>
+                <table class="table table-sm mb-0">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var identity in Model.SeededIdentities)
+                        {
+                            <tr>
+                                <td>@identity.Name</td>
+                                <td><code>@identity.Email</code></td>
+                                <td>@identity.Role</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/passkeys/js"></script>
+    <script>
+        (function () {
+            const returnUrl = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ReturnUrl));
+            const button = document.getElementById('passkey-btn');
+            const errorBox = document.getElementById('passkey-error');
+
+            function showError(message) {
+                errorBox.textContent = message;
+                errorBox.classList.remove('d-none');
+                button.disabled = false;
+            }
+
+            button.addEventListener('click', function () {
+                button.disabled = true;
+                errorBox.classList.add('d-none');
+
+                authenticateWithDiscoverablePasskey({
+                    onSuccess: function () {
+                        window.location.href = returnUrl;
+                    },
+                    onError: function (error) {
+                        showError(typeof error === 'string'
+                            ? error
+                            : error?.message ?? 'Passkey authentication failed.');
+                    }
+                });
+            });
+        })();
+    </script>
+}
