@@ -12,7 +12,7 @@ public enum AccountLockoutKind
 
 public sealed record AccountLockoutState(AccountLockoutKind Kind, DateTimeOffset? LockedUntilUtc = null)
 {
-    public bool IsLocked => Kind is AccountLockoutKind.TemporarilyLocked or AccountLockoutKind.IndefinitelyLocked;
+    public bool IsLocked => Kind is not AccountLockoutKind.Unlocked;
 
     public static AccountLockoutState Unlocked { get; } = new(AccountLockoutKind.Unlocked);
 }
