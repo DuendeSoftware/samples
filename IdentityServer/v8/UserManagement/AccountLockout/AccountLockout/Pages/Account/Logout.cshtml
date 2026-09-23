@@ -1,0 +1,39 @@
+﻿@page
+@model AccountLockout.Pages.Account.LogoutModel
+@{
+    ViewData["Title"] = "Sign out";
+}
+
+@if (Model.LoggedOut)
+{
+    <div class="alert alert-success" role="alert">
+        You have been signed out.
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.PostLogoutRedirectUri))
+    {
+        <p><a href="@Model.PostLogoutRedirectUri">Return to the client application</a></p>
+    }
+    else
+    {
+        <p><a asp-page="/Index">Return home</a></p>
+    }
+}
+else
+{
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h1 class="h3 mb-3">Sign out</h1>
+                    <p>Are you sure you want to sign out?</p>
+                    <form method="post">
+                        <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+                        <button type="submit" class="btn btn-danger">Sign out</button>
+                        <a asp-page="/Index" class="btn btn-outline-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

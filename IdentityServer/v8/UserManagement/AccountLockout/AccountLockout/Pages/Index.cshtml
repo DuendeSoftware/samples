@@ -1,0 +1,40 @@
+﻿@page
+@model AccountLockout.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="text-center mb-4">
+            <h1 class="display-5">Account Lockout Sample</h1>
+            <p class="lead">Customer-owned lockout policy stored in Duende User Management profile attributes and enforced only after OTP or passkey authentication succeeds.</p>
+        </div>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="h4">Signed-in session</h2>
+                    <p><strong>Name:</strong> @Model.DisplayName</p>
+                    <p><strong>Email:</strong> @Model.Email</p>
+                    <p><strong>Subject:</strong> <code>@Model.SubjectId</code></p>
+                    <p><strong>Authentication method:</strong> @Model.AuthenticationMethod</p>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a asp-page="/Account/Profile" class="btn btn-primary">My account</a>
+                        <a asp-page="/Account/Logout" class="btn btn-outline-danger">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <p class="mb-3">Use OTP or a discoverable passkey to sign in. Lockout is checked only after authentication succeeds, so the sample does not expose a pre-authentication account-enumeration signal.</p>
+                    <a asp-page="/Account/Login" class="btn btn-primary btn-lg">Sign in</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

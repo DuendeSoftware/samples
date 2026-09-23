@@ -1,0 +1,63 @@
+﻿@page
+@model AccountLockout.Pages.Account.RegisterPasskeyModel
+@{
+    ViewData["Title"] = "Register passkey";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <div class="card-header border-0 bg-body-tertiary p-4">
+                <h1 class="h3 mb-1">Register a passkey</h1>
+                <p class="text-body-secondary mb-0">Add a discoverable credential for future passwordless sign-ins.</p>
+            </div>
+
+            <div class="card-body p-4">
+                <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
+                <div id="success-message" class="alert alert-success d-none" role="alert">Passkey registered successfully. Redirecting&hellip;</div>
+
+                <div class="passkey-registration-prompt border-start border-primary bg-body-tertiary rounded-end p-3">
+                    <h2 class="h5">Use this device or a security key</h2>
+                    <p class="text-body-secondary">Your browser will ask you to confirm with a fingerprint, face, PIN, or external security key.</p>
+                    <button id="register-btn" type="button" class="btn btn-primary">Register passkey</button>
+                </div>
+            </div>
+
+            <div class="card-footer bg-white border-0 px-4 pb-4">
+                <a href="@Model.ReturnUrl" class="btn btn-outline-secondary">Not now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="/passkeys/js"></script>
+    <script>
+        (function () {
+            const returnUrl = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ReturnUrl));
+            const button = document.getElementById('register-btn');
+            const errorBox = document.getElementById('error-message');
+            const successBox = document.getElementById('success-message');
+            const passkeyName = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DisplayName));
+
+            button.addEventListener('click', function () {
+                button.disabled = true;
+                errorBox.classList.add('d-none');
+
+                registerPasskey(passkeyName, {
+                    onSuccess: function () {
+                        successBox.classList.remove('d-none');
+                        window.location.href = returnUrl;
+                    },
+                    onError: function (error) {
+                        errorBox.textContent = typeof error === 'string'
+                            ? error
+                            : error?.message ?? 'Passkey registration failed. Please try again.';
+                        errorBox.classList.remove('d-none');
+                        button.disabled = false;
+                    }
+                });
+            });
+        })();
+    </script>
+}

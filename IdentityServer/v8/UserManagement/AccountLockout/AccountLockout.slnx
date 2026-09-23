@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="../../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="AccountLockout.AppHost/AccountLockout.AppHost.csproj" />
+  <Project Path="AccountLockout/AccountLockout.csproj" />
+</Solution>

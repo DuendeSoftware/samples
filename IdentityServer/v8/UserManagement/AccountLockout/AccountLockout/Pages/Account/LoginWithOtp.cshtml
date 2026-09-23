@@ -1,0 +1,63 @@
+@page
+@model AccountLockout.Pages.Account.LoginWithOtpModel
+@{
+    ViewData["Title"] = "Email OTP";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h3 mb-3">Sign in or Register with email OTP</h1>
+                <p class="text-muted">
+                  Enter your email address. If a code can be sent, it will arrive in Mailpit.
+                  An account is created automatically for new email addresses once the email address is verified.
+                </p>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+                }
+
+                <form method="post">
+                    <input asp-for="ReturnUrl" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label"></label>
+                        <input asp-for="Email" class="form-control" autocomplete="email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <aside class="seeded-account-hint border-start border-info bg-body-tertiary rounded-end mb-3 p-2" aria-label="Seeded sample accounts">
+                        <div class="text-muted mb-1">Use a seeded sample account:</div>
+                        <div class="d-flex gap-2 flex-wrap">
+                            @foreach (var email in Model.SeededEmails)
+                            {
+                                <button type="button"
+                                        class="seeded-email btn btn-sm btn-light"
+                                        data-email="@email">
+                                    @email
+                                </button>
+                            }
+                        </div>
+                    </aside>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Send verification code</button>
+                        <a asp-page="/Account/Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @section Scripts {
+            <script>
+                document.querySelectorAll('.seeded-email').forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        const emailInput = document.getElementById('@Html.IdFor(model => model.Email)');
+                        emailInput.value = button.dataset.email;
+                        emailInput.focus();
+                    });
+                });
+            </script>
+        }
+    </div>
+</div>

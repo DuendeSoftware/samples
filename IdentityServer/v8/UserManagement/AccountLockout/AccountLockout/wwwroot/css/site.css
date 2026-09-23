@@ -1,0 +1,71 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.custom-lock-input-group {
+  max-width: 22rem;
+}
+
+.users-table > :not(caption) > * > * {
+  padding: 1rem;
+}
+
+.account-table > :not(caption) > * > * {
+  padding: 1rem 1.5rem;
+}
+
+.profile-table th {
+  width: 13rem;
+}
+
+.users-table code {
+  color: var(--bs-secondary-color);
+  font-size: 0.75rem;
+}
+
+.users-table .user-actions {
+  min-width: 23rem;
+}
+
+.seeded-account-hint {
+  border-left-width: 0.25rem !important;
+  font-size: 0.8rem;
+}
+
+.seeded-account-hint .btn {
+  --bs-btn-font-size: 0.75rem;
+  --bs-btn-padding-x: 0.4rem;
+  --bs-btn-padding-y: 0.15rem;
+}
+
+.passkey-registration-prompt {
+  border-left-width: 0.25rem !important;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}

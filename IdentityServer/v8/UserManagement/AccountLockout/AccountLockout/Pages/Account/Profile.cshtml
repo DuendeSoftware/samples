@@ -1,0 +1,103 @@
+@page
+@model AccountLockout.Pages.Account.ProfileModel
+@{
+    ViewData["Title"] = "My account";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+        {
+            <div class="alert alert-success" role="alert">@Model.SuccessMessage</div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+        }
+
+        <div class="card border-0 shadow-sm overflow-hidden mb-4">
+            <div class="card-header border-0 bg-body-tertiary p-4">
+                <h1 class="h3 mb-1">My account</h1>
+                <p class="text-body-secondary mb-0">Your profile and current application lockout state.</p>
+            </div>
+
+            <div class="table-responsive">
+                <table class="account-table profile-table table table-hover align-middle mb-0">
+                    <tbody>
+                        <tr>
+                            <th>Subject</th>
+                            <td><code>@Model.SubjectId</code></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <th>Current lockout state</th>
+                            <td><span class="badge rounded-pill @Model.LockStateCssClass">@Model.LockStateDescription</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm overflow-hidden mb-4">
+            <div class="card-header border-0 bg-body-tertiary p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="h4 mb-1">Passkeys</h2>
+                        <p class="text-body-secondary mb-0">Manage credentials used for passwordless sign-in.</p>
+                    </div>
+                    <a asp-page="/Account/RegisterPasskey" asp-route-returnUrl="/Account/Profile" class="btn btn-sm btn-primary">Register passkey</a>
+                </div>
+            </div>
+
+            @if (Model.Passkeys.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="account-table table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Created</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var passkey in Model.Passkeys)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">@passkey.Name</td>
+                                    <td class="text-nowrap">@passkey.CreatedAt.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss 'UTC'")</td>
+                                    <td class="text-end">
+                                        <form method="post" asp-page-handler="RemovePasskey">
+                                            <input type="hidden" name="credentialId" value="@passkey.CredentialId.ToBase64String()" />
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('Remove this passkey?');">
+                                                Remove
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="card-body p-4">
+                    <p class="text-body-secondary mb-0">No passkeys are registered.</p>
+                </div>
+            }
+        </div>
+
+        <a asp-page="/Index" class="btn btn-outline-secondary">Back</a>
+    </div>
+</div>
