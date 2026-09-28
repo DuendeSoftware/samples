@@ -7,7 +7,7 @@
     <PackageVersion Include="Duende.BFF.Blazor" Version="4.2.0" />
     <PackageVersion Include="Duende.BFF.Blazor.Client" Version="4.2.0" />
     <PackageVersion Include="Duende.BFF.Yarp" Version="4.2.0" />
-    <PackageVersion Include="Duende.IdentityServer" Version="8.0.6" />
+    <PackageVersion Include="Duende.IdentityServer" Version="8.0.9" />
     <PackageVersion Include="Duende.IdentityModel" Version="8.1.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.11" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.11" />
