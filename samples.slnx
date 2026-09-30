@@ -7,87 +7,115 @@
   <Folder Name="/BFF/" />
   <Folder Name="/BFF/v2/" />
   <Folder Name="/BFF/v2/Angular/">
+    <File Path="BFF/v2/Angular/README.md" />
     <Project Path="BFF/v2/Angular/Angular.Api/Angular.Api.csproj" />
     <Project Path="BFF/v2/Angular/Angular.Bff/Angular.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v2/BlazorWasm/">
+    <File Path="BFF/v2/BlazorWasm/README.md" />
     <Project Path="BFF/v2/BlazorWasm/Client/BlazorWasm.Client.csproj" />
     <Project Path="BFF/v2/BlazorWasm/Server/BlazorWasm.Server.csproj" />
     <Project Path="BFF/v2/BlazorWasm/Shared/BlazorWasm.Shared.csproj" />
   </Folder>
   <Folder Name="/BFF/v2/DPoP/">
+    <File Path="BFF/v2/DPoP/README.md" />
     <Project Path="BFF/v2/DPoP/DPoP.Api/DPoP.Api.csproj" />
     <Project Path="BFF/v2/DPoP/DPoP.Bff/DPoP.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v2/JsBffSample/">
+    <File Path="BFF/v2/JsBffSample/README.md" />
     <Project Path="BFF/v2/JsBffSample/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v2/JsBffSample/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v2/JsBffYarpSample/">
+    <File Path="BFF/v2/JsBffYarpSample/README.md" />
     <Project Path="BFF/v2/JsBffYarpSample/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v2/JsBffYarpSample/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v2/React/">
+    <File Path="BFF/v2/React/README.md" />
     <Project Path="BFF/v2/React/React.Api/React.Api.csproj" />
     <Project Path="BFF/v2/React/React.Bff/React.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v2/SplitHosts/">
+    <File Path="BFF/v2/SplitHosts/README.md" />
     <Project Path="BFF/v2/SplitHosts/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v2/SplitHosts/BackendHost/BackendHost.csproj" />
     <Project Path="BFF/v2/SplitHosts/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v2/TokenExchange/">
+    <File Path="BFF/v2/TokenExchange/README.md" />
     <Project Path="BFF/v2/TokenExchange/TokenExchange.Api/TokenExchange.Api.csproj" />
     <Project Path="BFF/v2/TokenExchange/TokenExchange.Bff/TokenExchange.Bff.csproj" />
     <Project Path="BFF/v2/TokenExchange/TokenExchange.IdentityServer/TokenExchange.IdentityServer.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/" />
   <Folder Name="/BFF/v3/Angular/">
+    <File Path="BFF/v3/Angular/README.md" />
     <Project Path="BFF/v3/Angular/Angular.Api/Angular.Api.csproj" />
     <Project Path="BFF/v3/Angular/Angular.Bff/Angular.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/BlazorAutoRendering/">
+    <File Path="BFF/v3/BlazorAutoRendering/README.md" />
     <Project Path="BFF/v3/BlazorAutoRendering/BlazorAutoRendering.Api/BlazorAutoRendering.Api.csproj" />
     <Project Path="BFF/v3/BlazorAutoRendering/BlazorAutoRendering.Client/BlazorAutoRendering.Client.csproj" />
     <Project Path="BFF/v3/BlazorAutoRendering/BlazorAutoRendering/BlazorAutoRendering.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/BlazorWasm/">
+    <File Path="BFF/v3/BlazorWasm/README.md" />
     <Project Path="BFF/v3/BlazorWasm/Client/BlazorWasm.Client.csproj" />
     <Project Path="BFF/v3/BlazorWasm/Server/BlazorWasm.Server.csproj" />
     <Project Path="BFF/v3/BlazorWasm/Shared/BlazorWasm.Shared.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/DPoP/">
+    <File Path="BFF/v3/DPoP/README.md" />
     <Project Path="BFF/v3/DPoP/DPoP.Api/DPoP.Api.csproj" />
     <Project Path="BFF/v3/DPoP/DPoP.Bff/DPoP.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/JsBffSample/">
+    <File Path="BFF/v3/JsBffSample/README.md" />
     <Project Path="BFF/v3/JsBffSample/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v3/JsBffSample/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/JsBffYarpSample/">
+    <File Path="BFF/v3/JsBffYarpSample/README.md" />
     <Project Path="BFF/v3/JsBffYarpSample/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v3/JsBffYarpSample/FrontendHost/FrontendHost.csproj" />
   </Folder>
+  <Folder Name="/BFF/v3/OpenApi/">
+    <File Path="BFF/v3/OpenApi/README.md" />
+    <Project Path="BFF/v3/OpenApi/OpenApi.Api1/OpenApi.Api1.csproj" />
+    <Project Path="BFF/v3/OpenApi/OpenApi.Api2/OpenApi.Api2.csproj" />
+    <Project Path="BFF/v3/OpenApi/OpenApi.Bff/OpenApi.Bff.csproj" />
+    <Project Path="BFF/v3/OpenApi/OpenApi.BffOpenApiDocumentParser/OpenApi.BffOpenApiDocumentParser.csproj" />
+    <Project Path="BFF/v3/OpenApi/OpenApi.DevServer.AppHost/OpenApi.DevServer.AppHost.csproj" />
+    <Project Path="BFF/v3/OpenApi/OpenApi.DevServer.ServiceDefaults/OpenApi.DevServer.ServiceDefaults.csproj" />
+  </Folder>
   <Folder Name="/BFF/v3/Quickstarts/" />
   <Folder Name="/BFF/v3/Quickstarts/BlazorBffApp/">
+    <File Path="BFF/v3/Quickstarts/BlazorBffApp/README.md" />
     <Project Path="BFF/v3/Quickstarts/BlazorBffApp/BlazorBffApp.Client/BlazorBffApp.Client.csproj" />
     <Project Path="BFF/v3/Quickstarts/BlazorBffApp/BlazorBffApp/BlazorBffApp.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/React/">
+    <File Path="BFF/v3/React/README.md" />
     <Project Path="BFF/v3/React/React.Api/React.Api.csproj" />
     <Project Path="BFF/v3/React/React.Bff/React.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/SplitHosts/">
+    <File Path="BFF/v3/SplitHosts/README.md" />
     <Project Path="BFF/v3/SplitHosts/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v3/SplitHosts/BackendHost/BackendHost.csproj" />
     <Project Path="BFF/v3/SplitHosts/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/TokenExchange/">
+    <File Path="BFF/v3/TokenExchange/README.md" />
     <Project Path="BFF/v3/TokenExchange/TokenExchange.Api/TokenExchange.Api.csproj" />
     <Project Path="BFF/v3/TokenExchange/TokenExchange.Bff/TokenExchange.Bff.csproj" />
     <Project Path="BFF/v3/TokenExchange/TokenExchange.IdentityServer/TokenExchange.IdentityServer.csproj" />
   </Folder>
   <Folder Name="/BFF/v3/Vue/">
+    <File Path="BFF/v3/Vue/README.md" />
     <Project Path="BFF/v3/Vue/Vue.Api/Vue.Api.csproj" />
     <Project Path="BFF/v3/Vue/Vue.Bff/Vue.Bff.csproj" />
   </Folder>
@@ -95,6 +123,7 @@
     <File Path="BFF\v4\Directory.Packages.props" />
   </Folder>
   <Folder Name="/BFF/v4/Angular/">
+    <File Path="BFF/v4/Angular/README.md" />
     <Project Path="BFF/v4/Angular/Angular.Api/Angular.Api.csproj" />
     <Project Path="BFF/v4/Angular/Angular.Bff/Angular.Bff.csproj" />
     <Project Path="BFF/v4/Angular/angular.ssr/angular.ssr.esproj">
@@ -104,23 +133,28 @@
     </Project>
   </Folder>
   <Folder Name="/BFF/v4/BlazorAutoRendering/">
+    <File Path="BFF/v4/BlazorAutoRendering/README.md" />
     <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering.Api/BlazorAutoRendering.Api.csproj" />
     <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering.Client/BlazorAutoRendering.Client.csproj" />
     <Project Path="BFF/v4/BlazorAutoRendering/BlazorAutoRendering/BlazorAutoRendering.csproj" />
   </Folder>
-  <Folder Name="/BFF/v4/BlazorWebAssembly/">
+  <Folder Name="/BFF/v4/BlazorWasm/">
+    <File Path="BFF/v4/BlazorWasm/README.md" />
     <Project Path="BFF/v4/BlazorWasm/BFF/BFF.csproj" />
     <Project Path="BFF/v4/BlazorWasm/BlazorWasm/BlazorWasm.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/DPoP/">
+    <File Path="BFF/v4/DPoP/README.md" />
     <Project Path="BFF/v4/DPoP/DPoP.Api/DPoP.Api.csproj" />
     <Project Path="BFF/v4/DPoP/DPoP.Bff/DPoP.Bff.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/JsBffSample/">
+    <File Path="BFF/v4/JsBffSample/README.md" />
     <Project Path="BFF/v4/JsBffSample/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v4/JsBffSample/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/JsBffYarpSample/">
+    <File Path="BFF/v4/JsBffYarpSample/README.md" />
     <Project Path="BFF/v4/JsBffYarpSample/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v4/JsBffYarpSample/FrontendHost/FrontendHost.csproj" />
   </Folder>
@@ -130,6 +164,7 @@
     <Project Path="BFF\v4\MultiFrontendSSO\MultiFrontendSSO.IdentityServer\MultiFrontendSSO.IdentityServer.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/OpenApi/">
+    <File Path="BFF/v4/OpenApi/README.md" />
     <Project Path="BFF/v4/OpenApi/OpenApi.Api1/OpenApi.Api1.csproj" />
     <Project Path="BFF/v4/OpenApi/OpenApi.Api2/OpenApi.Api2.csproj" />
     <Project Path="BFF/v4/OpenApi/OpenApi.Bff/OpenApi.Bff.csproj" />
@@ -139,10 +174,12 @@
   </Folder>
   <Folder Name="/BFF/v4/Quickstarts/" />
   <Folder Name="/BFF/v4/Quickstarts/BlazorBffApp/">
+    <File Path="BFF/v4/Quickstarts/BlazorBffApp/README.md" />
     <Project Path="BFF/v4/Quickstarts/BlazorBffApp/BlazorBffApp.Client/BlazorBffApp.Client.csproj" />
     <Project Path="BFF/v4/Quickstarts/BlazorBffApp/BlazorBffApp/BlazorBffApp.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/React/">
+    <File Path="BFF/v4/React/README.md" />
     <Project Path="BFF/v4/React/React.Api/React.Api.csproj" />
     <Project Path="BFF/v4/React/React.Bff/React.Bff.csproj" />
     <Project Path="BFF/v4/React/react.client/react.client.esproj">
@@ -152,16 +189,19 @@
     </Project>
   </Folder>
   <Folder Name="/BFF/v4/SplitHosts/">
+    <File Path="BFF/v4/SplitHosts/README.md" />
     <Project Path="BFF/v4/SplitHosts/BackendApiHost/BackendApiHost.csproj" />
     <Project Path="BFF/v4/SplitHosts/BackendHost/BackendHost.csproj" />
     <Project Path="BFF/v4/SplitHosts/FrontendHost/FrontendHost.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/TokenExchange/">
+    <File Path="BFF/v4/TokenExchange/README.md" />
     <Project Path="BFF/v4/TokenExchange/TokenExchange.Api/TokenExchange.Api.csproj" />
     <Project Path="BFF/v4/TokenExchange/TokenExchange.Bff/TokenExchange.Bff.csproj" />
     <Project Path="BFF/v4/TokenExchange/TokenExchange.IdentityServer/TokenExchange.IdentityServer.csproj" />
   </Folder>
   <Folder Name="/BFF/v4/Vue/">
+    <File Path="BFF/v4/Vue/README.md" />
     <Project Path="BFF/v4/Vue/Vue.Api/Vue.Api.csproj" />
     <Project Path="BFF/v4/Vue/Vue.Bff/Vue.Bff.csproj" />
     <Project Path="BFF/v4/Vue/vue.client/vue.esproj">
