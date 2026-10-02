@@ -46,11 +46,9 @@ builder.Services
         um.Authentication(x => {  });
     })
     .AddProfileService<SpaceClaimAugmentationProfileService>()
-    .AddInMemoryDataExtensionSchemas([new SchemaConfiguration()
-    {
-        SchemaId = SchemaId.UserProfile,
-        AttributeDefinitions = [DemoUserAttributes.Email, DemoUserAttributes.UserName]
-    }]);
+    // The built-in user profile schema already contains email, name, given_name and
+    // family_name. Extend it with the unique username used for password login.
+    .AddInMemoryDataExtensionSchemas([BuiltInSchemas.UserProfile.Extend(DemoUserAttributes.UserName)]);
 
 builder.Services.AddTransient<ICustomTokenRequestValidator, AddSpaceNameToClaimsRequestValidator>();
 builder.Services.AddTransient<UserManagementProfileService>();
