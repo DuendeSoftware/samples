@@ -1,6 +1,6 @@
 # Duende Storage sample
 
-This sample runs IdentityServer with configuration and operational data stored in a shared in-memory SQLite database through Duende Storage. It uses the IdentityServer administration APIs to create all IdentityServer configuration at startup and registers a fixed in-memory schema for client extension properties.
+This sample runs IdentityServer with configuration and operational data stored in two separate in-memory SQLite databases through Duende Storage. It uses the IdentityServer administration APIs to create all IdentityServer configuration at startup and registers a fixed in-memory schema for client extension properties.
 
 The sample demonstrates:
 
@@ -8,15 +8,16 @@ The sample demonstrates:
 - creating scopes, identity resources, clients, secrets, and extension-property values with the administration APIs;
 - obtaining a client-credentials token from configuration loaded through Duende Storage;
 - enforcing an `allowed_region` client extension property in a custom token-request validator;
-- signing in a test user with authorization code and PKCE to create a storage-backed server-side session; and
-- searching stored clients and inspecting stored sessions.
+- signing in a test user with authorization code and PKCE to create a storage-backed server-side session;
+- searching stored clients and inspecting stored sessions; and
+- routing IdentityServer configuration data and operational data to two independently registered and migrated storage instances.
 
 ## Run the sample
 
 The sample uses the latest prerelease packages required by this functionality:
 
-- `Duende.IdentityServer` `8.1.0-preview.3`
-- `Duende.Storage.Sqlite` `2.0.0-preview.2`
+- `Duende.IdentityServer` `8.1.0-preview.4`
+- `Duende.Storage.Sqlite` `2.0.0-preview.3`
 
 From this directory, run:
 
@@ -24,7 +25,36 @@ From this directory, run:
 dotnet run
 ```
 
-Open `https://localhost:5006` if the browser does not open automatically. The database is held in memory and is reset whenever the process stops.
+Open `https://localhost:5006` if the browser does not open automatically. Both databases are held in memory and reset whenever the process stops.
+
+## Multiple storage instances
+
+`SampleStorage` names two Duende Storage instances: `configuration` and `operational`. `Program.cs` registers a separate in-memory SQLite database for each and routes IdentityServer's data categories to them:
+
+```csharp
+builder.Services
+    .AddIdentityServer()
+    // ...
+    .AddStorage(SampleStorage.Configuration, storage => storage.AddSqliteInMemory("IdentityServerStorageSample-Configuration"))
+    .AddStorage(SampleStorage.Operational, storage => storage.AddSqliteInMemory("IdentityServerStorageSample-Operational"))
+    .AddConfigurationStorage(SampleStorage.Configuration)
+    .AddOperationalStorage(SampleStorage.Operational);
+```
+
+`AddStorage` only registers a database for a named instance; it does not route any data to it. `AddConfigurationStorage`/`AddOperationalStorage` route a data category (clients, identity providers, and resources for configuration; persisted grants, server-side sessions, and keys for operational) to the instance passed to them. A data category left unmapped falls back to a default instance, but this sample maps both categories explicitly, so it registers no default instance.
+
+Each instance is a separate database and must be migrated separately, through `IStorageInstanceSchemaFactory`:
+
+```csharp
+var schemaFactory = app.Services.GetRequiredService<IStorageInstanceSchemaFactory>();
+foreach (var instance in new[] { SampleStorage.Configuration, SampleStorage.Operational })
+{
+    var schema = await schemaFactory.GetStorageInstanceSchema(instance, CancellationToken.None);
+    await schema.MigrateAsync(CancellationToken.None);
+}
+```
+
+In production, each instance would typically be a separate database and connection string, for example `AddPostgreSql()` for one instance and `AddMsSql()` for another, migrated separately and independently scaled. Each instance can use a different storage provider.
 
 ## Client credentials and the region extension
 

@@ -38,19 +38,17 @@ builder.Services
         options.Events.RaiseFailureEvents = true;
         options.Events.RaiseSuccessEvents = true;
     })
+    .AddStorage(x => x.AddSqliteInMemory())
+    .AddConfigurationStorage()
+    .AddOperationalStorage()
     .AddUserManagement(um =>
     {
         um.Authentication(x => {  });
-
-        um.AddSqliteInMemoryStore();
     })
     .AddProfileService<SpaceClaimAugmentationProfileService>()
-    .AddStorage(x => x.AddSqliteInMemoryStore())
-    .AddInMemoryDataExtensionSchemas([new SchemaConfiguration()
-    {
-        SchemaId = SchemaId.UserProfile,
-        AttributeDefinitions = [DemoUserAttributes.Email, DemoUserAttributes.UserName]
-    }]);
+    // The built-in user profile schema already contains email, name, given_name and
+    // family_name. Extend it with the unique username used for password login.
+    .AddInMemoryDataExtensionSchemas([BuiltInSchemas.UserProfile.Extend(DemoUserAttributes.UserName)]);
 
 builder.Services.AddTransient<ICustomTokenRequestValidator, AddSpaceNameToClaimsRequestValidator>();
 builder.Services.AddTransient<UserManagementProfileService>();
@@ -67,7 +65,7 @@ using (var scope = app.Services.CreateScope())
 {
     var sp = scope.ServiceProvider;
 
-    await sp.GetRequiredService<IDatabaseSchema>().MigrateAsync(CancellationToken.None);
+    await sp.GetRequiredService<IStorageInstanceSchema>().MigrateAsync(CancellationToken.None);
 
     await new SeedData(sp).Seed(CancellationToken.None);
 }

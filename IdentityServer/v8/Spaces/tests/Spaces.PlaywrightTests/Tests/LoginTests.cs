@@ -14,7 +14,7 @@ public class LoginTests(SpacesFixture fixture)
         await page.GotoAsync(fixture.BaseUrl);
         await page.ClickAsync("a:has-text('Sign in')");
         await page.FillAsync("[name=Username]", "default-user");
-        await page.FillAsync("[name=Password]", "Pa$$Word123");
+        await page.FillAsync("[name=Password]", "Pa$$Word123456789");
         await page.ClickAsync("button[type=submit]");
 
         await page.WaitForURLAsync(url => !url.Contains("/Account/Login"));
@@ -30,7 +30,7 @@ public class LoginTests(SpacesFixture fixture)
         await page.ClickAsync("a:has-text('space1.dev.localhost')");
         await page.ClickAsync("a:has-text('Sign in')");
         await page.FillAsync("[name=Username]", "space1-user");
-        await page.FillAsync("[name=Password]", "Pa$$Word123");
+        await page.FillAsync("[name=Password]", "Pa$$Word123456789");
         await page.ClickAsync("button[type=submit]");
 
         await page.WaitForURLAsync(url => !url.Contains("/Account/Login"));

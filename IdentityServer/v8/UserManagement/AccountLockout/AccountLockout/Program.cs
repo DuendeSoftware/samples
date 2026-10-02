@@ -61,6 +61,8 @@ builder.Services
         options.Events.RaiseSuccessEvents = true;
     })
     .AddDeveloperSigningCredential(persistKey: false)
+    .AddStorage(storage => storage.AddSqlite(options => options.ConnectionString = $"Data Source={databasePath}"))
+    .AddDynamicSchemas()
     .AddUserManagement(userManagement =>
     {
         userManagement.Authentication(authentication =>
@@ -74,8 +76,6 @@ builder.Services
 
             _ = authentication.UseSmtpOtpDispatcher(options => builder.Configuration.GetSection("Smtp").Bind(options));
         });
-
-        userManagement.AddSqliteStore(options => options.ConnectionString = $"Data Source={databasePath}");
     });
 
 // Replace the default passkey sign-in step so policy runs after WebAuthn verification,
@@ -89,7 +89,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
 
     // A sample starts from an empty SQLite database, so create storage, schema, and users in order.
-    await services.GetRequiredService<IDatabaseSchema>().MigrateAsync(CancellationToken.None);
+    await services.GetRequiredService<IStorageInstanceSchema>().MigrateAsync(CancellationToken.None);
     await services.GetRequiredService<SchemaBootstrapper>().BootstrapAsync(CancellationToken.None);
     await services.GetRequiredService<SampleDataSeeder>().SeedAsync(CancellationToken.None);
 }

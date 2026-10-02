@@ -60,7 +60,7 @@ Since origin based routing takes precedence, navigating to https://space1.dev.lo
 
 ## Demo Credentials
 
-All passwords are `Pa$$Word123`.
+All passwords are `Pa$$Word123456789`.
 
 | Space | Space-Specific User | Shared User |
 |-------|-------------------|-------------|

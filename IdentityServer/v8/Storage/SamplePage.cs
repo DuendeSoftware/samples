@@ -31,9 +31,19 @@ internal static class SamplePage
             <body>
               <h1>Storage-backed IdentityServer</h1>
               <p>
-                This host stores IdentityServer configuration and operational data in an in-memory SQLite database.
-                Startup registers a fixed in-memory schema, then creates scopes, identity resources, clients, and typed
-                client extension-property values through the administration APIs.
+                This host stores IdentityServer configuration and operational data in two separate in-memory
+                SQLite databases, one per named storage instance. Startup registers a fixed in-memory schema,
+                then creates scopes, identity resources, clients, and typed client extension-property values
+                through the administration APIs.
+              </p>
+
+              <h2>Storage instances</h2>
+              <p>
+                This sample registers two named Duende Storage instances, each its own in-memory SQLite
+                database migrated separately: <code>{{SampleStorage.Configuration}}</code> holds clients,
+                identity resources, and API scopes; <code>{{SampleStorage.Operational}}</code> holds server-side
+                sessions, persisted grants, and signing keys. <code>/sample/clients</code> reads from the
+                configuration instance and <code>/sample/sessions</code> reads from the operational instance.
               </p>
 
               <h2>Inspect configuration</h2>
