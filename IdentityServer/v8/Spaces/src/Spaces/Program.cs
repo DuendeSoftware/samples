@@ -38,14 +38,14 @@ builder.Services
         options.Events.RaiseFailureEvents = true;
         options.Events.RaiseSuccessEvents = true;
     })
+    .AddStorage(x => x.AddSqliteInMemory())
+    .AddConfigurationStorage()
+    .AddOperationalStorage()
     .AddUserManagement(um =>
     {
         um.Authentication(x => {  });
-
-        um.AddSqliteInMemoryStore();
     })
     .AddProfileService<SpaceClaimAugmentationProfileService>()
-    .AddStorage(x => x.AddSqliteInMemoryStore())
     .AddInMemoryDataExtensionSchemas([new SchemaConfiguration()
     {
         SchemaId = SchemaId.UserProfile,
@@ -67,7 +67,7 @@ using (var scope = app.Services.CreateScope())
 {
     var sp = scope.ServiceProvider;
 
-    await sp.GetRequiredService<IDatabaseSchema>().MigrateAsync(CancellationToken.None);
+    await sp.GetRequiredService<IStorageInstanceSchema>().MigrateAsync(CancellationToken.None);
 
     await new SeedData(sp).Seed(CancellationToken.None);
 }

@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer" VersionOverride="8.1.0-preview.3" />
-    <PackageReference Include="Duende.Storage.Sqlite" VersionOverride="2.0.0-preview.2" />
-    <PackageReference Include="Duende.UserManagement.IdentityServer8" VersionOverride="2.0.0-preview.2" />
+    <PackageReference Include="Duende.IdentityServer" VersionOverride="8.1.0-preview.4" />
+    <PackageReference Include="Duende.Storage.Sqlite" VersionOverride="2.0.0-preview.3" />
+    <PackageReference Include="Duende.UserManagement.IdentityServer8" VersionOverride="2.0.0-preview.3" />
     <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" VersionOverride="2.1.13" />
   </ItemGroup>
 

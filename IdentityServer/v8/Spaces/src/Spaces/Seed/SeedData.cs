@@ -68,7 +68,7 @@ public class SeedData(IServiceProvider services)
         var spacedService = services.GetServiceForSpace<IIdentityProviderAdmin>(spaceId);
         var schemaStore = services.GetRequiredService<ISchemaStore>();
 
-        var oidcSchema = await schemaStore.GetAsync(SchemaId.IdentityProvider("oidc"), ct);
+        var oidcSchema = await schemaStore.GetAsync(SchemaId.OidcIdentityProvider, ct);
         var values = new AttributeValueCollection(oidcSchema);
         values.Set(OidcProviderSchema.Authority, "https://demo.duendesoftware.com");
         values.Set(OidcProviderSchema.ClientId, "interactive.confidential");

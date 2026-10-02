@@ -81,7 +81,7 @@ internal static class OidcProviderSchema
     /// </summary>
     public static readonly SchemaConfiguration Schema = new()
     {
-        SchemaId = SchemaId.IdentityProvider("oidc"),
+        SchemaId = SchemaId.OidcIdentityProvider,
         DisplayName = "OIDC Identity Provider",
         Description = "Built-in schema for OpenID Connect identity providers.",
         AttributeDefinitions =
