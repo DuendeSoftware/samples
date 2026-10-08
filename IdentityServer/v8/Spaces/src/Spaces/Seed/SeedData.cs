@@ -7,10 +7,12 @@ using Duende.IdentityServer.Admin.Clients;
 using Duende.IdentityServer.Admin.IdentityProviders;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Stores.Storage;
+using Duende.IdentityServer.Stores.Storage.IdentityProviders;
 using Duende.Spaces;
 using Duende.Storage.EntityAttributeValue;
 using Duende.UserManagement;
 using Duende.UserManagement.Authentication;
+using Duende.UserManagement.Profiles;
 
 namespace Spaces.Seed;
 
@@ -68,13 +70,13 @@ public class SeedData(IServiceProvider services)
         var spacedService = services.GetServiceForSpace<IIdentityProviderAdmin>(spaceId);
         var schemaStore = services.GetRequiredService<ISchemaStore>();
 
-        var oidcSchema = await schemaStore.GetAsync(SchemaId.IdentityProvider("oidc"), ct);
+        var oidcSchema = await schemaStore.GetAsync(SchemaId.OidcIdentityProvider, ct);
         var values = new AttributeValueCollection(oidcSchema);
-        values.Set(OidcProviderSchema.Authority, "https://demo.duendesoftware.com");
-        values.Set(OidcProviderSchema.ClientId, "interactive.confidential");
-        values.Set(OidcProviderSchema.ClientSecret, "secret");
-        values.Set(OidcProviderSchema.ResponseType, "code");
-        values.Set(OidcProviderSchema.GetClaimsFromUserInfoEndpoint, "true");
+        values.Set(DefaultOidcProviderSchema.Authority, "https://demo.duendesoftware.com");
+        values.Set(DefaultOidcProviderSchema.ClientId, "interactive.confidential");
+        values.Set(DefaultOidcProviderSchema.ClientSecret, "secret");
+        values.Set(DefaultOidcProviderSchema.ResponseType, "code");
+        values.Set(DefaultOidcProviderSchema.GetClaimsFromUserInfoEndpoint, "true");
 
         var saveResult = await spacedService.Service.CreateAsync(new CreateIdentityProvider()
         {
@@ -120,9 +122,11 @@ public class SeedData(IServiceProvider services)
         using var spacedUserAdmin = services.GetServiceForSpace<IUserAdmin>(spaceId);
         var profileAdmin = spacedUserAdmin.Service.Profiles;
 
-        // First, we'll need to create a profile for the user. It has a unique username.
+        // First, we'll need to create a profile for the user. It has a unique username, and the
+        // built-in schema requires a unique email.
         var attributes = new AttributeValueCollection(await profileAdmin.GetSchemaAsync(ct));
         attributes.Set(DemoUserAttributes.UserName, userName); // This username is used for username / password login. 
+        attributes.Set(OidcStandardAttributes.Email, $"{userName}@example.com");
         var userSubjectId = UserSubjectId.New();
         var saved = await profileAdmin.TryAddAsync(userSubjectId, attributes.Validate(), ct);
 

@@ -10,7 +10,7 @@ namespace Spaces.Seed;
 public static class DemoCredentials
 {
     /// <summary>Demo password shared across all seeded users.</summary>
-    public const string Password = "Pa$$Word123";
+    public const string Password = "Pa$$Word123456789";
 
     /// <summary>
     /// Returns the demo username for a given space, or null if no demo user is seeded for that space.

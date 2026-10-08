@@ -67,16 +67,16 @@ public sealed class ExternalLoginCallbackModel(
                 ?? principal.FindFirst(ClaimTypes.Name)?.Value
                 ?? "name";
 
+            // The built-in user profile schema requires a unique email. Fall back to a
+            // per-user placeholder when the external provider doesn't supply one.
             var email = principal.FindFirst(JwtClaimTypes.Email)?.Value
-                ?? principal.FindFirst(ClaimTypes.Email)?.Value ?? "test@test.nl";
+                ?? principal.FindFirst(ClaimTypes.Email)?.Value
+                ?? $"{userId}@example.invalid";
 
             var schema = await profileSelfService.GetSchemaAsync(ct);
             var attributes = new AttributeValueCollection(schema);
             attributes.Set(DemoUserAttributes.UserName, name);
-            if (email is not null)
-            {
-                attributes.Set(DemoUserAttributes.Email, email);
-            }
+            attributes.Set(OidcStandardAttributes.Email, email);
 
             var saved = await profileSelfService.TryCreateAsync(userId, attributes.Validate(), ct);
             if (saved is null)

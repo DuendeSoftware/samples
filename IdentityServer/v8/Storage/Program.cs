@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.WebUtilities;
 using Storage;
 
 const string defaultBaseUrl = "https://localhost:5006";
-const string databaseName = "IdentityServerStorageSample";
 
 var builder = WebApplication.CreateBuilder(args);
 var publicBaseUri = GetPublicBaseUri(builder.Configuration["SampleBaseUrl"] ?? defaultBaseUrl);
@@ -41,14 +40,29 @@ builder.Services
     })
     .AddDeveloperSigningCredential(persistKey: false)
     .AddServerSideSessions()
-    .AddStorage(storage => storage.AddSqliteInMemoryStore(databaseName))
+    // AddStorage only registers a database for a named instance; it does not route any
+    // IdentityServer data to it. AddConfigurationStorage/AddOperationalStorage below route
+    // each data category to one of these two databases. A category left unmapped would fall
+    // back to a default instance, but this sample maps both categories explicitly, so no
+    // default instance is registered.
+    .AddStorage(SampleStorage.Configuration, storage => storage.AddSqliteInMemory("IdentityServerStorageSample-Configuration"))
+    .AddStorage(SampleStorage.Operational, storage => storage.AddSqliteInMemory("IdentityServerStorageSample-Operational"))
+    .AddConfigurationStorage(SampleStorage.Configuration)
+    .AddOperationalStorage(SampleStorage.Operational)
     .AddInMemoryDataExtensionSchemas([SampleData.ClientSchema])
     .AddTestUsers(SampleUsers.Users)
     .AddCustomTokenRequestValidator<AllowedRegionTokenRequestValidator>();
 
 var app = builder.Build();
 
-await app.Services.GetRequiredService<IDatabaseSchema>().MigrateAsync(CancellationToken.None);
+// Each storage instance is a separate database and is migrated separately.
+var schemaFactory = app.Services.GetRequiredService<IStorageInstanceSchemaFactory>();
+foreach (var instance in new[] { SampleStorage.Configuration, SampleStorage.Operational })
+{
+    var schema = await schemaFactory.GetStorageInstanceSchema(instance, CancellationToken.None);
+    await schema.MigrateAsync(CancellationToken.None);
+}
+
 await SampleData.InitializeAsync(app.Services, publicBaseUrl, CancellationToken.None);
 
 app.UseHostFiltering();

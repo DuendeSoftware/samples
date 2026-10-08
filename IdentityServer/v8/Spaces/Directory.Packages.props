@@ -4,11 +4,11 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Duende.IdentityServer" Version="8.1.0-preview.3" />
-    <PackageVersion Include="Duende.Spaces" Version="1.0.0-preview.2" />
-    <PackageVersion Include="Duende.Storage" Version="2.0.0-preview.2" />
-    <PackageVersion Include="Duende.Storage.Sqlite" Version="2.0.0-preview.2" />
-    <PackageVersion Include="Duende.UserManagement.IdentityServer8" Version="2.0.0-preview.2" />
+    <PackageVersion Include="Duende.IdentityServer" Version="8.1.0-preview.4" />
+    <PackageVersion Include="Duende.Spaces" Version="1.0.0-preview.3" />
+    <PackageVersion Include="Duende.Storage" Version="2.0.0-preview.3" />
+    <PackageVersion Include="Duende.Storage.Sqlite" Version="2.0.0-preview.3" />
+    <PackageVersion Include="Duende.UserManagement.IdentityServer8" Version="2.0.0-preview.3" />
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.5.3" />
