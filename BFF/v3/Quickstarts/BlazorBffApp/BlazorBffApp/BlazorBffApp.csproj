@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.BFF.Blazor" Version="3.1.0" />
+    <PackageReference Include="Duende.BFF.Blazor" Version="3.1.1" />
     <ProjectReference Include="..\BlazorBffApp.Client\BlazorBffApp.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.19" />
   </ItemGroup>

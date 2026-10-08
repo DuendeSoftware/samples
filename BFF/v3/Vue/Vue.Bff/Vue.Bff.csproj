@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.BFF.Yarp" Version="3.1.0" />
+    <PackageReference Include="Duende.BFF.Yarp" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.30"/>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.30"/>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3"/>
