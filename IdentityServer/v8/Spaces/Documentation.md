@@ -97,37 +97,38 @@ Add the Spaces resolution middleware before IdentityServer handles requests. If 
 
 ## Configuring Multi-Space
 
-Spaces is added to the application's service collection. IdentityServer's configuration and operational data must use the Duende.Storage based stores.
+Spaces is added from the IdentityServer builder with `AddSpaces`. IdentityServer's configuration and operational data must use the Duende.Storage based stores.
 
 ```csharp
 using Duende.Spaces;
+using Duende.Storage.Sqlite;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSpaces();
-
 builder.Services
     .AddIdentityServer()
+    .AddStorage(storage => storage.AddSqliteInMemory())
+    .AddSpaces(options => { })
     .AddConfigurationStorage()
     .AddOperationalStorage();
 ```
 
-Spaces requires the Duende.Storage based architecture. Do not configure the Entity Framework configuration or operational stores when using Spaces.
+Spaces requires the Duende.Storage based architecture. Do not configure the Entity Framework configuration or operational stores when using Spaces; IdentityServer fails at startup if you do.
 
-Configure Spaces options with the standard options pattern:
+`AddSpaces` stores Spaces data in the default storage instance. To keep it in another storage instance, use the `AddSpaces(storageInstanceId, configure)` overload.
+
+Configure Spaces options in the `AddSpaces` delegate:
 
 ```csharp
-using Duende.Spaces;
-
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.Configure<SpacesOptions>(options =>
-{
-    options.SpacePathPrefix = "/t";
-    options.LocalCacheExpiration = TimeSpan.FromSeconds(30);
-    options.Expiration = TimeSpan.FromMinutes(30);
-    options.FallbackToDefault = false;
-});
+builder.Services
+    .AddIdentityServer()
+    .AddSpaces(options =>
+    {
+        options.SpacePathPrefix = "/t";
+        options.LocalCacheExpiration = TimeSpan.FromSeconds(30);
+        options.Expiration = TimeSpan.FromMinutes(30);
+        options.FallbackToDefault = false;
+    });
 ```
 
 `SpacePathPrefix` controls the path prefix used for path-based space resolution. The default value is `/t`.
@@ -138,6 +139,10 @@ builder.Services.Configure<SpacesOptions>(options =>
 
 `FallbackToDefault` controls what happens when a request cannot be resolved to a space. When `false`, unresolved requests do not get a current space and return a 404. When `true`, unresolved requests use the default space.
 
+`PartitionDataProtection` partitions ASP.NET Core data protection by space, so data protected in one space can't be unprotected in another. It is enabled by default. Use `GetUnpartitioned()` on an `IDataProtectionProvider` or `IDataProtector` when data must be shared across spaces.
+
+Spaces does not register a default `HybridCache`. If your application injects `HybridCache` itself, register one with `builder.Services.AddHybridCache()`.
+
 Add the Spaces resolution middleware before IdentityServer:
 
 ```csharp
@@ -145,7 +150,7 @@ using Duende.Spaces;
 
 var app = builder.Build();
 
-app.UseSpacesResolution();
+app.UseSpaceResolution();
 
 app.UseIdentityServer();
 
@@ -243,10 +248,9 @@ You can change this behavior with `SpacesOptions.FallbackToDefault`. When `Fallb
 ```csharp
 using Duende.Spaces;
 
-builder.Services.Configure<SpacesOptions>(options =>
-{
-    options.FallbackToDefault = true;
-});
+builder.Services
+    .AddIdentityServer()
+    .AddSpaces(options => options.FallbackToDefault = true);
 ```
 
 Use fallback when you are adding Spaces to an existing single-space IdentityServer deployment and want unmatched requests to continue using the default space. Disable fallback when every IdentityServer request must match an explicit space.
@@ -401,7 +405,7 @@ This pre-release is intended to validate the core Spaces model for IdentityServe
 After configuring Spaces:
 
 1. Configure Duende.Storage for the database provider used by the host.
-2. Add `UseSpacesResolution()` before IdentityServer in the ASP.NET Core pipeline.
+2. Add `UseSpaceResolution()` before IdentityServer in the ASP.NET Core pipeline.
 3. Create the initial space.
 4. Add match patterns for the hosts or paths that should resolve to that space.
 5. Verify the discovery document, authorize endpoint, token endpoint, and operational flows for each space.

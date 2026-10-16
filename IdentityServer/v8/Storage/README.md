@@ -16,8 +16,8 @@ The sample demonstrates:
 
 The sample uses the latest prerelease packages required by this functionality:
 
-- `Duende.IdentityServer` `8.1.0-preview.4`
-- `Duende.Storage.Sqlite` `2.0.0-preview.3`
+- `Duende.IdentityServer` `8.1.0-preview.6`
+- `Duende.Storage.Sqlite` `2.0.0-preview.6`
 
 From this directory, run:
 

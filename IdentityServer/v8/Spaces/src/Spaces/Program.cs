@@ -25,9 +25,6 @@ builder.Services.AddHttpClient("TokenRequest")
         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
     });
 
-builder.Services.AddSpaces();
-builder.Services.Configure<SpacesOptions>(o => o.FallbackToDefault = true);
-
 builder.Services
     .AddIdentityServer(options =>
     {
@@ -39,6 +36,7 @@ builder.Services
         options.Events.RaiseSuccessEvents = true;
     })
     .AddStorage(x => x.AddSqliteInMemory())
+    .AddSpaces(spaces => spaces.FallbackToDefault = true)
     .AddConfigurationStorage()
     .AddOperationalStorage()
     .AddUserManagement(um =>

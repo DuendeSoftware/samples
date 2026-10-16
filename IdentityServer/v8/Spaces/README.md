@@ -120,7 +120,7 @@ Each space has a dynamic OIDC identity provider configured pointing to `https://
 
 ### Space Resolution
 
-Spaces resolves the current space early in the middleware pipeline via `app.UseSpacesResolution()`. This must run before `app.UseIdentityServer()` so that all IdentityServer operations use the correct space context.
+Spaces resolves the current space early in the middleware pipeline via `app.UseSpaceResolution()`. This must run before `app.UseIdentityServer()` so that all IdentityServer operations use the correct space context.
 
 - **Host-based**: The request origin is matched against configured `SpaceMatchPattern.Origin` values
 - **Path-based**: Requests under `/t/{space-path}` are matched and the path is rewritten for downstream routing
