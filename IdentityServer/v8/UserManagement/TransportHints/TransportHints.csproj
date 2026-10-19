@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Duende.IdentityServer" VersionOverride="8.1.0-preview.6" />
+    <PackageReference Include="Duende.Storage.Sqlite" VersionOverride="2.0.0-preview.6" />
+    <PackageReference Include="Duende.UserManagement.IdentityServer8" VersionOverride="2.0.0-preview.6" />
+    <PackageReference Include="Microsoft.Data.Sqlite" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GettingStarted\ConsoleOtpDispatcher.cs" Link="ConsoleOtpDispatcher.cs" />
+    <Compile Include="..\GettingStarted\Pages\Account\Login.cshtml.cs" Link="Pages\Account\Login.cshtml.cs" />
+    <Compile Include="..\GettingStarted\Pages\Account\EnterOtp.cshtml.cs" Link="Pages\Account\EnterOtp.cshtml.cs" />
+    <Content Include="..\GettingStarted\Pages\Account\Login.cshtml" Link="Pages\Account\Login.cshtml" />
+    <Content Include="..\GettingStarted\Pages\Account\EnterOtp.cshtml" Link="Pages\Account\EnterOtp.cshtml" />
+  </ItemGroup>
+</Project>

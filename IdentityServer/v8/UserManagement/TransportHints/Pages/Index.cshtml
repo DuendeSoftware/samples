@@ -1,0 +1,155 @@
+@page
+@model TransportHints.Pages.IndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Passkey transport hints</title>
+    <link rel="stylesheet" href="~/sample.css" asp-append-version="true" />
+</head>
+<body>
+    <main>
+        <p class="eyebrow">Duende User Management / Transport hints</p>
+        <h1>Passkey transport hints</h1>
+        <p>
+            <strong>Transport hints work automatically; there is no setting to enable or change here.</strong>
+            The browser reports the hints during registration, and User Management stores and forwards them
+            during known-user verification. This sample makes that data flow visible, not a configurable
+            with-hints versus without-hints comparison.
+        </p>
+        <p>
+            To explore different values, register different authenticators, such as Windows Hello or a USB
+            security key. The browser and authenticator determine the reported values.
+            Hints can help the browser tailor its prompts, but a visibly different prompt is not guaranteed.
+        </p>
+        <p>Signed in as @User.Identity?.Name using the GettingStarted console-OTP flow.</p>
+        <p>Register a passkey, then verify it for this account. This does not enable an MFA policy or change your session.</p>
+        <label for="passkey-name">Unique passkey name</label>
+        <input id="passkey-name" value="My authenticator" required />
+        <form id="verify-form" method="post" asp-page-handler="Verify">
+            <button id="register" type="button">Register passkey</button>
+            <button id="verify" type="button">Verify with known-user passkey</button>
+        </form>
+        <p id="status" role="status"></p>
+        <section class="transport-observations" aria-labelledby="transport-heading">
+            <h2 id="transport-heading">Follow the transport hints</h2>
+            <p>Register a passkey to capture its hints, then verify to see them travel from storage to the browser.</p>
+            <h3>1. Captured during registration</h3>
+            <p>
+                The browser's <code>getTransports()</code> result, submitted as <code>response.transports</code>.
+                Shown after the server accepts registration.
+            </p>
+            <pre id="registration-transports">Register a passkey to see its transport hints.</pre>
+            <h3>2. Returned from storage</h3>
+            <p>Per-credential hints in <code>options.allowCredentials</code> from the known-user begin response.</p>
+            <pre id="stored-transports">Verify a passkey to read its stored hints.</pre>
+            <h3>3. Forwarded to WebAuthn</h3>
+            <p>Hints passed by the stock JavaScript to <code>navigator.credentials.get</code>.</p>
+            <pre id="forwarded-transports">Verify a passkey to see the browser handoff.</pre>
+            <p>
+                These are observations from this page visit, not a live database view. Reloading clears the display,
+                not the saved passkeys. Verification can show hints for passkeys registered on earlier visits.
+            </p>
+        </section>
+    </main>
+    <script src="/passkeys/js"></script>
+    <script>
+        const registerButton = document.getElementById('register');
+        const verifyButton = document.getElementById('verify');
+        const statusBox = document.getElementById('status');
+
+        function showTransports(elementId, value) {
+            document.getElementById(elementId).textContent = JSON.stringify(value, null, 2);
+        }
+
+        function describeCredentials(credentials) {
+            return (credentials ?? []).map((credential, index) => ({
+                credential: index + 1,
+                transports: credential.transports ?? []
+            }));
+        }
+
+        // Observe only transport metadata; the stock helpers still own requests and WebAuthn conversion.
+        const originalFetch = window.fetch.bind(window);
+        window.fetch = async function(resource, options) {
+            const response = await originalFetch(resource, options);
+            const pathname = typeof resource === 'string' ? new URL(resource, window.location.href).pathname : null;
+            if (response.ok && pathname === '/passkeys/register/complete') {
+                const registration = JSON.parse(options.body);
+                showTransports('registration-transports', registration.response.transports ?? []);
+            }
+            if (response.ok && pathname === '/passkeys/authenticate/begin') {
+                const beginResponse = await response.clone().json();
+                showTransports('stored-transports', describeCredentials(beginResponse.options.allowCredentials));
+            }
+            return response;
+        };
+
+        if (navigator.credentials) {
+            const originalGet = navigator.credentials.get.bind(navigator.credentials);
+            navigator.credentials.get = function(options) {
+                if (options.publicKey) {
+                    showTransports('forwarded-transports', describeCredentials(options.publicKey.allowCredentials));
+                }
+                return originalGet(options);
+            };
+        }
+
+        function showStatus(message) {
+            statusBox.textContent = message;
+            registerButton.disabled = false;
+            verifyButton.disabled = false;
+        }
+
+        function begin() {
+            registerButton.disabled = true;
+            verifyButton.disabled = true;
+            statusBox.textContent = 'Waiting for your authenticator...';
+        }
+
+        registerButton.addEventListener('click', function() {
+            const name = document.getElementById('passkey-name').value.trim();
+            if (!name) {
+                showStatus('Enter a unique passkey name.');
+                return;
+            }
+            document.getElementById('registration-transports').textContent = 'Waiting for registration to be accepted...';
+            begin();
+            registerPasskey(name, {
+                onSuccess: () => showStatus('Passkey registered. Now verify it to observe the stored hints.'),
+                onError: showStatus
+            });
+        });
+
+        verifyButton.addEventListener('click', function() {
+            document.getElementById('stored-transports').textContent = 'Waiting for the known-user begin response...';
+            document.getElementById('forwarded-transports').textContent = 'Waiting for the browser handoff...';
+            begin();
+            authenticateWithPasskey({
+                onSuccess: async function(assertion) {
+                    try {
+                        const form = document.getElementById('verify-form');
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'RequestVerificationToken': form.querySelector('input[name="__RequestVerificationToken"]').value
+                            },
+                            body: JSON.stringify(assertion)
+                        });
+                        if (!response.ok) {
+                            throw new Error(await tryParseJsonError(response, 'Passkey verification failed.'));
+                        }
+                        const result = await response.json();
+                        showStatus(result.message);
+                    } catch (error) {
+                        showStatus(error.message);
+                    }
+                },
+                onError: showStatus
+            });
+        });
+    </script>
+</body>
+</html>
