@@ -1,0 +1,92 @@
+@page
+@model ScimProvisioning.Directory.Pages.IndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulated upstream directory</title>
+    <style>
+        body { font: 1rem system-ui; max-width: 75rem; margin: 2rem auto; padding: 0 1rem; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: .6rem; text-align: left; border: 1px solid #bbb; }
+        button, select { margin: .3rem; padding: .5rem; }
+        section { margin: 2rem 0; }
+        .validation-summary-errors { color: #a00; }
+    </style>
+</head>
+<body>
+    <h1>Simulated upstream directory</h1>
+    <p><strong>Local demonstration only.</strong> This is a hand-written SCIM client standing in for Entra ID, Okta, or an HR system. It is not a Duende outbound SCIM feature.</p>
+    <p><a href="https://localhost:6211" target="_blank" rel="noreferrer">Destination users, groups, and OTP sign-in</a></p>
+    <h2>Seeded employees</h2>
+    <table>
+        <thead><tr><th>externalId</th><th>userName</th><th>Display name</th><th>Department</th></tr></thead>
+        <tbody>
+            @foreach (var employee in EmployeeDirectory.Employees)
+            {
+                <tr><td>@employee.ExternalId</td><td>@employee.UserName</td><td>@employee.DisplayName</td><td>@employee.Department</td></tr>
+            }
+        </tbody>
+    </table>
+    <section>
+        <h2>Result</h2>
+        <div asp-validation-summary="All"></div>
+        @foreach (var result in Model.Results)
+        {
+            <p>@result</p>
+        }
+        <p>Only status, ids, counts, and demo identifiers are displayed. Tokens, secrets, and complete bodies are not shown.</p>
+    </section>
+    <section>
+        <h2>Discovery and bulk synchronization</h2>
+        <form method="post">
+            <button name="ActionName" value="discover">Discover SCIM capabilities</button>
+            <button name="ActionName" value="bulk">Bulk create Research employees and group</button>
+        </form>
+        <p>Bulk creates Casey and Dana, then Research with bulkId member references. Run it before separately provisioning these records. Bulk is not a transaction; reconcile after a partial failure.</p>
+    </section>
+    <section>
+        <h2>User lifecycle</h2>
+        <form method="post">
+            <label for="EmployeeId">Employee</label>
+            <select asp-for="EmployeeId">
+                @foreach (var employee in EmployeeDirectory.Employees)
+                {
+                    <option value="@employee.ExternalId">@employee.UserName</option>
+                }
+            </select>
+            <button name="ActionName" value="create">POST user</button>
+            <button name="ActionName" value="reconcile">Reconcile by userName</button>
+            <button name="ActionName" value="update">PATCH display name</button>
+            <button name="ActionName" value="deactivate">PATCH active=false</button>
+            <button name="ActionName" value="delete">DELETE user</button>
+        </form>
+        <p>Reconcile finds an existing matching externalId or creates a missing user. It never silently overwrites an existing profile. Updates, deletion, and membership resolve ids by filter each time, including after a source restart.</p>
+        <p><code>active=false</code> is only stored data; it does not disable OTP sign-in or revoke sessions.</p>
+    </section>
+    <section>
+        <h2>Departments and membership</h2>
+        <form method="post">
+            <label for="Department">Department</label>
+            <select asp-for="Department">
+                @foreach (var department in EmployeeDirectory.Departments)
+                {
+                    <option>@department</option>
+                }
+            </select>
+            <button name="ActionName" value="group">POST group</button>
+        </form>
+        <form method="post">
+            <label for="MemberEmployeeId">Employee to add to their department</label>
+            <select id="MemberEmployeeId" name="EmployeeId">
+                @foreach (var employee in EmployeeDirectory.Employees)
+                {
+                    <option value="@employee.ExternalId">@employee.UserName</option>
+                }
+            </select>
+            <button name="ActionName" value="member">PATCH group membership</button>
+        </form>
+    </section>
+</body>
+</html>

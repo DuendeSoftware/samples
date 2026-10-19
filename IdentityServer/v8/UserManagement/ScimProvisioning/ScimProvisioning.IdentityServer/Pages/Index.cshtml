@@ -1,0 +1,33 @@
+@page
+@model ScimProvisioning.IdentityServer.Pages.IndexModel
+@using System.Security.Claims
+<h1>SCIM destination</h1>
+<p>The destination starts empty. Provision users and groups from the simulated upstream Directory.</p>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <h2>Signed-in session</h2>
+    <p>Subject: <code id="signed-in-subject">@User.FindFirstValue("sub")</code></p>
+    <p>Compare this subject with the provisioned user's SCIM id below. No just-in-time profile is created.</p>
+}
+<h2>Stored users</h2>
+<p><code>active</code> is stored business data. This sample does not use it to block sign-in or revoke sessions.</p>
+<table>
+    <thead><tr><th>SCIM id / subject</th><th>userName</th><th>displayName</th><th>active</th></tr></thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr><td>@user.Id</td><td>@user.UserName</td><td>@user.DisplayName</td><td>@user.Active</td></tr>
+        }
+    </tbody>
+</table>
+<h2>Stored groups</h2>
+<table>
+    <thead><tr><th>SCIM id</th><th>Name</th><th>Member subjects</th></tr></thead>
+    <tbody>
+        @foreach (var group in Model.Groups)
+        {
+            <tr><td>@group.Id</td><td>@group.Name</td><td>@group.Members</td></tr>
+        }
+    </tbody>
+</table>
+<p>These views show the first page of stored records and members. The seeded demo directory is intentionally small.</p>

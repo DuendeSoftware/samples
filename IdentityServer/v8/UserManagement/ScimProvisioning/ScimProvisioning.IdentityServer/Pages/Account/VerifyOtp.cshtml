@@ -1,0 +1,10 @@
+@page
+@model ScimProvisioning.IdentityServer.Pages.Account.VerifyOtpModel
+<h1>Verify the email code</h1>
+<p>Retrieve the code from <a href="http://localhost:8028" rel="noreferrer" target="_blank">Mailpit</a>. Do not paste codes into logs or screenshots.</p>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Code">Code</label>
+    <input asp-for="Code" autocomplete="one-time-code" required />
+    <button type="submit">Verify and sign in</button>
+</form>
