@@ -56,7 +56,15 @@ The option controls registration, discoverable authentication, and known-user au
 
 ## Observe the Minimum and Startup Validation
 
-A configured value other than the **32-byte default** must be at least **16 bytes**.
+Challenges need enough unpredictable randomness (entropy) to make guessing them infeasible and
+prevent replay attacks. The [Web Authentication Level 3 specification](https://www.w3.org/TR/webauthn-3/#sctn-cryptographic-challenges)
+states:
+
+> In order to prevent replay attacks, the challenges MUST contain enough entropy to make guessing
+> them infeasible. Challenges SHOULD therefore be at least 16 bytes long.
+
+Duende User Management enforces **16 bytes as an absolute minimum** and uses **32-byte challenges
+by default**. Any configured size must be at least **16 bytes**.
 Stop the host, change `ChallengeSize` in `appsettings.json` to `16`, and restart.
 Either button produces a 16-byte challenge.
 

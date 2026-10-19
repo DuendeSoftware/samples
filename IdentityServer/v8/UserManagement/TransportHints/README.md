@@ -4,6 +4,12 @@ A Duende User Management sample showing how browser transport hints are captured
 registration, stored with a credential, and passed back to WebAuthn during known-user verification.
 The independent [ChallengeSize](../ChallengeSize/README.md) sample covers challenge length.
 
+A transport hint describes how a browser can communicate with an authenticator that holds a
+credential. For example, `usb` and `nfc` describe external connection methods, while `internal`
+indicates a platform authenticator built into the device, such as Windows Hello. A credential can
+have multiple hints. During authentication, the browser can use these hints to guide authenticator
+discovery and offer relevant ways to use the credential, rather than trying every transport.
+
 **Transport hints work automatically.** There is no transport-hints setting to enable or tune in this
 sample. The browser reports hints during registration; User Management stores them and returns them
 during known-user authentication, and the stock JavaScript forwards them to WebAuthn.
