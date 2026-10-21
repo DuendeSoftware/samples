@@ -51,6 +51,11 @@ public sealed class IndexModel(ScimClient scim, ILogger<IndexModel> logger) : Pa
             ModelState.AddModelError("", "The destination or token endpoint could not be reached. Check the Aspire resources.");
             logger.LogWarning("Directory operation {Operation} failed at the HTTP transport or token endpoint.", ActionName);
         }
+        catch (Polly.Timeout.TimeoutRejectedException)
+        {
+            ModelState.AddModelError("", "The request timed out. It may have committed; restart the sample before retrying.");
+            logger.LogWarning("Directory operation {Operation} timed out.", ActionName);
+        }
         catch (OperationCanceledException) when (!ct.IsCancellationRequested)
         {
             ModelState.AddModelError("", "The request timed out. It may have committed; restart the sample before retrying.");
