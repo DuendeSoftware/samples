@@ -808,6 +808,14 @@
     <Project Path="IdentityServer/v8/SAML/IdPInitiated/ServiceProvider/ServiceProvider.csproj" />
   </Folder>
   <Folder Name="/IdentityServer/v8/UserManagement/" />
+  <Folder Name="/IdentityServer/v8/UserManagement/ChallengeSize/">
+    <File Path="IdentityServer/v8/UserManagement/ChallengeSize/README.md" />
+    <Project Path="IdentityServer/v8/UserManagement/ChallengeSize/ChallengeSize.csproj" />
+  </Folder>
+  <Folder Name="/IdentityServer/v8/UserManagement/TransportHints/">
+    <File Path="IdentityServer/v8/UserManagement/TransportHints/README.md" />
+    <Project Path="IdentityServer/v8/UserManagement/TransportHints/TransportHints.csproj" />
+  </Folder>
   <Folder Name="/IdentityServer/v8/UserManagement/FullSample/">
     <Project Path="IdentityServer/v8/UserManagement/FullSample/UserManagementSample.AppHost/UserManagementSample.AppHost.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/FullSample/UserManagementSample.AspNetIdentitySource/UserManagementSample.AspNetIdentitySource.csproj" />

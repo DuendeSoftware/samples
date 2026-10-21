@@ -1,0 +1,28 @@
+@page
+@model ChallengeSize.Pages.IndexModel
+@{
+    ViewData["Title"] = "Passkey challenge size";
+}
+
+<h1>Passkey challenge size</h1>
+<p>
+    Configured size: <strong id="configured-size">@Model.ConfiguredSize bytes</strong>.
+    This sample opts into 64 bytes in <code>appsettings.json</code>.
+    The library default is 32 bytes; the minimum is 16 bytes.
+</p>
+<p>
+    This sample only begins ceremonies. No authenticator, registration, or sign-in is needed.
+    Registration uses a fixed demonstration subject, not a real account.
+</p>
+<form method="post">
+    <button type="submit" asp-page-handler="Registration">Begin registration</button>
+    <button type="submit" asp-page-handler="Authentication">Begin discoverable authentication</button>
+</form>
+<div asp-validation-summary="All" role="alert"></div>
+@if (Model.EncodedChallenge is not null)
+{
+    <h2>@Model.CeremonyType</h2>
+    <p>Decoded challenge: <strong id="byte-length">@Model.ByteLength bytes</strong>.</p>
+    <p>Base64url-encoded challenge:</p>
+    <pre id="challenge">@Model.EncodedChallenge</pre>
+}
