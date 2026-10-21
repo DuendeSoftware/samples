@@ -1,6 +1,6 @@
 # Duende User Management SCIM Provisioning Sample
 
-This Aspire sample connects two applications through SCIM 2.0:
+This sample connects two applications through SCIM 2.0:
 
 - **ScimProvisioning.Directory** (source) is a simulated upstream directory. It stands in for an identity provider or HR system such as Entra ID or Okta, and pushes employees and departments with a small hand-written SCIM client.
 - **ScimProvisioning.IdentityServer** (destination) is Duende IdentityServer with User Management's inbound SCIM endpoints enabled. It stores the provisioned users and groups, and lets provisioned users sign in with an email one-time password (OTP).
