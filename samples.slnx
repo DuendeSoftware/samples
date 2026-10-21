@@ -827,6 +827,11 @@
     <Project Path="IdentityServer/v8/UserManagement/PasswordRegistration/PasswordRegistration.AppHost/PasswordRegistration.AppHost.csproj" />
     <Project Path="IdentityServer/v8/UserManagement/PasswordRegistration/PasswordRegistration/PasswordRegistration.csproj" />
   </Folder>
+  <Folder Name="/IdentityServer/v8/UserManagement/ScimProvisioning/">
+    <Project Path="IdentityServer/v8/UserManagement/ScimProvisioning/ScimProvisioning.AppHost/ScimProvisioning.AppHost.csproj" />
+    <Project Path="IdentityServer/v8/UserManagement/ScimProvisioning/ScimProvisioning.Directory/ScimProvisioning.Directory.csproj" />
+    <Project Path="IdentityServer/v8/UserManagement/ScimProvisioning/ScimProvisioning.IdentityServer/ScimProvisioning.IdentityServer.csproj" />
+  </Folder>
   <Folder Name="/various/" />
   <Folder Name="/various/clients/" />
   <Folder Name="/various/clients/Maui/" />

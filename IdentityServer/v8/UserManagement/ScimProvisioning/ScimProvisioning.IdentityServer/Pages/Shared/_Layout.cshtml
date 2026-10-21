@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SCIM destination</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-overrides.css" asp-append-version="true" />
+</head>
+<body class="container py-4">
+    <nav class="nav align-items-center gap-3 mb-3">
+        <a asp-page="/Index">Destination users and groups</a>
+        <a asp-page="/Account/Login">OTP sign-in</a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <form asp-page="/Account/Logout" method="post"><button type="submit" class="btn btn-outline-secondary btn-sm">Sign out</button></form>
+        }
+    </nav>
+    <p><strong>Local demonstration only.</strong> These read-only directory views are not production administration pages.</p>
+    <main>@RenderBody()</main>
+</body>
+</html>

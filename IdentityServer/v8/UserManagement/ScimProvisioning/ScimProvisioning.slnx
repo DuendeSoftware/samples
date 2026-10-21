@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="ScimProvisioning.AppHost/ScimProvisioning.AppHost.csproj" />
+  <Project Path="ScimProvisioning.IdentityServer/ScimProvisioning.IdentityServer.csproj" />
+  <Project Path="ScimProvisioning.Directory/ScimProvisioning.Directory.csproj" />
+</Solution>
