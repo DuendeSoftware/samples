@@ -1,0 +1,94 @@
+@page
+@model ScimProvisioning.Directory.Pages.IndexModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulated upstream directory</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-overrides.css" asp-append-version="true" />
+</head>
+<body class="container py-4">
+
+    <h1>Simulated upstream directory</h1>
+    <p><strong>Local demonstration only.</strong> This is a hand-written SCIM client standing in for Entra ID, Okta, or an HR system. It is not a Duende outbound SCIM feature.</p>
+    <p><a href="https://localhost:6211" target="_blank" rel="noreferrer">Destination users, groups, and OTP sign-in</a></p>
+
+    <h2>Seeded employees</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>externalId</th>
+                <th>userName</th>
+                <th>Display name</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in EmployeeDirectory.Employees)
+            {
+                <tr>
+                    <td>@employee.ExternalId</td>
+                    <td>@employee.UserName</td>
+                    <td>@employee.DisplayName</td>
+                    <td>@employee.Department</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <section class="my-4">
+        <h2>Result</h2>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        @foreach (var result in Model.Results)
+        {
+            <p>@result</p>
+        }
+        <p>Only status, ids, counts, and demo identifiers are displayed. Tokens, secrets, and complete bodies are not shown.</p>
+    </section>
+
+    <section class="my-4">
+        <h2>Discover and bulk provision</h2>
+        <form method="post" class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <button class="btn btn-primary" name="ActionName" value="discover">Discover SCIM capabilities</button>
+            <button class="btn btn-primary" name="ActionName" value="bulk">Bulk create Research employees and group</button>
+        </form>
+        <p>Bulk creates Casey and Dana, then Research with bulkId member references. Bulk is not a transaction; restart the sample if it partially fails.</p>
+    </section>
+
+    <section class="my-4">
+        <h2>Provision users</h2>
+        <form method="post" class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <label for="EmployeeId" class="form-label mb-0">Employee</label>
+            <select asp-for="EmployeeId" class="form-select w-auto">
+                @foreach (var employee in EmployeeDirectory.Employees)
+                {
+                    <option value="@employee.ExternalId">@employee.UserName</option>
+                }
+            </select>
+            <button class="btn btn-primary" name="ActionName" value="create">POST user</button>
+            <button class="btn btn-primary" name="ActionName" value="deactivate">PATCH active=false</button>
+        </form>
+        <p>Provision users before deactivating them or creating their department group. A duplicate POST returns a SCIM conflict; restart the sample to reset its in-memory storage.</p>
+        <p><code>active=false</code> is only stored data; it does not disable OTP sign-in or revoke sessions.</p>
+    </section>
+
+    <section class="my-4">
+        <h2>Create a department group with its members</h2>
+        <form method="post" class="d-flex flex-wrap align-items-center gap-2 mb-2">
+            <label for="Department" class="form-label mb-0">Department</label>
+            <select asp-for="Department" class="form-select w-auto">
+                @foreach (var department in EmployeeDirectory.Departments)
+                {
+                    <option>@department</option>
+                }
+            </select>
+            <button class="btn btn-primary" name="ActionName" value="group">POST group with members</button>
+        </form>
+        <p>The Directory resolves each seeded user's SCIM id by <code>userName</code>, then includes those ids in the group POST.</p>
+    </section>
+
+</body>
+</html>

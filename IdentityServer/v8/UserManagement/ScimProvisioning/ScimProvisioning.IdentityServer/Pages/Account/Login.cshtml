@@ -1,0 +1,11 @@
+@page
+@model ScimProvisioning.IdentityServer.Pages.Account.LoginModel
+<h1>Sign in as a provisioned user</h1>
+<p>First provision an employee from the simulated Directory. The SCIM userName must be an email address for this demo.</p>
+<p>This flow never creates a profile. It binds email OTP to the existing provisioned subject.</p>
+<form method="post" class="mb-3">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <label asp-for="Email" class="form-label">Provisioned userName</label>
+    <input asp-for="Email" class="form-control mb-3" type="email" autocomplete="username" required />
+    <button type="submit" class="btn btn-primary">Send code to Mailpit</button>
+</form>
