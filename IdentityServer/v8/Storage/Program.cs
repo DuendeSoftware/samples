@@ -55,6 +55,10 @@ builder.Services
 
 var app = builder.Build();
 
+// DEVELOPMENT ONLY: Running migrations at application startup is suitable for this sample.
+// In production, run migrations as a single deployment step before starting app instances
+// (for example, `duende storage migrate`). Multiple instances can migrate the same database
+// concurrently, and a failed migration will prevent the application from starting.
 // Each storage instance is a separate database and is migrated separately.
 var schemaFactory = app.Services.GetRequiredService<IStorageInstanceSchemaFactory>();
 foreach (var instance in new[] { SampleStorage.Configuration, SampleStorage.Operational })
