@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="../IdentityServerHost/src/IdentityServerHost.csproj" />
+  <Project Path="Api/Api.csproj" />
+  <Project Path="ClientCredentials/ClientCredentials.csproj" />
+  <Project Path="DPoP.AppHost/DPoP.AppHost.csproj" />
+  <Project Path="WebClient/WebClient.csproj" />
+</Solution>

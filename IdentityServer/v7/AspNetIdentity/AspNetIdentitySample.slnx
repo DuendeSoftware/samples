@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="AspNetIdentity.AppHost/AspNetIdentity.AppHost.csproj" />
+  <Project Path="Client/Client.csproj" />
+  <Project Path="IdentityServerAspNetIdentity/IdentityServerAspNetIdentity.csproj" />
+</Solution>

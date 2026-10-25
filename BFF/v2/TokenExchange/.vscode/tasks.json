@@ -7,7 +7,7 @@
         "command": "dotnet",
         "args": [
             "build",
-            "${workspaceFolder}/TokenExchange.sln",
+            "${workspaceFolder}/TokenExchange.slnx",
             "/property:GenerateFullPaths=true",
             "/consoleloggerparameters:NoSummary"
         ],

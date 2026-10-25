@@ -12,7 +12,7 @@ namespace build
         {
             Target("build", () =>
             {
-                var files = Directory.GetFiles(".", "*.sln", SearchOption.AllDirectories)
+                var files = Directory.GetFiles(".", "*.slnx", SearchOption.AllDirectories)
                     .Where(f => !f.StartsWith("./various", StringComparison.OrdinalIgnoreCase));
 
                 foreach (var file in files)

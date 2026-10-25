@@ -7,7 +7,7 @@
         "command": "dotnet",
         "args": [
             "build",
-            "${workspaceFolder}/JsBffSample.sln",
+            "${workspaceFolder}/JsBffSample.slnx",
             "/property:GenerateFullPaths=true",
             "/consoleloggerparameters:NoSummary"
         ],

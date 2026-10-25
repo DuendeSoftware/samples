@@ -23,7 +23,7 @@ receives an access token it can use to call a protected API.
    dotnet run --project src/AppHost
    ```
 
-   > `AppHost` is deliberately **not** a member of `Quickstart.sln`, so `--project` is required.
+   > `AppHost` is deliberately **not** a member of `Quickstart.slnx`, so `--project` is required.
 
    The Aspire dashboard opens at `https://localhost:17236` and lists three resources: `identityserver`,
    `api` and `client`.

@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/" />
+  <Project Path="../../Apis/SimpleApi/SimpleApi.csproj" />
+  <Project Path="../../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="../../IdentityServerHost/src/IdentityServerHost.csproj" />
+  <Project Path="MvcBackChannelLogout.AppHost/MvcBackChannelLogout.AppHost.csproj" />
+  <Project Path="src/Client.csproj" />
+</Solution>

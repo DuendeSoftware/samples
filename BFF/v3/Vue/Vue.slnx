@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Vue.Api/Vue.Api.csproj" />
+  <Project Path="Vue.Bff/Vue.Bff.csproj" />
+  <Project Path="vue.client/vue.esproj">
+    <BuildType Project="Debug" />
+    <Build />
+  </Project>
+</Solution>

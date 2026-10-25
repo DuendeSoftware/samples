@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="BlazorAutoRendering.Api/BlazorAutoRendering.Api.csproj" />
+  <Project Path="BlazorAutoRendering.Client/BlazorAutoRendering.Client.csproj" />
+  <Project Path="BlazorAutoRendering/BlazorAutoRendering.csproj" />
+</Solution>

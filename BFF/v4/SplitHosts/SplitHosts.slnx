@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="BackendApiHost/BackendApiHost.csproj" />
+  <Project Path="BackendHost/BackendHost.csproj" />
+  <Project Path="FrontendHost/FrontendHost.csproj" />
+</Solution>

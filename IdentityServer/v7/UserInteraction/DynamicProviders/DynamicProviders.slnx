@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="Client/Client.csproj" />
+  <Project Path="IdentityServer.AppHost/IdentityServer.AppHost.csproj" />
+  <Project Path="IdentityServerHost/IdentityServerHost.csproj" />
+</Solution>

@@ -55,7 +55,7 @@ is no local user store at all.
 
 ## How to Run
 
-1. Open `WindowsAuthentication.sln` in Visual Studio, right-click `IdentityServerHost`, choose
+1. Open `WindowsAuthentication.slnx` in Visual Studio, right-click `IdentityServerHost`, choose
    **Properties → Run Debug** and confirm the profile is **IISExpress**, then press F5. It listens on
    `https://localhost:44324/`.
 1. Start the client in a second terminal:
