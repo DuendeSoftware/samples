@@ -104,8 +104,8 @@ jobs:
         with:
           global-json-file: global.json
 
-      - name: Prepare dev certificate folder
-        run: mkdir -p "$HOME/.aspnet/https"
+      - name: Prepare dev certificate folders
+        run: mkdir -p "$HOME/.aspnet/https" "$HOME/.aspnet/dev-certs/https"
 
       - name: Install dependencies
         run: npm ci
