@@ -3,9 +3,10 @@ import { AuthenticationService, Session } from '../authentication.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-user-session',
-  templateUrl: './user-session.component.html',
-  styleUrls: ['./user-session.component.css']
+    selector: 'app-user-session',
+    templateUrl: './user-session.component.html',
+    styleUrls: ['./user-session.component.css'],
+    standalone: false
 })
 export class UserSessionComponent {
   public session$: Observable<Session>;

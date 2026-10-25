@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -18,12 +18,13 @@ import { TodosComponent } from './todos/todos.component';
         UserSessionComponent,
         TodosComponent
     ],
-    bootstrap: [AppComponent], imports: [BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'user-session', component: UserSessionComponent },
         ])], providers: [
+        { provide: APP_ID, useValue: 'ng-cli-universal' },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: CsrfHeaderInterceptor,

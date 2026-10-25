@@ -4,8 +4,9 @@ import { BehaviorSubject, catchError, filter, Observable, of, Subject, switchMap
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
-  selector: 'app-todos',
-  templateUrl: './todos.component.html',
+    selector: 'app-todos',
+    templateUrl: './todos.component.html',
+    standalone: false
 })
 export class TodosComponent implements OnInit {
   private readonly todos = new BehaviorSubject<Todo[]>([]);
