@@ -8,6 +8,14 @@
 //   dotnet=[{"path": "...", "os": "...", "kind": "sdk|maui|netfx", "framework": "..."}, ...]
 //   node=[{"path": "..."}, ...]
 //
+// When CHANGED_FILES names a file listing changed paths (one per line, relative to the
+// repository root), only the samples affected by those changes are emitted:
+// - a change under a sample's solution/project directories (including referenced projects
+//   and files included from outside them) affects that sample
+// - a change to a shared build input (global.json, Directory.Build.props/targets,
+//   Directory.Packages.props, nuget.config, .editorconfig) affects every sample beneath it
+// - a change under .github/ affects every sample
+//
 // Usage: dotnet run .github/scripts/discover-builds.cs
 
 using System.Text.Json.Nodes;
@@ -18,7 +26,7 @@ Directory.SetCurrentDirectory(root);
 
 var files = EnumerateFiles(root).Select(f => Path.GetRelativePath(root, f).Replace('\\', '/')).Order(StringComparer.Ordinal).ToList();
 
-var dotnet = new JsonArray();
+var dotnet = new List<(JsonNode Entry, List<string> Roots)>();
 var covered = new HashSet<string>(StringComparer.Ordinal);
 
 foreach (var solution in files.Where(f => f is not "samples.slnx" && (f.EndsWith(".sln") || f.EndsWith(".slnx"))))
@@ -40,20 +48,43 @@ foreach (var solution in files.Where(f => f is not "samples.slnx" && (f.EndsWith
         projects.AddRange(Directory.EnumerateFiles(dir, "*.csproj", SearchOption.AllDirectories));
     }
 
-    dotnet.Add(DotnetEntry(solution, projects));
+    var roots = new HashSet<string>(StringComparer.Ordinal) { DirOf(solution) };
+    foreach (var project in projects)
+    {
+        AddProjectRoots(project, roots);
+    }
+
+    dotnet.Add((DotnetEntry(solution, projects), roots.ToList()));
 }
 
 foreach (var project in files.Where(f => f.EndsWith(".csproj") && !covered.Contains(f)))
 {
-    dotnet.Add(DotnetEntry(project, [project]));
+    var roots = new HashSet<string>(StringComparer.Ordinal);
+    AddProjectRoots(project, roots);
+    dotnet.Add((DotnetEntry(project, [project]), roots.ToList()));
 }
 
-var node = new JsonArray(files
+var node = files
     .Where(f => Path.GetFileName(f) == "package-lock.json")
-    .Select(f => (JsonNode)new JsonObject { ["path"] = Path.GetDirectoryName(f)!.Replace('\\', '/') })
-    .ToArray());
+    .Select(f => DirOf(f))
+    .Select(dir => (Entry: (JsonNode)new JsonObject { ["path"] = dir }, Roots: new List<string> { dir }))
+    .ToList();
 
-var output = $"dotnet={dotnet.ToJsonString()}\nnode={node.ToJsonString()}\n";
+var changedFilesPath = Environment.GetEnvironmentVariable("CHANGED_FILES");
+if (!string.IsNullOrEmpty(changedFilesPath))
+{
+    var changed = File.ReadAllLines(changedFilesPath)
+        .Select(l => l.Trim().Replace('\\', '/'))
+        .Where(l => l.Length > 0)
+        .ToList();
+
+    var all = dotnet.Count + node.Count;
+    dotnet = dotnet.Where(e => IsAffected(e.Roots, changed)).ToList();
+    node = node.Where(e => IsAffected(e.Roots, changed)).ToList();
+    Console.Error.WriteLine($"{changed.Count} changed file(s); building {dotnet.Count + node.Count} of {all} sample(s).");
+}
+
+var output = $"dotnet={ToJson(dotnet)}\nnode={ToJson(node)}\n";
 var githubOutput = Environment.GetEnvironmentVariable("GITHUB_OUTPUT");
 if (string.IsNullOrEmpty(githubOutput))
 {
@@ -62,6 +93,77 @@ if (string.IsNullOrEmpty(githubOutput))
 else
 {
     File.AppendAllText(githubOutput, output);
+}
+
+static string ToJson(IEnumerable<(JsonNode Entry, List<string> Roots)> entries) =>
+    new JsonArray(entries.Select(e => e.Entry).ToArray()).ToJsonString();
+
+// Directory of a repository-relative path ("" for the repository root).
+static string DirOf(string path) => (Path.GetDirectoryName(path) ?? "").Replace('\\', '/');
+
+static bool IsUnder(string path, string dir) => dir.Length == 0 || path == dir || path.StartsWith(dir + "/", StringComparison.Ordinal);
+
+static bool IsAffected(List<string> roots, List<string> changed)
+{
+    string[] sharedInputs = ["global.json", "directory.build.props", "directory.build.targets", "directory.packages.props", "nuget.config", ".editorconfig"];
+
+    foreach (var file in changed)
+    {
+        if (IsUnder(file, ".github"))
+        {
+            return true;
+        }
+
+        if (roots.Any(root => IsUnder(file, root)))
+        {
+            return true;
+        }
+
+        if (sharedInputs.Contains(Path.GetFileName(file).ToLowerInvariant()) && roots.Any(root => IsUnder(root, DirOf(file))))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Adds the project's directory plus any directories it pulls in from outside it
+// (project references, imports and linked items), following project references transitively.
+static void AddProjectRoots(string project, HashSet<string> roots, HashSet<string>? visited = null)
+{
+    visited ??= new HashSet<string>(StringComparer.Ordinal);
+    roots.Add(DirOf(project));
+    if (!visited.Add(project) || !File.Exists(project))
+    {
+        return;
+    }
+
+    var dir = Path.GetDirectoryName(project)!;
+    foreach (Match match in Regex.Matches(File.ReadAllText(project), "(?:Include|Project)=\"([^\"]*\\.\\.[\\\\/][^\"]*)\""))
+    {
+        var value = match.Groups[1].Value.Replace('\\', '/');
+        var wildcard = value.IndexOfAny(['*', '?', '$']);
+        if (wildcard >= 0)
+        {
+            value = value[..value.LastIndexOf('/', wildcard)];
+        }
+
+        var full = Path.GetRelativePath(Environment.CurrentDirectory, Path.GetFullPath(Path.Combine(dir, value))).Replace('\\', '/');
+        if (full.StartsWith("..", StringComparison.Ordinal))
+        {
+            continue;
+        }
+
+        if (full.EndsWith("proj", StringComparison.Ordinal))
+        {
+            AddProjectRoots(full, roots, visited);
+        }
+        else
+        {
+            roots.Add(Directory.Exists(full) ? full : DirOf(full));
+        }
+    }
 }
 
 static string FindRepositoryRoot(string start)

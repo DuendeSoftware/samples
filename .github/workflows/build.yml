@@ -28,11 +28,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # On pull requests HEAD is the merge commit; its first parent is the base branch.
+          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 1 }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           global-json-file: global.json
+
+      # Pull requests build only the samples affected by the change; pushes and manual runs build everything.
+      - name: List changed files
+        if: github.event_name == 'pull_request'
+        run: |
+          git diff --name-only HEAD^1 HEAD > "$RUNNER_TEMP/changed-files.txt"
+          echo "CHANGED_FILES=$RUNNER_TEMP/changed-files.txt" >> "$GITHUB_ENV"
+          cat "$RUNNER_TEMP/changed-files.txt"
 
       - name: Discover solutions and npm projects
         id: discover
@@ -41,6 +52,7 @@ jobs:
   dotnet:
     name: ${{ matrix.path }}
     needs: discover
+    if: needs.discover.outputs.dotnet != '[]'
     # Windows jobs (MAUI, .NET Framework) run on a 16-core larger runner from the org's "Large" runner group.
     runs-on: ${{ matrix.os == 'windows-latest' && fromJSON('{"group":"Large","labels":["windows-latest-x64-16core"]}') || matrix.os }}
     strategy:
@@ -85,6 +97,7 @@ jobs:
   node:
     name: ${{ matrix.path }}
     needs: discover
+    if: needs.discover.outputs.node != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -121,15 +134,20 @@ jobs:
 
   build-result:
     name: Build result
-    needs: [ dotnet, node ]
+    needs: [ discover, dotnet, node ]
     if: always()
     runs-on: ubuntu-latest
     steps:
+      # dotnet/node are skipped when a pull request affects none of their samples.
       - name: Check build results
         env:
+          DISCOVER_RESULT: ${{ needs.discover.result }}
           DOTNET_RESULT: ${{ needs.dotnet.result }}
           NODE_RESULT: ${{ needs.node.result }}
         run: |
+          echo "discover: $DISCOVER_RESULT"
           echo "dotnet: $DOTNET_RESULT"
           echo "node: $NODE_RESULT"
-          [[ "$DOTNET_RESULT" == "success" && "$NODE_RESULT" == "success" ]]
+          [[ "$DISCOVER_RESULT" == "success" ]] &&
+            [[ "$DOTNET_RESULT" == "success" || "$DOTNET_RESULT" == "skipped" ]] &&
+            [[ "$NODE_RESULT" == "success" || "$NODE_RESULT" == "skipped" ]]

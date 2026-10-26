@@ -18,7 +18,7 @@ Keep styling minimal: the point of a sample is the code, not the CSS.
 
 ## Continuous integration
 
-The [Build workflow](.github/workflows/build.yml) compiles every sample on each pull request:
+The [Build workflow](.github/workflows/build.yml) compiles every sample on each push to `main`. Pull requests build only the samples affected by the change; changes under `.github/` or to shared build inputs (`global.json`, `Directory.Build.props`/`.targets`, `Directory.Packages.props`, `nuget.config`, `.editorconfig`) build every sample beneath them:
 
 - every `.sln` / `.slnx` (except the root `samples.slnx`) is built in its own job; MAUI and .NET Framework (OWIN) samples build on Windows (the `windows-latest-x64-16core` larger runner in the organization's `Large` runner group)
 - every npm project with a `package-lock.json` runs `npm ci` and `npm run build`
