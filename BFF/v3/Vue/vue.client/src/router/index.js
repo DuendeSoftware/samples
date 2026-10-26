@@ -26,7 +26,7 @@ const router = createRouter({
     {
       path: '/todos',
       name: 'todos',
-      component: () => import('../views/TodoView.vue'),
+      component: () => import('../views/ToDoView.vue'),
       beforeEnter: (to, from, next) => {
         if (isAuthenticated.value) {
           next();
