@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 
 @Component({
-  selector: 'app-nav-menu',
-  templateUrl: './nav-menu.component.html',
-  styleUrls: ['./nav-menu.component.css']
+    selector: 'app-nav-menu',
+    templateUrl: './nav-menu.component.html',
+    styleUrls: ['./nav-menu.component.css'],
+    standalone: false
 })
 export class NavMenuComponent {
   public username$ = this.auth.getUsername();
