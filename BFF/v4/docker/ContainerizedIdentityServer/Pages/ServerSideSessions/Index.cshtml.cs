@@ -46,7 +46,7 @@ namespace ContainerizedIdentityServer.Pages.ServerSideSessions
                     DisplayName = DisplayNameFilter,
                     SessionId = SessionIdFilter,
                     SubjectId = SubjectIdFilter
-                });
+                }, HttpContext.RequestAborted);
             }
         }
 
@@ -59,7 +59,7 @@ namespace ContainerizedIdentityServer.Pages.ServerSideSessions
 
             await _sessionManagementService.RemoveSessionsAsync(new RemoveSessionsContext { 
                 SessionId = SessionId,
-            });
+            }, HttpContext.RequestAborted);
             return RedirectToPage("/ServerSideSessions/Index", new { Token, DisplayNameFilter, SessionIdFilter, SubjectIdFilter, Prev });
         }
     }
