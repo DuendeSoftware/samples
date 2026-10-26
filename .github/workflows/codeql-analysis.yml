@@ -51,18 +51,6 @@ jobs:
       with:
         sparse-checkout: ${{ matrix.shard != 'all' && matrix.shard || '' }}
 
-    # build-mode none restores NuGet packages into a temp dir via `dotnet restore --packages`,
-    # ignoring ~/.nuget/packages. CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS_DEPENDENCY_DIR (set on
-    # the analyze step) makes it use a persistent dir instead, which is cached here per shard.
-    - name: Cache CodeQL C# dependencies
-      if: matrix.language == 'csharp'
-      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-      with:
-        path: ${{ runner.temp }}/codeql-csharp-deps
-        key: codeql-csharp-deps-${{ runner.os }}-${{ matrix.shard }}-${{ hashFiles(format('{0}/**/*.csproj', matrix.shard), format('{0}/**/Directory.Packages.props', matrix.shard), format('{0}/**/Directory.Build.props', matrix.shard), format('{0}/**/packages.config', matrix.shard), format('{0}/**/nuget.config', matrix.shard), 'global.json', 'nuget.config') }}
-        restore-keys: |
-          codeql-csharp-deps-${{ runner.os }}-${{ matrix.shard }}-
-
     # Analysis runs without compiling the samples; compilation is verified by the Build workflow.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0
@@ -77,8 +65,6 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@9e8d0789d4a0fa9ceb6b1738f7e269594bdd67f0
-      env:
-        CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS_DEPENDENCY_DIR: ${{ matrix.language == 'csharp' && format('{0}/codeql-csharp-deps', runner.temp) || '' }}
       with:
         # JavaScript keeps its pre-sharding default category so existing alerts continue to update.
         category: ${{ matrix.language == 'javascript' && '.github/workflows/codeql-analysis.yml:analyze/language:javascript/' || format('/language:{0}/{1}', matrix.language, matrix.shard) }}
