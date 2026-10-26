@@ -23,5 +23,5 @@ The [Build workflow](.github/workflows/build.yml) compiles every sample on each 
 - every `.sln` / `.slnx` (except the root `samples.slnx`) is built in its own job; MAUI and .NET Framework (OWIN) samples build on Windows
 - every npm project with a `package-lock.json` runs `npm ci` and `npm run build`
 
-New samples are discovered automatically by [`discover-builds.sh`](.github/scripts/discover-builds.sh).
+New samples are discovered automatically by [`discover-builds.cs`](.github/scripts/discover-builds.cs) (run it locally with `dotnet run .github/scripts/discover-builds.cs`).
 Make sure a new sample has its own solution file (and a committed `package-lock.json` for npm clients) so it gets built.
