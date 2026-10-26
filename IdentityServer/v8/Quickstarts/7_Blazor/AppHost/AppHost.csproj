@@ -9,7 +9,7 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BFF\Bff.csproj" />
+    <ProjectReference Include="..\BFF\BFF.csproj" />
     <ProjectReference Include="..\BlazorWasm\BlazorWasm.csproj" />
   </ItemGroup>
 </Project>
