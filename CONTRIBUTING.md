@@ -20,7 +20,7 @@ Keep styling minimal: the point of a sample is the code, not the CSS.
 
 The [Build workflow](.github/workflows/build.yml) compiles every sample on each pull request:
 
-- every `.sln` / `.slnx` (except the root `samples.slnx`) is built in its own job; MAUI and .NET Framework (OWIN) samples build on Windows (`windows-latest`, or the larger runner named by the `WINDOWS_RUNNER` repository/organization variable when set)
+- every `.sln` / `.slnx` (except the root `samples.slnx`) is built in its own job; MAUI and .NET Framework (OWIN) samples build on Windows (the `windows-latest-x64-16core` larger runner in the organization's `Large` runner group)
 - every npm project with a `package-lock.json` runs `npm ci` and `npm run build`
 
 New samples are discovered automatically by [`discover-builds.cs`](.github/scripts/discover-builds.cs) (run it locally with `dotnet run .github/scripts/discover-builds.cs`).
