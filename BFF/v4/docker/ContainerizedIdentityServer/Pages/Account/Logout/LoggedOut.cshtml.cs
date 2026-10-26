@@ -32,7 +32,7 @@ public class LoggedOut : PageModel
         _logger.LogInformation("LogoutOptions.AutomaticRedirectAfterSignOut value is: {AutoRedirect}", LogoutOptions.AutomaticRedirectAfterSignOut);
 
         // get context information (client name, post logout redirect URI and iframe for federated signout)
-        var logout = await _interactionService.GetLogoutContextAsync(logoutId);
+        var logout = await _interactionService.GetLogoutContextAsync(logoutId, HttpContext.RequestAborted);
 
         // Log if context was found and the redirect URI
         _logger.LogInformation("Logout Context found: {ContextFound}", logout != null);
