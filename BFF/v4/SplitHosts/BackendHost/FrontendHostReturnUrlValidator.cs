@@ -7,8 +7,8 @@ namespace BackendHost;
 
 internal class FrontendHostReturnUrlValidator : IReturnUrlValidator
 {
-    public bool IsValidAsync(Uri returnUrl)
+    public Task<bool> IsValidAsync(Uri returnUrl, CancellationToken ct)
     {
-        return returnUrl is { Host: "localhost", Port: 5011 };
+        return Task.FromResult(returnUrl is { Host: "localhost", Port: 5011 });
     }
 }
