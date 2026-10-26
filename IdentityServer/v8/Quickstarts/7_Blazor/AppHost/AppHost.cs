@@ -4,6 +4,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 //Only start the BFF project. The BlazorWasm project is hosted by the BFF project
-builder.AddProject<Projects.Bff>("bff");
+builder.AddProject<Projects.BFF>("bff");
 
 builder.Build().Run();
