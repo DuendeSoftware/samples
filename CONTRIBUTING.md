@@ -15,3 +15,13 @@ Keep styling minimal: the point of a sample is the code, not the CSS.
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/bootstrap-overrides.css" asp-append-version="true" />
 ```
+
+## Continuous integration
+
+The [Build workflow](.github/workflows/build.yml) compiles every sample on each push to `main`. Pull requests build only the samples affected by the change; changes under `.github/` or to shared build inputs (`global.json`, `Directory.Build.props`/`.targets`, `Directory.Packages.props`, `nuget.config`, `.editorconfig`) build every sample beneath them:
+
+- every `.sln` / `.slnx` (except the root `samples.slnx`) is built in its own job; MAUI and .NET Framework (OWIN) samples build on Windows (the `windows-latest-x64-16core` larger runner in the organization's `Large` runner group)
+- every npm project with a `package-lock.json` runs `npm ci` and `npm run build`
+
+New samples are discovered automatically by [`discover-builds.cs`](.github/scripts/discover-builds.cs) (run it locally with `dotnet run .github/scripts/discover-builds.cs`).
+Make sure a new sample has its own solution file (and a committed `package-lock.json` for npm clients) so it gets built.
