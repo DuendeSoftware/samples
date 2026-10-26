@@ -23,7 +23,9 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on:
+      group: Large
+      labels: [ubuntu-latest-x64-16core]
 
     strategy:
       fail-fast: false
