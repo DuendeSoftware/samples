@@ -44,8 +44,12 @@ jobs:
             shard: all
 
     steps:
+    # C# buildless extraction scans the whole checkout regardless of source-root, so C# shards
+    # sparse-checkout only their folder (cone mode keeps root files such as global.json and nuget.config).
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        sparse-checkout: ${{ matrix.shard != 'all' && matrix.shard || '' }}
 
     # build-mode none restores NuGet packages into a temp dir via `dotnet restore --packages`,
     # ignoring ~/.nuget/packages. CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS_DEPENDENCY_DIR (set on
