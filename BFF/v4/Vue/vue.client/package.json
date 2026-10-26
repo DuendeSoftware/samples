@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "prestart": "node aspnetcore-https",    
+    "prestart": "node aspnetcore-https",
     "preview": "vite preview",
     "test:unit": "vitest",
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
@@ -23,20 +23,20 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue": "^6.0.10",
     "@vitest/eslint-plugin": "^1.1.36",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.21.0",
     "eslint-plugin-oxlint": "^0.15.13",
-    "eslint-plugin-vue": "~10.0.0",
+    "eslint-plugin-vue": "^10.11.1",
     "globals": "^16.0.0",
     "jsdom": "^26.0.0",
     "npm-run-all2": "^7.0.2",
     "oxlint": "^0.15.13",
     "prettier": "3.5.3",
-    "vite": "^6.2.1",
-    "vite-plugin-vue-devtools": "^7.7.2",
-    "vitest": "^3.0.8"
+    "vite": "^8.3.5",
+    "vite-plugin-vue-devtools": "^8.2.1",
+    "vitest": "^5.0.5"
   }
 }
