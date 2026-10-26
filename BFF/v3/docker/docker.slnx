@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="compose.yaml" />
+    <File Path="readme.md" />
+  </Folder>
+  <Project Path="ContainerizedIdentityServer/ContainerizedIdentityServer.csproj" />
+  <Project Path="FrontendHost/FrontendHost.csproj" />
+</Solution>

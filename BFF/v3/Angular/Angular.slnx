@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Angular.Api/Angular.Api.csproj" />
+  <Project Path="Angular.Bff/Angular.Bff.csproj" />
+  <Project Path="angular.ssr/angular.ssr.esproj">
+    <BuildType Project="Debug" />
+    <Build />
+  </Project>
+</Solution>

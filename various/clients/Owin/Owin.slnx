@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="IdentityServerHost/IdentityServerHost.csproj" />
+  <Project Path="Mvc/Mvc.csproj" />
+  <Project Path="SimpleOwinApi/SimpleApi.csproj" />
+  <Project Path="WebForms/WebForms.csproj" />
+</Solution>

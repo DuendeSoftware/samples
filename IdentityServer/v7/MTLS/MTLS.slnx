@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="Api/Api.csproj" />
+  <Project Path="ClientCredentials/ClientCredentials.csproj" />
+  <Project Path="IdentityServerHost/IdentityServerHost.csproj" />
+  <Project Path="MTLS.AppHost/MTLS.AppHost.csproj" />
+</Solution>

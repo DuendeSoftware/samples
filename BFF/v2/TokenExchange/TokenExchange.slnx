@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TokenExchange.Api/TokenExchange.Api.csproj" />
+  <Project Path="TokenExchange.Bff/TokenExchange.Bff.csproj" />
+  <Project Path="TokenExchange.IdentityServer/TokenExchange.IdentityServer.csproj" />
+</Solution>

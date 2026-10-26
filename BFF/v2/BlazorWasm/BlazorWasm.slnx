@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Client/BlazorWasm.Client.csproj" />
+  <Project Path="Server/BlazorWasm.Server.csproj" />
+  <Project Path="Shared/BlazorWasm.Shared.csproj" />
+</Solution>

@@ -74,7 +74,7 @@ which both seeded users satisfy because `EmailConfirmed = true`.
 | `Client` | `https://localhost:5002` |
 | `AspNetIdentity.AppHost` (Aspire dashboard) | `https://localhost:17237` |
 
-The solution file is `AspNetIdentitySample.sln`; it contains all three projects plus the shared
+The solution file is `AspNetIdentitySample.slnx`; it contains all three projects plus the shared
 `Aspire.ServiceDefaults`.
 
 ## Prerequisites

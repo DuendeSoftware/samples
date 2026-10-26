@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="McpDemo.AppHost/McpDemo.AppHost.csproj" />
+  <Project Path="McpDemo.Client/McpDemo.Client.csproj" />
+  <Project Path="McpDemo.IdentityServer/McpDemo.IdentityServer.csproj" />
+  <Project Path="McpDemo.McpServer/McpDemo.McpServer.csproj" />
+</Solution>

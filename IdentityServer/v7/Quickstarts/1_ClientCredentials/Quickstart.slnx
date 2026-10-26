@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Api/Api.csproj" />
+    <Project Path="src/Client/Client.csproj" />
+    <Project Path="src/IdentityServer/IdentityServer.csproj" />
+  </Folder>
+</Solution>

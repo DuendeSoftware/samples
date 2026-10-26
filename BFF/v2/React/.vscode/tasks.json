@@ -7,7 +7,7 @@
         "command": "dotnet",
         "args": [
             "build",
-            "${workspaceFolder}/React.sln",
+            "${workspaceFolder}/React.slnx",
             "/property:GenerateFullPaths=true",
             "/consoleloggerparameters:NoSummary"
         ],

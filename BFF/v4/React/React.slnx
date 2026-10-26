@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="React.Bff/React.Bff.csproj" />
+  <Project Path="react.client/react.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>

@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="OpenApi.Api1/OpenApi.Api1.csproj" />
+  <Project Path="OpenApi.Api2/OpenApi.Api2.csproj" />
+  <Project Path="OpenApi.Bff/OpenApi.Bff.csproj" />
+  <Project Path="OpenApi.BffOpenApiDocumentParser/OpenApi.BffOpenApiDocumentParser.csproj" />
+  <Project Path="OpenApi.DevServer.AppHost/OpenApi.DevServer.AppHost.csproj" />
+  <Project Path="OpenApi.DevServer.ServiceDefaults/OpenApi.DevServer.ServiceDefaults.csproj" />
+</Solution>

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MultiFrontendSSO.Client/MultiFrontendSSO.Client.csproj" />
+  <Project Path="MultiFrontendSSO.IdentityServer/MultiFrontendSSO.IdentityServer.csproj" />
+</Solution>

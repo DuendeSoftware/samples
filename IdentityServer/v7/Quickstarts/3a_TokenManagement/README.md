@@ -31,7 +31,7 @@ It builds on [`3_AspNetCoreAndApis`](../3_AspNetCoreAndApis), which does the sam
    dotnet run --project src/AppHost
    ```
 
-   > `AppHost` is deliberately **not** a member of `Quickstart.sln`, so `--project` is required.
+   > `AppHost` is deliberately **not** a member of `Quickstart.slnx`, so `--project` is required.
 
    The Aspire dashboard opens at `https://localhost:17236`.
 

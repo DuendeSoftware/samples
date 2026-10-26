@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/_/">
+    <File Path="global.json" />
+  </Folder>
+  <Folder Name="/_/.config/">
+    <File Path="dotnet-tools.json" />
+  </Folder>
+  <Project Path="../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="AspNetIdentityPasskeys.AppHost/AspNetIdentityPasskeys.AppHost.csproj" />
+  <Project Path="Client/Client.csproj" />
+  <Project Path="IdentityServerAspNetIdentityPasskeys/IdentityServerAspNetIdentityPasskeys.csproj" />
+</Solution>

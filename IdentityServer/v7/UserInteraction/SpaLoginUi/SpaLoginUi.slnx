@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="../../Aspire.ServiceDefaults/Aspire.ServiceDefaults.csproj" />
+  <Project Path="Client/Client.csproj" />
+  <Project Path="IdentityServerHost/IdentityServerHost.csproj" />
+  <Project Path="SpaLoginUi.AppHost/SpaLoginUi.AppHost.csproj" />
+</Solution>
