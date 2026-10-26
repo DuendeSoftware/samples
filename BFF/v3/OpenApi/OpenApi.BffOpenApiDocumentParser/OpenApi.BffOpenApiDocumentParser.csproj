@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20071.2" />
-    <PackageReference Include="Microsoft.OpenApi" Version="1.6.23" />
-    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.23" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.6.31" />
+    <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.31" />
   </ItemGroup>
 </Project>

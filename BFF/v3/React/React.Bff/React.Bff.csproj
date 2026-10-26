@@ -22,7 +22,7 @@
     </PackageReference>
     <PackageReference Include="Duende.BFF" Version="3.1.1" />
     <PackageReference Include="Duende.BFF.Yarp" Version="3.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.30" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.33" />
   </ItemGroup>
 
 </Project>
