@@ -41,7 +41,8 @@ jobs:
   dotnet:
     name: ${{ matrix.path }}
     needs: discover
-    runs-on: ${{ matrix.os }}
+    # Set the WINDOWS_RUNNER variable (repo or org) to a larger-runner label to speed up the Windows jobs.
+    runs-on: ${{ matrix.os == 'windows-latest' && vars.WINDOWS_RUNNER || matrix.os }}
     strategy:
       fail-fast: false
       matrix:
