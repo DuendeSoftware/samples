@@ -18,7 +18,7 @@ else
 <form method="post">
     <input asp-for="Input.CredentialId" type="hidden" />
     <div class="mb-3">
-        <label asp-for="Input.Name" autocomplete="none" autofocus></label>
+        <label asp-for="Input.Name" autocomplete="none" autofocus class="form-label"></label>
         <input asp-for="Input.Name" class="form-control"/>
         <span asp-validation-for="Input.Name" class="text-danger"></span>
     </div>
