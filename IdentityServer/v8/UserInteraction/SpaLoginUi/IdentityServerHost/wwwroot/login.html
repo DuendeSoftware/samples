@@ -13,11 +13,13 @@
 </head>
 <body>
     <div class="nav-page">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a href="/" class="navbar-brand">
-                <img src="/duende-logo.svg" class="icon-banner">
-                Duende IdentityServer
-            </a>
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">
+                    <img src="/duende-logo.svg" class="icon-banner">
+                    Duende IdentityServer
+                </a>
+            </div>
         </nav>
     </div>
     
@@ -34,16 +36,16 @@
                             <div id="error" class="hide alert alert-danger"></div>
 
                             <form action=".">
-                                <div class="form-group">
-                                    <label for="uid">Username</label>
+                                <div class="mb-3">
+                                    <label for="uid" class="form-label">Username</label>
                                     <input class="form-control" placeholder="Username" id="uid" autofocus>
                                 </div>
-                                <div class="form-group">
-                                    <label for="pwd">Password</label>
+                                <div class="mb-3">
+                                    <label for="pwd" class="form-label">Password</label>
                                     <input type="password" class="form-control" placeholder="Password" id="pwd" autocomplete="off">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <div class="form-check">
                                         <input class="form-check-input" id="RememberLogin" type="checkbox">
                                         <label class="form-check-label" for="RememberLogin">

@@ -28,7 +28,7 @@
             <div class="col-sm-8">
                 @if (Model.View.IdentityScopes.Any())
                 {
-                    <div class="form-group">
+                    <div class="mb-3">
                         <div class="card">
                             <div class="card-header">
                                 <span class="glyphicon glyphicon-user"></span>
@@ -46,7 +46,7 @@
 
                 @if (Model.View.ApiScopes.Any())
                 {
-                    <div class="form-group">
+                    <div class="mb-3">
                         <div class="card">
                             <div class="card-header">
                                 <span class="glyphicon glyphicon-tasks"></span>
@@ -62,7 +62,7 @@
                     </div>
                 }
 
-                <div class="form-group">
+                <div class="mb-3">
                     <div class="card">
                         <div class="card-header">
                             <span class="glyphicon glyphicon-pencil"></span>
@@ -76,7 +76,7 @@
 
                 @if (Model.View.AllowRememberConsent)
                 {
-                    <div class="form-group">
+                    <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" asp-for="Input.RememberConsent">
                             <label class="form-check-label" asp-for="Input.RememberConsent">

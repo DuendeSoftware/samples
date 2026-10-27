@@ -9,7 +9,7 @@
     @{
         if (!Model.LoggedOut)
         {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-logoutId="@Request.Query["logoutId"]" method="post">
+            <form class="d-flex flex-wrap align-items-center gap-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-logoutId="@Request.Query["logoutId"]" method="post">
                 <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
             </form>
         }
