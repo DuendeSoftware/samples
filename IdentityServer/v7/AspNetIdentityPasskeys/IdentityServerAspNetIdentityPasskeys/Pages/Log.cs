@@ -30,22 +30,22 @@ internal static class Log
     public static void ExternalClaims(this ILogger logger, IEnumerable<string> claims) =>
         _externalClaims(logger, claims, null);
 
-    private static Action<ILogger, string, Exception?> _noMatchingBackchannelLoginRequest =
-        LoggerMessage.Define<string>(
+    private static Action<ILogger, string?, Exception?> _noMatchingBackchannelLoginRequest =
+        LoggerMessage.Define<string?>(
             LogLevel.Error,
             EventIds.NoMatchingBackchannelLoginRequest,
             "No backchannel login request matching id: {Id}");
 
-    public static void NoMatchingBackchannelLoginRequest(this ILogger logger, string id) =>
-        _noMatchingBackchannelLoginRequest(logger, id.ReplaceLineEndings(string.Empty), null);
+    public static void NoMatchingBackchannelLoginRequest(this ILogger logger, string? id) =>
+        _noMatchingBackchannelLoginRequest(logger, id?.ReplaceLineEndings(string.Empty), null);
 
-    private static Action<ILogger, string, Exception?> _noConsentMatchingRequest = LoggerMessage.Define<string>(
+    private static Action<ILogger, string?, Exception?> _noConsentMatchingRequest = LoggerMessage.Define<string?>(
         LogLevel.Error,
         EventIds.NoConsentMatchingRequest,
         "No consent request matching request: {ReturnUrl}");
 
-    public static void NoConsentMatchingRequest(this ILogger logger, string returnUrl) =>
-        _noConsentMatchingRequest(logger, returnUrl.ReplaceLineEndings(string.Empty), null);
+    public static void NoConsentMatchingRequest(this ILogger logger, string? returnUrl) =>
+        _noConsentMatchingRequest(logger, returnUrl?.ReplaceLineEndings(string.Empty), null);
 }
 
 internal static class EventIds
