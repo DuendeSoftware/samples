@@ -121,7 +121,7 @@ public sealed class ConsentModel(
             return true;
         }
 
-        logger.LogWarning("No consent request matching request: {ReturnUrl}", returnUrl);
+        logger.LogWarning("No consent request matching request: {ReturnUrl}", returnUrl?.ReplaceLineEndings(string.Empty));
         return false;
     }
 

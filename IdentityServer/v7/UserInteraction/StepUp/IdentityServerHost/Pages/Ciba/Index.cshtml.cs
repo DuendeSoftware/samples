@@ -29,7 +29,7 @@ public class IndexModel : PageModel
         LoginRequest = await _backchannelAuthenticationInteraction.GetLoginRequestByInternalIdAsync(id);
         if (LoginRequest == null)
         {
-            _logger.LogWarning("Invalid backchannel login id {id}", id);
+            _logger.LogWarning("Invalid backchannel login id {id}", id?.ReplaceLineEndings(string.Empty));
             return RedirectToPage("/Home/Error/Index");
         }
 

@@ -12,7 +12,7 @@ internal static class Log
 
     public static void InvalidId(this ILogger logger, string? id)
     {
-        _invalidId(logger, id, null);
+        _invalidId(logger, id?.ReplaceLineEndings(string.Empty), null);
     }
 
     private static readonly Action<ILogger, string?, Exception?> _invalidBackchannelLoginId = LoggerMessage.Define<string?>(
@@ -22,7 +22,7 @@ internal static class Log
 
     public static void InvalidBackchannelLoginId(this ILogger logger, string? id)
     {
-        _invalidBackchannelLoginId(logger, id, null);
+        _invalidBackchannelLoginId(logger, id?.ReplaceLineEndings(string.Empty), null);
     }
 
     private static Action<ILogger, IEnumerable<string>, Exception?> _externalClaims = LoggerMessage.Define<IEnumerable<string>>(
@@ -42,7 +42,7 @@ internal static class Log
 
     public static void NoMatchingBackchannelLoginRequest(this ILogger logger, string id)
     {
-        _noMatchingBackchannelLoginRequest(logger, id, null);
+        _noMatchingBackchannelLoginRequest(logger, id.ReplaceLineEndings(string.Empty), null);
     }
 
     private static Action<ILogger, string, Exception?> _noConsentMatchingRequest = LoggerMessage.Define<string>(
@@ -52,7 +52,7 @@ internal static class Log
 
     public static void NoConsentMatchingRequest(this ILogger logger, string returnUrl)
     {
-        _noConsentMatchingRequest(logger, returnUrl, null);
+        _noConsentMatchingRequest(logger, returnUrl.ReplaceLineEndings(string.Empty), null);
     }
 
 
