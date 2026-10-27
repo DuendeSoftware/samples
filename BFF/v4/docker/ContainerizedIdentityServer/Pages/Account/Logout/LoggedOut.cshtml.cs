@@ -26,7 +26,7 @@ public class LoggedOut : PageModel
 
     public async Task OnGet(string? logoutId)
     {
-        _logger.LogInformation("LoggedOut page OnGet called with logoutId: {LogoutId}", logoutId);
+        _logger.LogInformation("LoggedOut page OnGet called with logoutId: {LogoutId}", logoutId?.ReplaceLineEndings(string.Empty));
 
         // Log the value configured in LogoutOptions
         _logger.LogInformation("LogoutOptions.AutomaticRedirectAfterSignOut value is: {AutoRedirect}", LogoutOptions.AutomaticRedirectAfterSignOut);

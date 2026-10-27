@@ -58,7 +58,7 @@ public class Consent : PageModel
         var request = await _interaction.GetLoginRequestByInternalIdAsync(Input.Id, HttpContext.RequestAborted);
         if (request == null || request.Subject.GetSubjectId() != User.GetSubjectId())
         {
-            _logger.LogError("Invalid id {id}", Input.Id);
+            _logger.LogError("Invalid id {id}", Input.Id?.ReplaceLineEndings(string.Empty));
             return RedirectToPage("/Home/Error/Index");
         }
 
@@ -125,7 +125,7 @@ public class Consent : PageModel
         }
         else
         {
-            _logger.LogError("No backchannel login request matching id: {id}", id);
+            _logger.LogError("No backchannel login request matching id: {id}", id?.ReplaceLineEndings(string.Empty));
         }
         return null;
     }
