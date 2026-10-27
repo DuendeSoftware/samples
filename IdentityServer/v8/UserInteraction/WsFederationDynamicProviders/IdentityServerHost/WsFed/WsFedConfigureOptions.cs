@@ -66,7 +66,10 @@ class WsFedConfigureOptions : ConfigureAuthenticationOptions<WsFederationOptions
                 ctx.Request.Path == ctx.Options.CallbackPath &&
                 ctx.Request.Query.ContainsKey(identityServerOptions.UserInteraction.LogoutIdParameter))
             {
-                ctx.Response.Redirect(identityServerOptions.UserInteraction.LogoutUrl + "?" + identityServerOptions.UserInteraction.LogoutIdParameter + "=" + ctx.Request.Query[identityServerOptions.UserInteraction.LogoutIdParameter]);
+                // Redirect only to the local logout page; the logout id is URL-encoded so it cannot alter the target.
+                var logoutId = ctx.Request.Query[identityServerOptions.UserInteraction.LogoutIdParameter].ToString();
+                var query = QueryString.Create(identityServerOptions.UserInteraction.LogoutIdParameter, logoutId);
+                ctx.Response.Redirect(identityServerOptions.UserInteraction.LogoutUrl + query.ToUriComponent());
                 ctx.HandleResponse();
             }
 
