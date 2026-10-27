@@ -12,7 +12,7 @@ pre:empty {
     display: none;
 }
 
-.form-inline {
+.todo-form {
     margin-bottom: 30px;
 }
 .form-control{
@@ -30,8 +30,9 @@ pre:empty {
 .buttons > div {
     display:inline;
 }
-.form-inline label {
+.todo-form label {
     font-weight:bold;
+    white-space:nowrap;
     margin-right:15px;
 }
 .banner{

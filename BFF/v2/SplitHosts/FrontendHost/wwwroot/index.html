@@ -31,12 +31,12 @@
             <div class="col">
                 <h3>Add New</h3>
             </div>
-            <div class="form-inline">
+            <div class="col-auto todo-form d-flex flex-wrap align-items-center">
                 <label for="date">Todo Date</label>
-                <input class="form-control" id="date" type="datetime" value="2021-03-01" />
+                <input class="form-control w-auto" id="date" type="datetime" value="2021-03-01" />
                 <label for="name">Todo Name</label>
-                <input class="form-control" id="name" value="Do something" />
-                <button class="form-control btn-success" id="createNewButton">Create</button>
+                <input class="form-control w-auto" id="name" value="Do something" />
+                <button class="form-control w-auto btn btn-success" id="createNewButton">Create</button>
             </div>
         </div>
 
@@ -79,7 +79,7 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,6 @@
     </div>
 
 
-    <script src="libs/jquery-3.6.0.min.js"></script>
     <script src="libs/bootstrap.bundle.min.js"></script>
     <script src="session.js"></script>
     <script src="todo.js"></script>
