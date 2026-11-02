@@ -32,5 +32,5 @@ Please take a look [here](https://docs.duendesoftware.com/identityserver/samples
 | BFF | .NET | `Duende.Bff.Yarp` | `Duende.IdentityServer` |
 | --- | --- | --- | --- |
 | [BFF v2](../v2/TokenExchange) | net8.0 | 2.3.0 | 7.4.13 |
-| [BFF v3](../v3/TokenExchange) | net8.0 | 3.1.0 | 7.4.13 |
+| [BFF v3](../v3/TokenExchange) | net10.0 | 3.1.1 | 7.4.13 |
 | [BFF v4](../v4/TokenExchange) | net10.0 | 4.2.0 | 8.0.9 |

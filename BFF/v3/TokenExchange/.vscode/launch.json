@@ -16,7 +16,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-identityserver",
-            "program": "${workspaceFolder}/TokenExchange.IdentityServer/bin/Debug/net8.0/TokenExchange.IdentityServer.dll",
+            "program": "${workspaceFolder}/TokenExchange.IdentityServer/bin/Debug/net10.0/TokenExchange.IdentityServer.dll",
             "args": [],
             "cwd": "${workspaceFolder}/TokenExchange.IdentityServer",
             "env": {
@@ -29,7 +29,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-api",
-            "program": "${workspaceFolder}/TokenExchange.Api/bin/Debug/net8.0/TokenExchange.Api.dll",
+            "program": "${workspaceFolder}/TokenExchange.Api/bin/Debug/net10.0/TokenExchange.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/TokenExchange.Api",
             "env": {
@@ -42,7 +42,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-bff",
-            "program": "${workspaceFolder}/TokenExchange.Bff/bin/Debug/net8.0/TokenExchange.Bff.dll",
+            "program": "${workspaceFolder}/TokenExchange.Bff/bin/Debug/net10.0/TokenExchange.Bff.dll",
             "args": [],
             "cwd": "${workspaceFolder}/TokenExchange.Bff",
             "env": {

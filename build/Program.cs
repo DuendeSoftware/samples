@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 
@@ -8,7 +9,7 @@ namespace build
 {
     internal static class Program
     {
-        internal static void Main(string[] args)
+        internal static async Task Main(string[] args)
         {
             Target("build", () =>
             {
@@ -24,9 +25,9 @@ namespace build
                 }
             });
 
-            Target("default", DependsOn("build"));
+            Target("default", dependsOn: ["build"]);
 
-            RunTargetsAndExit(args);
+            await RunTargetsAndExitAsync(args);
         }
     }
 }
