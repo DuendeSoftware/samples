@@ -2,9 +2,6 @@ using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi.Models;
-using Microsoft.OpenApi.Readers;
 using OpenApi.Bff;
 using OpenApi.Bff.OpenApi;
 
