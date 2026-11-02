@@ -16,7 +16,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-api",
-            "program": "${workspaceFolder}/React.Api/bin/Debug/net8.0/React.Api.dll",
+            "program": "${workspaceFolder}/React.Api/bin/Debug/net10.0/React.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/React.Api",
             "env": {
@@ -29,7 +29,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-bff",
-            "program": "${workspaceFolder}/React.Bff/bin/Debug/net8.0/React.Bff.dll",
+            "program": "${workspaceFolder}/React.Bff/bin/Debug/net10.0/React.Bff.dll",
             "args": [],
             "cwd": "${workspaceFolder}/React.Bff",
             "env": {

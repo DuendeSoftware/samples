@@ -17,7 +17,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-api",
-            "program": "${workspaceFolder}/BackendApiHost/bin/Debug/net8.0/BackendApiHost.dll",
+            "program": "${workspaceFolder}/BackendApiHost/bin/Debug/net10.0/BackendApiHost.dll",
             "args": [],
             "cwd": "${workspaceFolder}/BackendApiHost",
             "env": {
@@ -30,7 +30,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-bff",
-            "program": "${workspaceFolder}/FrontendHost/bin/Debug/net8.0/FrontendHost.dll",
+            "program": "${workspaceFolder}/FrontendHost/bin/Debug/net10.0/FrontendHost.dll",
             "args": [],
             "cwd": "${workspaceFolder}/FrontendHost",
             "env": {

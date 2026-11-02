@@ -17,7 +17,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-api",
-            "program": "${workspaceFolder}/DPoP.Api/bin/Debug/net8.0/DPoP.Api.dll",
+            "program": "${workspaceFolder}/DPoP.Api/bin/Debug/net10.0/DPoP.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/DPoP.Api",
             "env": {
@@ -30,7 +30,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build-bff",
-            "program": "${workspaceFolder}/DPoP.Bff/bin/Debug/net8.0/DPoP.Bff.dll",
+            "program": "${workspaceFolder}/DPoP.Bff/bin/Debug/net10.0/DPoP.Bff.dll",
             "args": [],
             "cwd": "${workspaceFolder}/DPoP.Bff",
             "env": {
