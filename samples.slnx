@@ -804,11 +804,6 @@
       <Deploy />
     </Project>
   </Folder>
-  <Folder Name="/various/clients/Maui/net9/">
-    <Project Path="various/clients/Maui/net9/MauiApp1/MauiApp1.csproj">
-      <Deploy />
-    </Project>
-  </Folder>
   <Folder Name="/various/clients/Owin/">
     <Project Path="various/clients/Owin/IdentityServerHost/IdentityServerHost.csproj" />
     <Project Path="various/clients/Owin/Mvc/Mvc.csproj" />
