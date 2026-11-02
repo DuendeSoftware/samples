@@ -1,4 +1,0 @@
-<Solution>
-  <Project Path="DPoP.Api/DPoP.Api.csproj" />
-  <Project Path="DPoP.Bff/DPoP.Bff.csproj" />
-</Solution>
