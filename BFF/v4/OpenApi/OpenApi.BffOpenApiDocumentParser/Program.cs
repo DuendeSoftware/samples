@@ -6,33 +6,29 @@ using OpenApi.BffOpenApiDocumentParser;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task<int> Main(string[] args)
     {
-        var inputFileOption = new Option<string>(
-            aliases: ["-i", "--input-file"],
-            name: "The input file to be processed")
+        var inputFileOption = new Option<string>("--input-file", "-i")
         {
+            Description = "The input file to be processed",
             Required = true
         };
 
-        var apiPathOption = new Option<string>(
-            aliases: ["-a", "--api-path"],
-            name: "The API path to be used during transformation")
+        var apiPathOption = new Option<string>("--api-path", "-a")
         {
+            Description = "The API path to be used during transformation",
             Required = true
         };
 
-        var serverUrlOption = new Option<string>(
-            aliases: ["-s", "--serverUrl"],
-            name: "The server URL to be used during transformation")
+        var serverUrlOption = new Option<string>("--serverUrl", "-s")
         {
+            Description = "The server URL to be used during transformation",
             Required = true
         };
 
-        var outputPathOption = new Option<string>(
-            aliases: ["-o", "--output-path"],
-            name: "The output directory where the modified file will be saved")
+        var outputPathOption = new Option<string>("--output-path", "-o")
         {
+            Description = "The output directory where the modified file will be saved",
             Required = true
         };
 
@@ -67,7 +63,7 @@ class Program
         });
 
         var parseResult = rootCommand.Parse(args);
-        parseResult.Invoke();
+        return await parseResult.InvokeAsync();
     }
 
 
