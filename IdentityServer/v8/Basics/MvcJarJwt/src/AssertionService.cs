@@ -25,7 +25,8 @@ public class AssertionService(IConfiguration configuration)
         var token = new JwtSecurityToken(
             clientId,
             // Audience: the authorization server's issuer identifier (not the token
-            // endpoint), as recommended by RFC 7523bis for client authentication JWTs.
+            // endpoint), as required by RFC 10070 for client authentication JWTs
+            // (the issuer must be the sole audience); the typ header client-authentication+jwt is recommended.
             Urls.IdentityServer,
             new List<Claim>()
             {
