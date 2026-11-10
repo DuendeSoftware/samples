@@ -5,50 +5,6 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/BFF/" />
-  <Folder Name="/BFF/v2/" />
-  <Folder Name="/BFF/v2/Angular/">
-    <File Path="BFF/v2/Angular/README.md" />
-    <Project Path="BFF/v2/Angular/Angular.Api/Angular.Api.csproj" />
-    <Project Path="BFF/v2/Angular/Angular.Bff/Angular.Bff.csproj" />
-  </Folder>
-  <Folder Name="/BFF/v2/BlazorWasm/">
-    <File Path="BFF/v2/BlazorWasm/README.md" />
-    <Project Path="BFF/v2/BlazorWasm/Client/BlazorWasm.Client.csproj" />
-    <Project Path="BFF/v2/BlazorWasm/Server/BlazorWasm.Server.csproj" />
-    <Project Path="BFF/v2/BlazorWasm/Shared/BlazorWasm.Shared.csproj" />
-  </Folder>
-  <Folder Name="/BFF/v2/DPoP/">
-    <File Path="BFF/v2/DPoP/README.md" />
-    <Project Path="BFF/v2/DPoP/DPoP.Api/DPoP.Api.csproj" />
-    <Project Path="BFF/v2/DPoP/DPoP.Bff/DPoP.Bff.csproj" />
-  </Folder>
-  <Folder Name="/BFF/v2/JsBffSample/">
-    <File Path="BFF/v2/JsBffSample/README.md" />
-    <Project Path="BFF/v2/JsBffSample/BackendApiHost/BackendApiHost.csproj" />
-    <Project Path="BFF/v2/JsBffSample/FrontendHost/FrontendHost.csproj" />
-  </Folder>
-  <Folder Name="/BFF/v2/JsBffYarpSample/">
-    <File Path="BFF/v2/JsBffYarpSample/README.md" />
-    <Project Path="BFF/v2/JsBffYarpSample/BackendApiHost/BackendApiHost.csproj" />
-    <Project Path="BFF/v2/JsBffYarpSample/FrontendHost/FrontendHost.csproj" />
-  </Folder>
-  <Folder Name="/BFF/v2/React/">
-    <File Path="BFF/v2/React/README.md" />
-    <Project Path="BFF/v2/React/React.Api/React.Api.csproj" />
-    <Project Path="BFF/v2/React/React.Bff/React.Bff.csproj" />
-  </Folder>
-  <Folder Name="/BFF/v2/SplitHosts/">
-    <File Path="BFF/v2/SplitHosts/README.md" />
-    <Project Path="BFF/v2/SplitHosts/BackendApiHost/BackendApiHost.csproj" />
-    <Project Path="BFF/v2/SplitHosts/BackendHost/BackendHost.csproj" />
-    <Project Path="BFF/v2/SplitHosts/FrontendHost/FrontendHost.csproj" />
-  </Folder>
-  <Folder Name="/BFF/v2/TokenExchange/">
-    <File Path="BFF/v2/TokenExchange/README.md" />
-    <Project Path="BFF/v2/TokenExchange/TokenExchange.Api/TokenExchange.Api.csproj" />
-    <Project Path="BFF/v2/TokenExchange/TokenExchange.Bff/TokenExchange.Bff.csproj" />
-    <Project Path="BFF/v2/TokenExchange/TokenExchange.IdentityServer/TokenExchange.IdentityServer.csproj" />
-  </Folder>
   <Folder Name="/BFF/v3/" />
   <Folder Name="/BFF/v3/Angular/">
     <File Path="BFF/v3/Angular/README.md" />
@@ -845,11 +801,6 @@
   <Folder Name="/various/clients/Maui/" />
   <Folder Name="/various/clients/Maui/net10/">
     <Project Path="various/clients/Maui/net10/MauiApp1/MauiApp1.csproj">
-      <Deploy />
-    </Project>
-  </Folder>
-  <Folder Name="/various/clients/Maui/net9/">
-    <Project Path="various/clients/Maui/net9/MauiApp1/MauiApp1.csproj">
       <Deploy />
     </Project>
   </Folder>

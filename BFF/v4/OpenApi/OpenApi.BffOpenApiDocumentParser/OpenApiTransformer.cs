@@ -1,28 +1,38 @@
 using System.Text;
 using Microsoft.OpenApi;
+using Microsoft.OpenApi.Reader;
 
 namespace OpenApi.BffOpenApiDocumentParser;
 
 public class OpenApiTransformer
 {
+    // Microsoft.OpenApi 2.x only reads JSON by default; register the YAML reader
+    // so documents proxied from /openapi/{document}.yaml can be parsed as well.
+    private static readonly OpenApiReaderSettings ReaderSettings = CreateReaderSettings();
+
+    private static OpenApiReaderSettings CreateReaderSettings()
+    {
+        var settings = new OpenApiReaderSettings();
+        settings.AddYamlReader();
+        return settings;
+    }
+
     public static async Task TransformOpenApiDocumentForBff(Stream openApiDocumentStream, Stream outputStream,
         Uri serverUri, string localPath)
     {
-        var result = await OpenApiDocument.LoadAsync(openApiDocumentStream);
-        var doc = result.Document;
+        var result = await OpenApiDocument.LoadAsync(openApiDocumentStream, settings: ReaderSettings);
+        var doc = result.Document ?? throw new InvalidOperationException(
+            "Unable to read OpenAPI document: " +
+            string.Join("; ", result.Diagnostic?.Errors.Select(e => e.Message) ?? []));
 
         // Make sure the server is actually the BFF, not the original urls.
         // All traffic is supposed to go through the bff.
-        doc.Servers.Clear();
-        doc.Servers.Add(new OpenApiServer()
-        {
-            Url = serverUri.ToString()
-        });
+        doc.Servers = [new OpenApiServer { Url = serverUri.ToString() }];
 
         // We remove the JWT security scheme, because the BFF changes the way
         // the auth works to Cookie only. Specifying the cookie in the openapi document
         // isn't useful.
-        doc.Components.SecuritySchemes.Clear();
+        doc.Components?.SecuritySchemes?.Clear();
 
         // Combine the pathbase with the paths in the document, so that the
         // paths are correct for the proxy.

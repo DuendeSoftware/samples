@@ -6,45 +6,46 @@ using OpenApi.BffOpenApiDocumentParser;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task<int> Main(string[] args)
     {
-        var rootCommand = new RootCommand
+        var inputFileOption = new Option<string>("--input-file", "-i")
         {
-            new Option<string>(
-                aliases: ["-i", "--input-file"],
-                description: "The input file to be processed")
-            {
-                Required = true
-            },
-            new Option<string>(
-                aliases: ["-a", "--api-path"],
-                description: "The API path to be used during transformation")
-            {
-                Required = true
-            },
-            new Option<string>(
-                aliases: ["-s", "--serverUrl"],
-                description: "The server URL to be used during transformation")
-            {
-                Required = true
-            },
-            new Option<string>(
-                aliases: ["-o", "--output-path"],
-                description: "The output directory where the modified file will be saved")
-            {
-                Required = true
-            }
+            Description = "The input file to be processed",
+            Required = true
         };
 
-        rootCommand.Description = "OpenApi.BffOpenApiDocumentParser";
-
-        rootCommand.Handler = CommandHandler.Create<string, string, string, string>(async (inputFile, apiPath, serverUrl, outputPath) =>
+        var apiPathOption = new Option<string>("--api-path", "-a")
         {
-            //if (string.IsNullOrEmpty(infile) || string.IsNullOrEmpty(apiPath) || string.IsNullOrEmpty(serverUrl) || string.IsNullOrEmpty(outputpath))
-            //{
-            //    Console.WriteLine("Usage: OpenApi.BffOpenApiDocumentParser -i <infile> --apiPath <apiPath> --serverUrl <serverUrl> --outputpath <outputpath>");
-            //    return;
-            //}
+            Description = "The API path to be used during transformation",
+            Required = true
+        };
+
+        var serverUrlOption = new Option<string>("--serverUrl", "-s")
+        {
+            Description = "The server URL to be used during transformation",
+            Required = true
+        };
+
+        var outputPathOption = new Option<string>("--output-path", "-o")
+        {
+            Description = "The output directory where the modified file will be saved",
+            Required = true
+        };
+
+        var rootCommand = new RootCommand("OpenApi.BffOpenApiDocumentParser")
+        {
+            inputFileOption,
+            apiPathOption,
+            serverUrlOption,
+            outputPathOption
+        };
+
+        rootCommand.SetAction(async parseResult =>
+        {
+            var inputFile = parseResult.GetValue(inputFileOption);
+            var outputPath = parseResult.GetValue(outputPathOption);
+            var apiPath = parseResult.GetValue(apiPathOption);
+            var serverUrl = parseResult.GetValue(serverUrlOption);
 
             if (!File.Exists(inputFile))
             {
@@ -61,16 +62,18 @@ class Program
             await ModifyAndCopyFile(inputFile, apiPath, serverUrl, destFile);
         });
 
-        rootCommand.Invoke(args);
+        var parseResult = rootCommand.Parse(args);
+        return await parseResult.InvokeAsync();
     }
 
-    static async Task ModifyAndCopyFile(string sourceFile, string apiPath, string serverUrl, string destFile)
+
+   static async Task ModifyAndCopyFile(string sourceFile, string apiPath, string serverUrl, string destFile)
     {
         // Read the file content
-        var input = File.OpenRead(sourceFile);
+        using var input = File.OpenRead(sourceFile);
 
         // Write the modified content to the destination file
-        using var output = File.OpenWrite(destFile);
+        using var output = File.Create(destFile);
 
         await OpenApiTransformer.TransformOpenApiDocumentForBff(input, output, new Uri(serverUrl), apiPath);
     }

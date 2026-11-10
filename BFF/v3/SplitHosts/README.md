@@ -33,5 +33,5 @@ Please take a look [here](https://docs.duendesoftware.com/identityserver/samples
 | BFF | .NET | `Duende.BFF` |
 | --- | --- | --- |
 | [BFF v2](../v2/SplitHosts) | net8.0 | 2.3.0 |
-| [BFF v3](../v3/SplitHosts) | net8.0 | 3.1.0 |
+| [BFF v3](../v3/SplitHosts) | net10.0 | 3.1.1 |
 | [BFF v4](../v4/SplitHosts) | net10.0 | 4.2.0 |

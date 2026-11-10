@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
 	<ImplicitUsings>true</ImplicitUsings>	 
   </PropertyGroup>
 
@@ -9,7 +9,7 @@
     <PackageReference Include="Duende.BFF" Version="3.1.1" />
     <PackageReference Include="Duende.BFF.Yarp" Version="3.1.1" />
     
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.33" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.11" />
   </ItemGroup>
 
 </Project>
