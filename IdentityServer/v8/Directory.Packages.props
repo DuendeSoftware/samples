@@ -12,42 +12,42 @@
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.5.3" />
     <PackageVersion Include="Duende.AccessTokenManagement" Version="4.2.0" />
     <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.2.0" />
-    <PackageVersion Include="Duende.AspNetCore.Authentication.JwtBearer" Version="1.0.2" />
-    <PackageVersion Include="Duende.BFF" Version="4.2.1" />
-    <PackageVersion Include="Duende.BFF.Blazor.Client" Version="4.2.1" />
-    <PackageVersion Include="Duende.BFF.Yarp" Version="4.2.1" />
+    <PackageVersion Include="Duende.AspNetCore.Authentication.JwtBearer" Version="1.0.3" />
+    <PackageVersion Include="Duende.BFF" Version="4.2.2" />
+    <PackageVersion Include="Duende.BFF.Blazor.Client" Version="4.2.2" />
+    <PackageVersion Include="Duende.BFF.Yarp" Version="4.2.2" />
     <PackageVersion Include="Duende.IdentityModel" Version="8.1.0" />
-    <PackageVersion Include="Duende.IdentityServer" Version="8.0.10" />
-    <PackageVersion Include="Duende.IdentityServer.AspNetIdentity" Version="8.0.10" />
-    <PackageVersion Include="Duende.IdentityServer.Configuration" Version="8.0.10" />
-    <PackageVersion Include="Duende.IdentityServer.Configuration.EntityFramework" Version="8.0.10" />
-    <PackageVersion Include="Duende.IdentityServer.ConformanceReport" Version="8.0.10" />
-    <PackageVersion Include="Duende.IdentityServer.EntityFramework" Version="8.0.10" />
+    <PackageVersion Include="Duende.IdentityServer" Version="8.0.11" />
+    <PackageVersion Include="Duende.IdentityServer.AspNetIdentity" Version="8.0.11" />
+    <PackageVersion Include="Duende.IdentityServer.Configuration" Version="8.0.11" />
+    <PackageVersion Include="Duende.IdentityServer.Configuration.EntityFramework" Version="8.0.11" />
+    <PackageVersion Include="Duende.IdentityServer.ConformanceReport" Version="8.0.11" />
+    <PackageVersion Include="Duende.IdentityServer.EntityFramework" Version="8.0.11" />
     <PackageVersion Include="Duende.Storage.Sqlite" Version="1.1.0" />
     <PackageVersion Include="Duende.UserManagement.IdentityServer8" Version="1.0.0" />
     <PackageVersion Include="Google.Apis.Auth.AspNetCore3" Version="1.75.0" />
     <PackageVersion Include="Duende.AspNetCore.Authentication.OAuth2Introspection" Version="7.0.1" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.Certificate" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.WsFederation" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.Certificate" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.Google" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.WsFederation" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.Data.Sqlite" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.15" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.15" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.9.0" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="10.0.15" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.9.0" />
     <PackageVersion Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.22.0" />
     <PackageVersion Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="8.22.0" />
