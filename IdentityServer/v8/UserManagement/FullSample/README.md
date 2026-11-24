@@ -135,6 +135,8 @@ if (authenticators.TotpDeviceNames.Any())
 
 ### TOTP Setup
 
+Authenticator QR codes are generated locally on the server with QRCoder and embedded as PNG data URIs. The provisioning URI contains the TOTP shared secret and must not be sent to an external QR service or logged.
+
 ```csharp
 // Generate key and provisioning URI
 var key = PlainBytesTotpKey.New();

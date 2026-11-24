@@ -17,6 +17,7 @@
     <PackageReference Include="Duende.UserManagement.IdentityServer8" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" />
     <PackageReference Include="Microsoft.Data.Sqlite" />
+    <PackageReference Include="QRCoder" />
   </ItemGroup>
 
 </Project>
