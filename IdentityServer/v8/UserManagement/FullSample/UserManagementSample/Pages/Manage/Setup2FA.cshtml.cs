@@ -11,6 +11,7 @@ using Duende.UserManagement.Authentication.Totp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using QRCoder;
 
 namespace UserManagementSample.Pages.Manage;
 
@@ -19,7 +20,7 @@ public sealed class Setup2FAModel(
     IUserAuthenticatorsSelfService authenticatorsSelfService) : PageModel
 {
     public string SharedKey { get; set; } = string.Empty;
-    public string AuthenticatorUri { get; set; } = string.Empty;
+    public string QrCodeDataUri { get; set; } = string.Empty;
 
     [BindProperty]
     [Required]
@@ -41,7 +42,7 @@ public sealed class Setup2FAModel(
         var key = PlainBytesTotpKey.New();
         TotpKeyBase32 = key.EncodeToBase32();
 
-        LoadSharedKeyAndQrCodeUri(key);
+        LoadSharedKeyAndQrCode(key);
 
         return Page();
     }
@@ -73,7 +74,7 @@ public sealed class Setup2FAModel(
         {
             ErrorMessage = "Invalid code format.";
             TotpKeyBase32 = keyBase32;
-            LoadSharedKeyAndQrCodeUri(key);
+            LoadSharedKeyAndQrCode(key);
             return Page();
         }
 
@@ -88,7 +89,7 @@ public sealed class Setup2FAModel(
         {
             ErrorMessage = "Verification code is invalid. Please try again.";
             TotpKeyBase32 = keyBase32;
-            LoadSharedKeyAndQrCodeUri(key);
+            LoadSharedKeyAndQrCode(key);
             return Page();
         }
 
@@ -103,14 +104,17 @@ public sealed class Setup2FAModel(
         return RedirectToPage("/Manage/Setup2FA");
     }
 
-    private void LoadSharedKeyAndQrCodeUri(PlainBytesTotpKey key)
+    private void LoadSharedKeyAndQrCode(PlainBytesTotpKey key)
     {
         SharedKey = FormatKeyToHumanReadable(key.EncodeToBase32());
         var accountName = User.FindFirst(JwtClaimTypes.Name)?.Value
             ?? User.FindFirst(JwtClaimTypes.Email)?.Value
             ?? User.Identity?.Name
             ?? "user";
-        AuthenticatorUri = TotpAuthenticatorUri.Generate("User Management Sample", accountName, key);
+        var authenticatorUri = TotpAuthenticatorUri.Generate("User Management Sample", accountName, key);
+        using var qrCodeData = QRCodeGenerator.GenerateQrCode(authenticatorUri, QRCodeGenerator.ECCLevel.Q);
+        using var qrCode = new PngByteQRCode(qrCodeData);
+        QrCodeDataUri = $"data:image/png;base64,{Convert.ToBase64String(qrCode.GetGraphic(5))}";
     }
 
     private void RestoreKeyFromTempData()
@@ -118,7 +122,7 @@ public sealed class Setup2FAModel(
         var keyBase32 = TotpKeyBase32;
         if (!string.IsNullOrEmpty(keyBase32))
         {
-            LoadSharedKeyAndQrCodeUri(PlainBytesTotpKey.DecodeFromBase32(keyBase32));
+            LoadSharedKeyAndQrCode(PlainBytesTotpKey.DecodeFromBase32(keyBase32));
         }
     }
 
